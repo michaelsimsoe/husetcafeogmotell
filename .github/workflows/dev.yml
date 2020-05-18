@@ -3,7 +3,7 @@ name: Development workflow
 on:
   push:
     branches:
-      - new-beginning-two
+      - dev
 
 jobs:
   deploy:
