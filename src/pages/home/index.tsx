@@ -153,6 +153,7 @@ export const Home: React.FunctionComponent = () => {
           </svg>
         </figure>
         <section className="hero-image">
+          <div className="hero-img__overlay"></div>
           <img src={huset_fasade} alt="Huset Kafe og Motell fra fronten" />
         </section>
         <section className="hero-contact">

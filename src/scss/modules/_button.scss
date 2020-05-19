@@ -9,6 +9,9 @@
   width: 138px;
   text-align: center;
 }
-html {
-  background-color: #081214;
+
+@mixin cta-button {
+  background-color: $cta-text;
+  border: none;
+  width: auto;
 }
