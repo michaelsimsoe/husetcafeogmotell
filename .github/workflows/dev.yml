@@ -1,9 +1,9 @@
-name: Development workflow
+name: Deploy to Test
 
 on:
   push:
     branches:
-      - new-beginning-two
+      - test
 
 jobs:
   deploy:

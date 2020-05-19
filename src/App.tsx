@@ -7,10 +7,9 @@ import { Menu } from './pages/menu';
 import { Events } from './pages/events';
 import { Contact } from './pages/contact';
 
-function App() {
+const App: React.FunctionComponent = () => {
   return (
     <Router>
-      <Navigation />
       <Switch>
         <Route exact path="/">
           <Home />
