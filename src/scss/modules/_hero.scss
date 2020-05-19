@@ -1,0 +1,40 @@
+.hero {
+  position: relative;
+}
+.hero-logo {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.hero-image {
+  height: 340px;
+  overflow-x: hidden;
+
+  & > img {
+    height: 100%;
+  }
+}
+
+.hero-contact {
+  position: relative;
+  margin: 0 37px;
+}
+
+.hero-contact__text {
+  position: relative;
+  top: -36px;
+
+  & h2 {
+    font-size: 32px;
+  }
+  & p {
+    color: $cta-text;
+    font-size: 22px;
+  }
+}
+
+.hero-contact__buttons {
+  display: flex;
+  justify-content: space-between;
+}
