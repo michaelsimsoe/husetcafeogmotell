@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Home } from './pages/home';
-import { Navigation } from './components/navigation';
+// import { Navigation } from './components/navigation';
 import { Rooms } from './pages/rooms';
 import { Menu } from './pages/menu';
 import { Events } from './pages/events';
@@ -32,6 +32,6 @@ const App: React.FunctionComponent = () => {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;
