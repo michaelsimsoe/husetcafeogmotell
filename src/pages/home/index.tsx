@@ -12,11 +12,8 @@ const svgStyle = {
 };
 
 export const Home: React.FunctionComponent = () => {
-  const { t, i18n } = useTranslation(['translation', 'home']);
+  const { t } = useTranslation(['translation', 'home']);
 
-  const changeLanguage = (code: string) => {
-    i18n.changeLanguage(code);
-  };
   return (
     <section className="hero">
       <figure className="hero-logo">
@@ -206,13 +203,6 @@ export const Home: React.FunctionComponent = () => {
               <g></g>
             </svg>
           </a>
-          <button type="button" onClick={() => changeLanguage('no')}>
-            {t('translation:no')}
-          </button>
-
-          <button type="button" onClick={() => changeLanguage('en')}>
-            {t('translation:en')}
-          </button>
         </div>
       </section>
     </section>
