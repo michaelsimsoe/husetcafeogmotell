@@ -34,41 +34,43 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
         <span></span>
         <span></span>
         <span></span>
-        <h4>Menu</h4>
+        <h4>{t('nav:menu')}</h4>
       </button>
       <aside className={sideBarClass}>
         <figure className="sidebar__logo">
           <Logo color="#081214" />
         </figure>
-        <nav className="sidebar__navigation">
-          <div className="navigation__item">
-            <NavLink to="/">{t('nav:home')}</NavLink>
-          </div>
-          <div className="navigation__item">
-            <NavLink to="/overnatting">{t('nav:rooms')}</NavLink>
-          </div>
-          <div className="navigation__item">
-            <NavLink to="/meny">{t('nav:food')}</NavLink>
-          </div>
-          <div className="navigation__item">
-            <NavLink to="/arrangementer">{t('nav:events')}</NavLink>
-          </div>
-        </nav>
-        <button
-          className="sidebar__lang-btn"
-          type="button"
-          onClick={() => changeLanguage('no')}
-        >
-          {t('translation:no')}
-        </button>
+        <div className="sidebar__content">
+          <nav className="navigation">
+            <div className="navigation__item">
+              <NavLink to="/">{t('nav:home')}</NavLink>
+            </div>
+            <div className="navigation__item">
+              <NavLink to="/overnatting">{t('nav:rooms')}</NavLink>
+            </div>
+            <div className="navigation__item">
+              <NavLink to="/meny">{t('nav:food')}</NavLink>
+            </div>
+            <div className="navigation__item">
+              <NavLink to="/arrangementer">{t('nav:events')}</NavLink>
+            </div>
+          </nav>
+          <button
+            className="sidebar__lang-btn button"
+            type="button"
+            onClick={() => changeLanguage('no')}
+          >
+            {t('translation:no')}
+          </button>
 
-        <button
-          className="sidebar__lang-btn"
-          type="button"
-          onClick={() => changeLanguage('en')}
-        >
-          {t('translation:en')}
-        </button>
+          <button
+            className="sidebar__lang-btn button"
+            type="button"
+            onClick={() => changeLanguage('en')}
+          >
+            {t('translation:en')}
+          </button>
+        </div>
       </aside>
     </>
   );
