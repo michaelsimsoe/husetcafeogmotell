@@ -6,6 +6,17 @@
   top: 30px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
+}
+.hero-img__overlay {
+  position: absolute;
+  width: 100%;
+  height: 340px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(51, 60, 90, 0.53);
 }
 .hero-image {
   height: 340px;
@@ -37,4 +48,78 @@
 .hero-contact__buttons {
   display: flex;
   justify-content: space-between;
+}
+
+@media (min-width: 600px) {
+  .hero {
+    position: relative;
+  }
+  .hero-logo {
+    position: absolute;
+    top: 100px;
+    left: 52%;
+    transform: translateX(-59%);
+
+    & svg {
+      min-width: 400px;
+      min-height: 300px;
+    }
+  }
+  .hero-image {
+    height: 100vh;
+    overflow-x: hidden;
+
+    & > img {
+      width: 100%;
+    }
+  }
+
+  .hero-img__overlay {
+    height: 100%;
+  }
+
+  .hero-contact {
+    width: 100%;
+    position: absolute;
+    margin: 0;
+    padding-top: 2rem;
+    bottom: 0;
+    height: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-contact__text {
+    position: relative;
+    top: auto;
+    display: flex;
+    justify-content: center;
+
+    & h2 {
+      display: none;
+    }
+    & p {
+      color: #fff;
+      font-size: 36px;
+      max-width: 40rem;
+    }
+  }
+
+  .hero-contact__buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+
+    & a:first-child {
+      @include cta-button;
+      padding: 1rem 1.5rem;
+      font-size: 34px;
+    }
+
+    & a:last-child {
+      display: none;
+    }
+  }
 }

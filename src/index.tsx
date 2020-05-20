@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 
 import './scss/index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import './i18n';
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Suspense fallback={null}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Suspense>,
   document.getElementById('root')
 );
 
