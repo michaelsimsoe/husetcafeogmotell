@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import { useTracking } from './hooks/useTracking';
 
@@ -11,8 +11,7 @@ import { Events } from './pages/events';
 import { Contact } from './pages/contact';
 
 const App: React.FunctionComponent = () => {
-  let location = useLocation();
-  console.log(location);
+  useTracking();
   return (
     <>
       <Navigation open={false} />
