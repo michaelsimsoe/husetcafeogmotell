@@ -1,7 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import huset_fasade from './assets/huset_fasade.jpeg';
+import MapLocation from './map.js';
 
 const svgStyle = {
   fill: '#fff',
@@ -11,6 +13,8 @@ const svgStyle = {
 };
 
 export const Home: React.FunctionComponent = () => {
+  const { t } = useTranslation(['translation', 'home']);
+
   return (
     <>
       <section className="hero">
@@ -158,18 +162,15 @@ export const Home: React.FunctionComponent = () => {
         </section>
         <section className="hero-contact">
           <div className="hero-contact__text">
-            <h2>Kom på besøk</h2>
-            <p>
-              Rimelige og komfortable rom, en kvalitetsmiddag og en god kopp
-              kaffe
-            </p>
+            <h2>{t('home:landing-heading')}</h2>
+            <p>{t('home:landing-text')}</p>
           </div>
           <div className="hero-contact__buttons">
             <Link className="button" to="/">
-              Kontakt oss
+              {t('translation:buttons.contact')}
             </Link>
             <a className="button" href="tel:+4775197200">
-              Ring
+              {t('translation:buttons.call')}
               <svg
                 version="1.1"
                 x="0px"
@@ -205,7 +206,44 @@ export const Home: React.FunctionComponent = () => {
               </svg>
             </a>
           </div>
+          <div className="hero-contact__location-hit">
+            <p>{t('home:location-hint')}</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="165.96"
+              height="39.96"
+              viewBox="0 0 165.96 39.96"
+            >
+              <g id="Caret" transform="translate(-89.52 -587.52)">
+                <line
+                  id="Line_2"
+                  data-name="Line 2"
+                  x2="81"
+                  y2="36"
+                  transform="translate(91.5 589.5)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-width="3"
+                />
+                <line
+                  id="Line_3"
+                  data-name="Line 3"
+                  x1="81"
+                  y2="36"
+                  transform="translate(172.5 589.5)"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-width="3"
+                />
+              </g>
+            </svg>
+          </div>
         </section>
+      </section>
+      <section className="map">
+        <MapLocation />
       </section>
     </>
   );
