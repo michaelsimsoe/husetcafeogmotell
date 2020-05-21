@@ -15,7 +15,7 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
   const changeLanguage = (code: string) => {
     i18n.changeLanguage(code);
   };
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
   const sideBarClass =
     open || openSidebar ? 'main-sidebar main-sidebar--open' : 'main-sidebar';
@@ -62,7 +62,6 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
           >
             {t('translation:no')}
           </button>
-
           <button
             className="sidebar__lang-btn button"
             type="button"
@@ -70,6 +69,7 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
           >
             {t('translation:en')}
           </button>
+          ;
         </div>
       </aside>
     </>

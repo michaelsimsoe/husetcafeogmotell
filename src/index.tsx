@@ -1,16 +1,32 @@
 import React, { Suspense } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import ReactDOM from 'react-dom';
+import * as Sentry from '@sentry/browser';
+import LogRocket from 'logrocket';
 
 import './scss/index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import './i18n';
+LogRocket.init('5dnnsg/huset-cafe-motell');
+Sentry.init({
+  dsn:
+    'https://8574f622b8474a3e9917ba8b7124c64f@o386905.ingest.sentry.io/5221674',
+});
+LogRocket.getSessionURL((sessionURL) => {
+  Sentry.configureScope((scope) => {
+    scope.setExtra('sessionURL', sessionURL);
+  });
+});
 
 ReactDOM.render(
   <Suspense fallback={null}>
     <React.StrictMode>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </React.StrictMode>
   </Suspense>,
   document.getElementById('root')
