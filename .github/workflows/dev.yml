@@ -12,12 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-
+      - name: Hinder crawling of test site
+        run: "sed -i -e 's/Disallow:/Disallow: \//g' public/robots.txt"
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: npm install
+        env:
+          GOOLE_MAPS_API: ${{ secrets.GOOLE_MAPS_API}}
+      - run: yarn
       - run: yarn build --if-present
 
       - name: Deploy to netlify
