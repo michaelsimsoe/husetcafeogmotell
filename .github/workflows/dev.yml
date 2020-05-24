@@ -22,7 +22,6 @@ jobs:
       - run: yarn
       - run: yarn build --if-present
       - run: sed -i -e 's/Disallow:/Disallow:\ \//g' public/robots.txt
-
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
         env:
