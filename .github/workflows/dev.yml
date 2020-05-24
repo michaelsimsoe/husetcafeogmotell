@@ -21,8 +21,7 @@ jobs:
           GOOLE_MAPS_API: ${{ secrets.GOOLE_MAPS_API}}
       - run: yarn
       - run: yarn build --if-present
-      - run: ls
-      - run: sed -i -e 's/Disallow:/Disallow:\ \//g' ./robots.txt
+      - run: sed -i -e 's/Disallow:/Disallow:\ \//g' build/robots.txt
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
