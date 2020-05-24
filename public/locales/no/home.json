@@ -1,5 +1,16 @@
 {
   "landing-heading": "Kom innom",
   "landing-text": "Rimelige og komfortable rom, en kvalitetsmiddag og en god kopp kaffe",
-  "location-hint": "Vi ligger rett ved E6"
+  "location-hint": "Vi ligger rett ved E6",
+  "rooms-title": "Rommene våre",
+  "rooms-cta-link": "Overnatting hos oss",
+  "menu-title": "Menyen vår",
+  "menu-cta-links": {},
+  "cake-title": "Vi elsker å bake",
+  "cake-sub-heading": "Kom å smak",
+  "cake-cta-link": "Se kakemenyen vår",
+  "cake-button": "Bestill en kake?",
+  "events-title": "Arrangementer ved Huset Café & Motell",
+  "events-subs": {},
+  "events-button": "Se alle arrangementer og tjenester"
 }

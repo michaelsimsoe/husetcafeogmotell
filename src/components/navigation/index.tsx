@@ -22,7 +22,7 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
     open || openSidebar ? 'main-menuBtn main-menuBtn--open' : 'main-menuBtn';
   return (
     <>
-      <button
+      <div
         onClick={() => setOpenSidebar(!openSidebar)}
         className={menuBtnClassName}
         id="menu"
@@ -33,7 +33,7 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
         <span></span>
         <span></span>
         <h4>{t('nav:menu')}</h4>
-      </button>
+      </div>
       <aside className={sideBarClass}>
         <figure className="sidebar__logo">
           <Logo color="#081214" />

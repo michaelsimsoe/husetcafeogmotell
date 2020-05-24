@@ -1,0 +1,9 @@
+.map-mobile {
+  padding: 3rem 0;
+}
+
+@media (min-width: 600px) {
+  .map-mobile {
+    display: none;
+  }
+}

@@ -1,5 +1,16 @@
 {
   "landing-heading": "Stop by",
   "landing-text": "Affordable, comfortable rooms, a splendid meal and a delightful cup of coffee",
-  "location-hint": "We are right by the European Road 6"
+  "location-hint": "We are right by the European Road 6",
+  "rooms-title": "Our Rooms",
+  "rooms-cta-link": "Read more about our rooms",
+  "menu-title": "Our Menu",
+  "menu-cta-links": {},
+  "cake-title": "We love to bake",
+  "cake-sub-heading": "Come have a bite!",
+  "cake-cta-link": "See our cake menu",
+  "cake-button": "Order a cake?",
+  "events-title": "Events at Huset Café & Motell",
+  "events-subs": {},
+  "events-button": "See all events and services"
 }

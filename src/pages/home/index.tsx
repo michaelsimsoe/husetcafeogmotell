@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import huset_fasade from './assets/huset_fasade.jpeg';
-import MapLocation from './map.js';
+import twoTimesRooms from './assets/roomsx2.jpg';
+import MapLocation from '../../components/map/mapContainer';
 
 const svgStyle = {
   fill: '#fff',
@@ -16,7 +17,7 @@ export const Home: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'home']);
 
   return (
-    <>
+    <div className="home">
       <section className="hero">
         <figure className="hero-logo">
           <svg
@@ -162,7 +163,7 @@ export const Home: React.FunctionComponent = () => {
         </section>
         <section className="hero-contact">
           <div className="hero-contact__text">
-            <h2>{t('home:landing-heading')}</h2>
+            <h2 className="section-heading">{t('home:landing-heading')}</h2>
             <p>{t('home:landing-text')}</p>
           </div>
           <div className="hero-contact__buttons">
@@ -223,8 +224,8 @@ export const Home: React.FunctionComponent = () => {
                   transform="translate(91.5 589.5)"
                   fill="none"
                   stroke="#fff"
-                  stroke-linecap="round"
-                  stroke-width="3"
+                  strokeLinecap="round"
+                  strokeWidth="3"
                 />
                 <line
                   id="Line_3"
@@ -234,17 +235,39 @@ export const Home: React.FunctionComponent = () => {
                   transform="translate(172.5 589.5)"
                   fill="none"
                   stroke="#fff"
-                  stroke-linecap="round"
-                  stroke-width="3"
+                  strokeLinecap="round"
+                  strokeWidth="3"
                 />
               </g>
             </svg>
           </div>
         </section>
       </section>
-      <section className="map">
+      <section className="map-mobile">
         <MapLocation />
       </section>
-    </>
+      <section className="home-rooms">
+        <h2 className="section-heading">{t('home:rooms-title')}</h2>
+        <figure>
+          <img src={twoTimesRooms} alt="double and single room" />
+        </figure>
+        <Link className="cta-link" to="/overnatting">
+          {t('home:rooms-cta-link')}
+        </Link>
+      </section>
+      <section className="home-menu">
+        <h2 className="section-heading">{t('home:menu-title')}</h2>
+      </section>
+      <section className="home-cakes">
+        <h2 className="section-heading">{t('home:cake-title')}</h2>
+        <h3 className="">{t('home:cake-sub-heading')}</h3>
+        <Link className="cta-link" to="/meny#kaker">
+          {t('home:cake-cta-link')}
+        </Link>
+        <Link className="button button-padded" to="/meny#kake-bestilling">
+          {t('home:cake-button')}
+        </Link>
+      </section>
+    </div>
   );
 };

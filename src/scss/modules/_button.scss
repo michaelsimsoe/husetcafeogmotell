@@ -6,12 +6,27 @@
   padding: 0.4rem 0.6rem;
   text-decoration: none;
   text-transform: uppercase;
-  width: 138px;
+  min-width: 138px;
   text-align: center;
+}
+
+.button-padded {
+  display: block;
+  padding: 0.8rem 0.4rem;
+  max-width: 200px;
 }
 
 @mixin cta-button {
   background-color: $cta-text;
   border: none;
   width: auto;
+}
+
+.cta-link {
+  color: $cta-text;
+  text-decoration: none;
+  &:after {
+    font-size: 1.3rem;
+    content: ' →';
+  }
 }
