@@ -1,0 +1,9 @@
+{
+  "pizza": {
+    "1": {
+      "name": "Biffpizza m/ løk og bacon",
+      "price": 250,
+      "allergens": []
+    }
+  }
+}

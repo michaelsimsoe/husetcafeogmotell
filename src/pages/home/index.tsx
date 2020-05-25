@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import huset_fasade from './assets/huset_fasade.jpeg';
 import twoTimesRooms from './assets/roomsx2.jpg';
+import pizzaImage from './assets/pizza.png';
 import MapLocation from '../../components/map/mapContainer';
 
 const svgStyle = {
@@ -257,6 +258,16 @@ export const Home: React.FunctionComponent = () => {
       </section>
       <section className="home-section">
         <h2 className="section-heading">{t('home:menu-title')}</h2>
+        <section className="home-menu__item">
+          <img src={pizzaImage} alt="pizza" />
+          <div className="home-menu__item-text">
+            <h3>Pizza</h3>
+            <p>Vi har kanskje Norges beste pizza</p>
+            <Link className="cta-link" to="/">
+              Pizzamenyen
+            </Link>
+          </div>
+        </section>
       </section>
       <section className="home-section">
         <h2 className="section-heading">{t('home:cake-title')}</h2>

@@ -1,8 +1,8 @@
-.home-menu {
-  padding: 3rem 0;
-  h2,
-  a,
-  p {
-    margin: 0 37px;
-  }
+.home-menu__item {
+  display: flex;
+  margin: 0 37px;
+}
+
+.home-menu__item-text {
+  margin-left: 1rem;
 }

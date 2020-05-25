@@ -1,9 +1,9 @@
 .home-section {
   padding: 3rem 0;
-  h2,
-  h3,
-  a,
-  p {
+  & > h2,
+  & > h3,
+  & > a,
+  & > p {
     margin: 0 37px;
   }
 }
