@@ -1,2 +1,13 @@
-.home {
+.home-section {
+  padding: 3rem 0;
+  h2,
+  h3,
+  a,
+  p {
+    margin: 0 37px;
+  }
+}
+
+.desktop-map {
+  display: none;
 }

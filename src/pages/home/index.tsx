@@ -246,7 +246,7 @@ export const Home: React.FunctionComponent = () => {
       <section className="map-mobile">
         <MapLocation />
       </section>
-      <section className="home-rooms">
+      <section className="home-section">
         <h2 className="section-heading">{t('home:rooms-title')}</h2>
         <figure>
           <img src={twoTimesRooms} alt="double and single room" />
@@ -255,10 +255,10 @@ export const Home: React.FunctionComponent = () => {
           {t('home:rooms-cta-link')}
         </Link>
       </section>
-      <section className="home-menu">
+      <section className="home-section">
         <h2 className="section-heading">{t('home:menu-title')}</h2>
       </section>
-      <section className="home-cakes">
+      <section className="home-section">
         <h2 className="section-heading">{t('home:cake-title')}</h2>
         <h3 className="">{t('home:cake-sub-heading')}</h3>
         <Link className="cta-link" to="/meny#kaker">
@@ -266,6 +266,12 @@ export const Home: React.FunctionComponent = () => {
         </Link>
         <Link className="button button-padded" to="/meny#kake-bestilling">
           {t('home:cake-button')}
+        </Link>
+      </section>
+      <section className="home-section">
+        <h2 className="section-heading">{t('home:events-title')}</h2>
+        <Link className="button button-padded" to="/meny#kaker">
+          {t('home:events-button')}
         </Link>
       </section>
     </div>

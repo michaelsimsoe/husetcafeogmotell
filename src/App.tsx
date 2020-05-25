@@ -9,6 +9,7 @@ import { Rooms } from './pages/rooms';
 import { Menu } from './pages/menu';
 import { Events } from './pages/events';
 import { Contact } from './pages/contact';
+import { Footer } from './components/footer';
 
 const App: React.FunctionComponent = () => {
   useTracking();
@@ -35,6 +36,7 @@ const App: React.FunctionComponent = () => {
           <Contact />
         </Route>
       </Switch>
+      <Footer />
     </>
   );
 };
