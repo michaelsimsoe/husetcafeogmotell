@@ -73,6 +73,15 @@
   }
 }
 
+.social-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & img {
+    height: 50px;
+  }
+}
+
 @media (min-width: 768px) {
   .main-footer__container {
     margin-left: auto;
