@@ -1,15 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+
+import { useTracking } from './hooks/useTracking';
+
 import { Home } from './pages/home';
-// import { Navigation } from './components/navigation';
+import { Navigation } from './components/navigation';
 import { Rooms } from './pages/rooms';
 import { Menu } from './pages/menu';
 import { Events } from './pages/events';
 import { Contact } from './pages/contact';
+import { Footer } from './components/footer';
 
 const App: React.FunctionComponent = () => {
+  useTracking();
   return (
-    <Router>
+    <>
+      <Navigation open={false} />
       <Switch>
         <Route exact path="/">
           <Home />
@@ -30,7 +36,8 @@ const App: React.FunctionComponent = () => {
           <Contact />
         </Route>
       </Switch>
-    </Router>
+      <Footer />
+    </>
   );
 };
 

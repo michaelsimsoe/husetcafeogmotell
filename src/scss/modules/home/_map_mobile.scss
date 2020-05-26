@@ -1,0 +1,13 @@
+.map-mobile {
+  padding: 1.5rem 0;
+
+  p {
+    margin: 0.5rem 37px;
+  }
+}
+
+@media (min-width: 600px) {
+  .map-mobile {
+    display: none;
+  }
+}

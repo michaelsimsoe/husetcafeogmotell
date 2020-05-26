@@ -1,0 +1,16 @@
+.home-section {
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  & > h2,
+  & > h3,
+  & > a,
+  & > p {
+    margin: 0 37px;
+  }
+}
+
+.desktop-map {
+  display: none;
+}
