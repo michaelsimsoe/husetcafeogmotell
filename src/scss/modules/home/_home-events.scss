@@ -1,0 +1,33 @@
+.home-events {
+  &.home-section {
+    padding-top: 8rem;
+  }
+  .button {
+    margin-top: 2rem;
+  }
+}
+
+.event__heading,
+.event__sub-heading,
+.event__description,
+.event__link {
+  margin: 0 37px;
+}
+.home-events__event:not(:first-of-type) {
+  margin-top: 1.5rem;
+}
+
+.event__heading {
+  color: $cta-text;
+  font-size: 1.4rem;
+}
+.event__image {
+}
+.event__sub-heading {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+.event__description {
+}
+.event__link {
+}
