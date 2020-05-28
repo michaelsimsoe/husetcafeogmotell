@@ -9,7 +9,7 @@
   height: 100vh;
   width: 100vw;
   background-color: $nav-bg;
-  z-index: 100;
+  z-index: 1000;
   // box-shadow: $box-shadow;
   transform: translateX(100vw);
   transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
