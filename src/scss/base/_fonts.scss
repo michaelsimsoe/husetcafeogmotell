@@ -19,5 +19,10 @@ li {
 }
 
 .section-heading {
-  font-size: 32px;
+  font-size: 2rem;
+}
+
+.section-sub-heading {
+  font-size: 1.6rem;
+  color: $cta-text;
 }

@@ -7,10 +7,19 @@
   & > h3,
   & > a,
   & > p {
-    margin: 0 37px;
+    margin: 0 $main-margin-mobile;
   }
 }
 
 .desktop-map {
   display: none;
+}
+
+@media (min-width: 600px) {
+  .home-section {
+    margin-right: $sidebar-width-margin;
+  }
+  .map-mobile {
+    display: none;
+  }
 }

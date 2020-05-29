@@ -36,7 +36,7 @@ export const HeroParallaxImage = () => {
       <ParallaxLayer offset={0} factor={1} speed={-1}>
         <img className="hero-img__huset" src={huset} alt="huset facade" />
       </ParallaxLayer>
-      <ParallaxLayer offset={0} factor={1} speed={1.5} style={{ zIndex: 5 }}>
+      <ParallaxLayer offset={0} factor={1} speed={1} style={{ zIndex: 5 }}>
         <figure className="hero-logo">
           <svg
             xmlns="http://www.w3.org/2000/svg"

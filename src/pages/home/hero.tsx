@@ -12,10 +12,7 @@ const svgStyle = {
   paddingTop: '2px',
 };
 
-// eslint-disable-next-line
-let parallax;
-
-export const HeroComponent = () => {
+export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'home']);
   return (
     <section className="hero">
@@ -71,7 +68,7 @@ export const HeroComponent = () => {
             </svg>
           </a>
         </div>
-        <div className="hero-contact__location-hit">
+        <div className="hero-contact__location-hint">
           <p>{t('home:location-hint')}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"

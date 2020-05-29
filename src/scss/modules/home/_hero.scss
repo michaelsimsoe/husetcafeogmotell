@@ -93,7 +93,7 @@
   justify-content: space-between;
 }
 
-.hero-contact__location-hit {
+.hero-contact__location-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,10 +128,11 @@
     transform: translateX(-50%);
     z-index: 5;
   }
+
   .hero-img__overlay {
     position: absolute;
     width: 100%;
-    height: 340px;
+    height: 100%;
     top: 0;
     left: 0;
     right: 0;
@@ -156,6 +157,7 @@
       width: 100%;
     }
   }
+
   .hero-img {
     &__bg {
       position: fixed;
@@ -187,8 +189,8 @@
     }
   }
 
-  .hero-img__overlay {
-    height: 100%;
+  .hero-contact__location-hint {
+    display: none;
   }
 
   .hero-contact {

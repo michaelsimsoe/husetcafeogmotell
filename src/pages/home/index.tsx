@@ -17,7 +17,7 @@ export const Home: React.FunctionComponent = () => {
     <div className="home">
       <HeroComponent />
       <section className="home-section map-mobile">
-        {/* <MapLocation /> */}
+        <MapLocation />
         <div>
           <p>
             Huset Cafe & Motell er en veikro som ligger tett inntil E6 gjennom{' '}
@@ -35,17 +35,31 @@ export const Home: React.FunctionComponent = () => {
       </section>
       <section className="home-section home-rooms">
         <h2 className="section-heading">{t('home:rooms-title')}</h2>
-        <figure>
-          <img src={twoTimesRooms} alt="double and single room" />
-        </figure>
-        <p>Vi har 8 rom tilgjengelig. Frokost er inkludert i prisen.</p>
-        <ul>
-          <li>Enkeltrom 890,-</li>
-          <li>Dobbeltrom 1130,-</li>
-        </ul>
-        <Link className="cta-link" to="/overnatting">
-          {t('home:rooms-cta-link')}
-        </Link>
+        <div className="home-rooms__container">
+          <figure className="home-rooms__image">
+            <img src={twoTimesRooms} alt="double and single room" />
+          </figure>
+          <div className="home-rooms__content">
+            <h3 className="section-sub-heading home-rooms__sub-heading">
+              Rimelige og Komfortable rom
+            </h3>
+            <p>Vi har 8 rom tilgjengelig. Frokost er inkludert i prisen.</p>
+            <ul>
+              <li>Enkeltrom 890,-</li>
+              <li>Dobbeltrom 1130,-</li>
+            </ul>
+            <div className="home-rooms__buttons">
+              <Link className="button button-padded" to="/kontakt">
+                Kontakt oss
+              </Link>
+              <div>
+                <Link className="cta-link home-rooms__link" to="/overnatting">
+                  {t('home:rooms-cta-link')}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <section className="home-section home-menu">
         <div className="home-menu__big-circle"></div>
