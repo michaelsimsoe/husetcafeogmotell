@@ -86,7 +86,7 @@
   transform: rotate(0deg);
   transition: 0.5s ease-in-out;
   margin-right: 0.5rem;
-  z-index: 1000;
+  z-index: 1010;
   cursor: pointer;
 
   & span {
@@ -164,8 +164,12 @@
 
   .main-sidebar {
     width: 160px;
-    transform: translateX(0);
+    transform: translateX(160px);
     justify-content: space-around;
+
+    &--open {
+      transform: translateX(0px);
+    }
 
     & .navigation {
       display: flex;

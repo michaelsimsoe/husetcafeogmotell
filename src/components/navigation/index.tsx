@@ -12,9 +12,9 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
   open,
 }) => {
   const { t } = useTranslation(['translation', 'nav']);
-
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
+  console.log('SIDEBAR', open);
   const sideBarClass =
     open || openSidebar ? 'main-sidebar main-sidebar--open' : 'main-sidebar';
 

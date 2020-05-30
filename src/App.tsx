@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { useTracking } from './hooks/useTracking';
@@ -12,13 +12,15 @@ import { Contact } from './pages/contact';
 import { Footer } from './components/footer';
 
 const App: React.FunctionComponent = () => {
+  const [sidebarOpen, toggleSidebar] = useState<boolean>(false);
   useTracking();
+
   return (
     <>
-      <Navigation open={false} />
+      <Navigation open={sidebarOpen} />
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home sidebarOpen={toggleSidebar} />
         </Route>
         <Route exact path="/overnatting">
           <Rooms />
