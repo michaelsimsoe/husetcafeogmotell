@@ -214,8 +214,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    & svg {
+    & a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    & a > svg {
       width: 50%;
     }
   }

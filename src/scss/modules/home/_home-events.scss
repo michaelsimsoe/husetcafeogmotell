@@ -31,3 +31,38 @@
 }
 .event__link {
 }
+
+@media (min-width: 600px) {
+  .home-events {
+    .section-heading {
+      margin-bottom: 3rem;
+    }
+  }
+  .home-events__event {
+    border: 3px solid white;
+    margin-left: $main-margin-desktop;
+    margin-right: $main-margin-desktop;
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 330px;
+    padding-right: $sidebar-width;
+    background-image: $linear-bg;
+
+    &--reverse {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .event__image {
+    height: 120%;
+    width: 140%;
+    border: 3px solid white;
+    & > img {
+      object-fit: cover;
+      height: 100%;
+    }
+    margin-left: 37px;
+  }
+}

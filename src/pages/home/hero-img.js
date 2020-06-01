@@ -23,20 +23,20 @@ export const HeroParallaxImage = () => {
       {/* <ParallaxLayer offset={0} factor={1} speed={0}> */}
       <img className="hero-img__bg" src={sky_bg} alt="blue sky background" />
       {/* </ParallaxLayer> */}
-      <ParallaxLayer offset={0} factor={1} speed={0.5}>
+      <ParallaxLayer offset={0} factor={1.2} speed={0.5}>
         <img className="hero-img__mountain" src={okstindan} alt="okstindan" />
       </ParallaxLayer>
-      <ParallaxLayer offset={0} factor={1} speed={-0.5}>
+      <ParallaxLayer offset={0} factor={1.2} speed={-0.5}>
         <img
           className="hero-img__klubben"
           src={klubben}
           alt="klubben mountain"
         />
       </ParallaxLayer>
-      <ParallaxLayer offset={0} factor={1} speed={-1}>
+      <ParallaxLayer offset={0} factor={1.2} speed={-1}>
         <img className="hero-img__huset" src={huset} alt="huset facade" />
       </ParallaxLayer>
-      <ParallaxLayer offset={0} factor={1} speed={1} style={{ zIndex: 5 }}>
+      <ParallaxLayer offset={0} factor={1} speed={1.2} style={{ zIndex: 5 }}>
         <figure className="hero-logo">
           <svg
             xmlns="http://www.w3.org/2000/svg"

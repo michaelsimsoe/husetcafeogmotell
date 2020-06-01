@@ -6,6 +6,10 @@ import { useInView } from 'react-intersection-observer';
 import twoTimesRooms from './assets/roomsx2.jpg';
 import pizzaImage from './assets/pizza.png';
 import cakeBuffet from './assets/kaker.jpg';
+import nightClub from './assets/nattklubb.jpg';
+import sushiPlate from './assets/sushi-fat.jpg';
+import privateEvent from './assets/privatfest.jpg';
+import catering from './assets/catering.jpg';
 
 // Components
 import MapLocation from '../../components/map/mapContainer';
@@ -120,74 +124,103 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
           </Link>
         </section>
         <section className="home-section home-cakes">
-          <figure>
-            <div className="img__overlay"></div>
-            <img src={cakeBuffet} alt="cake buffet" />
-          </figure>
           <h2 className="section-heading">{t('home:cake-title')}</h2>
-          <h3 className="">{t('home:cake-sub-heading')}</h3>
-          <Link className="cta-link" to="/meny#kaker">
-            {t('home:cake-cta-link')}
-          </Link>
-          <Link className="button button-padded" to="/meny#kake-bestilling">
-            {t('home:cake-button')}
-          </Link>
+          <div className="home-cakes__container">
+            <figure>
+              <div className="img__overlay"></div>
+              <img src={cakeBuffet} alt="cake buffet" />
+            </figure>
+            <div className="home-cakes__content">
+              <h3 className="section-sub-heading section-sub-heading--white">
+                {t('home:cake-sub-heading')}
+              </h3>
+              <Link className="cta-link" to="/meny#kaker">
+                {t('home:cake-cta-link')}
+              </Link>
+              <Link className="button button-padded" to="/meny#kake-bestilling">
+                {t('home:cake-button')}
+              </Link>
+            </div>
+          </div>
         </section>
         <section className="home-section home-events">
           <h2 className="section-heading">{t('home:events-title')}</h2>
           <section className="home-events__event">
-            <h3 className="event__heading">Konserter, bar og nattklubb</h3>
             <figure className="event__image">
-              <img src={cakeBuffet} alt="" />
+              <img src={nightClub} alt="" />
             </figure>
-            <h4 className="event__sub-heading">Det er viktig å ha det gøy</h4>
-            <p className="event__description">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo,
-              earum. Mollitia amet incidunt repellat maiores autem, maxime
-              fugiat vero deserunt, expedita repellendus nostrum tempora sint
-              beatae quam ad dicta quibusdam!
-            </p>
-            <Link to="/" className="cta-link event__link">
-              Les mer om dette
-            </Link>
+            <div className="event__content">
+              <h3 className="event__heading">Konserter, bar og nattklubb</h3>
+              <h4 className="event__sub-heading">Det er viktig å ha det gøy</h4>
+              <p className="event__description">
+                Huset Cafe arrangerer ofte kvelder med fin musikk, det kan være
+                typiske restaurant/nattklubb med dans og bar, men også små
+                intime konserter der vi i all hovedsak har ønsker om å
+                presentere noen av de fantastiske kunstnere vi har i vår nærhet.
+              </p>
+              <Link to="/" className="cta-link event__link">
+                Les mer om dette
+              </Link>
+            </div>
+          </section>
+          <section className="home-events__event home-events__event--reverse">
+            <figure className="event__image">
+              <img src={sushiPlate} alt="" />
+            </figure>
+            <div className="event__content">
+              <h3 className="event__heading">Sushikveld</h3>
+              <h4 className="event__sub-heading">Moderne fisk</h4>
+              <p className="event__description">
+                Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby
+                ulike arrangementer der mat er hovedfokus, det kan f.eks være
+                Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.
+              </p>
+              <Link to="/" className="cta-link event__link">
+                Les mer om dette
+              </Link>
+            </div>
           </section>
           <section className="home-events__event">
-            <h3 className="event__heading">Sushikveld</h3>
             <figure className="event__image">
-              <img src={cakeBuffet} alt="" />
+              <img src={privateEvent} alt="" />
             </figure>
-            <h4 className="event__sub-heading">Moderne fisk</h4>
-            <p className="event__description">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo,
-              earum. Mollitia amet incidunt repellat maiores autem, maxime
-              fugiat vero deserunt, expedita repellendus nostrum tempora sint
-              beatae quam ad dicta quibusdam!
-            </p>
-            <Link to="/" className="cta-link event__link">
-              Les mer om dette
-            </Link>
-          </section>
-          <section className="home-events__event">
-            <h3 className="event__heading">Private arrangementer</h3>
-            <figure className="event__image">
-              <img src={cakeBuffet} alt="" />
-            </figure>
-            <h4 className="event__sub-heading">
-              Vi legger gjerne til rette for festen deres
-            </h4>
-            <p className="event__description">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo,
-              earum. Mollitia amet incidunt repellat maiores autem, maxime
-              fugiat vero deserunt, expedita repellendus nostrum tempora sint
-              beatae quam ad dicta quibusdam!
-            </p>
-            <Link to="/" className="cta-link event__link">
-              Les mer om dette
-            </Link>
+            <div className="event__content">
+              <h3 className="event__heading">Private arrangementer</h3>
+              <h4 className="event__sub-heading">
+                Vi legger gjerne til rette for festen deres
+              </h4>
+              <p className="event__description">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo,
+                earum. Mollitia amet incidunt repellat maiores autem, maxime
+                fugiat vero deserunt, expedita repellendus nostrum tempora sint
+                beatae quam ad dicta quibusdam!
+              </p>
+              <Link to="/" className="cta-link event__link">
+                Les mer om dette
+              </Link>
+            </div>
           </section>
           <Link className="button button-padded" to="/meny#kaker">
             {t('home:events-button')}
           </Link>
+        </section>
+        <section className="home-section home-cakes">
+          <h2 className="section-heading">Vi tilbyr catering</h2>
+          <div className="home-cakes__container">
+            <figure>
+              <div className="img__overlay"></div>
+              <img src={catering} alt="catering buffet" />
+            </figure>
+            <div className="home-cakes__content">
+              <h3 className="section-sub-heading section-sub-heading--white">
+                For enhver anledning
+              </h3>
+              <p>Koldtbort, varmat, snitter eller det du måtte ønske</p>
+              <Link className="cta-link" to="/meny#kaker">
+                Les om cateringmulighetene
+              </Link>
+            </div>
+          </div>
         </section>
       </div>
     </div>

@@ -25,4 +25,8 @@ li {
 .section-sub-heading {
   font-size: 1.6rem;
   color: $cta-text;
+
+  &--white {
+    color: #fff;
+  }
 }
