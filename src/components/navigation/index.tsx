@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { Logo } from '../logo';
 
@@ -12,7 +12,6 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
   open,
 }) => {
   const { t } = useTranslation(['translation', 'nav']);
-
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
   const sideBarClass =
@@ -36,7 +35,9 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
       </div>
       <aside className={sideBarClass}>
         <figure className="sidebar__logo">
-          <Logo color="#081214" />
+          <Link to="/">
+            <Logo color="#081214" />
+          </Link>
         </figure>
         <div className="sidebar__content">
           <nav className="navigation">

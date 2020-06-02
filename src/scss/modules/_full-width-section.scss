@@ -1,0 +1,54 @@
+.full-width {
+  position: relative;
+  &__figure {
+    position: absolute;
+    z-index: -1;
+    & img {
+      height: 40vh;
+      width: 100%;
+    }
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    height: 40vh;
+  }
+
+  &__content {
+    margin-left: 2rem;
+
+    & .button {
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .full-width {
+    position: relative;
+    &__figure {
+      position: absolute;
+      z-index: -1;
+      & img {
+        object-fit: cover;
+      }
+    }
+
+    &__container {
+      & h3,
+      & p,
+      & a {
+        margin: 0 $main-margin-desktop;
+      }
+    }
+
+    &__content {
+      margin-left: 0;
+
+      & .button {
+        margin-top: 3rem;
+      }
+    }
+  }
+}

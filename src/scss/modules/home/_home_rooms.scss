@@ -1,0 +1,62 @@
+.home-rooms {
+  &__container {
+  }
+  &__content {
+    margin: 0 37px;
+  }
+  &__sub-heading {
+    display: none;
+  }
+
+  &__link {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .home-rooms {
+    .section-heading {
+      margin-bottom: 1.8rem;
+    }
+
+    &__container {
+      border-top: 3px solid white;
+      border-bottom: 3px solid white;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 330px;
+      padding-right: $sidebar-width;
+      background-image: $linear-bg;
+    }
+
+    &__image {
+      height: 120%;
+      border: 3px solid white;
+      & > img {
+        height: 100%;
+      }
+      margin-left: 37px;
+    }
+
+    &__content {
+      flex-grow: 2;
+    }
+
+    &__sub-heading {
+      display: block;
+    }
+
+    &__buttons {
+      display: flex;
+      & > a {
+        margin-right: auto;
+      }
+    }
+
+    &__link {
+      margin-top: 1rem;
+    }
+  }
+}
