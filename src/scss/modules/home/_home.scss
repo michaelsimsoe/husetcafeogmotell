@@ -18,6 +18,13 @@
 @media (min-width: 600px) {
   .home-section {
     margin-top: 10rem;
+
+    & > h2,
+    & > h3,
+    & > a,
+    & > p {
+      margin: 0 $main-margin-desktop;
+    }
   }
   .map-mobile {
     display: none;
