@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from 'react-spring';
 
 // Images
 import nightClub from './assets/nattklubb.jpg';
@@ -8,11 +10,28 @@ import sushiPlate from './assets/sushi-fat.jpg';
 import privateEvent from './assets/privatfest.jpg';
 
 export const HomeEvents: React.FunctionComponent = () => {
+  const [ref1, inView1] = useInView({ triggerOnce: true });
+  const [ref2, inView2] = useInView({ triggerOnce: true });
+  const [ref3, inView3] = useInView({ triggerOnce: true });
   const { t } = useTranslation(['translation', 'home']);
+
+  const animation_style1 = useSpring({
+    transform: inView1 ? 'translateX(-5%)' : 'translateX(0)',
+  });
+  const animation_style2 = useSpring({
+    transform: inView2 ? 'translateX(-5%)' : 'translateX(0)',
+  });
+  const animation_style3 = useSpring({
+    transform: inView3 ? 'translateX(-5%)' : 'translateX(0)',
+  });
   return (
     <section className="home-section home-events">
       <h2 className="section-heading">{t('home:events-title')}</h2>
-      <section className="home-events__event">
+      <animated.section
+        ref={ref1}
+        className="home-events__event"
+        style={animation_style1}
+      >
         <figure className="event__image">
           <img src={nightClub} alt="" />
         </figure>
@@ -29,8 +48,12 @@ export const HomeEvents: React.FunctionComponent = () => {
             Les mer om dette
           </Link>
         </div>
-      </section>
-      <section className="home-events__event home-events__event--reverse">
+      </animated.section>
+      <animated.section
+        ref={ref2}
+        className="home-events__event home-events__event--reverse"
+        style={animation_style2}
+      >
         <figure className="event__image">
           <img src={sushiPlate} alt="" />
         </figure>
@@ -46,8 +69,12 @@ export const HomeEvents: React.FunctionComponent = () => {
             Les mer om dette
           </Link>
         </div>
-      </section>
-      <section className="home-events__event">
+      </animated.section>
+      <animated.section
+        ref={ref3}
+        className="home-events__event"
+        style={animation_style3}
+      >
         <figure className="event__image">
           <img src={privateEvent} alt="" />
         </figure>
@@ -66,7 +93,7 @@ export const HomeEvents: React.FunctionComponent = () => {
             Les mer om dette
           </Link>
         </div>
-      </section>
+      </animated.section>
       <Link className="button button-padded" to="/meny#kaker">
         {t('home:events-button')}
       </Link>

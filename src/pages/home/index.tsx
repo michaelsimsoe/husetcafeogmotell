@@ -46,7 +46,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
             </p>
           </div>
         </section>
-        <section ref={ref} className="home-section home-rooms">
+        <section className="home-section home-rooms">
           <h2 className="section-heading">{t('home:rooms-title')}</h2>
           <div className="home-rooms__container">
             <figure className="home-rooms__image">

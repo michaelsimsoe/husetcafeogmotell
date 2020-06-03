@@ -49,6 +49,8 @@
     height: 330px;
     padding-right: $sidebar-width;
     background-image: $linear-bg;
+    transition-delay: 1s;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     &--reverse {
       flex-direction: row-reverse;
