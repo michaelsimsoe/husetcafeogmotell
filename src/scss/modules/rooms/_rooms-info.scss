@@ -1,0 +1,13 @@
+.rooms-info {
+  .rooms-intro__container,
+  .double-rooms__container,
+  .single-rooms__container {
+    background: $bg-primary;
+    background-image: $linear-bg;
+  }
+
+  .information {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px);
+  }
+}
