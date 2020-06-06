@@ -13,6 +13,14 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
 }) => {
   const { t } = useTranslation(['translation', 'nav']);
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+  const closeAndScrollToTop = () => {
+    setOpenSidebar(false);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
 
   const sideBarClass =
     open || openSidebar ? 'main-sidebar main-sidebar--open' : 'main-sidebar';
@@ -36,7 +44,7 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
       </div>
       <aside className={sideBarClass}>
         <figure className="sidebar__logo">
-          <Link onClick={() => setOpenSidebar(false)} to="/">
+          <Link onClick={() => closeAndScrollToTop()} to="/">
             <Logo color="#081214" />
           </Link>
         </figure>

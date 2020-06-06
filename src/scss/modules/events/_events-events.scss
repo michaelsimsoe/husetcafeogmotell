@@ -1,0 +1,21 @@
+.events {
+  .events-events {
+    .events__container {
+      background: $bg-primary;
+      background-image: $linear-bg;
+      .info-container {
+        margin: 1rem $main-margin-mobile;
+        padding-bottom: 3rem;
+
+        & h3 {
+          color: $cta-text;
+        }
+        & p,
+        & a {
+          display: block;
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+}
