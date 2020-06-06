@@ -1,7 +1,7 @@
 import React from 'react';
 
 import room_one from './assets/rom_en.jpg';
-import room_two from './assets/rom_to.jpg';
+// import room_two from './assets/rom_to.jpg';
 import frokost_placeholder from './assets/frokost-placeholder.jpg';
 
 export const RoomsContainer: React.FunctionComponent = () => {
@@ -49,8 +49,10 @@ export const RoomsContainer: React.FunctionComponent = () => {
               Det er ingen steder som hjemme, det vet vi, men vi prøver så godt
               vi kan. Hos oss kan du slappe av.
             </p>
-            <p>Pris 1130,- NOK per natt</p>
-            <p>Inkludert frokost</p>
+            <div className="info-container__price">
+              <p>Pris 1130,- NOK per natt</p>
+              <p>Inkludert frokost</p>
+            </div>
           </div>
         </div>
       </section>
@@ -66,8 +68,10 @@ export const RoomsContainer: React.FunctionComponent = () => {
               Det er ingen steder som hjemme, det vet vi, men vi prøver så godt
               vi kan. Hos oss kan du slappe av.
             </p>
-            <p>Pris 1130,- NOK per natt</p>
-            <p>Inkludert frokost</p>
+            <div className="info-container__price">
+              <p>Pris 890,- NOK per natt</p>
+              <p>Inkludert frokost</p>
+            </div>
           </div>
         </div>
       </section>
@@ -78,13 +82,13 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <div className="img__overlay"></div>
             <img src={frokost_placeholder} alt="frokost buffet" />
           </figure>
-        </div>
-        <div className="full-width__content">
-          <h3>Vi tilbyr en selvbetjent frokost</h3>
-          <p>
-            Vi har et dedikert frokostrom til gjestene våre hvor vi tilbyr en
-            tradisjonell norsk frokost til gjestene våre.
-          </p>
+          <div className="full-width__content">
+            <h3>Vi tilbyr en selvbetjent frokost</h3>
+            <p>
+              Vi har et dedikert frokostrom til gjestene våre hvor vi tilbyr en
+              tradisjonell norsk frokost til gjestene våre.
+            </p>
+          </div>
         </div>
       </section>
       <section className="rooms information">

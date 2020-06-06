@@ -2,16 +2,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-import { animated, useSpring, useTrail, useChain } from 'react-spring';
+// import { animated, useSpring, useTrail, useChain } from 'react-spring';
+import { animated, useSpring } from 'react-spring';
 
 // Images
 import pizzaImage from './assets/pizza.png';
 
 export const HomeMenu: React.FunctionComponent = () => {
   const [ref1, inView1] = useInView();
-  const [ref2, inView2] = useInView({ triggerOnce: true });
-  const [ref3, inView3] = useInView({ triggerOnce: true });
-  const [ref4, inView4] = useInView({ triggerOnce: true });
+  // const [ref2, inView2] = useInView({ triggerOnce: true });
+  // const [ref3, inView3] = useInView({ triggerOnce: true });
+  // const [ref4, inView4] = useInView({ triggerOnce: true });
   const { t } = useTranslation(['translation', 'home']);
 
   const moveHighLightRight = useSpring({
