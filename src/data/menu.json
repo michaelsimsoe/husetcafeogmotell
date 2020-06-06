@@ -274,5 +274,617 @@
         }
       }
     ]
+  },
+  {
+    "name": {
+      "no": "Kebab",
+      "en": "Kebab"
+    },
+    "description": {
+      "no": "",
+      "en": ""
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Rullekebab",
+          "en": "Roll Kebab"
+        },
+        "description": {
+          "no": "Med salat, jalapeno, chips og Husets dressing",
+          "en": "With salad, jalapeno, chips and the dressing of the House"
+        },
+        "price": "195",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Lapp Kebab Souvas",
+          "en": "Lapp Kebab Souvas"
+        },
+        "description": {
+          "no": "Med sopp, løk og hvitløkspoteter",
+          "en": "With mushrooms, onion and garlic potatoes"
+        },
+        "price": "185",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Kebabtallerken",
+          "en": "Kebab of the House"
+        },
+        "description": {
+          "no": "Med salat, chips og Husets dressing",
+          "en": "With salad, chips and the dressing of the House"
+        },
+        "price": "180",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Mix Kebab Grill",
+          "en": "Mix Kebab Grill"
+        },
+        "description": {
+          "no": "Med kjøtt, tzatziki, nan, og grillede grønnsaker",
+          "en": "With meat, tzatziki, nan and grilled vegetables"
+        },
+        "price": "485",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "no": "Kjøttretter",
+      "en": "Meat Dishes"
+    },
+    "description": {
+      "no": "Vårt utvalg av kjøttretter",
+      "en": "Our selection of meat dishes"
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Husets Lammefilet",
+          "en": "The Lamb of the House"
+        },
+        "description": {
+          "no": "Med grønnsaker, hvitløkspoteter og saus",
+          "en": "With vegetables, garlic potatoes and sauce"
+        },
+        "price": "295",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Reinsdyrfilet",
+          "en": "Rein deer filet"
+        },
+        "description": {
+          "no": "Med stekt sopp, grønnsaker, hvitløkspoteter og saus",
+          "en": "With fired mushrooms, vegetables and garlic potatoes and sauce"
+        },
+        "price": "295",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Biff- eller kyllingsnadder",
+          "en": "Beef or chicken meat dish"
+        },
+        "description": {
+          "no": "Med salat, chips og Husets saus",
+          "en": "With salad, chips and the Sauce of the House"
+        },
+        "price": "190",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Biff",
+          "en": "Steak of the House"
+        },
+        "description": {
+          "no": "Med stekt tomat, champingnon, grønnsaker og saus",
+          "en": "With fried tomatoes, champingnon, vegetables and sauce"
+        },
+        "price": "285",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "no": "Fiskeretter",
+      "en": "Fish Dishes"
+    },
+    "description": {
+      "no": "Vårt utvalg av fiskeretter",
+      "en": "Our selection of fish dishes"
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Bacalao",
+          "en": "Bacalao"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "199",
+        "allergenes": {
+          "no": ["gluten", "melk", "fisk"],
+          "en": ["gluten", "milk", "fish"]
+        }
+      },
+      {
+        "name": {
+          "no": "Ovnsbakt Laksefilet",
+          "en": "Ovenbaked Salmon filet"
+        },
+        "description": {
+          "no": "Med salat og rømme",
+          "en": "With salad and sour cream"
+        },
+        "price": "195",
+        "allergenes": {
+          "no": ["gluten", "melk", "fisk"],
+          "en": ["gluten", "milk", "fish"]
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "no": "Snacks",
+      "en": "Snacks"
+    },
+    "description": {
+      "no": "Et utvalg av lettere retter for den småsultene.",
+      "en": "A selection of smaller dishes."
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Husets Nachos",
+          "en": "Nachos of the House"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "150",
+        "allergenes": {
+          "no": ["melk", "sennepsfør"],
+          "en": ["milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Karbonadesmørbrød med speilegg",
+          "en": "Patties Sandwich with eggs"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "105",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard seeds", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Egg og Bacon",
+          "en": "Egg and Bacon"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "95",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard seeds", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Sandwich med ost og skinke",
+          "en": "Sandwich with cheese and ham"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "75",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard seeds", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Wraps",
+          "en": "Wraps"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "70",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø"],
+          "en": ["gluten", "milk", "mustard seeds"]
+        }
+      },
+      {
+        "name": {
+          "no": "Chips",
+          "en": "Chops"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "50",
+        "allergenes": {
+          "no": [],
+          "en": []
+        }
+      },
+      {
+        "name": {
+          "no": "Tapas",
+          "en": "Tapas"
+        },
+        "description": {
+          "no": "Husets tapas for dere som er flere",
+          "en": "Tapas of the House"
+        },
+        "price": "350",
+        "allergenes": {
+          "no": [],
+          "en": []
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "no": "Husets Retter",
+      "en": "Dishes of the House"
+    },
+    "description": {
+      "no": "",
+      "en": ""
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Husets Skinkesalat",
+          "en": "Ham Salad"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "145",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Kyllingsalat",
+          "en": "Chicken Salad"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "160",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Rekesalat",
+          "en": "Shrimp Salad"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "165",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Pita Souvas",
+          "en": "Souvas Pita"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "145",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Pita med Kjøttdeig",
+          "en": "Pita with Minced Meat"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "140",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Kyllingpita",
+          "en": "Pita with Chicken"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "145",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Skinkeomelett",
+          "en": "Omelet with ham"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "145",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets kjøttdeigomelett",
+          "en": "Omelet with minced meat"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "145",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets Rekeomelett",
+          "en": "Omelet with Shrimp"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "165",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø", "egg"],
+          "en": ["gluten", "milk", "mustard", "egg"]
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "no": "Barnemeny",
+      "en": "Childrens Menu"
+    },
+    "description": {
+      "no": "For de minste. Husk at de fleste av rettene våre kan fås i mindre porsjoner.",
+      "en": "For the youngest. You can also purchase smaller portions of most of our dishes."
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Grillet Kyllinglår og Chips",
+          "en": "Fried Chicken and Chips"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "85",
+        "allergenes": {
+          "no": ["sennep"],
+          "en": ["mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pasta med Kjøttsaus",
+          "en": "Pasta with Meat Sauce"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "75",
+        "allergenes": {
+          "no": ["gluten", "melk"],
+          "en": ["gluten", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Barneburger med Chips",
+          "en": "Kids burger with Chips"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "80",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennepsfrø"],
+          "en": ["gluten", "milk", "mustard seeds"]
+        }
+      },
+      {
+        "name": {
+          "no": "Minibiff",
+          "en": "Mini Steak"
+        },
+        "description": {
+          "no": "Med salat og chips",
+          "en": "With salad and chips"
+        },
+        "price": "95",
+        "allergenes": {
+          "no": ["sennepsfrø"],
+          "en": ["mustads seeds"]
+        }
+      },
+      {
+        "name": {
+          "no": "Kyllingnuggets og Chips",
+          "en": "Chicken Nuggets and Chips"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "85",
+        "allergenes": {
+          "no": ["gluten", "sennepsfrø"],
+          "en": ["gluten", "mustard seeds"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pølse og Chips",
+          "en": "Sausage and Chips"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "60",
+        "allergenes": {
+          "no": [],
+          "en": []
+        }
+      },
+      {
+        "name": {
+          "no": "Paølse i brød",
+          "en": "Hotdog"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "40",
+        "allergenes": {
+          "no": ["gluten"],
+          "en": ["gluten"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pannekaker med Blåbær",
+          "en": "Pan Cakes with blueberries"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "35",
+        "allergenes": {
+          "no": ["gluten", "melk", "egg"],
+          "en": ["gluten", "milk", "egg"]
+        }
+      },
+      {
+        "name": {
+          "no": "Brødskive med Nugatti",
+          "en": "Slice of bread with chocolate"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "30",
+        "allergenes": {
+          "no": ["gluten", "melk"],
+          "en": ["gluten", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Barneporsjon av Dagens Meny",
+          "en": "Children sized Todays Menu"
+        },
+        "description": {
+          "no": "",
+          "en": ""
+        },
+        "price": "50% off",
+        "allergenes": {
+          "no": [],
+          "en": []
+        }
+      }
+    ]
   }
 ]
