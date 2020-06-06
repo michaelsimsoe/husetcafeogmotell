@@ -1,0 +1,278 @@
+[
+  {
+    "name": {
+      "no": "Husmannskost",
+      "en": "Traditional Cookings"
+    },
+    "description": {
+      "no": "Tradisjonell norsk husmannskost. Vi har bestandig rettene under tilgjengelig og har i tillegg et eget utvalg i vår \"Dagens Meny\"",
+      "en": "Traditional Norwegian cookings. We always have the dishes below and selection in our \"Menu of the Day\"."
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Kjøttkaker",
+          "en": "Meat Cakes"
+        },
+        "description": {
+          "no": "Kjøttkaketallerken med brunsaus, ertestuing, grønnsaker, poteter og tyttebær.",
+          "en": "Traditional Norwegian meat cakes with gravy, vegetables, pea stue, potatoes and lingonberries."
+        },
+        "price": "109",
+        "allergenes": {
+          "no": ["gluten", "melk", "egg"],
+          "en": ["gluten", "milk", "egg"]
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Pizza",
+      "no": "Pizza"
+    },
+    "description": {
+      "no": "Kanskje landets beste pizza?",
+      "en": "Maybe the best pizza there is?"
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Biffpizza",
+          "en": "Beef pizza"
+        },
+        "description": {
+          "no": "Med biffkjøtt, løk og bacon",
+          "en": "With beef, onion and bacon"
+        },
+        "price": "250",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pepperoni",
+          "en": "Pizza Pepperoni"
+        },
+        "description": {
+          "no": "Med pepperoni, kjøtteig og løk",
+          "en": "With pepperoni, minced meat and onion"
+        },
+        "price": "230",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pizza med kjøttdeig",
+          "en": "Pizza Minced Meat"
+        },
+        "description": {
+          "no": "Med kjøttdeig og tomat",
+          "en": "With minced meat and tomato"
+        },
+        "price": "199",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pizza med kjøttdeig og bacon",
+          "en": "Pizza Minced Meat and Bacon"
+        },
+        "description": {
+          "no": "Med kjøttdeig og bacon",
+          "en": "With minced meat and bacon"
+        },
+        "price": "235",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Skinkepizza",
+          "en": "Pizza with ham"
+        },
+        "description": {
+          "no": "Med skinke",
+          "en": "With ham"
+        },
+        "price": "199",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Hawaii",
+          "en": "Hawaii"
+        },
+        "description": {
+          "no": "Serveres med skinke ananas",
+          "en": "With ham and ananas"
+        },
+        "price": "215",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Vegetarpizza",
+          "en": "Vegetar pizza"
+        },
+        "description": {
+          "no": "Med et utvalg av grønnsaker, deriblandt paprika, tomat og rødløk. Spør oss gjerne hva vi kan tilby.",
+          "en": "With a selection of vegetables. We'll be pleased to make it as you wish."
+        },
+        "price": "225",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Fredagspizza",
+          "en": "Friday Pizza"
+        },
+        "description": {
+          "no": "Med ekstra alt!",
+          "en": "With extra everything!"
+        },
+        "price": "285",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "La Kebab",
+          "en": "La Kebab"
+        },
+        "description": {
+          "no": "Husets kebabpizza",
+          "en": "The kebab pizza of the house"
+        },
+        "price": "250",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pizza Alabama",
+          "en": "Pizza Alabama"
+        },
+        "description": {
+          "no": "Med kylling og løk",
+          "en": "With chicken and onion"
+        },
+        "price": "235",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pizza Margherita",
+          "en": "Pizza Margherita"
+        },
+        "description": {
+          "no": "Med tomat, ost basilikum",
+          "en": "With tomato, cheese and basilikum"
+        },
+        "price": "180",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      },
+      {
+        "name": {
+          "no": "Pizza Monaco",
+          "en": "Pizza Monaco"
+        },
+        "description": {
+          "no": "Med biffkjøtt, sopp og løk",
+          "en": "With beef mushrooms and onions"
+        },
+        "price": "250",
+        "allergenes": {
+          "no": ["hvete", "melk"],
+          "en": ["whete", "milk"]
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "en": "Burgers",
+      "no": "Burger"
+    },
+    "description": {
+      "no": "Våre hamburgere",
+      "en": "Our selection of burgers"
+    },
+    "menuItems": [
+      {
+        "name": {
+          "no": "Biffburger",
+          "en": "Beef burger"
+        },
+        "description": {
+          "no": "Serveres med chips og salat. Ost og Bacon kommer ekstra.",
+          "en": "Served with chips and a salad. Cheese and bacon are extras."
+        },
+        "price": "180",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Husets kebabburger",
+          "en": "Kebab Burger og the house"
+        },
+        "description": {
+          "no": "Kebabkylling, chips og husets dressing",
+          "en": "Kebabchicken, chips and the dressing of the house"
+        },
+        "price": "199",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      },
+      {
+        "name": {
+          "no": "Klassisk Vertshusburger",
+          "en": "Classical Burger of the House"
+        },
+        "description": {
+          "no": "Ost, bacon, nachoschips, chillidressing og chips.",
+          "en": "Bacon, cheese, nachos, chilli dressing and chips."
+        },
+        "price": "210",
+        "allergenes": {
+          "no": ["gluten", "melk", "sennep"],
+          "en": ["gluten", "milk", "mustard"]
+        }
+      }
+    ]
+  }
+]
