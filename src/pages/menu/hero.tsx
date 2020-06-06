@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+// import { Link } from 'react-router-dom';
+// import { useTranslation } from 'react-i18next';
 
 import family_dinner from './assets/hero.jpg';
 
 export const HeroComponent: React.FunctionComponent = () => {
-  const { t } = useTranslation(['translation', 'home']);
+  // const { t } = useTranslation(['translation', 'home']);
   return (
     <section className="hero menu-hero">
       <div className="hero-img-large"></div>
