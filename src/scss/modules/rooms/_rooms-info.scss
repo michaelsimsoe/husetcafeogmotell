@@ -23,5 +23,9 @@
   .information {
     background-color: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(2px);
+    padding: 2rem 0;
+    .info-container {
+      margin: 3rem $main-margin-mobile;
+    }
   }
 }

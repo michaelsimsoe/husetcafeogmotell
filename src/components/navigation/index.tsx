@@ -19,6 +19,7 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
 
   const menuBtnClassName =
     open || openSidebar ? 'main-menuBtn main-menuBtn--open' : 'main-menuBtn';
+
   return (
     <>
       <div
@@ -35,23 +36,34 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
       </div>
       <aside className={sideBarClass}>
         <figure className="sidebar__logo">
-          <Link to="/">
+          <Link onClick={() => setOpenSidebar(false)} to="/">
             <Logo color="#081214" />
           </Link>
         </figure>
         <div className="sidebar__content">
           <nav className="navigation">
             <div className="navigation__item">
-              <NavLink to="/">{t('nav:home')}</NavLink>
+              <NavLink onClick={() => setOpenSidebar(false)} to="/">
+                {t('nav:home')}
+              </NavLink>
             </div>
             <div className="navigation__item">
-              <NavLink to="/overnatting">{t('nav:rooms')}</NavLink>
+              <NavLink onClick={() => setOpenSidebar(false)} to="/overnatting">
+                {t('nav:rooms')}
+              </NavLink>
             </div>
             <div className="navigation__item">
-              <NavLink to="/meny">{t('nav:food')}</NavLink>
+              <NavLink onClick={() => setOpenSidebar(false)} to="/meny">
+                {t('nav:food')}
+              </NavLink>
             </div>
             <div className="navigation__item">
-              <NavLink to="/arrangementer">{t('nav:events')}</NavLink>
+              <NavLink
+                onClick={() => setOpenSidebar(false)}
+                to="/arrangementer"
+              >
+                {t('nav:events')}
+              </NavLink>
             </div>
           </nav>
           <LanguageSelect />

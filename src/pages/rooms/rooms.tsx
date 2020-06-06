@@ -93,16 +93,51 @@ export const RoomsContainer: React.FunctionComponent = () => {
       </section>
       <section className="rooms information">
         <div className="info-container">
-          <h3>Våre lokaler</h3>
-          <p>Informasjon om våre lokaler</p>
+          <h3>Huset Café og Motell</h3>
+          <p>
+            Vi har en behagelig cafe og restaurant hvor vi serverer både lunsj,
+            middag, kos eller bare en kopp kaffe. Det er selvfølgelig også
+            servering utendørs.
+          </p>
         </div>
         <div className="info-container">
           <h3>Husreglene</h3>
-          <p>Informasjon om våre husregler</p>
+          <p>
+            Vi tar imot betalingen for rom når du ankommer, med mindre annet er
+            avtalt.{' '}
+          </p>
+          <p>
+            Tidligste tidspunkt for innsjekk er klokken 14:00. Kommer du sent
+            skal vi finne en løsning på det.
+          </p>
+          <p>Vi har utsjekk klokken 12:00</p>
         </div>
-        <div className="info-container">
+        <div className="info-container info-container__area">
           <h3>Området rundt</h3>
-          <p>Informasjon om våre området rundt</p>
+          <p>Huset Café og Motell ligger i det som blir Korgen Sentrum.</p>
+          <h4>Korgensenteret</h4>
+          <p>
+            Vi har et koselig kjøpesenter rett ved siden av oss. Her får tak i
+            det meste du trenger, fra dagligvarer, apotek og vinmonopol til en
+            hårklipp.
+          </p>
+          <a href="https://www.facebook.com/pages/category/Shopping---Retail/Korgensenteret-808018572706977/">
+            Korgensenteret på Facebook
+          </a>
+          <h4>Bensinstasjon</h4>
+          <p>Rett over veien har vi Circle K Korgen</p>
+          <a href="https://www.facebook.com/circlekkorgen/posts/309648532524260/">
+            Circke K Korgen på Facebook
+          </a>
+          <h4>Hemnes Kommune og Helgeland</h4>
+          <p>Vi har en flott kommune med mye spennende å by på.</p>
+          <a href="https://www.hemnes.kommune.no/">Hemnes Kommune</a>
+          <h4>Okstindan natur- og kulturpark</h4>
+          <p>
+            Nord i kommunen har vi fantastiske Okstindan natur- og kulturpark,
+            med tinder, isbre og den flott Rabothytta.
+          </p>
+          <a href="https://visitokstindan.com/">Visitokstindan.com</a>
         </div>
       </section>
     </section>

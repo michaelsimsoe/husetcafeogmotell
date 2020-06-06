@@ -28,4 +28,15 @@
       padding: 0.2rem;
     }
   }
+
+  .info-container.info-container__area {
+    h4 {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+    a {
+      display: block;
+      margin-top: 0.5rem;
+    }
+  }
 }
