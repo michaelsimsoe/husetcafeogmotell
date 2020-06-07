@@ -3,14 +3,66 @@
   "landing-text": "Rimelige og komfortable rom, en kvalitetsmiddag og en god kopp kaffe",
   "location-hint": "Vi ligger rett ved E6",
   "rooms-title": "Rommene våre",
+  "rooms-sub-title": "Rimelige og Komfortable rom",
+  "rooms-information": "Vi har 8 rom tilgjengelig. Frokost er inkludert i prisen.",
+  "rooms-single": "Enkeltrom",
+  "rooms-double": "Dobbeltrom",
   "rooms-cta-link": "Les om overnatting hos oss",
   "menu-title": "Menyen vår",
-  "menu-cta-links": {},
+  "menu-cta": "Se maten vi lager",
+  "menu-subs": {
+    "traditional": {
+      "link": "Husmannskost",
+      "desc": "Vi er stolte over å ha et varierende tilbud av typisk norsk hjemmelaget kost.",
+      "name": "Husmannskost"
+    },
+    "pizza": {
+      "link": "Pizzameny",
+      "desc": "Vi har *kanskje* Norges beste pizza.",
+      "name": "Pizza"
+    },
+    "meat": {
+      "link": "Kjøttretter",
+      "desc": "Vi har et godt utvalg av kjøtt og flere typer kebaber, både tradisjonelle og de mer lokalt tilpassede variantene.",
+      "name": "Kjøtt, burgere og kebaber"
+    },
+    "child": {
+      "link": "Barnemeny",
+      "desc": "Vi har en fin barnemeny og tilbyr mindre porsjoner av de fleste rettene vi har.",
+      "name": "Barnemeny"
+    }
+  },
   "cake-title": "Vi elsker å bake",
   "cake-sub-heading": "Kom å smak",
   "cake-cta-link": "Se kakemenyen vår",
   "cake-button": "Bestill en kake?",
   "events-title": "Arrangementer ved Huset Café & Motell",
-  "events-subs": {},
-  "events-button": "Se alle arrangementer og tjenester"
+  "events-subs": {
+    "night": {
+      "title": "Conserts, pub and Nightclub",
+      "sub": "It's important to have som fun.",
+      "desc": "Huset Cafe arrangerer ofte kvelder med fin musikk, det kan være typiske restauran nattklubb med dans og bar, men også små intime konserter der vi i all hovedsak har ønsker om å presentere noen av de fantastiske kunstnere vi har i vår nærhet.",
+      "link": "Les mer om dette"
+    },
+    "sushi": {
+      "title": "Sush evening",
+      "sub": "Modern Fish",
+      "desc": "Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby ulike arrangementer der mat er hovedfokus, det kan f.eks være Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.",
+      "link": "Les mer om dette"
+    },
+    "private": {
+      "title": "Private arrangementer",
+      "sub": "Vi legger gjerne til rette for arrengementet deres",
+      "desc": "Vi setter stor pris på det å kunne tilrettelegge for dagen deres, enten det er en dag for lystige lag eller noe annet. Vi har erfaringer med bursdagsjubileer, barndåper, bryllup, begravelsesfester, konfirmasjoner, gjenforeningsfester og så videre.",
+      "link": "Les mer om dette"
+    }
+  },
+  "events-button": "Se alle arrangementer og tjenester",
+  "map1": "Huset Cafe & Motell er en veikro som ligger tett inntil E6 gjennom",
+  "map2": "Vi har som formål å tjene veifarende og turister, samt at vi er et viktig samlingspunkt for lokalbefolkningen.",
+  "map3": "Vi vil alltid prøve å ha et prisnivå på våre tjenester som er konkurransedyktige og attraktive",
+  "catering-heading": "Vi tilbyr catering",
+  "catering-sub-heading": "For enhver anledning",
+  "catering-text": "Koldtbord, varmmat, snitter eller det du måtte ønske",
+  "catering-link": "Les mer om cateringmulighetene"
 }

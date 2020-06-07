@@ -42,6 +42,10 @@
 @media (min-width: 600px) {
   .home-menu {
     margin: 0 $main-margin-desktop;
+    & .section-heading {
+      margin-right: 0;
+      margin-left: 0;
+    }
   }
   .home-menu__big-circle {
     display: none;
@@ -56,9 +60,10 @@
     top: -30%;
     background-color: rgba(255, 255, 255, 0.15);
     z-index: -1;
-    animation: come-in-left 0.6s ease forwards;
-    animation-fill-mode: forwards;
+    // animation: come-in-left 0.6s ease forwards;
+    // animation-fill-mode: forwards;
     left: 15%;
+    // transition: transform 0.4s ease-in-out;
   }
 
   .home-menu__small-circle--right {
@@ -75,7 +80,9 @@
       max-width: 25rem;
     }
     & img {
-      margin-right: 1.8rem;
+      // margin-right: 1.8rem;
+      transition: transform 0.5s ease;
+      // transform-origin: 50% 50%;
     }
   }
 
@@ -87,10 +94,20 @@
     }
 
     & .home-menu__item-text {
-      & h3,
-      & a {
+      position: relative;
+      & h3 {
         display: block;
         text-align: right;
+      }
+
+      & a {
+        position: absolute;
+        display: inline-block;
+        right: 0;
+      }
+
+      & h3 {
+        font-weight: bold;
       }
     }
   }

@@ -1,0 +1,71 @@
+.hero.menu-hero {
+  background-color: #fff;
+
+  & .hero-img-mobile {
+    position: relative;
+    height: 35vh;
+    & > img {
+      height: 35vh;
+    }
+
+    & .hero-img__overlay {
+      height: 35vh;
+    }
+
+    & .hero__header {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.2rem;
+      color: $font-color;
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(2px);
+      z-index: 5;
+
+      & h3 {
+        margin-bottom: -0.8rem;
+      }
+      & h1 {
+        font-size: 2.3rem;
+        letter-spacing: 0.12rem;
+        margin: -0.8rem 0 -0.6rem;
+      }
+      & h4 {
+        font-size: 0.6rem;
+        color: $dark-text;
+        font-weight: 100;
+      }
+    }
+  }
+  & .hero-contact {
+    padding-top: 6vh;
+    &__text p:last-of-type {
+      margin-top: 1rem;
+    }
+  }
+  & .hero-contact .hero-contact__text {
+    & > * {
+      color: $dark-text;
+    }
+  }
+
+  & .hero-contact .hero-contact__buttons {
+    margin-top: 1rem;
+    & a {
+      border-color: $dark-text;
+      color: $dark-text;
+    }
+  }
+
+  & .hero-contact .hero-contact__location-hint {
+    & a,
+    & p {
+      padding-top: 2vh;
+      color: $dark-text;
+    }
+
+    & svg {
+      margin-top: 0.2rem;
+    }
+  }
+}

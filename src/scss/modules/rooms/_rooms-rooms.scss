@@ -1,0 +1,42 @@
+.rooms-info {
+  margin-top: 8rem;
+  margin-bottom: 8rem;
+  section.rooms {
+    margin-top: 6rem;
+  }
+  .info-container {
+    &__price {
+      margin-top: 3rem;
+      p:first-of-type {
+        color: $cta-text;
+      }
+
+      p:last-of-type {
+        font-style: italic;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  &.breakfast {
+    .full-width__content h3 {
+      margin: 0 $main-margin-mobile;
+    }
+    .full-width__content p {
+      background-color: rgba(116, 116, 116, 0.15);
+      backdrop-filter: blur(2px);
+      margin: 0 $main-margin-mobile;
+      padding: 0.2rem;
+    }
+  }
+
+  .info-container.info-container__area {
+    h4 {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+    a {
+      display: block;
+      margin-top: 0.5rem;
+    }
+  }
+}

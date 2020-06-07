@@ -1,0 +1,31 @@
+.rooms-info {
+  .rooms-intro__container,
+  .double-rooms__container,
+  .single-rooms__container {
+    background: $bg-primary;
+    background-image: $linear-bg;
+  }
+
+  .rooms-intro__info,
+  .double-rooms__container .info-container,
+  .single-rooms__container .info-container {
+    margin: 3rem $main-margin-mobile;
+    padding-bottom: 3rem;
+  }
+  .info-container {
+    margin-top: 2rem;
+
+    & h3 {
+      font-size: 1.6rem;
+    }
+  }
+
+  .information {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px);
+    padding: 2rem 0;
+    .info-container {
+      margin: 3rem $main-margin-mobile;
+    }
+  }
+}

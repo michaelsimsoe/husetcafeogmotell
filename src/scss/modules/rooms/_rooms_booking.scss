@@ -1,0 +1,15 @@
+.room-booking {
+  &__mobile {
+    padding: 0 37px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #febb00;
+    & p {
+      color: #003580;
+      font-size: 2rem;
+    }
+  }
+}

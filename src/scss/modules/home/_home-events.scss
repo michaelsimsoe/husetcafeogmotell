@@ -21,16 +21,16 @@
   color: $cta-text;
   font-size: 1.4rem;
 }
-.event__image {
-}
+// .event__image {
+// }
 .event__sub-heading {
   font-size: 1.2rem;
   margin-top: 0.5rem;
 }
-.event__description {
-}
-.event__link {
-}
+// .event__description {
+// }
+// .event__link {
+// }
 
 @media (min-width: 600px) {
   .home-events {
@@ -49,6 +49,8 @@
     height: 330px;
     padding-right: $sidebar-width;
     background-image: $linear-bg;
+    transition-delay: 1s;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     &--reverse {
       flex-direction: row-reverse;

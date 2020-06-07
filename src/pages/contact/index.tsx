@@ -1,7 +1,14 @@
 import React from 'react';
 
-export const Contact = () => {
+import { HeroComponent } from './hero';
+import { ContactForm } from './form';
+// import { Link } from 'react-router-dom';
+
+export const Contact: React.FunctionComponent = () => {
   return (
-    <h1>Contact</h1>
-  )
-}
+    <section className="contact">
+      <HeroComponent />
+      <ContactForm />
+    </section>
+  );
+};

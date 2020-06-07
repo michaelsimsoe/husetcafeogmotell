@@ -3,14 +3,66 @@
   "landing-text": "Affordable, comfortable rooms, a splendid meal and a delightful cup of coffee",
   "location-hint": "We are right by the European Road 6",
   "rooms-title": "Our Rooms",
+  "rooms-sub-title": "Affordable and Comfortable rooms",
+  "rooms-information": "We have 8 rooms availables. Breakfast is inkluded in the price.",
+  "rooms-single": "Single Room",
+  "rooms-double": "Double Room",
   "rooms-cta-link": "Read more about our rooms",
   "menu-title": "Our Menu",
-  "menu-cta-links": {},
+  "menu-cta": "See all our dishes",
+  "menu-subs": {
+    "traditional": {
+      "link": "Traditional Cookings",
+      "desc": "We are proud to be able to serve Traditional Norwegian Cookings in a variety of dishes.",
+      "name": "Traditional Cookings"
+    },
+    "pizza": {
+      "link": "Pizza Menu",
+      "desc": "We *might* have the best pizza in Norway.",
+      "name": "Pizza"
+    },
+    "meat": {
+      "link": "Meat",
+      "desc": "We have a good amount of meat based dishes. Both traditional dishes as well as more modern.",
+      "name": "Meat, burgers and kebabs"
+    },
+    "child": {
+      "link": "Childrens Menu",
+      "desc": "We have a decent menu for the smallest.",
+      "name": "Childrens Menu"
+    }
+  },
   "cake-title": "We love to bake",
   "cake-sub-heading": "Come have a bite!",
   "cake-cta-link": "See our cake menu",
   "cake-button": "Order a cake?",
   "events-title": "Events at Huset Café & Motell",
-  "events-subs": {},
-  "events-button": "See all events and services"
+  "events-subs": {
+    "night": {
+      "title": "Conserts, pub and Nightclub",
+      "sub": "It's important to have som fun.",
+      "desc": "Huset Cafe often organizes evenings with fine music. This can be typical restaurant/nightclub evening with dancing and servings from the bar, but also small intimate concerts where we mainly want to present some of the wonderful artists we have in our vicinity",
+      "link": "Read more about this"
+    },
+    "sushi": {
+      "title": "Sush evening",
+      "sub": "Modern Fish",
+      "desc": "People are becoming more and more interested in food, which is why we try to offer various events where food is the main focus. Examples are Sushi evenings, game night, gourmet/taste evenings, steak evening and so on. We also take requests.",
+      "link": "Read more about this"
+    },
+    "private": {
+      "title": "Private arrangementer",
+      "sub": "We are happy to arrange your event",
+      "desc": "We really appreciate being able to organize your day, whether it's a day for cheerful gatherings or something else. We have experiences with birthday anniversaries, birthdays, weddings, funerals, confirmations, reunions and so on.",
+      "link": "Read more about this"
+    }
+  },
+  "events-button": "See all events and services",
+  "map1": "Huset Cafe & Motell is a roadside restaurant and motell right by E6 through",
+  "map2": "We aim to serve passing through trafic and tourists as well as beeing an importan public house for our locals.",
+  "map3": "We will allways strive to have a competetive price level on our services.",
+  "catering-heading": "We do Catering",
+  "catering-sub-heading": "For any and all occasions",
+  "catering-text": "Cold buffets, warm buffets, sandwiches or anythin else you might wish",
+  "catering-link": "Read about our catering"
 }
