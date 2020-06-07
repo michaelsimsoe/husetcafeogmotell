@@ -28,7 +28,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           <p>{t('home:landing-text')}</p>
         </div>
         <div className="hero-contact__buttons">
-          <Link className="button" to="/">
+          <Link className="button" to="/kontakt">
             {t('translation:buttons.contact')}
           </Link>
           <a className="button" href="tel:+4775197200">
