@@ -4,6 +4,20 @@ import { HeroComponent } from './hero';
 import consert from './assets/konsert.jpg';
 import pub from './assets/pub.jpg';
 import table from './assets/dekket_bord.jpg';
+import { EventCarousel } from './eventCarousel';
+
+// Images
+import biff from './assets/biff.jpg';
+import biff2 from './assets/biff2.jpg';
+import biff3 from './assets/biff3.jpg';
+import sushi from './assets/sushi.jpg';
+import sushi2 from './assets/sushi2.png';
+import sushi3 from './assets/sushi3.jpg';
+import sushi4 from './assets/sushi4.jpg';
+import sushi5 from './assets/sushi5.jpg';
+import viltaften from './assets/viltaften.jpg';
+import viltaften2 from './assets/viltaften2.jpg';
+import viltaften3 from './assets/viltaften3.jpg';
 
 export const Events: React.FunctionComponent = () => {
   return (
@@ -68,7 +82,48 @@ export const Events: React.FunctionComponent = () => {
           </div>
         </div>
       </section>
-      <section className="events-special"></section>
+      <section className="events-special">
+        <h2 className="section-heading">Spesielle Arrangementer</h2>
+        <div className="events__container">
+          <figure className="event__image">
+            <EventCarousel images={[sushi, sushi2, sushi3, sushi4, sushi5]} />
+          </figure>
+          <div className="info-container">
+            <h3>Sushiaften</h3>
+            <p>
+              Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby
+              ulike arrangementer der mat er hovedfokus, det kan f.eks være
+              Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.
+            </p>
+          </div>
+        </div>
+        <div className="events__container">
+          <figure className="event__image">
+            <EventCarousel images={[biff, biff2, biff3]} />
+          </figure>
+          <div className="info-container">
+            <h3>Biffaften</h3>
+            <p>
+              Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby
+              ulike arrangementer der mat er hovedfokus, det kan f.eks være
+              Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.
+            </p>
+          </div>
+        </div>
+        <div className="events__container">
+          <figure className="event__image">
+            <EventCarousel images={[viltaften, viltaften2, viltaften3]} />
+          </figure>
+          <div className="info-container">
+            <h3>Viltaften</h3>
+            <p>
+              Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby
+              ulike arrangementer der mat er hovedfokus, det kan f.eks være
+              Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.
+            </p>
+          </div>
+        </div>
+      </section>
       <section className="events-services"></section>
     </div>
   );
