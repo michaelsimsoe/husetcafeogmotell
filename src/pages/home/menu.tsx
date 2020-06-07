@@ -10,9 +10,9 @@ import pizzaImage from './assets/pizza.png';
 
 export const HomeMenu: React.FunctionComponent = () => {
   const [ref1, inView1] = useInView();
-  // const [ref2, inView2] = useInView({ triggerOnce: true });
-  // const [ref3, inView3] = useInView({ triggerOnce: true });
-  // const [ref4, inView4] = useInView({ triggerOnce: true });
+  const [ref2, inView2] = useInView({ triggerOnce: true });
+  const [ref3, inView3] = useInView({ triggerOnce: true });
+  const [ref4, inView4] = useInView({ triggerOnce: true });
   const { t } = useTranslation(['translation', 'home']);
 
   const moveHighLightRight = useSpring({
@@ -20,6 +20,30 @@ export const HomeMenu: React.FunctionComponent = () => {
   });
   const spinDishIn = useSpring({
     transform: inView1 ? 'rotate(360deg)' : 'rotate(0deg)',
+    transformOrigin: 'center center',
+  });
+
+  const moveHighLightRight2 = useSpring({
+    transform: inView2 ? 'translateX(0px)' : 'translateX(-200px)',
+  });
+  const spinDishIn2 = useSpring({
+    transform: inView2 ? 'rotate(360deg)' : 'rotate(0deg)',
+    transformOrigin: 'center center',
+  });
+
+  const moveHighLightRight3 = useSpring({
+    transform: inView3 ? 'translateX(0px)' : 'translateX(-200px)',
+  });
+  const spinDishIn3 = useSpring({
+    transform: inView3 ? 'rotate(360deg)' : 'rotate(0deg)',
+    transformOrigin: 'center center',
+  });
+
+  const moveHighLightRight4 = useSpring({
+    transform: inView4 ? 'translateX(0px)' : 'translateX(-200px)',
+  });
+  const spinDishIn4 = useSpring({
+    transform: inView4 ? 'rotate(360deg)' : 'rotate(0deg)',
     transformOrigin: 'center center',
   });
 
@@ -38,59 +62,69 @@ export const HomeMenu: React.FunctionComponent = () => {
         ></animated.div>
         <animated.img style={spinDishIn} src={pizzaImage} alt="pizza" />
         <div className="home-menu__item-text">
-          <h3>Husmannskost</h3>
-          <p>
-            Vi er stolte over å ha et varierende tilbud av typisk norsk
-            hjemmelaget kost
-          </p>
+          <h3>{t('home:menu-subs.traditional.name')}</h3>
+          <p>{t('home:menu-subs.traditional.desc')}</p>
           <Link className="cta-link" to="/">
-            Husmannskost
+            {t('home:menu-subs.traditional.link')}
           </Link>
         </div>
       </animated.section>
-      <section className="home-menu__item home-menu__item--right">
-        <div className="home-menu__small-circle home-menu__small-circle--right"></div>
-        <img src={pizzaImage} alt="pizza" />
+      <animated.section
+        style={moveHighLightRight2}
+        ref={ref2}
+        className="home-menu__item home-menu__item--right"
+      >
+        <animated.div
+          className="home-menu__small-circle home-menu__small-circle--right"
+          style={moveHighLightRight2}
+        ></animated.div>
+        <animated.img style={spinDishIn2} src={pizzaImage} alt="pizza" />
         <div className="home-menu__item-text">
-          <h3>Pizza</h3>
-          <p>
-            Vi har <em>kanskje</em> Norges beste pizza.
-          </p>
+          <h3>{t('home:menu-subs.pizza.name')}</h3>
+          <p>{t('home:menu-subs.pizza.desc')}</p>
           <Link className="cta-link" to="/">
-            Pizzamenyen
+            {t('home:menu-subs.pizza.link')}
           </Link>
         </div>
-      </section>
-      <section className="home-menu__item">
-        <div className="home-menu__small-circle"></div>
-        <img src={pizzaImage} alt="pizza" />
+      </animated.section>
+      <animated.section
+        ref={ref3}
+        style={moveHighLightRight3}
+        className="home-menu__item"
+      >
+        <animated.div
+          style={moveHighLightRight3}
+          className="home-menu__small-circle"
+        ></animated.div>
+        <animated.img style={spinDishIn3} src={pizzaImage} alt="pizza" />
         <div className="home-menu__item-text">
-          <h3>Kjøtt og Kebab</h3>
-          <p>
-            Vi har et godt utvalg av kjøtt og flere typer kebaber, både
-            tradisjonelle og de mer lokalt tilpassede variantene..
-          </p>
+          <h3>{t('home:menu-subs.meat.name')}</h3>
+          <p>{t('home:menu-subs.meat.desc')}</p>
           <Link className="cta-link" to="/">
-            Kjøtt
+            {t('home:menu-subs.meat.link')}
           </Link>
         </div>
-      </section>
-      <section className="home-menu__item home-menu__item--right">
-        <div className="home-menu__small-circle home-menu__small-circle--right"></div>
-        <img src={pizzaImage} alt="pizza" />
+      </animated.section>
+      <animated.section
+        ref={ref4}
+        style={moveHighLightRight4}
+        className="home-menu__item home-menu__item--right"
+      >
+        <animated.div
+          style={moveHighLightRight4}
+          className="home-menu__small-circle home-menu__small-circle--right"
+        ></animated.div>
+        <animated.img style={spinDishIn4} src={pizzaImage} alt="pizza" />
         <div className="home-menu__item-text">
-          <h3>Barnemeny</h3>
-          <p>
-            Vi har en fin barnemeny og tilbyr mindre porsjoner av de fleste
-            rettene vi har.
-          </p>
+          <h3>{t('home:menu-subs.child.name')}</h3>
+          <p>{t('home:menu-subs.child.desc')}</p>
           <Link className="cta-link" to="/">
-            Barnemeny
+            {t('home:menu-subs.child.link')}
           </Link>
         </div>
-      </section>
+      </animated.section>
       <Link className="button button-padded" to="/meny">
-        Se maten vi lager
+        {t('home:menu-cta')}
       </Link>
     </section>
   );

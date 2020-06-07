@@ -36,16 +36,17 @@ export const HomeEvents: React.FunctionComponent = () => {
           <img src={nightClub} alt="" />
         </figure>
         <div className="event__content">
-          <h3 className="event__heading">Konserter, bar og nattklubb</h3>
-          <h4 className="event__sub-heading">Det er viktig å ha det gøy</h4>
+          <h3 className="event__heading">
+            {t('home:events-subs.night.title')}
+          </h3>
+          <h4 className="event__sub-heading">
+            {t('home:events-subs.night.sub')}
+          </h4>
           <p className="event__description">
-            Huset Cafe arrangerer ofte kvelder med fin musikk, det kan være
-            typiske restaurant/nattklubb med dans og bar, men også små intime
-            konserter der vi i all hovedsak har ønsker om å presentere noen av
-            de fantastiske kunstnere vi har i vår nærhet.
+            {t('home:events-subs.night.desc')}
           </p>
           <Link to="/" className="cta-link event__link">
-            Les mer om dette
+            {t('home:events-subs.night.link')}
           </Link>
         </div>
       </animated.section>
@@ -58,15 +59,17 @@ export const HomeEvents: React.FunctionComponent = () => {
           <img src={sushiPlate} alt="" />
         </figure>
         <div className="event__content">
-          <h3 className="event__heading">Sushikveld</h3>
-          <h4 className="event__sub-heading">Moderne fisk</h4>
+          <h3 className="event__heading">
+            {t('home:events-subs.sushi.title')}
+          </h3>
+          <h4 className="event__sub-heading">
+            {t('home:events-subs.sushi.sub')}
+          </h4>
           <p className="event__description">
-            Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby ulike
-            arrangementer der mat er hovedfokus, det kan f.eks være Sushiaften,
-            viltaften, gourmet/smakskvelder biffaften osv.
+            {t('home:events-subs.sushi.desc')}
           </p>
           <Link to="/" className="cta-link event__link">
-            Les mer om dette
+            {t('home:events-subs.sushi.link')}
           </Link>
         </div>
       </animated.section>
@@ -79,18 +82,17 @@ export const HomeEvents: React.FunctionComponent = () => {
           <img src={privateEvent} alt="" />
         </figure>
         <div className="event__content">
-          <h3 className="event__heading">Private arrangementer</h3>
+          <h3 className="event__heading">
+            {t('home:events-subs.private.title')}
+          </h3>
           <h4 className="event__sub-heading">
-            Vi legger gjerne til rette for arrengementet deres
+            {t('home:events-subs.private.sub')}
           </h4>
           <p className="event__description">
-            Vi setter stor pris på det å kunne tilrettelegge for dagen deres,
-            enten det er en dag for lystige lag eller noe annet. Vi har
-            erfaringer med bursdagsjubileer, barndåper, bryllup,
-            begravelsesfester, konfirmasjoner, gjenforeningsfester og så videre.
+            {t('home:events-subs.private.desc')}
           </p>
           <Link to="/" className="cta-link event__link">
-            Les mer om dette
+            {t('home:events-subs.private.link')}
           </Link>
         </div>
       </animated.section>

@@ -33,17 +33,11 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
           <MapLocation />
           <div>
             <p>
-              Huset Cafe & Motell er en veikro som ligger tett inntil E6 gjennom{' '}
+              {t('home:map1')}{' '}
               <a href="https://no.wikipedia.org/wiki/Hemnes">Hemnes Kommune.</a>
             </p>
-            <p>
-              Vi har som formål å tjene veifarende og turister, samt at vi er et
-              viktig samlingspunkt for lokalbefolkningen.
-            </p>
-            <p>
-              Vi vil alltid prøve å ha et prisnivå på våre tjenester som er
-              konkurransedyktige og attraktive
-            </p>
+            <p>{t('home:map2')}</p>
+            <p>{t('home:map3')}</p>
           </div>
         </section>
         <section className="home-section home-rooms">
@@ -54,16 +48,16 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
             </figure>
             <div className="home-rooms__content">
               <h3 className="section-sub-heading home-rooms__sub-heading">
-                Rimelige og Komfortable rom
+                {t('home:rooms-sub-title')}
               </h3>
-              <p>Vi har 8 rom tilgjengelig. Frokost er inkludert i prisen.</p>
+              <p>{t('home:rooms-information')}</p>
               <ul>
-                <li>Enkeltrom 890,-</li>
-                <li>Dobbeltrom 1130,-</li>
+                <li>{t('home:rooms-single')} 890,-</li>
+                <li>{t('home:rooms-double')} 1130,-</li>
               </ul>
               <div className="home-rooms__buttons">
                 <Link className="button button-padded" to="/kontakt">
-                  Kontakt oss
+                  {t('translation:buttons.contact')}
                 </Link>
                 <div>
                   <Link className="cta-link home-rooms__link" to="/overnatting">
@@ -97,7 +91,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
         </section>
         <HomeEvents />
         <section className="home-section full-width">
-          <h2 className="section-heading">Vi tilbyr catering</h2>
+          <h2 className="section-heading">{t('home:catering-heading')}</h2>
           <div className="full-width__container">
             <figure className="full-width__figure">
               <div className="img__overlay"></div>
@@ -105,11 +99,11 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
             </figure>
             <div className="full-width__content">
               <h3 className="section-sub-heading section-sub-heading--white">
-                For enhver anledning
+                {t('home:catering-sub-heading')}
               </h3>
-              <p>Koldtbort, varmat, snitter eller det du måtte ønske</p>
-              <Link className="cta-link" to="/meny#kaker">
-                Les om cateringmulighetene
+              <p>{t('home:catering-text')}</p>
+              <Link className="cta-link" to="/meny#catering">
+                {t('home:catering-link')}
               </Link>
             </div>
           </div>

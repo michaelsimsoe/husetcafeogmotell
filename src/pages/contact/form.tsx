@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -10,20 +11,14 @@ const encode = (data) => {
 };
 
 const schema = yup.object().shape({
-  contactName: yup.string().required('⚠ Please tell us you name'),
-  contactEmail: yup
-    .string()
-    .email("⚠ This email address doesn't look right.")
-    .required('⚠ Email is required'),
-  contactMessage: yup
-    .string()
-    .min(
-      3,
-      '⚠ There must be something you want to say? What about a simple "hi"?'
-    ),
+  contactName: yup.string().required(),
+  contactEmail: yup.string().email(),
+  contactPhone: yup.string().notRequired(),
+  contactMessage: yup.string().min(3),
 });
 
 export const ContactForm: React.FunctionComponent = () => {
+  const { t } = useTranslation(['translation', 'contact']);
   const [formData, setFormData] = useState(null);
   const { register, handleSubmit, errors } = useForm({
     validationSchema: schema,
@@ -35,24 +30,26 @@ export const ContactForm: React.FunctionComponent = () => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({ 'form-name': 'contact', ...data }),
     })
-      .then(() => alert('Success!'))
-      .catch((error) => alert(error));
+      .then(() => console.log('Message sent'))
+      .catch((error) => console.log(error));
   };
 
   if (formData) {
     return (
-      <section className="">
-        <h3>Thank you, {formData.contactName}!</h3>
-        <p>We'll give you a shout ASAP!</p>
+      <section className="contact__fedback">
+        <h3>
+          {t('contact:feedback-thank')}, {formData.contactName}!
+        </h3>
+        <p>{t('contact:feedback')}</p>
       </section>
     );
   }
   return (
     <section className="contact-form">
       <h4>
-        Send oss gjerne en e-post til{' '}
+        {t('contact:contact-email1')}{' '}
         <a href="mailto:kontakt@husetmotell.no">kontakt@husetmotell.no</a>.
-        Eller benytt deg av skjemaet under.
+        {t('contact:contact-email2')}
       </h4>
       <form
         className="contact-form__form"
@@ -60,64 +57,74 @@ export const ContactForm: React.FunctionComponent = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="contact-form__form-group">
-          <label htmlFor="contactName">Navn</label>
+          <label htmlFor="contactName">{t('contact:field-name')}</label>
           <input
             name="contactName"
             type="text"
-            className=""
+            className={
+              errors.contactName
+                ? 'contact-form__field contact-form__field--error'
+                : 'contact-form__field'
+            }
             id="contactName"
             ref={register}
           />
           {errors.contactName && (
-            <span id="contact-name-message">{errors.contactName.message}</span>
+            <span id="contact-name-message">
+              <span>⚠ </span>
+              {t('contact:error-name')}
+            </span>
           )}
         </div>
         <div className="contact-form__form-group">
-          <p>Hvordan vil du vi skal komme tilbake til deg?</p>
-          <label htmlFor="contactEmail">E-post</label>
+          <p>{t('contact:contact-back')}</p>
+          <label htmlFor="contactEmail">{t('contact:field-email')}</label>
           <input
             name="contactEmail"
             type="email"
-            className=""
+            className={
+              errors.contactEmail
+                ? 'contact-form__field contact-form__field--error'
+                : 'contact-form__field'
+            }
             id="contactEmail"
             ref={register}
           />
-          {errors.contactEmail && (
-            <span id="contact-email-message">
-              {errors.contactEmail.message}
-            </span>
-          )}
-          <label htmlFor="contactPhone">Telefon</label>
+          <label htmlFor="contactPhone">{t('contact:field-phone')}</label>
           <input
-            name="contactEmail"
+            name="contactPhone"
             type="tel"
-            className=""
+            className={
+              errors.contactPhone
+                ? 'contact-form__field contact-form__field--error'
+                : 'contact-form__field'
+            }
             id="contactPhone"
             ref={register}
           />
-          {errors.contactPhone && (
-            <span id="contact-email-message">
-              {errors.contactPhone.message}
-            </span>
-          )}
         </div>
         <div className="contact-form__form-group">
-          <label htmlFor="contactMessage">Melding</label>
+          <label htmlFor="contactMessage">{t('contact:field-message')}</label>
           <textarea
             name="contactMessage"
-            className=""
+            className={
+              errors.contactMessage
+                ? 'contact-form__field contact-form__field--error'
+                : 'contact-form__field'
+            }
             id="contactMessage"
             ref={register}
             rows={4}
           ></textarea>
           {errors.contactMessage && (
             <span id="contact-message-message">
-              {errors.contactMessage.message}
+              <span>⚠ </span>
+              {t('contact:error-message')}
             </span>
           )}
         </div>
         <button id="contact-submit" type="submit" className="button">
-          Send Melding
+          {t('contact:form-button')}
         </button>
       </form>
     </section>

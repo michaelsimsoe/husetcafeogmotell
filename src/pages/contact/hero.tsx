@@ -10,31 +10,20 @@ const svgStyle = {
 };
 
 export const HeroComponent: React.FunctionComponent = () => {
-  const { t } = useTranslation(['translation', 'home']);
+  const { t } = useTranslation(['translation', 'contact']);
   return (
     <section className="hero contact-hero">
       <div className="hero-img-large"></div>
       <div className="hero-img-mobile">
         <div className="hero__header">
-          <h1>Kontakt oss</h1>
+          <h1>{t('contact:landing-heading')}</h1>
         </div>
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">
-          <p>
-            We would love it if you come by us for a stay, for dinner or just
-            for a coffee and some snacks.
-          </p>
-          <p>
-            If there is anything you are wondering about, please do not hesitate
-            to get in touch with us, By phone, through our Facebook page, the
-            contact form below or in person.
-          </p>
-          <p>
-            Are you wondering about accommodations? The possibility of a special
-            event or maybe a dinner party? The recipe for our delicious
-            kanelbolle? Let’s have a talk?
-          </p>
+          <p>{t('contact:landing-text1')}</p>
+          <p>{t('contact:landing-text2')}</p>
+          <p>{t('contact:landing-text3')}</p>
         </div>
         <div className="hero-contact__buttons">
           <a className="button" href="tel:+4775197200">

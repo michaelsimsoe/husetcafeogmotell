@@ -28,5 +28,18 @@
     p {
       margin-bottom: 1rem;
     }
+
+    span {
+      color: $error-color;
+      &:first-child {
+        color: #f1c40f;
+      }
+    }
+  }
+
+  &__field {
+    &--error {
+      border: $error-color 2px dashed;
+    }
   }
 }
