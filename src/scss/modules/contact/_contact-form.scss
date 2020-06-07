@@ -1,0 +1,32 @@
+.contact-form {
+  h4 {
+    margin: 2rem $main-margin-mobile;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    border: $font-color 1px solid;
+    color: $font-color;
+    margin: 0 $main-margin-mobile;
+    margin-bottom: 3rem;
+    padding: 0.5rem;
+  }
+
+  .button {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    background: none;
+    width: 100%;
+  }
+
+  &__form-group {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+}
