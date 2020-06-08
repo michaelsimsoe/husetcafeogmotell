@@ -1,8 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-import family_dinner from './assets/hero.jpg';
+import { Image } from 'cloudinary-react';
 
 export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'menu']);
@@ -16,7 +15,11 @@ export const HeroComponent: React.FunctionComponent = () => {
           <h1>Restaurant</h1>
           <h4>{t('menu:serve')}</h4>
         </div>
-        <img src={family_dinner} alt="family eating dinner" />
+        <Image
+          cloudName="huset-cafe-og-motell"
+          publicId="menu/hero_unxbsa"
+          crop="scale"
+        />
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">
