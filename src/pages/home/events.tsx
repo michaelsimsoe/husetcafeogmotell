@@ -3,11 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-
-// Images
-import nightClub from './assets/nattklubb.jpg';
-import sushiPlate from './assets/sushi-fat.jpg';
-import privateEvent from './assets/privatfest.jpg';
+import { Image } from 'cloudinary-react';
 
 export const HomeEvents: React.FunctionComponent = () => {
   const [ref1, inView1] = useInView({ triggerOnce: true });
@@ -33,7 +29,11 @@ export const HomeEvents: React.FunctionComponent = () => {
         style={animation_style1}
       >
         <figure className="event__image">
-          <img src={nightClub} alt="" />
+          <Image
+            cloudName="huset-cafe-og-motell"
+            publicId="home/nattklubb_w0alyv"
+            crop="scale"
+          />
         </figure>
         <div className="event__content">
           <h3 className="event__heading">
@@ -56,7 +56,11 @@ export const HomeEvents: React.FunctionComponent = () => {
         style={animation_style2}
       >
         <figure className="event__image">
-          <img src={sushiPlate} alt="" />
+          <Image
+            cloudName="huset-cafe-og-motell"
+            publicId="home/sushi-fat_c40e6p"
+            crop="scale"
+          />
         </figure>
         <div className="event__content">
           <h3 className="event__heading">
@@ -79,7 +83,11 @@ export const HomeEvents: React.FunctionComponent = () => {
         style={animation_style3}
       >
         <figure className="event__image">
-          <img src={privateEvent} alt="" />
+          <Image
+            cloudName="huset-cafe-og-motell"
+            publicId="home/privatfest_o9sext"
+            crop="scale"
+          />
         </figure>
         <div className="event__content">
           <h3 className="event__heading">

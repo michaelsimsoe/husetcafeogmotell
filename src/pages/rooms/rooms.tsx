@@ -1,143 +1,125 @@
 import React from 'react';
-
-import room_one from './assets/rom_en.jpg';
-// import room_two from './assets/rom_to.jpg';
-import frokost_placeholder from './assets/frokost-placeholder.jpg';
+import { useTranslation } from 'react-i18next';
+import { Image } from 'cloudinary-react';
 
 export const RoomsContainer: React.FunctionComponent = () => {
+  const { t } = useTranslation(['translation', 'rooms']);
   return (
     <section className="rooms-info">
       <section className="rooms-intro">
-        <h2 className="section-heading">Rommene våre</h2>
+        <h2 className="section-heading">{t('rooms:rooms-section')}</h2>
         <div className="rooms-intro__container">
           <div className="rooms-intro__images">
             <figure className="image-carousel">
-              <img src={room_one} alt="" />
+              <Image
+                cloudName="huset-cafe-og-motell"
+                publicId="rooms/skrivebord"
+                crop="scale"
+              />
             </figure>
           </div>
           <div className="rooms-intro__info">
             <div className="info-container">
-              <h3>Koselige rom</h3>
-              <p>
-                Vi tilbyr rene og gode senger, med sengeklær og håndlær klar til
-                deg. Rommene er utstyr med TV.
-              </p>
+              <h3>{t('rooms:rooms-cozy')}</h3>
+              <p>{t('rooms:rooms-cozy-text')}</p>
             </div>
             <div className="info-container">
-              <h3>Rene bad</h3>
-              <p>Rene og pene bad til deg som er på farten.</p>
+              <h3>{t('rooms:rooms-bath')}</h3>
+              <p>{t('rooms:rooms-bath-text')}</p>
             </div>
             <div className="info-container">
-              <h3>Ditt hjem på veien</h3>
-              <p>
-                Det er ingen steder som hjemme, det vet vi, men vi prøver så
-                godt vi kan. Hos oss kan du slappe av.
-              </p>
+              <h3>{t('rooms:rooms-home')}</h3>
+              <p>{t('rooms:rooms-home-text')}</p>
             </div>
           </div>
         </div>
       </section>
       <section className="rooms double-rooms">
-        <h2 className="section-heading">Dobbeltrom</h2>
+        <h2 className="section-heading">{t('rooms:double')}</h2>
         <div className="double-rooms__container">
           <figure className="double-rooms__image">
-            <img src={room_one} alt="" />
+            <Image
+              cloudName="huset-cafe-og-motell"
+              publicId="rooms/rom_to_rvkgac"
+              crop="scale"
+            />
           </figure>
           <div className="info-container">
-            <h3>Den riktige størrelsen</h3>
-            <p>
-              Det er ingen steder som hjemme, det vet vi, men vi prøver så godt
-              vi kan. Hos oss kan du slappe av.
-            </p>
+            <h3>{t('rooms:double-size')}</h3>
+            <p>{t('rooms:double-text')}</p>
             <div className="info-container__price">
-              <p>Pris 1130,- NOK per natt</p>
-              <p>Inkludert frokost</p>
+              <p>{t('rooms:double-price')}</p>
+              <p>{t('rooms:double-breakfast')}</p>
             </div>
           </div>
         </div>
       </section>
       <section className="rooms single-rooms">
-        <h2 className="section-heading">Enkeltrom</h2>
+        <h2 className="section-heading">{t('rooms:single')}</h2>
         <div className="single-rooms__container">
           <figure className="single-rooms__image">
-            <img src={room_one} alt="" />
+            <Image
+              cloudName="huset-cafe-og-motell"
+              publicId="rooms/rom_en_x0nqo8"
+              crop="scale"
+            />
           </figure>
           <div className="info-container">
-            <h3>Den riktige størrelsen</h3>
-            <p>
-              Det er ingen steder som hjemme, det vet vi, men vi prøver så godt
-              vi kan. Hos oss kan du slappe av.
-            </p>
+            <h3>{t('rooms:single-size')}</h3>
+            <p>{t('rooms:single-text')}</p>
             <div className="info-container__price">
-              <p>Pris 890,- NOK per natt</p>
-              <p>Inkludert frokost</p>
+              <p>{t('rooms:single-price')}</p>
+              <p>{t('rooms:single-breakfast')}</p>
             </div>
           </div>
         </div>
       </section>
       <section className="rooms breakfast full-width">
-        <h2 className="section-heading">Frokost</h2>
+        <h2 className="section-heading">{t('rooms:breakfast')}</h2>
         <div className="full-width__container">
           <figure className="full-width__figure">
             <div className="img__overlay"></div>
-            <img src={frokost_placeholder} alt="frokost buffet" />
+            <Image
+              cloudName="huset-cafe-og-motell"
+              publicId="rooms/frokost-placeholder_i0cxli"
+            />
           </figure>
           <div className="full-width__content">
-            <h3>Vi tilbyr en selvbetjent frokost</h3>
-            <p>
-              Vi har et dedikert frokostrom til gjestene våre hvor vi tilbyr en
-              tradisjonell norsk frokost til gjestene våre.
-            </p>
+            <h3>{t('rooms:breakfast-sub')}</h3>
+            <p>{t('rooms:breakfast-text')}</p>
           </div>
         </div>
       </section>
       <section className="rooms information">
         <div className="info-container">
-          <h3>Huset Café og Motell</h3>
-          <p>
-            Vi har en behagelig cafe og restaurant hvor vi serverer både lunsj,
-            middag, kos eller bare en kopp kaffe. Det er selvfølgelig også
-            servering utendørs.
-          </p>
+          <h3>Huset Café & Motell</h3>
+          <p>{t('rooms:house-text')}</p>
         </div>
         <div className="info-container">
-          <h3>Husreglene</h3>
-          <p>
-            Vi tar imot betalingen for rom når du ankommer, med mindre annet er
-            avtalt.{' '}
-          </p>
-          <p>
-            Tidligste tidspunkt for innsjekk er klokken 14:00. Kommer du sent
-            skal vi finne en løsning på det.
-          </p>
-          <p>Vi har utsjekk klokken 12:00</p>
+          <h3>{t('rooms:house-rules')}</h3>
+          <p>{t('rooms:house-rules-text1')}</p>
+          <p>{t('rooms:house-rules-text2')}</p>
+          <p>{t('rooms:house-rules-text3')}</p>
         </div>
         <div className="info-container info-container__area">
-          <h3>Området rundt</h3>
-          <p>Huset Café og Motell ligger i det som blir Korgen Sentrum.</p>
-          <h4>Korgensenteret</h4>
-          <p>
-            Vi har et koselig kjøpesenter rett ved siden av oss. Her får tak i
-            det meste du trenger, fra dagligvarer, apotek og vinmonopol til en
-            hårklipp.
-          </p>
+          <h3>{t('rooms:surroundings')}</h3>
+          <p>{t('rooms:surroundings-text')}</p>
+          <h4>{t('rooms:center')}</h4>
+          <p>{t('rooms:center-text')}</p>
           <a href="https://www.facebook.com/pages/category/Shopping---Retail/Korgensenteret-808018572706977/">
-            Korgensenteret på Facebook
+            {t('rooms:center-link')}
           </a>
-          <h4>Bensinstasjon</h4>
-          <p>Rett over veien har vi Circle K Korgen</p>
+          <h4>{t('rooms:gas')}</h4>
+          <p>{t('rooms:gas-text')}</p>
           <a href="https://www.facebook.com/circlekkorgen/posts/309648532524260/">
-            Circke K Korgen på Facebook
+            {t('rooms:gas-link')}
           </a>
-          <h4>Hemnes Kommune og Helgeland</h4>
-          <p>Vi har en flott kommune med mye spennende å by på.</p>
-          <a href="https://www.hemnes.kommune.no/">Hemnes Kommune</a>
-          <h4>Okstindan natur- og kulturpark</h4>
-          <p>
-            Nord i kommunen har vi fantastiske Okstindan natur- og kulturpark,
-            med tinder, isbre og den flott Rabothytta.
-          </p>
-          <a href="https://visitokstindan.com/">Visitokstindan.com</a>
+          <h4>{t('rooms:mun')}</h4>
+          <p>{t('rooms:mun-text')}</p>
+          <a href="https://www.hemnes.kommune.no/">{t('rooms:mun-link')}</a>
+          <h4>{t('rooms:oks')}</h4>
+          <p>{t('rooms:oks-text')}</p>
+          <a href="https://visitokstindan.com/">{t('rooms:oks-link')}</a>
         </div>
       </section>
     </section>

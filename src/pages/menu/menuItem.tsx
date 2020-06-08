@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface MenuItemProps {
   item: {
@@ -10,6 +11,7 @@ interface MenuItemProps {
 }
 
 export const MenuItem: React.FunctionComponent<MenuItemProps> = ({ item }) => {
+  const { t } = useTranslation(['translation', 'menu']);
   return (
     <div className="menu-item">
       <header className="menu-item__header">
@@ -18,7 +20,8 @@ export const MenuItem: React.FunctionComponent<MenuItemProps> = ({ item }) => {
       </header>
       <p className="menu-item__description">{item.description.no}</p>
       <p className="menu-item__allergens">
-        <span>Allergener:</span> {item.allergenes.no.map((a) => `${a} `)}
+        <span>{t('menu:allergenes')}:</span>{' '}
+        {item.allergenes.no.map((a) => `${a} `)}
       </p>
     </div>
   );

@@ -1,11 +1,11 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import family_dinner from './assets/hero.jpg';
 
 export const HeroComponent: React.FunctionComponent = () => {
-  // const { t } = useTranslation(['translation', 'home']);
+  const { t } = useTranslation(['translation', 'menu']);
   return (
     <section className="hero menu-hero">
       <div className="hero-img-large"></div>
@@ -14,20 +14,17 @@ export const HeroComponent: React.FunctionComponent = () => {
         <div className="hero__header">
           <h3>Huset Café & Motell</h3>
           <h1>Restaurant</h1>
-          <h4>Maten vi serverer</h4>
+          <h4>{t('menu:serve')}</h4>
         </div>
         <img src={family_dinner} alt="family eating dinner" />
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">
-          <p>
-            At Huset Café & Motell we serve a verity of dishes where the
-            traditional Norwegian Cooking is our speciality.
-          </p>
-          <p>We also take pride in our splendid Pizza.</p>
+          <p>{t('menu:serve-text1')}</p>
+          <p>{t('menu:serve-text2')}</p>
         </div>
         <div className="hero-contact__location-hint">
-          <p>Se menyen</p>
+          <p>{t('menu:see')}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="165.96"

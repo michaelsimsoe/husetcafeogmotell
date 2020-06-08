@@ -2,13 +2,14 @@
   &__mobile {
     padding: 0 37px;
     width: 100vw;
-    height: 100vh;
+    height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #febb00;
-    & p {
+    & .button {
       color: #003580;
+      border-color: #003580;
       font-size: 2rem;
     }
   }

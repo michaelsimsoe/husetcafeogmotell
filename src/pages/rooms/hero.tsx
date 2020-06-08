@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-import panorama_room from './assets/rom_bredt.jpg';
+import { Image } from 'cloudinary-react';
 
 const svgStyle = {
   fill: '#081214',
@@ -12,7 +11,7 @@ const svgStyle = {
 };
 
 export const HeroComponent: React.FunctionComponent = () => {
-  const { t } = useTranslation(['translation', 'home']);
+  const { t } = useTranslation(['translation', 'rooms']);
   return (
     <section className="hero rooms-hero">
       <div className="hero-img-large"></div>
@@ -20,15 +19,19 @@ export const HeroComponent: React.FunctionComponent = () => {
         <div className="hero-img__overlay"></div>
         <div className="hero__header">
           <h3>Huset Café & Motell</h3>
-          <h1>Overnatting</h1>
-          <h4>Frokost inkludert, så klart</h4>
+          <h1>{t('rooms:heading')}</h1>
+          <h4>{t('rooms:sub-heading')}</h4>
         </div>
-        <img src={panorama_room} alt="Panorama av rom" />
+        <Image
+          cloudName="huset-cafe-og-motell"
+          publicId="rooms/rom_bredt_rjpinu"
+          crop="scale"
+        />
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">
-          <h2 className="section-heading">Ta kontakt</h2>
-          <p>Vi kan til og med gi deg tips hvis vi selv er fullbooket.</p>
+          <h2 className="section-heading">{t('rooms:contact-heading')}</h2>
+          <p>{t('rooms:contact-text')}</p>
         </div>
         <div className="hero-contact__buttons">
           <Link className="button" to="/kontakt">
@@ -72,7 +75,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           </a>
         </div>
         <div className="hero-contact__location-hint">
-          <p>Eller book online</p>
+          <p>{t('rooms:book-online')}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="165.96"

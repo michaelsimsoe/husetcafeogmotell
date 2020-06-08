@@ -1,130 +1,126 @@
 import React from 'react';
-import { HeroComponent } from './hero';
+import { useTranslation } from 'react-i18next';
+import { Image } from 'cloudinary-react';
 
-import consert from './assets/konsert.jpg';
-import pub from './assets/pub.jpg';
-import table from './assets/dekket_bord.jpg';
+import { HeroComponent } from './hero';
 import { EventCarousel } from './eventCarousel';
 
-// Images
-import biff from './assets/biff.jpg';
-import biff2 from './assets/biff2.jpg';
-import biff3 from './assets/biff3.jpg';
-import sushi from './assets/sushi.jpg';
-import sushi2 from './assets/sushi2.png';
-import sushi3 from './assets/sushi3.jpg';
-import sushi4 from './assets/sushi4.jpg';
-import sushi5 from './assets/sushi5.jpg';
-import viltaften from './assets/viltaften.jpg';
-import viltaften2 from './assets/viltaften2.jpg';
-import viltaften3 from './assets/viltaften3.jpg';
-
 export const Events: React.FunctionComponent = () => {
+  const { t } = useTranslation(['translation', 'events']);
   return (
     <div className="events">
       <HeroComponent />
       <section className="events-events">
-        <h2 className="section-heading">Arrangementer</h2>
+        <h2 className="section-heading">{t('events:events')}</h2>
         <div className="events__container">
           <figure className="single-rooms__image">
-            <img src={consert} alt="" />
+            <Image
+              cloudName="huset-cafe-og-motell"
+              publicId="events/konsert_imlgki"
+              crop="scale"
+            />
           </figure>
           <div className="info-container">
-            <h3>Konserter</h3>
-            <p>
-              Vi setter virkelig pris på det lokale talentet som befinner seg i
-              kommunen og omegn, spesielt når de kommer og spiller for oss. Vi
-              liker konserter, spesielt de litt mindre og intime.
-            </p>
-            <p>
-              Følge med på facebookgruppen vår for mer informasjon om de neste
-              arrangementene.
-            </p>
+            <h3>{t('events:concert')}</h3>
+            <p>{t('events:concert-text')}</p>
+            <p>{t('events:concert-fb')}</p>
             <a href="https://www.facebook.com/Husetcafe">
-              Huset Café og Motell på facebook
+              {t('events:concert-link')}
             </a>
           </div>
         </div>
         <div className="events__container">
           <figure className="single-rooms__image">
-            <img src={pub} alt="" />
+            <Image
+              cloudName="huset-cafe-og-motell"
+              publicId="events/pub_zfwx70"
+              crop="scale"
+            />
           </figure>
           <div className="info-container">
-            <h3>Pub og Nattklubb</h3>
-            <p>
-              Vi har alle behov for å komme oss ut en tur, og noen ganger bør
-              den turen være hit til oss for å treffe folk, høre på litt musikk
-              og lette litt på trykket. Vi kjører regelmessige pub- eller
-              nattklubbkvelder, ofte beriket med en lokal DJ eller en reisende
-              trubadur.
-            </p>
-            <p>
-              Følge med på facebookgruppen vår for mer informasjon om de neste
-              arrangementene.
-            </p>
+            <h3>{t('events:pub')}</h3>
+            <p>{t('events:pub-text')}</p>
+            <p>{t('events:pub-fb')}</p>
             <a href="https://www.facebook.com/Husetcafe">
-              Huset Café og Motell på facebook
+              {t('events:pub-link')}
             </a>
           </div>
         </div>
         <div className="events__container">
           <figure className="single-rooms__image">
-            <img src={table} alt="" />
+            <Image
+              cloudName="huset-cafe-og-motell"
+              publicId="events/dekket_bord_gzaxyh"
+              crop="scale"
+            />
           </figure>
           <div className="info-container">
-            <h3>Søndagsmiddag</h3>
-            <p>
-              Det har vært en lang uke med mange opplevelser. Da trenger du å
-              slappe av og la noen andre ta seg av matlagingen. Kom å ta
-              søndagsmiddagen hos oss. Vi lager noe godt til deg og så tar vi
-              oss av oppvasken slik at du kan bruke dagen til noe annet fint.
-            </p>
+            <h3>{t('events:sunday')}</h3>
+            <p>{t('events:sunday-text')}</p>
           </div>
         </div>
       </section>
       <section className="events-special">
-        <h2 className="section-heading">Spesielle Arrangementer</h2>
+        <h2 className="section-heading">{t('events:special')}</h2>
         <div className="events__container">
           <figure className="event__image">
-            <EventCarousel images={[sushi, sushi2, sushi3, sushi4, sushi5]} />
+            <EventCarousel
+              images={[
+                'sushi_uzlwu6',
+                'sushi2_ve9yk7',
+                'sushi4_nfyp2m',
+                'sushi3_ghh9jf',
+                'sushi5_umfml8',
+              ]}
+            />
           </figure>
           <div className="info-container">
-            <h3>Sushiaften</h3>
-            <p>
-              Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby
-              ulike arrangementer der mat er hovedfokus, det kan f.eks være
-              Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.
-            </p>
+            <h3>{t('events:sushi')}</h3>
+            <p>{t('events:sushi-text')}</p>
           </div>
         </div>
         <div className="events__container">
           <figure className="event__image">
-            <EventCarousel images={[biff, biff2, biff3]} />
+            <EventCarousel
+              images={['biff_bxzcrx', 'biff2_b2ozvi', 'biff3_tbb2yp']}
+            />
           </figure>
           <div className="info-container">
-            <h3>Biffaften</h3>
-            <p>
-              Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby
-              ulike arrangementer der mat er hovedfokus, det kan f.eks være
-              Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.
-            </p>
+            <h3>{t('events:steak')}</h3>
+            <p>{t('events:steak-text')}</p>
           </div>
         </div>
         <div className="events__container">
           <figure className="event__image">
-            <EventCarousel images={[viltaften, viltaften2, viltaften3]} />
+            <EventCarousel
+              images={[
+                'viltaften_nveze4',
+                'viltaften3_js7mmm',
+                'viltaften2_kytp70',
+              ]}
+            />
           </figure>
           <div className="info-container">
-            <h3>Viltaften</h3>
-            <p>
-              Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby
-              ulike arrangementer der mat er hovedfokus, det kan f.eks være
-              Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.
-            </p>
+            <h3>{t('events:game')}</h3>
+            <p>{t('events:game-text')}</p>
           </div>
         </div>
       </section>
-      <section className="events-services"></section>
+      <section className="events-services information">
+        <h2 className="section-heading">{t('events:services')}</h2>
+        <div className="info-container">
+          <h3>{t('events:meet')}</h3>
+          <p>{t('events:meet-text')}</p>
+          <p>{t('events:meet-big')}</p>
+          <p>{t('events:meet-small')}</p>
+        </div>
+        <div className="info-container">
+          <h3>{t('events:premises')}</h3>
+          <p>{t('events:premises-text1')}</p>
+          <p>{t('events:premises-text2')}</p>
+          <p>{t('events:premises-text3')}</p>
+        </div>
+      </section>
     </div>
   );
 };

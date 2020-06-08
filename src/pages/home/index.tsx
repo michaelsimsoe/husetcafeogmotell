@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-
-import twoTimesRooms from './assets/roomsx2.jpg';
-import cakeBuffet from './assets/kaker.jpg';
-import catering from './assets/catering.jpg';
+import { Image } from 'cloudinary-react';
 
 // Components
 import MapLocation from '../../components/map/mapContainer';
@@ -44,7 +41,11 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
           <h2 className="section-heading">{t('home:rooms-title')}</h2>
           <div className="home-rooms__container">
             <figure className="home-rooms__image">
-              <img src={twoTimesRooms} alt="double and single room" />
+              <Image
+                cloudName="huset-cafe-og-motell"
+                publicId="home/roomsx2_hnwqcn"
+                crop="scale"
+              />
             </figure>
             <div className="home-rooms__content">
               <h3 className="section-sub-heading home-rooms__sub-heading">
@@ -74,7 +75,10 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
           <div className="full-width__container">
             <figure className="full-width__figure">
               <div className="img__overlay"></div>
-              <img src={cakeBuffet} alt="cake buffet" />
+              <Image
+                cloudName="huset-cafe-og-motell"
+                publicId="home/kaker_ywopzr"
+              />
             </figure>
             <div className="full-width__content">
               <h3 className="section-sub-heading section-sub-heading--white">
@@ -95,7 +99,10 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
           <div className="full-width__container">
             <figure className="full-width__figure">
               <div className="img__overlay"></div>
-              <img src={catering} alt="catering buffet" />
+              <Image
+                cloudName="huset-cafe-og-motell"
+                publicId="home/catering_lqwtmn"
+              />
             </figure>
             <div className="full-width__content">
               <h3 className="section-sub-heading section-sub-heading--white">

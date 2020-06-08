@@ -10,6 +10,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import './i18n';
+import { ScrollToTop } from './components/scrollToTop';
 LogRocket.init('5dnnsg/huset-cafe-motell');
 Sentry.init({
   dsn:
@@ -25,6 +26,7 @@ ReactDOM.render(
   <Suspense fallback={null}>
     <React.StrictMode>
       <Router>
+        <ScrollToTop />
         <App />
       </Router>
     </React.StrictMode>

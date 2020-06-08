@@ -1,11 +1,10 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-// import { useTranslation } from 'react-i18next';
-
-import dinner_party from './assets/dinner_party.jpg';
+import { useTranslation } from 'react-i18next';
+import { Image } from 'cloudinary-react';
 
 export const HeroComponent: React.FunctionComponent = () => {
-  // const { t } = useTranslation(['translation', 'home']);
+  const { t } = useTranslation(['translation', 'events']);
   return (
     <section className="hero events-hero">
       <div className="hero-img-large"></div>
@@ -14,25 +13,22 @@ export const HeroComponent: React.FunctionComponent = () => {
         <div className="hero__header">
           <h3>Huset Café & Motell</h3>
           <h1>
-            Arrangementer
+            {t('events:heading1')}
             <br />
-            og Tjenester
+            {t('events:heading2')}
           </h1>
-          <h4>Vi har mye å by på</h4>
+          <h4>{t('events:sub-heading')}</h4>
         </div>
-        <img src={dinner_party} alt="group having dinner together" />
+        <Image
+          cloudName="huset-cafe-og-motell"
+          publicId="events/dinner_party_gmyewq"
+          crop="scale"
+        />
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">
-          <p>
-            Huset Café & Motell offers events and services like intimate
-            concerts, full on nightclub evenings, meetings and conferences and
-            various other events.
-          </p>
-          <p>
-            We also take pride in organizing theme nights like sushi evening and
-            wildlife food evenings.
-          </p>
+          <p>{t('events:hero-text1')}</p>
+          <p>{t('events:hero-text2')}</p>
         </div>
       </section>
     </section>
