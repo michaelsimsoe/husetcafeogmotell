@@ -4,8 +4,10 @@
   & .hero-img-mobile {
     position: relative;
     height: 35vh;
+
     & > img {
       height: 35vh;
+      width: 100%;
     }
 
     & .hero-img__overlay {

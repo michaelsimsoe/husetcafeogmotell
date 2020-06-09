@@ -74,6 +74,7 @@
   .home-menu__item {
     margin-bottom: 5rem;
     position: relative;
+    transition: transform 5.5s ease;
 
     &-text {
       margin-left: 0;
@@ -81,7 +82,7 @@
     }
     & img {
       // margin-right: 1.8rem;
-      transition: transform 0.5s ease;
+      transition: transform 1.5s ease;
       // transform-origin: 50% 50%;
     }
   }

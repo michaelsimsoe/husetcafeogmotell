@@ -10,9 +10,9 @@ import pizzaImage from './assets/pizza.png';
 
 export const HomeMenu: React.FunctionComponent = () => {
   const [ref1, inView1] = useInView();
-  const [ref2, inView2] = useInView({ triggerOnce: true });
-  const [ref3, inView3] = useInView({ triggerOnce: true });
-  const [ref4, inView4] = useInView({ triggerOnce: true });
+  const [ref2, inView2] = useInView();
+  const [ref3, inView3] = useInView();
+  const [ref4, inView4] = useInView();
   const { t } = useTranslation(['translation', 'home']);
 
   const moveHighLightRight = useSpring({

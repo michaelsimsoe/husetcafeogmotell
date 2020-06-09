@@ -39,14 +39,14 @@
   "events-title": "Arrangementer ved Huset Café & Motell",
   "events-subs": {
     "night": {
-      "title": "Conserts, pub and Nightclub",
-      "sub": "It's important to have som fun.",
+      "title": "Konserter, pub og Nattklubb",
+      "sub": "Det er viktig å ha det litt gøy.",
       "desc": "Huset Cafe arrangerer ofte kvelder med fin musikk, det kan være typiske restauran nattklubb med dans og bar, men også små intime konserter der vi i all hovedsak har ønsker om å presentere noen av de fantastiske kunstnere vi har i vår nærhet.",
       "link": "Les mer om dette"
     },
     "sushi": {
-      "title": "Sush evening",
-      "sub": "Modern Fish",
+      "title": "Sushiaften",
+      "sub": "Moderne fisk",
       "desc": "Folk blir mer og mer opptatt av mat, derfor prøver vi å tilby ulike arrangementer der mat er hovedfokus, det kan f.eks være Sushiaften, viltaften, gourmet/smakskvelder biffaften osv.",
       "link": "Les mer om dette"
     },

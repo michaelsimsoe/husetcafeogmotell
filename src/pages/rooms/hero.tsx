@@ -14,7 +14,40 @@ export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'rooms']);
   return (
     <section className="hero rooms-hero">
-      <div className="hero-img-large"></div>
+      <div className="hero-img-large">
+        <div className="hero-img-large__content">
+          <div className="hero__header">
+            <h3>Huset Café & Motell</h3>
+            <h1>{t('rooms:heading')}</h1>
+            <h4>{t('rooms:sub-heading')}</h4>
+          </div>
+          <div className="hero-img-large__contact">
+            <Link to="/kontakt" className="button button-padded">
+              Kontakt oss
+            </Link>
+            <small>Så prater vi om overnatting</small>
+          </div>
+          <div className="hero-img-large__book">
+            <p>Eller book online</p>
+            <div className="booking-container">
+              <a
+                href="https://www.booking.com/hotel/no/huset-cafe-amp-motell-as.en-gb.html"
+                className="button"
+              >
+                {t('rooms:book-btn')}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="hero-img-large__image">
+          <div className="hero-img__overlay"></div>
+          <Image
+            cloudName="huset-cafe-og-motell"
+            publicId="rooms/rom_en_x0nqo8"
+            crop="scale"
+          />
+        </div>
+      </div>
       <div className="hero-img-mobile">
         <div className="hero-img__overlay"></div>
         <div className="hero__header">

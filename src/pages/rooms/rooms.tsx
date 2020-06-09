@@ -9,23 +9,23 @@ export const RoomsContainer: React.FunctionComponent = () => {
       <section className="rooms-intro">
         <h2 className="section-heading">{t('rooms:rooms-section')}</h2>
         <div className="rooms-intro__container">
-          <div className="rooms-intro__images">
-            <figure className="image-carousel">
-              <Image
-                cloudName="huset-cafe-og-motell"
-                publicId="rooms/skrivebord"
-                crop="scale"
-              />
-            </figure>
-          </div>
+          <figure className="image-carousel">
+            <Image
+              cloudName="huset-cafe-og-motell"
+              publicId="rooms/skrivebord"
+              crop="scale"
+            />
+          </figure>
           <div className="rooms-intro__info">
-            <div className="info-container">
-              <h3>{t('rooms:rooms-cozy')}</h3>
-              <p>{t('rooms:rooms-cozy-text')}</p>
-            </div>
-            <div className="info-container">
-              <h3>{t('rooms:rooms-bath')}</h3>
-              <p>{t('rooms:rooms-bath-text')}</p>
+            <div className="info-container__content">
+              <div className="info-container">
+                <h3>{t('rooms:rooms-cozy')}</h3>
+                <p>{t('rooms:rooms-cozy-text')}</p>
+              </div>
+              <div className="info-container">
+                <h3>{t('rooms:rooms-bath')}</h3>
+                <p>{t('rooms:rooms-bath-text')}</p>
+              </div>
             </div>
             <div className="info-container">
               <h3>{t('rooms:rooms-home')}</h3>
@@ -34,46 +34,50 @@ export const RoomsContainer: React.FunctionComponent = () => {
           </div>
         </div>
       </section>
-      <section className="rooms double-rooms">
-        <h2 className="section-heading">{t('rooms:double')}</h2>
-        <div className="double-rooms__container">
-          <figure className="double-rooms__image">
-            <Image
-              cloudName="huset-cafe-og-motell"
-              publicId="rooms/rom_to_rvkgac"
-              crop="scale"
-            />
-          </figure>
-          <div className="info-container">
-            <h3>{t('rooms:double-size')}</h3>
-            <p>{t('rooms:double-text')}</p>
-            <div className="info-container__price">
-              <p>{t('rooms:double-price')}</p>
-              <p>{t('rooms:double-breakfast')}</p>
+      <div className="rooms-wrapper">
+        <section className="rooms double-rooms">
+          <h2 className="section-heading section-heading--first">
+            {t('rooms:double')}
+          </h2>
+          <div className="double-rooms__container">
+            <figure className="double-rooms__image">
+              <Image
+                cloudName="huset-cafe-og-motell"
+                publicId="rooms/rom_to_rvkgac"
+                crop="scale"
+              />
+            </figure>
+            <div className="info-container">
+              <h3>{t('rooms:double-size')}</h3>
+              <p>{t('rooms:double-text')}</p>
+              <div className="info-container__price">
+                <p>{t('rooms:double-price')}</p>
+                <p>{t('rooms:double-breakfast')}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="rooms single-rooms">
-        <h2 className="section-heading">{t('rooms:single')}</h2>
-        <div className="single-rooms__container">
-          <figure className="single-rooms__image">
-            <Image
-              cloudName="huset-cafe-og-motell"
-              publicId="rooms/rom_en_x0nqo8"
-              crop="scale"
-            />
-          </figure>
-          <div className="info-container">
-            <h3>{t('rooms:single-size')}</h3>
-            <p>{t('rooms:single-text')}</p>
-            <div className="info-container__price">
-              <p>{t('rooms:single-price')}</p>
-              <p>{t('rooms:single-breakfast')}</p>
+        </section>
+        <section className="rooms single-rooms">
+          <h2 className="section-heading">{t('rooms:single')}</h2>
+          <div className="single-rooms__container">
+            <figure className="single-rooms__image">
+              <Image
+                cloudName="huset-cafe-og-motell"
+                publicId="rooms/rom_en_x0nqo8"
+                crop="scale"
+              />
+            </figure>
+            <div className="info-container">
+              <h3>{t('rooms:single-size')}</h3>
+              <p>{t('rooms:single-text')}</p>
+              <div className="info-container__price">
+                <p>{t('rooms:single-price')}</p>
+                <p>{t('rooms:single-breakfast')}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
       <section className="rooms breakfast full-width">
         <h2 className="section-heading">{t('rooms:breakfast')}</h2>
         <div className="full-width__container">
