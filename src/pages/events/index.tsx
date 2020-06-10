@@ -13,7 +13,7 @@ export const Events: React.FunctionComponent = () => {
       <section className="events-events">
         <h2 className="section-heading">{t('events:events')}</h2>
         <div className="events__container">
-          <figure className="single-rooms__image">
+          <figure className="events__container__image">
             <Image
               cloudName="huset-cafe-og-motell"
               publicId="events/konsert_imlgki"
@@ -30,7 +30,7 @@ export const Events: React.FunctionComponent = () => {
           </div>
         </div>
         <div className="events__container">
-          <figure className="single-rooms__image">
+          <figure className="events__container__image">
             <Image
               cloudName="huset-cafe-og-motell"
               publicId="events/pub_zfwx70"
@@ -47,7 +47,7 @@ export const Events: React.FunctionComponent = () => {
           </div>
         </div>
         <div className="events__container">
-          <figure className="single-rooms__image">
+          <figure className="events__container__image">
             <Image
               cloudName="huset-cafe-og-motell"
               publicId="events/dekket_bord_gzaxyh"

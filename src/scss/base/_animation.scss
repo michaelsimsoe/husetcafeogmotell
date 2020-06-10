@@ -19,3 +19,8 @@
     opacity: 1;
   }
 }
+
+@mixin slide-in {
+  animation: come-in 0.4s ease forwards;
+  animation-fill-mode: forwards;
+}

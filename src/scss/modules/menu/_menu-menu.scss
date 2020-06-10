@@ -18,3 +18,32 @@
     margin: 0 $main-margin-mobile 3rem;
   }
 }
+
+@media (min-width: 600px) {
+  .menu-section {
+    .section-heading {
+      margin: 0 $main-margin-desktop;
+      font-size: 3rem;
+    }
+    .menues {
+      background-color: unset;
+      backdrop-filter: unset;
+      .menu-container:not(:first-of-type) {
+        margin-top: 3rem;
+      }
+      .menu-container {
+        margin: unset;
+        & .section-heading {
+          font-size: 2rem;
+        }
+      }
+      .menu-container__content {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(2px);
+        padding: 2rem 6rem;
+        margin-left: $main-margin-desktop;
+        margin-right: $main-margin-desktop-sidebar;
+      }
+    }
+  }
+}

@@ -102,6 +102,7 @@
         }
 
         & .hero__header {
+          @include slide-in;
           & h3 {
             font-size: 2rem;
             margin-bottom: -0.8rem;
