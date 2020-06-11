@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { HeroParallaxImage } from './hero-img';
 import { HeroParallaxImageMobile } from './hero-img-mob';
 
-import huset_bg from './assets/huset_fasade_full-min1200.jpg';
-
 const svgStyle = {
   fill: '#fff',
   height: '14px',
@@ -18,7 +16,7 @@ export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'home']);
   return (
     <section className="hero">
-      <div className="hero-img-large" style={{ backgroundImage: huset_bg }}>
+      <div className="hero-img-large">
         <HeroParallaxImage />
       </div>
       <div className="hero-img-mobile">

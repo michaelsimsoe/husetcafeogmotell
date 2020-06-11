@@ -12,7 +12,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
           <figure className="image-carousel">
             <Image
               cloudName="huset-cafe-og-motell"
-              publicId="rooms/skrivebord"
+              publicId="rom/skrivebord_r60crq.webp"
               crop="scale"
             >
               <Transformation fetchFormat="auto" crop="scale" />
@@ -46,7 +46,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <figure className="double-rooms__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="rooms/rom_to_rvkgac"
+                publicId="rom/rom_to_yzolnv.webp"
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
@@ -69,7 +69,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <figure className="single-rooms__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="rooms/rom_en_x0nqo8"
+                publicId="rom/rom_en_ipd88c.webp"
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
@@ -94,7 +94,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <div className="img__overlay"></div>
             <Image
               cloudName="huset-cafe-og-motell"
-              publicId="rooms/frokost-placeholder_i0cxli"
+              publicId="rom/frokost-placeholder_aixosv"
             >
               <Transformation fetchFormat="auto" crop="scale" />
               <Transformation width="auto" dpr="auto" crop="scale" />

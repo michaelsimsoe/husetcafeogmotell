@@ -24,7 +24,7 @@ export const EventCarousel: React.FunctionComponent<EventCarouselProps> = ({
           <div>
             <Image
               cloudName="huset-cafe-og-motell"
-              publicId={`events/${image}`}
+              publicId={`arr/${image}.webp`}
               crop="scale"
               height="300"
               width="300"

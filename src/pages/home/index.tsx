@@ -46,10 +46,14 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
             <figure className="home-rooms__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="home/roomsx2_hnwqcn"
+                publicId="hjem/roomsx2_kf3aoo"
                 crop="scale"
               >
-                <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation
+                  quality="auto"
+                  fetchFormat="auto"
+                  crop="scale"
+                />
                 <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
@@ -83,9 +87,13 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
               <div className="img__overlay"></div>
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="home/kaker_ywopzr"
+                publicId="hjem/kaker_luc0f6"
               >
-                <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation
+                  quality="auto"
+                  fetchFormat="auto"
+                  crop="scale"
+                />
                 <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
@@ -110,9 +118,13 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
               <div className="img__overlay"></div>
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="home/catering_lqwtmn"
+                publicId="hjem/catering_jhi8jv"
               >
-                <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation
+                  quality="auto"
+                  fetchFormat="auto"
+                  crop="scale"
+                />
                 <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>

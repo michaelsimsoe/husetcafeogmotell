@@ -43,7 +43,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           <div className="hero-img__overlay"></div>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="rooms/rom_en_x0nqo8"
+            publicId="rom/rom_en_ipd88c.webp"
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
@@ -60,11 +60,11 @@ export const HeroComponent: React.FunctionComponent = () => {
         </div>
         <Image
           cloudName="huset-cafe-og-motell"
-          publicId="rooms/rom_bredt_rjpinu"
+          publicId="rom/rom_bredt_yqkpep.webp"
           crop="scale"
         >
           <Transformation fetchFormat="auto" crop="scale" />
-          <Transformation width="auto" dpr="auto" crop="scale" />
+          <Transformation width="600" dpr="auto" crop="scale" />
         </Image>
       </div>
       <section className="hero-contact">

@@ -21,6 +21,10 @@
     & > p {
       margin: 0 $main-margin-desktop;
     }
+
+    &:last-of-type {
+      margin-bottom: 6rem;
+    }
   }
   .map-mobile {
     display: none;

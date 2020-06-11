@@ -33,7 +33,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
             <figure className="events__container__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="events/konsert_imlgki"
+                publicId="arr/konsert_600_bodevy.webp"
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
@@ -53,7 +53,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
             <figure className="events__container__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="events/pub_zfwx70"
+                publicId="arr/pub_600_hpdptt.webp"
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
@@ -73,7 +73,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
             <figure className="events__container__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="events/dekket_bord_gzaxyh"
+                publicId="arr/dekket_bord_600_ecsecr.webp"
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
@@ -91,11 +91,11 @@ export const Events: React.FunctionComponent<EventsProps> = ({
           <p className="events-special__intro">{t('events:special-intro')}</p>
           <SpecialEventContainer
             images={[
-              'sushi_uzlwu6',
-              'sushi2_ve9yk7',
-              'sushi4_nfyp2m',
-              'sushi3_ghh9jf',
-              'sushi5_umfml8',
+              'sushi_600_pdl9aj',
+              'sushi2_600_rfudx0',
+              'sushi3_600_srqcbq',
+              'sushi4_600_jxqumh',
+              'sushi5_600_qlmpyc',
             ]}
           >
             {{
@@ -104,7 +104,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
             }}
           </SpecialEventContainer>
           <SpecialEventContainer
-            images={['biff_bxzcrx', 'biff2_b2ozvi', 'biff3_tbb2yp']}
+            images={['biff_600_jqi21p', 'biff3_600_zohm8u', 'biff2_600_yqvtne']}
           >
             {{
               title: t('events:steak'),
@@ -113,9 +113,9 @@ export const Events: React.FunctionComponent<EventsProps> = ({
           </SpecialEventContainer>
           <SpecialEventContainer
             images={[
-              'viltaften_nveze4',
-              'viltaften3_js7mmm',
-              'viltaften2_kytp70',
+              'viltaften_600_unrntw',
+              'viltaften2_600_tqdrtv',
+              'viltaften3_600_ozzpv2',
             ]}
           >
             {{
@@ -130,7 +130,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
             <figure className="info-container__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="events/pub_zfwx70"
+                publicId="hjem/moterom_fa1x45.webp"
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
@@ -148,7 +148,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
             <figure className="info-container__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="events/pub_zfwx70"
+                publicId="arr/dinner_party_600_lq1mg1.webp"
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
@@ -191,7 +191,7 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
       <figure ref={mainImage} className="event__image">
         <Image
           cloudName="huset-cafe-og-motell"
-          publicId={`events/${props.images[0]}`}
+          publicId={`arr/${props.images[0]}.webp`}
           crop="scale"
           className={
             slide
@@ -217,7 +217,7 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
             <Image
               onClick={thumbClick}
               cloudName="huset-cafe-og-motell"
-              publicId={`events/${image}`}
+              publicId={`events/${image}.webp`}
               crop="scale"
               className="thumbnail"
             >

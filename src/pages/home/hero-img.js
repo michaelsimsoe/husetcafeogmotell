@@ -19,22 +19,21 @@ export const HeroParallaxImage = () => {
       <Image
         className="hero-img__bg"
         cloudName="huset-cafe-og-motell"
-        publicId="home/sky_bg_ufldwu"
+        publicId="hjem/sky_bg_hwr6xr"
         resourceType="image"
       >
-        <Transformation fetchFormat="auto" crop="scale" />
+        <Transformation quality="auto" fetchFormat="auto" crop="scale" />
         <Transformation width="auto" dpr="auto" crop="scale" />
       </Image>
-      />
       {/* </ParallaxLayer> */}
       <ParallaxLayer offset={0} factor={1.2} speed={0.5}>
         <Image
           className="hero-img__mountain"
           cloudName="huset-cafe-og-motell"
-          publicId="home/Okstinden_pfhmid"
+          publicId="hjem/okstinden_qank8s.png"
           resourceType="image"
         >
-          <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation quality="auto" fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />
         </Image>
       </ParallaxLayer>
@@ -42,10 +41,10 @@ export const HeroParallaxImage = () => {
         <Image
           className="hero-img__klubben"
           cloudName="huset-cafe-og-motell"
-          publicId="home/klubben_bg_hzsaq7"
+          publicId="hjem/klubben_bg_lklcfx.png"
           resourceType="image"
         >
-          <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation quality="auto" fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />
         </Image>
       </ParallaxLayer>
@@ -53,10 +52,10 @@ export const HeroParallaxImage = () => {
         <Image
           className="hero-img__huset"
           cloudName="huset-cafe-og-motell"
-          publicId="home/huset_wg93ll"
+          publicId="hjem/huset_hfy7rh.png"
           resourceType="image"
         >
-          <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation quality="auto" fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />
         </Image>
       </ParallaxLayer>

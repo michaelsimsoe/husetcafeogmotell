@@ -58,7 +58,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           <div className="hero-img__overlay"></div>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="menu/hero_unxbsa"
+            publicId="menu/hero_vvqqei.webp"
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
@@ -76,7 +76,7 @@ export const HeroComponent: React.FunctionComponent = () => {
         </div>
         <Image
           cloudName="huset-cafe-og-motell"
-          publicId="menu/hero_unxbsa"
+          publicId="menu/hero600_tntf9p.webp"
           crop="scale"
         >
           <Transformation fetchFormat="auto" crop="scale" />

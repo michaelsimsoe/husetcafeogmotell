@@ -10,7 +10,7 @@ export const HomeEvents: React.FunctionComponent = () => {
   const [ref2, inView2] = useInView();
   const [ref3, inView3] = useInView();
   const { t } = useTranslation(['translation', 'home']);
-  const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
+  const isDesktopWidth = window.matchMedia('(min-width: 900px)').matches;
   let animation_style1, animation_style2, animation_style3;
   animation_style1 = useSpring({
     transform: inView1 ? 'translateX(-5%)' : 'translateX(0%)',
@@ -37,10 +37,10 @@ export const HomeEvents: React.FunctionComponent = () => {
         <figure className="event__image">
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="home/nattklubb_w0alyv"
+            publicId="hjem/nattklubb_w0alyv_qazcu3"
             crop="scale"
           >
-            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation quality="auto" fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
         </figure>
@@ -67,10 +67,10 @@ export const HomeEvents: React.FunctionComponent = () => {
         <figure className="event__image">
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="home/sushi-fat_c40e6p"
+            publicId="hjem/sushi_fat_ven0rs"
             crop="scale"
           >
-            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation quality="auto" fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
         </figure>
@@ -97,10 +97,10 @@ export const HomeEvents: React.FunctionComponent = () => {
         <figure className="event__image">
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="home/privatfest_o9sext"
+            publicId="hjem/privatfest_qq9rsn"
             crop="scale"
           >
-            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation quality="auto" fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
         </figure>

@@ -27,7 +27,7 @@ export const HeroComponent: React.FunctionComponent = () => {
         <div className="hero-img-large__images">
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="events/dinner_party_gmyewq"
+            publicId="events/dinner_party_gmyewq.webp"
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
@@ -35,7 +35,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           </Image>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="events/dinner_party_gmyewq"
+            publicId="hjem/moterom_fa1x45.webp"
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
@@ -43,7 +43,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           </Image>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="events/dinner_party_gmyewq"
+            publicId="hjem/privatfest_qq9rsn.webp"
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
@@ -64,7 +64,7 @@ export const HeroComponent: React.FunctionComponent = () => {
         </div>
         <Image
           cloudName="huset-cafe-og-motell"
-          publicId="events/dinner_party_gmyewq"
+          publicId="arr/dinner_party_600_lq1mg1.webp"
           crop="scale"
         >
           <Transformation fetchFormat="auto" crop="scale" />

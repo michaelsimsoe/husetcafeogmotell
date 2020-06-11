@@ -34,6 +34,103 @@
 @media (min-width: 600px) {
   .events {
     .section-heading {
+    }
+
+    &__container {
+      margin-top: 1.8rem;
+      border-top: 3px solid white;
+      border-bottom: 3px solid white;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 45vh;
+      padding-right: $sidebar-width;
+      background-image: $linear-bg;
+
+      &:nth-of-type(2),
+      &:nth-of-type(3) {
+        margin-top: 9rem;
+      }
+
+      &:nth-of-type(2) {
+        justify-content: flex-end;
+        flex-direction: row-reverse;
+
+        & .info-container {
+          margin-left: 0;
+        }
+      }
+
+      &__image {
+        height: 60%;
+        border: 3px solid white;
+        & > img {
+          height: 100%;
+        }
+      }
+
+      & .info-container {
+        width: 55%;
+        margin-top: 0.8rem;
+        h3 {
+          font-size: 1.4rem;
+        }
+
+        p {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .events-events {
+      margin-top: 12rem;
+      & .events__container {
+        & .info-container {
+          padding-top: 2rem;
+        }
+      }
+    }
+
+    .events-special {
+      margin-top: 12rem;
+      & .events-special__intro {
+        margin-right: $sidebar-width;
+        margin-bottom: 6rem;
+        font-size: 1.2rem;
+      }
+
+      .events__container {
+        border: 3px solid white;
+        margin-right: $sidebar-width;
+        justify-content: center;
+        height: unset;
+        position: relative;
+        flex-wrap: wrap;
+        padding: 0;
+        align-items: unset;
+
+        &:nth-of-type(2) {
+          flex-direction: unset;
+        }
+
+        .event__image {
+          width: 60%;
+        }
+
+        .info-container {
+          margin: unset;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+          padding-bottom: unset;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .events {
+    .section-heading {
       margin-left: $main-margin-desktop;
     }
 
@@ -122,6 +219,7 @@
           top: -15%;
           left: -5%;
           height: 60%;
+          width: unset;
           margin-left: unset;
           transition: all 0.3s ease-in-out;
 
