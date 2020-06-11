@@ -15,8 +15,14 @@ export const HomeMenu: React.FunctionComponent = () => {
   const [ref4, inView4] = useInView();
   const { t } = useTranslation(['translation', 'home']);
 
+  const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
+
   const moveHighLightRight = useSpring({
-    transform: inView1 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView1
+      ? isDesktopWidth
+        ? 'translateX(-40px)'
+        : 'translateX(0px)'
+      : 'translateX(-300px)',
   });
   const spinDishIn = useSpring({
     transform: inView1 ? 'rotate(360deg)' : 'rotate(0deg)',
@@ -24,7 +30,11 @@ export const HomeMenu: React.FunctionComponent = () => {
   });
 
   const moveHighLightRight2 = useSpring({
-    transform: inView2 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView2
+      ? isDesktopWidth
+        ? 'translateX(-100px)'
+        : 'translateX(0px)'
+      : 'translateX(300px)',
   });
   const spinDishIn2 = useSpring({
     transform: inView2 ? 'rotate(360deg)' : 'rotate(0deg)',
@@ -32,7 +42,11 @@ export const HomeMenu: React.FunctionComponent = () => {
   });
 
   const moveHighLightRight3 = useSpring({
-    transform: inView3 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView3
+      ? isDesktopWidth
+        ? 'translateX(-40px)'
+        : 'translateX(0px)'
+      : 'translateX(-300px)',
   });
   const spinDishIn3 = useSpring({
     transform: inView3 ? 'rotate(360deg)' : 'rotate(0deg)',
@@ -40,7 +54,11 @@ export const HomeMenu: React.FunctionComponent = () => {
   });
 
   const moveHighLightRight4 = useSpring({
-    transform: inView4 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView4
+      ? isDesktopWidth
+        ? 'translateX(-100px)'
+        : 'translateX(0px)'
+      : 'translateX(300px)',
   });
   const spinDishIn4 = useSpring({
     transform: inView4 ? 'rotate(360deg)' : 'rotate(0deg)',

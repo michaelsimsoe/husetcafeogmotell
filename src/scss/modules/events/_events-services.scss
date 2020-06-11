@@ -4,10 +4,52 @@
     h3 {
       color: $cta-text;
     }
+    &__image {
+      display: none;
+    }
   }
 }
 @media (min-width: 600px) {
   .events-services.information {
     margin-top: 12rem;
+    margin-bottom: 12rem;
+
+    .info-container {
+      border: 3px solid white;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 40vh;
+      margin-right: $sidebar-width;
+      margin-left: $main-margin-desktop;
+      background-image: $linear-bg;
+
+      &:nth-of-type(2) {
+        margin-top: 6rem;
+      }
+
+      &__image {
+        display: block;
+        height: 105%;
+        border: 3px solid white;
+        margin-left: 1rem;
+        & > img {
+          height: 100%;
+        }
+      }
+
+      &__content {
+        margin-left: 6rem;
+        width: 45%;
+
+        h3 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+        }
+      }
+    }
   }
 }

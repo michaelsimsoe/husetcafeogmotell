@@ -120,9 +120,14 @@
           left: -5%;
           height: 60%;
           margin-left: unset;
+          transition: all 0.3s ease-in-out;
 
           .event__image-image {
             display: block;
+            &--slide {
+              animation: come-in 0.4s ease forwards;
+              animation-fill-mode: forwards;
+            }
           }
 
           .carousel-wrapper {
@@ -136,6 +141,11 @@
 
             & .thumbnail {
               height: 150px;
+
+              &:hover {
+                box-shadow: 2px 3px 4px 2px rgba(216, 216, 216, 0.25);
+                filter: grayscale(50%);
+              }
             }
           }
         }

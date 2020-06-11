@@ -23,19 +23,19 @@ const App: React.FunctionComponent = () => {
           <Home sidebarOpen={toggleSidebar} />
         </Route>
         <Route exact path="/overnatting">
-          <Rooms />
+          <Rooms sidebarOpen={toggleSidebar} />
         </Route>
         <Route exact path="/meny">
-          <Menu />
+          <Menu sidebarOpen={toggleSidebar} />
         </Route>
         <Route exact path="/arrangementer">
-          <Events />
+          <Events sidebarOpen={toggleSidebar} />
         </Route>
         <Route exact path="/tjenester">
-          <Events />
+          <Events sidebarOpen={toggleSidebar} />
         </Route>
         <Route exact path="/kontakt">
-          <Contact />
+          <Contact sidebarOpen={toggleSidebar} />
         </Route>
       </Switch>
       <Footer />

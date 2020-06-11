@@ -45,6 +45,7 @@
     & .section-heading {
       margin-right: 0;
       margin-left: 0;
+      margin-bottom: 6rem;
     }
   }
   .home-menu__big-circle {
@@ -68,20 +69,20 @@
 
   .home-menu__small-circle--right {
     left: initial;
-    right: -20%;
+    right: 5%;
   }
 
   .home-menu__item {
     margin-bottom: 5rem;
     position: relative;
-    transition: transform 5.5s ease;
+    transition: transform 1.5s ease;
 
     &-text {
       margin-left: 0;
       max-width: 25rem;
     }
     & img {
-      // margin-right: 1.8rem;
+      margin-right: 1.8rem;
       transition: transform 1.5s ease;
       // transform-origin: 50% 50%;
     }

@@ -2,6 +2,9 @@
   // background-color: #fff;
   position: relative;
 
+  & .hero-img-large {
+    display: none;
+  }
   & .hero-img-mobile {
     position: relative;
     height: 12vh;
@@ -51,6 +54,53 @@
 
     & svg {
       margin-top: 0.2rem;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .hero.contact-hero {
+    & .hero-img-mobile {
+      display: none;
+    }
+
+    & .hero-contact {
+      display: none;
+    }
+
+    & .hero-img-large {
+      display: block;
+      height: 100%;
+      & .hero__header {
+        height: 20%;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+
+        & h1 {
+          color: $dark-text;
+          margin-left: $main-margin-desktop;
+          font-size: 4rem;
+        }
+      }
+      & .hero-contact-text {
+        margin-left: $main-margin-desktop;
+        margin-right: $main-margin-desktop-sidebar;
+        margin-top: 6rem;
+        width: 42rem;
+        font-size: 1.6rem;
+        display: flex;
+        flex-direction: column;
+
+        & p:not(:first-of-type) {
+          margin-top: 3rem;
+        }
+
+        & p:last-of-type {
+          font-weight: bold;
+          color: $cta-text;
+        }
+      }
     }
   }
 }

@@ -73,6 +73,18 @@
           // color: lighten($primary-color, 10%);
         }
       }
+      &--active {
+        background: $black-blue;
+        color: $nav-bg !important;
+        padding: 0.2rem;
+      }
+      @media (min-width: 600px) {
+        &--active {
+          background: $nav-bg;
+          color: $black-blue !important;
+          padding: 0.2rem;
+        }
+      }
     }
   }
 }
