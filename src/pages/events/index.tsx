@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 import { useInView } from 'react-intersection-observer';
 
 import { HeroComponent } from './hero';
@@ -17,7 +17,10 @@ export const Events: React.FunctionComponent<EventsProps> = ({
   const [ref, inView] = useInView({ rootMargin: '-300px' });
 
   useEffect(() => {
-    sidebarOpen(inView);
+    const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
+    if (isDesktopWidth) {
+      sidebarOpen(inView);
+    }
   }, [sidebarOpen, inView]);
 
   return (
@@ -32,7 +35,9 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 cloudName="huset-cafe-og-motell"
                 publicId="events/konsert_imlgki"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container">
               <h3>{t('events:concert')}</h3>
@@ -49,7 +54,9 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 cloudName="huset-cafe-og-motell"
                 publicId="events/pub_zfwx70"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container">
               <h3>{t('events:pub')}</h3>
@@ -66,7 +73,9 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 cloudName="huset-cafe-og-motell"
                 publicId="events/dekket_bord_gzaxyh"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container">
               <h3>{t('events:sunday')}</h3>
@@ -76,7 +85,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
         </section>
         <section className="events-special">
           <h2 className="section-heading">{t('events:special')}</h2>
-          <p>{t('events:special-intro')}</p>
+          <p className="events-special__intro">{t('events:special-intro')}</p>
           <SpecialEventContainer
             images={[
               'sushi_uzlwu6',
@@ -120,7 +129,9 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 cloudName="huset-cafe-og-motell"
                 publicId="events/pub_zfwx70"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container__content">
               <h3>{t('events:meet')}</h3>
@@ -135,7 +146,9 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 cloudName="huset-cafe-og-motell"
                 publicId="events/pub_zfwx70"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container__content">
               <h3>{t('events:premises')}</h3>

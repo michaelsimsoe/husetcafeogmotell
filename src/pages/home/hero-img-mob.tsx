@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 export const HeroParallaxImageMobile: React.FunctionComponent = () => {
   return (
@@ -147,7 +147,9 @@ export const HeroParallaxImageMobile: React.FunctionComponent = () => {
         cloudName="huset-cafe-og-motell"
         publicId="home/huset_fasade_kxnlir"
         crop="scale"
-      />
+      >
+        <Transformation fetchFormat="auto" crop="scale" />
+      </Image>
     </>
   );
 };

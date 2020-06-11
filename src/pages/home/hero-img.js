@@ -1,11 +1,6 @@
 import React from 'react';
 import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons';
-
-// Images for the parallax effect
-import sky_bg from './assets/sky_bg.png';
-import klubben from './assets/klubben_bg.png';
-import huset from './assets/huset.png';
-import okstindan from './assets/Okstinden.png';
+import { Image, Transformation } from 'cloudinary-react';
 
 // eslint-disable-next-line
 let parallax;
@@ -21,20 +16,45 @@ export const HeroParallaxImage = () => {
       <div className="hero-img__overlay"></div>
       {/* <img src={huset_fasade} alt="Huset Kafe og Motell fra fronten" /> */}
       {/* <ParallaxLayer offset={0} factor={1} speed={0}> */}
-      <img className="hero-img__bg" src={sky_bg} alt="blue sky background" />
+      <Image
+        className="hero-img__bg"
+        cloudName="huset-cafe-og-motell"
+        publicId="home/sky_bg_ufldwu"
+        resourceType="image"
+      >
+        <Transformation fetchFormat="auto" crop="scale" />
+      </Image>
+      />
       {/* </ParallaxLayer> */}
       <ParallaxLayer offset={0} factor={1.2} speed={0.5}>
-        <img className="hero-img__mountain" src={okstindan} alt="okstindan" />
+        <Image
+          className="hero-img__mountain"
+          cloudName="huset-cafe-og-motell"
+          publicId="home/Okstinden_pfhmid"
+          resourceType="image"
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+        </Image>
       </ParallaxLayer>
       <ParallaxLayer offset={0} factor={1.2} speed={-0.5}>
-        <img
+        <Image
           className="hero-img__klubben"
-          src={klubben}
-          alt="klubben mountain"
-        />
+          cloudName="huset-cafe-og-motell"
+          publicId="home/klubben_bg_hzsaq7"
+          resourceType="image"
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+        </Image>
       </ParallaxLayer>
       <ParallaxLayer offset={0} factor={1.2} speed={-1}>
-        <img className="hero-img__huset" src={huset} alt="huset facade" />
+        <Image
+          className="hero-img__huset"
+          cloudName="huset-cafe-og-motell"
+          publicId="home/huset_wg93ll"
+          resourceType="image"
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+        </Image>
       </ParallaxLayer>
       <ParallaxLayer offset={0} factor={1} speed={1.2} style={{ zIndex: 5 }}>
         <figure className="hero-logo">

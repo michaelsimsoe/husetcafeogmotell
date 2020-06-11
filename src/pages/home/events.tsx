@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 export const HomeEvents: React.FunctionComponent = () => {
   const [ref1, inView1] = useInView();
@@ -33,7 +33,9 @@ export const HomeEvents: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="home/nattklubb_w0alyv"
             crop="scale"
-          />
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+          </Image>
         </figure>
         <div className="event__content">
           <h3 className="event__heading">
@@ -60,7 +62,9 @@ export const HomeEvents: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="home/sushi-fat_c40e6p"
             crop="scale"
-          />
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+          </Image>
         </figure>
         <div className="event__content">
           <h3 className="event__heading">

@@ -19,6 +19,9 @@
 }
 
 .events-special {
+  .events-special__intro {
+    margin: 1rem $main-margin-mobile;
+  }
   .event__image-image {
     display: none;
   }
@@ -92,7 +95,7 @@
 
     .events-special {
       margin-top: 12rem;
-      & > p:first-of-type {
+      & .events-special__intro {
         margin-left: $main-margin-desktop;
         margin-right: $sidebar-width;
         margin-bottom: 6rem;

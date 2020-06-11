@@ -1,7 +1,6 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'events']);
@@ -30,17 +29,23 @@ export const HeroComponent: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="events/dinner_party_gmyewq"
             crop="scale"
-          />
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+          </Image>
           <Image
             cloudName="huset-cafe-og-motell"
             publicId="events/dinner_party_gmyewq"
             crop="scale"
-          />
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+          </Image>
           <Image
             cloudName="huset-cafe-og-motell"
             publicId="events/dinner_party_gmyewq"
             crop="scale"
-          />
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+          </Image>
         </div>
       </div>
       <div className="hero-img-mobile">
@@ -58,7 +63,9 @@ export const HeroComponent: React.FunctionComponent = () => {
           cloudName="huset-cafe-og-motell"
           publicId="events/dinner_party_gmyewq"
           crop="scale"
-        />
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+        </Image>
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">

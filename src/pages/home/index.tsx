@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 // Components
 import MapLocation from '../../components/map/mapContainer';
@@ -19,7 +19,10 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
   const [ref, inView] = useInView({ rootMargin: '-300px' });
 
   useEffect(() => {
-    sidebarOpen(inView);
+    const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
+    if (isDesktopWidth) {
+      sidebarOpen(inView);
+    }
   }, [sidebarOpen, inView]);
 
   return (
@@ -45,7 +48,9 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
                 cloudName="huset-cafe-og-motell"
                 publicId="home/roomsx2_hnwqcn"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="home-rooms__content">
               <h3 className="section-sub-heading home-rooms__sub-heading">
@@ -78,7 +83,9 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
               <Image
                 cloudName="huset-cafe-og-motell"
                 publicId="home/kaker_ywopzr"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="full-width__content">
               <h3 className="section-sub-heading section-sub-heading--white">
@@ -102,7 +109,9 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
               <Image
                 cloudName="huset-cafe-og-motell"
                 publicId="home/catering_lqwtmn"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="full-width__content">
               <h3 className="section-sub-heading section-sub-heading--white">

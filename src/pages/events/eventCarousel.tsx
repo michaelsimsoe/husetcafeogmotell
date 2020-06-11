@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
@@ -28,7 +28,9 @@ export const EventCarousel: React.FunctionComponent<EventCarouselProps> = ({
               crop="scale"
               height="300"
               width="300"
-            />
+            >
+              <Transformation fetchFormat="auto" crop="scale" />
+            </Image>
           </div>
         );
       })}

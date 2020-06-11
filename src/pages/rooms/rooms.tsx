@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 export const RoomsContainer: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'rooms']);
@@ -14,7 +14,9 @@ export const RoomsContainer: React.FunctionComponent = () => {
               cloudName="huset-cafe-og-motell"
               publicId="rooms/skrivebord"
               crop="scale"
-            />
+            >
+              <Transformation fetchFormat="auto" crop="scale" />
+            </Image>
           </figure>
           <div className="rooms-intro__info">
             <div className="info-container__content">
@@ -45,7 +47,9 @@ export const RoomsContainer: React.FunctionComponent = () => {
                 cloudName="huset-cafe-og-motell"
                 publicId="rooms/rom_to_rvkgac"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container">
               <h3>{t('rooms:double-size')}</h3>
@@ -65,7 +69,9 @@ export const RoomsContainer: React.FunctionComponent = () => {
                 cloudName="huset-cafe-og-motell"
                 publicId="rooms/rom_en_x0nqo8"
                 crop="scale"
-              />
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container">
               <h3>{t('rooms:single-size')}</h3>
@@ -86,7 +92,9 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <Image
               cloudName="huset-cafe-og-motell"
               publicId="rooms/frokost-placeholder_i0cxli"
-            />
+            >
+              <Transformation fetchFormat="auto" crop="scale" />
+            </Image>
           </figure>
           <div className="full-width__content">
             <h3>{t('rooms:breakfast-sub')}</h3>
