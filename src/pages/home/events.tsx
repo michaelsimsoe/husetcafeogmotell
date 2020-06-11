@@ -10,16 +10,22 @@ export const HomeEvents: React.FunctionComponent = () => {
   const [ref2, inView2] = useInView();
   const [ref3, inView3] = useInView();
   const { t } = useTranslation(['translation', 'home']);
-
-  const animation_style1 = useSpring({
+  const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
+  let animation_style1, animation_style2, animation_style3;
+  animation_style1 = useSpring({
     transform: inView1 ? 'translateX(-5%)' : 'translateX(0%)',
   });
-  const animation_style2 = useSpring({
+  animation_style2 = useSpring({
     transform: inView2 ? 'translateX(-5%)' : 'translateX(0%)',
   });
-  const animation_style3 = useSpring({
+  animation_style3 = useSpring({
     transform: inView3 ? 'translateX(-5%)' : 'translateX(0%)',
   });
+  if (!isDesktopWidth) {
+    animation_style1 = {};
+    animation_style2 = {};
+    animation_style3 = {};
+  }
   return (
     <section className="home-section home-events">
       <h2 className="section-heading">{t('home:events-title')}</h2>
@@ -35,6 +41,7 @@ export const HomeEvents: React.FunctionComponent = () => {
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
         </figure>
         <div className="event__content">
@@ -64,6 +71,7 @@ export const HomeEvents: React.FunctionComponent = () => {
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
         </figure>
         <div className="event__content">
@@ -91,7 +99,10 @@ export const HomeEvents: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="home/privatfest_o9sext"
             crop="scale"
-          />
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
+          </Image>
         </figure>
         <div className="event__content">
           <h3 className="event__heading">

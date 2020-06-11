@@ -23,6 +23,7 @@ export const HeroParallaxImage = () => {
         resourceType="image"
       >
         <Transformation fetchFormat="auto" crop="scale" />
+        <Transformation width="auto" dpr="auto" crop="scale" />
       </Image>
       />
       {/* </ParallaxLayer> */}
@@ -34,6 +35,7 @@ export const HeroParallaxImage = () => {
           resourceType="image"
         >
           <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="auto" dpr="auto" crop="scale" />
         </Image>
       </ParallaxLayer>
       <ParallaxLayer offset={0} factor={1.2} speed={-0.5}>
@@ -44,6 +46,7 @@ export const HeroParallaxImage = () => {
           resourceType="image"
         >
           <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="auto" dpr="auto" crop="scale" />
         </Image>
       </ParallaxLayer>
       <ParallaxLayer offset={0} factor={1.2} speed={-1}>
@@ -54,6 +57,7 @@ export const HeroParallaxImage = () => {
           resourceType="image"
         >
           <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="auto" dpr="auto" crop="scale" />
         </Image>
       </ParallaxLayer>
       <ParallaxLayer offset={0} factor={1} speed={1.2} style={{ zIndex: 5 }}>

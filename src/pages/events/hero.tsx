@@ -31,6 +31,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
           <Image
             cloudName="huset-cafe-og-motell"
@@ -38,6 +39,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
           <Image
             cloudName="huset-cafe-og-motell"
@@ -45,6 +47,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             crop="scale"
           >
             <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
         </div>
       </div>
@@ -65,6 +68,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           crop="scale"
         >
           <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="auto" dpr="auto" crop="scale" />
         </Image>
       </div>
       <section className="hero-contact">

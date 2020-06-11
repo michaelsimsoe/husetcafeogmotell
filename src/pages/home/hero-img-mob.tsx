@@ -149,6 +149,7 @@ export const HeroParallaxImageMobile: React.FunctionComponent = () => {
         crop="scale"
       >
         <Transformation fetchFormat="auto" crop="scale" />
+        <Transformation width="auto" dpr="auto" crop="scale" />
       </Image>
     </>
   );

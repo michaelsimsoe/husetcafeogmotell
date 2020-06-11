@@ -37,6 +37,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="info-container">
@@ -56,6 +57,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="info-container">
@@ -75,6 +77,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="info-container">
@@ -131,6 +134,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="info-container__content">
@@ -148,6 +152,7 @@ export const Events: React.FunctionComponent<EventsProps> = ({
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="info-container__content">
@@ -194,7 +199,10 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
               : 'event__image-image'
           }
           onAnimationEnd={() => setSlide(false)}
-        />
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="auto" dpr="auto" crop="scale" />
+        </Image>
         <div className="carousel-wrapper">
           <EventCarousel images={[...props.images]} />
         </div>
@@ -212,7 +220,10 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
               publicId={`events/${image}`}
               crop="scale"
               className="thumbnail"
-            />
+            >
+              <Transformation fetchFormat="auto" crop="scale" />
+              <Transformation width="auto" dpr="auto" crop="scale" />
+            </Image>
           );
         })}
       </div>

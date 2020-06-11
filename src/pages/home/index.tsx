@@ -50,6 +50,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="home-rooms__content">
@@ -85,6 +86,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
                 publicId="home/kaker_ywopzr"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="full-width__content">
@@ -111,6 +113,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
                 publicId="home/catering_lqwtmn"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="full-width__content">

@@ -16,6 +16,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
               crop="scale"
             >
               <Transformation fetchFormat="auto" crop="scale" />
+              <Transformation width="auto" dpr="auto" crop="scale" />
             </Image>
           </figure>
           <div className="rooms-intro__info">
@@ -49,6 +50,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="info-container">
@@ -71,6 +73,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
                 crop="scale"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="info-container">
@@ -94,6 +97,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
               publicId="rooms/frokost-placeholder_i0cxli"
             >
               <Transformation fetchFormat="auto" crop="scale" />
+              <Transformation width="auto" dpr="auto" crop="scale" />
             </Image>
           </figure>
           <div className="full-width__content">
