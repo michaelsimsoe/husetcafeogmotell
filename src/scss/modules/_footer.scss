@@ -10,6 +10,10 @@
   }
 }
 
+.desktop-map {
+  display: none;
+}
+
 .main-footer {
   min-height: 80vh;
   color: #fff;
@@ -83,6 +87,25 @@
 }
 
 @media (min-width: 768px) {
+  .social-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .desktop-map {
+    height: 50vh;
+    width: 50%;
+    display: block;
+    background-color: $bg-primary;
+    padding-left: $main-margin-desktop;
+  }
+  .facebook-feed-container {
+    height: 50vh;
+    width: 50%;
+    .facebook-feed {
+      padding-right: $main-margin-desktop;
+    }
+  }
   .main-footer__container {
     margin-left: auto;
     margin-right: auto;

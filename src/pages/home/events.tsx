@@ -6,19 +6,19 @@ import { useSpring, animated } from 'react-spring';
 import { Image } from 'cloudinary-react';
 
 export const HomeEvents: React.FunctionComponent = () => {
-  const [ref1, inView1] = useInView({ triggerOnce: true });
-  const [ref2, inView2] = useInView({ triggerOnce: true });
-  const [ref3, inView3] = useInView({ triggerOnce: true });
+  const [ref1, inView1] = useInView();
+  const [ref2, inView2] = useInView();
+  const [ref3, inView3] = useInView();
   const { t } = useTranslation(['translation', 'home']);
 
   const animation_style1 = useSpring({
-    transform: inView1 ? 'translateX(-5%)' : 'translateX(0)',
+    transform: inView1 ? 'translateX(-5%)' : 'translateX(0%)',
   });
   const animation_style2 = useSpring({
-    transform: inView2 ? 'translateX(-5%)' : 'translateX(0)',
+    transform: inView2 ? 'translateX(-5%)' : 'translateX(0%)',
   });
   const animation_style3 = useSpring({
-    transform: inView3 ? 'translateX(-5%)' : 'translateX(0)',
+    transform: inView3 ? 'translateX(-5%)' : 'translateX(0%)',
   });
   return (
     <section className="home-section home-events">
@@ -45,7 +45,7 @@ export const HomeEvents: React.FunctionComponent = () => {
           <p className="event__description">
             {t('home:events-subs.night.desc')}
           </p>
-          <Link to="/" className="cta-link event__link">
+          <Link to="/arrangementer" className="cta-link event__link">
             {t('home:events-subs.night.link')}
           </Link>
         </div>
@@ -72,7 +72,7 @@ export const HomeEvents: React.FunctionComponent = () => {
           <p className="event__description">
             {t('home:events-subs.sushi.desc')}
           </p>
-          <Link to="/" className="cta-link event__link">
+          <Link to="/arrangementer" className="cta-link event__link">
             {t('home:events-subs.sushi.link')}
           </Link>
         </div>
@@ -99,7 +99,7 @@ export const HomeEvents: React.FunctionComponent = () => {
           <p className="event__description">
             {t('home:events-subs.private.desc')}
           </p>
-          <Link to="/" className="cta-link event__link">
+          <Link to="/arrangementer" className="cta-link event__link">
             {t('home:events-subs.private.link')}
           </Link>
         </div>
