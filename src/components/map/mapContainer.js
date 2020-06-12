@@ -3,20 +3,21 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 import mapStyle from './mapStyles';
 
-// const containerStyles = {
-//   position: 'relative',
-// };
-
 const MapContainer = (props) => {
   const _mapLoaded = (mapProps, map) => {
     map.setOptions({
       styles: mapStyle,
     });
   };
+  const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
+
   return (
     <Map
       google={props.google}
-      style={{ position: 'relative', height: '100vh' }}
+      style={{
+        position: 'relative',
+        height: isDesktopWidth ? '50vh' : '100vh',
+      }}
       containerStyle={{ position: 'relative' }}
       onReady={(mapProps, map) => _mapLoaded(mapProps, map)}
       initialCenter={{

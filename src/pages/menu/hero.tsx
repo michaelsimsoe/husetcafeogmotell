@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'cloudinary-react';
+
+import { Image, Transformation } from 'cloudinary-react';
+
 
 export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'menu']);
@@ -58,9 +60,14 @@ export const HeroComponent: React.FunctionComponent = () => {
           <div className="hero-img__overlay"></div>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="menu/hero_unxbsa"
+            publicId="menu/hero_vvqqei.webp"
             crop="scale"
-          />
+            alt="familie som spiser i restauranten"
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
+          </Image>
+
         </div>
       </div>
 
@@ -73,9 +80,15 @@ export const HeroComponent: React.FunctionComponent = () => {
         </div>
         <Image
           cloudName="huset-cafe-og-motell"
-          publicId="menu/hero_unxbsa"
+
+          publicId="menu/hero600_tntf9p.webp"
           crop="scale"
-        />
+          alt="familie som spiser i restauranten"
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="auto" dpr="auto" crop="scale" />
+        </Image>
+
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">

@@ -43,3 +43,32 @@
     }
   }
 }
+
+@media (min-width: 600px) {
+  .contact-form {
+    & form,
+    & h4 {
+      margin-left: $main-margin-desktop;
+      margin-right: $main-margin-desktop-sidebar;
+    }
+
+    & form {
+      width: 50%;
+      padding: 3rem 6rem;
+    }
+
+    & h4 {
+      font-size: 1.6rem;
+    }
+
+    &__form-group {
+      &:nth-of-type(1),
+      &:nth-of-type(2) {
+        width: 45%;
+      }
+      &:nth-of-type(3) {
+        width: 60%;
+      }
+    }
+  }
+}

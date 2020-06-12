@@ -1,7 +1,6 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'events']);
@@ -28,19 +27,32 @@ export const HeroComponent: React.FunctionComponent = () => {
         <div className="hero-img-large__images">
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="events/dinner_party_gmyewq"
+            publicId="events/dinner_party_gmyewq.webp"
             crop="scale"
-          />
+            alt="middagsselskap"
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
+          </Image>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="events/dinner_party_gmyewq"
+            publicId="hjem/moterom_fa1x45.webp"
             crop="scale"
-          />
+            alt="møterom"
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
+          </Image>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="events/dinner_party_gmyewq"
+            publicId="hjem/privatfest_qq9rsn.webp"
             crop="scale"
-          />
+            alt="privat arrangement"
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
+          </Image>
+
         </div>
       </div>
       <div className="hero-img-mobile">
@@ -56,9 +68,13 @@ export const HeroComponent: React.FunctionComponent = () => {
         </div>
         <Image
           cloudName="huset-cafe-og-motell"
-          publicId="events/dinner_party_gmyewq"
+          publicId="arr/dinner_party_600_lq1mg1.webp"
           crop="scale"
-        />
+          alt="middagsselskap"
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="auto" dpr="auto" crop="scale" />
+        </Image>
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">

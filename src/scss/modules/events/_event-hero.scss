@@ -95,6 +95,100 @@
       left: unset;
       transform: unset;
 
+      .hero-contact__text {
+        flex-direction: column;
+        background-color: unset;
+        backdrop-filter: unset;
+        & p {
+          font-size: 1.4rem;
+          color: $dark-text;
+        }
+      }
+    }
+    & .hero-img-large {
+      display: flex;
+      height: 100vh;
+      justify-content: flex-end;
+
+      &__images {
+        display: none;
+        & > img {
+          position: relative;
+        }
+      }
+
+      & .hero-contact {
+        &__location-hint {
+          display: none;
+        }
+      }
+
+      &__contact {
+        display: flex;
+        flex-direction: column;
+        margin-top: 4rem;
+      }
+      &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        z-index: 10;
+        margin-left: 2rem;
+        & .hero__header > * {
+          color: $dark-text;
+        }
+
+        & .hero__header {
+          @include slide-in;
+          & h3 {
+            font-size: 2rem;
+            margin-bottom: 0rem;
+          }
+          & h1 {
+            font-size: 4rem;
+            letter-spacing: 0.12rem;
+            margin: -1rem 0 0rem;
+            line-height: 1.1;
+          }
+          & h4 {
+            color: $dark-text;
+            font-weight: 100;
+          }
+        }
+      }
+
+      &__image {
+        height: 100vh;
+        width: 55vw;
+
+        & > img {
+          height: 100vh;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .hero.events-hero {
+    background-color: #fff;
+    & > .hero-contact {
+      display: none;
+    }
+    .hero-contact {
+      background-color: unset;
+      backdrop-filter: unset;
+      text-align: unset;
+      width: unset;
+      position: unset;
+      margin: unset;
+      padding-top: unset;
+      bottom: unset;
+      height: unset;
+      left: unset;
+      transform: unset;
+
       & .hero-contact__text {
         flex-direction: column;
         background-color: unset;
@@ -112,6 +206,7 @@
       justify-content: flex-end;
       // flex-direction: row-reverse;
       &__images {
+        display: block;
         position: relative;
         height: 100vh;
         width: 50%;

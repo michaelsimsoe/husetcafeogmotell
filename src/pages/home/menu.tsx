@@ -7,6 +7,9 @@ import { animated, useSpring } from 'react-spring';
 
 // Images
 import pizzaImage from './assets/pizza.png';
+import hamburgerImage from './assets/hamburger100.png';
+import husmannImage from './assets/hus100.png';
+import kjottImage from './assets/kjott100.png';
 
 export const HomeMenu: React.FunctionComponent = () => {
   const [ref1, inView1] = useInView();
@@ -15,8 +18,14 @@ export const HomeMenu: React.FunctionComponent = () => {
   const [ref4, inView4] = useInView();
   const { t } = useTranslation(['translation', 'home']);
 
+  const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
+
   const moveHighLightRight = useSpring({
-    transform: inView1 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView1
+      ? isDesktopWidth
+        ? 'translateX(-40px)'
+        : 'translateX(0px)'
+      : 'translateX(-300px)',
   });
   const spinDishIn = useSpring({
     transform: inView1 ? 'rotate(360deg)' : 'rotate(0deg)',
@@ -24,7 +33,11 @@ export const HomeMenu: React.FunctionComponent = () => {
   });
 
   const moveHighLightRight2 = useSpring({
-    transform: inView2 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView2
+      ? isDesktopWidth
+        ? 'translateX(-100px)'
+        : 'translateX(0px)'
+      : 'translateX(300px)',
   });
   const spinDishIn2 = useSpring({
     transform: inView2 ? 'rotate(360deg)' : 'rotate(0deg)',
@@ -32,7 +45,11 @@ export const HomeMenu: React.FunctionComponent = () => {
   });
 
   const moveHighLightRight3 = useSpring({
-    transform: inView3 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView3
+      ? isDesktopWidth
+        ? 'translateX(-40px)'
+        : 'translateX(0px)'
+      : 'translateX(-300px)',
   });
   const spinDishIn3 = useSpring({
     transform: inView3 ? 'rotate(360deg)' : 'rotate(0deg)',
@@ -40,7 +57,11 @@ export const HomeMenu: React.FunctionComponent = () => {
   });
 
   const moveHighLightRight4 = useSpring({
-    transform: inView4 ? 'translateX(0px)' : 'translateX(-200px)',
+    transform: inView4
+      ? isDesktopWidth
+        ? 'translateX(-100px)'
+        : 'translateX(0px)'
+      : 'translateX(300px)',
   });
   const spinDishIn4 = useSpring({
     transform: inView4 ? 'rotate(360deg)' : 'rotate(0deg)',
@@ -60,7 +81,7 @@ export const HomeMenu: React.FunctionComponent = () => {
           style={moveHighLightRight}
           className="home-menu__small-circle"
         ></animated.div>
-        <animated.img style={spinDishIn} src={pizzaImage} alt="pizza" />
+        <animated.img style={spinDishIn} src={husmannImage} alt="middag" />
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.traditional.name')}</h3>
           <p>{t('home:menu-subs.traditional.desc')}</p>
@@ -96,7 +117,7 @@ export const HomeMenu: React.FunctionComponent = () => {
           style={moveHighLightRight3}
           className="home-menu__small-circle"
         ></animated.div>
-        <animated.img style={spinDishIn3} src={pizzaImage} alt="pizza" />
+        <animated.img style={spinDishIn3} src={kjottImage} alt="kjøttmat" />
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.meat.name')}</h3>
           <p>{t('home:menu-subs.meat.desc')}</p>
@@ -114,7 +135,11 @@ export const HomeMenu: React.FunctionComponent = () => {
           style={moveHighLightRight4}
           className="home-menu__small-circle home-menu__small-circle--right"
         ></animated.div>
-        <animated.img style={spinDishIn4} src={pizzaImage} alt="pizza" />
+        <animated.img
+          style={spinDishIn4}
+          src={hamburgerImage}
+          alt="hamburger"
+        />
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.child.name')}</h3>
           <p>{t('home:menu-subs.child.desc')}</p>

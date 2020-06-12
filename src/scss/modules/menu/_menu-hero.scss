@@ -92,6 +92,9 @@
 
       &__text {
         flex-direction: column;
+        p {
+          font-size: 1.4rem;
+        }
       }
     }
     & .hero-img-large {
@@ -102,8 +105,6 @@
       justify-content: flex-end;
       &__image {
         position: relative;
-      }
-      & .hero-img__overlay {
       }
 
       & .hero-contact {
@@ -158,3 +159,15 @@
     }
   }
 }
+
+@media (min-width: 900px) {
+  .hero-contact {
+    &__text {
+      flex-direction: column;
+      p {
+        font-size: 36px;
+      }
+    }
+  }
+}
+

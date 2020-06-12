@@ -43,17 +43,30 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
         <div className="sidebar__content">
           <nav className="navigation">
             <div className="navigation__item">
-              <NavLink onClick={() => setOpenSidebar(false)} to="/">
+              <NavLink
+                exact={true}
+                onClick={() => setOpenSidebar(false)}
+                to="/"
+                activeClassName="navigation__item--active"
+              >
                 {t('nav:home')}
               </NavLink>
             </div>
             <div className="navigation__item">
-              <NavLink onClick={() => setOpenSidebar(false)} to="/overnatting">
+              <NavLink
+                onClick={() => setOpenSidebar(false)}
+                to="/overnatting"
+                activeClassName="navigation__item--active"
+              >
                 {t('nav:rooms')}
               </NavLink>
             </div>
             <div className="navigation__item">
-              <NavLink onClick={() => setOpenSidebar(false)} to="/meny">
+              <NavLink
+                onClick={() => setOpenSidebar(false)}
+                to="/meny"
+                activeClassName="navigation__item--active"
+              >
                 {t('nav:food')}
               </NavLink>
             </div>
@@ -61,6 +74,7 @@ export const Navigation: React.FunctionComponent<NavigationProps> = ({
               <NavLink
                 onClick={() => setOpenSidebar(false)}
                 to="/arrangementer"
+                activeClassName="navigation__item--active"
               >
                 {t('nav:events')}
               </NavLink>

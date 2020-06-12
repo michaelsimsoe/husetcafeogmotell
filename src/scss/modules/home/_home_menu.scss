@@ -1,4 +1,8 @@
+.overflow-wrapper {
+  max-width: 100vw;
+}
 .home-menu {
+  overflow: hidden;
   position: relative;
 
   & .section-heading {
@@ -10,8 +14,9 @@
   }
 }
 .home-menu__item {
+  position: relative;
   display: flex;
-  margin: 1.2rem 37px;
+  padding: 1.2rem 37px;
 
   & img {
     height: 100%;
@@ -41,10 +46,12 @@
 
 @media (min-width: 600px) {
   .home-menu {
-    margin: 0 $main-margin-desktop;
+    margin: unset;
+    padding: 0 $main-margin-desktop !important;
     & .section-heading {
       margin-right: 0;
       margin-left: 0;
+      margin-bottom: 6rem;
     }
   }
   .home-menu__big-circle {
@@ -68,20 +75,22 @@
 
   .home-menu__small-circle--right {
     left: initial;
-    right: -20%;
+    right: 5%;
   }
 
   .home-menu__item {
-    margin-bottom: 5rem;
+    margin-bottom: 7rem;
     position: relative;
-    transition: transform 5.5s ease;
+    transition: transform 1.5s ease;
+
 
     &-text {
       margin-left: 0;
       max-width: 25rem;
     }
     & img {
-      // margin-right: 1.8rem;
+      margin-right: 1.8rem;
+
       transition: transform 1.5s ease;
       // transform-origin: 50% 50%;
     }
@@ -116,6 +125,6 @@
 
 @media (min-width: 1200px) {
   .home-menu {
-    margin-right: calc(9rem + 160px);
+    padding-right: calc(9rem + 160px);
   }
 }

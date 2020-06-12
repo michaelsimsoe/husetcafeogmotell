@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 const svgStyle = {
   fill: '#081214',
@@ -43,9 +43,14 @@ export const HeroComponent: React.FunctionComponent = () => {
           <div className="hero-img__overlay"></div>
           <Image
             cloudName="huset-cafe-og-motell"
-            publicId="rooms/rom_en_x0nqo8"
+            publicId="rom/rom_en_ipd88c.webp"
             crop="scale"
-          />
+            alt="enkeltrom"
+          >
+            <Transformation fetchFormat="auto" crop="scale" />
+            <Transformation width="auto" dpr="auto" crop="scale" />
+          </Image>
+
         </div>
       </div>
       <div className="hero-img-mobile">
@@ -57,9 +62,13 @@ export const HeroComponent: React.FunctionComponent = () => {
         </div>
         <Image
           cloudName="huset-cafe-og-motell"
-          publicId="rooms/rom_bredt_rjpinu"
+          publicId="rom/rom_bredt_yqkpep.webp"
           crop="scale"
-        />
+          alt="panoram av rom"
+        >
+          <Transformation fetchFormat="auto" crop="scale" />
+          <Transformation width="600" dpr="auto" crop="scale" />
+        </Image>
       </div>
       <section className="hero-contact">
         <div className="hero-contact__text">

@@ -32,6 +32,61 @@
     }
 
     &__image {
+      height: 100%;
+      border: 3px solid white;
+      & > img {
+        height: 100%;
+      }
+    }
+
+    &__content {
+      flex-grow: 2;
+      h3 {
+        font-size: 1.1rem;
+      }
+      p,
+      ul {
+        font-size: 0.9rem;
+      }
+    }
+
+    &__sub-heading {
+      display: block;
+    }
+
+    &__buttons {
+      display: flex;
+      & > a {
+        font-size: 0.8rem;
+        margin-right: 0.4rem;
+      }
+    }
+
+    &__link {
+      font-size: 0.8rem;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (min-width: 900px) {
+  .home-rooms {
+    .section-heading {
+      margin-bottom: 1.8rem;
+    }
+
+    &__container {
+      border-top: 3px solid white;
+      border-bottom: 3px solid white;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 330px;
+      padding-right: $sidebar-width;
+      background-image: $linear-bg;
+    }
+
+    &__image {
       height: 120%;
       border: 3px solid white;
       & > img {
@@ -42,6 +97,13 @@
 
     &__content {
       flex-grow: 2;
+      h3 {
+        font-size: 1.4rem;
+      }
+      p,
+      ul {
+        font-size: 1rem;
+      }
     }
 
     &__sub-heading {
@@ -51,11 +113,13 @@
     &__buttons {
       display: flex;
       & > a {
+        font-size: 1rem;
         margin-right: auto;
       }
     }
 
     &__link {
+      font-size: 1rem;
       margin-top: 1rem;
     }
   }

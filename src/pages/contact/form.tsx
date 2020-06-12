@@ -48,7 +48,8 @@ export const ContactForm: React.FunctionComponent = () => {
     <section className="contact-form">
       <h4>
         {t('contact:contact-email1')}{' '}
-        <a href="mailto:kontakt@husetmotell.no">kontakt@husetmotell.no</a>.
+        <a href="mailto:kontakt@husetmotell.no">kontakt@husetmotell.no</a>.{' '}
+        <br />
         {t('contact:contact-email2')}
       </h4>
       <form

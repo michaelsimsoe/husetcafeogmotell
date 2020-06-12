@@ -53,3 +53,28 @@
     }
   }
 }
+
+@media (min-width: 950px) {
+  .rooms-info {
+    .information {
+      background-color: unset;
+      backdrop-filter: unset;
+      padding: 2rem 0;
+      .info-container {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(2px);
+        margin: 3rem 0;
+        padding: 3rem;
+        padding-left: $main-margin-desktop;
+        margin-right: 40vw;
+
+        &__area {
+          & p:first-of-type {
+            border-bottom: 1px solid #fff;
+          }
+        }
+      }
+    }
+  }
+}
+

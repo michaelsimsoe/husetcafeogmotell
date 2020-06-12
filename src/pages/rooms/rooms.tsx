@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 
 export const RoomsContainer: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'rooms']);
@@ -12,9 +12,13 @@ export const RoomsContainer: React.FunctionComponent = () => {
           <figure className="image-carousel">
             <Image
               cloudName="huset-cafe-og-motell"
-              publicId="rooms/skrivebord"
+              publicId="rom/skrivebord_r60crq.webp"
               crop="scale"
-            />
+              alt="skrivebord på rom"
+            >
+              <Transformation fetchFormat="auto" crop="scale" />
+              <Transformation width="auto" dpr="auto" crop="scale" />
+            </Image>
           </figure>
           <div className="rooms-intro__info">
             <div className="info-container__content">
@@ -43,9 +47,13 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <figure className="double-rooms__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="rooms/rom_to_rvkgac"
+                publicId="rom/rom_to_yzolnv.webp"
                 crop="scale"
-              />
+                alt="dobbeltrom"
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container">
               <h3>{t('rooms:double-size')}</h3>
@@ -63,9 +71,13 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <figure className="single-rooms__image">
               <Image
                 cloudName="huset-cafe-og-motell"
-                publicId="rooms/rom_en_x0nqo8"
+                publicId="rom/rom_en_ipd88c.webp"
                 crop="scale"
-              />
+                alt="enkeltrom"
+              >
+                <Transformation fetchFormat="auto" crop="scale" />
+                <Transformation width="auto" dpr="auto" crop="scale" />
+              </Image>
             </figure>
             <div className="info-container">
               <h3>{t('rooms:single-size')}</h3>
@@ -85,8 +97,12 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <div className="img__overlay"></div>
             <Image
               cloudName="huset-cafe-og-motell"
-              publicId="rooms/frokost-placeholder_i0cxli"
-            />
+              publicId="rom/frokost-placeholder_aixosv"
+              alt="frokostbord"
+            >
+              <Transformation fetchFormat="auto" crop="scale" />
+              <Transformation width="auto" dpr="auto" crop="scale" />
+            </Image>
           </figure>
           <div className="full-width__content">
             <h3>{t('rooms:breakfast-sub')}</h3>
