@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FacebookFeed: React.FunctionComponent = () => {
+const FacebookFeed: React.FunctionComponent = () => {
   return (
     <section className="facebook-feed">
       <div className="facebook-container">
@@ -28,3 +28,5 @@ export const FacebookFeed: React.FunctionComponent = () => {
     </section>
   );
 };
+
+export default FacebookFeed;

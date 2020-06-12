@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
@@ -24,11 +24,15 @@ export const EventCarousel: React.FunctionComponent<EventCarouselProps> = ({
           <div>
             <Image
               cloudName="huset-cafe-og-motell"
-              publicId={`events/${image}`}
+              publicId={`arr/${image}.webp`}
               crop="scale"
               height="300"
               width="300"
-            />
+              alt="carousel image"
+            >
+              <Transformation fetchFormat="auto" crop="scale" />
+              <Transformation width="auto" dpr="auto" crop="scale" />
+            </Image>
           </div>
         );
       })}

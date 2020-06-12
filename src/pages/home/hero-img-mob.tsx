@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image } from 'cloudinary-react';
+
+import huset_fasada from './assets/huset_fasade400.jpg';
 
 export const HeroParallaxImageMobile: React.FunctionComponent = () => {
   return (
@@ -143,11 +144,7 @@ export const HeroParallaxImageMobile: React.FunctionComponent = () => {
         </svg>
       </figure>
       <div className="hero-img__overlay"></div>
-      <Image
-        cloudName="huset-cafe-og-motell"
-        publicId="home/huset_fasade_kxnlir"
-        crop="scale"
-      />
+      <img src={huset_fasada} alt="frontent av huset cafe og motell" />
     </>
   );
 };

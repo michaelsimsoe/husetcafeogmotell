@@ -40,3 +40,281 @@
     }
   }
 }
+
+@media (min-width: 600px) {
+  .rooms-info {
+    margin-top: 22vh;
+    margin-bottom: 8rem;
+    .section-heading {
+      margin-left: $main-margin-desktop;
+    }
+
+    .rooms-intro {
+      .section-heading {
+        margin-bottom: 1.8rem;
+      }
+      .rooms-intro__container {
+        border-top: 3px solid white;
+        border-bottom: 3px solid white;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 70vh;
+        padding-right: $sidebar-width;
+        background-image: $linear-bg;
+        justify-content: unset;
+
+        & .image-carousel {
+          height: 100%;
+          align-self: center;
+          & > img {
+            height: 100%;
+          }
+          margin-left: 0;
+        }
+
+        & .rooms-intro__info {
+          margin: 0;
+          padding: 0;
+          width: 60%;
+          .__content {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+          }
+          .info-container {
+            margin: 0.4rem 0.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          display: flex;
+
+          .info-container__content {
+            h3 {
+              font-size: 1rem;
+              color: $cta-text;
+            }
+          }
+
+          & > .info-container {
+            padding: 1.2rem;
+            margin-left: 2rem;
+            border: 1px solid white;
+          }
+        }
+      }
+    }
+    section.rooms {
+      margin-top: 6rem;
+    }
+    .rooms-wrapper {
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(2px);
+      padding-top: 2rem;
+      padding-bottom: 8rem;
+      margin-top: 6rem;
+      margin-bottom: 6rem;
+
+      .section-heading {
+        margin-left: 0;
+      }
+
+      .section-heading--first {
+        text-align: right;
+        margin-right: $sidebar-width;
+      }
+    }
+    .double-rooms__container,
+    .single-rooms__container {
+      border: 3px solid white;
+      margin-left: 0;
+      margin-right: $sidebar-width;
+      display: flex;
+      justify-content: space-evenly;
+      height: 50vh;
+      background-image: $linear-bg;
+      justify-content: unset;
+      align-self: center;
+    }
+
+    .double-rooms__image,
+    .single-rooms__image {
+      border: 3px solid white;
+      align-self: center;
+      transform: scale(0.7);
+    }
+    .double-rooms__container {
+      margin-bottom: 12rem;
+    }
+    .single-rooms__container {
+      flex-direction: row-reverse;
+    }
+    .info-container {
+      &__price {
+        margin-top: 3rem;
+        p:first-of-type {
+          color: $cta-text;
+        }
+
+        p:last-of-type {
+          font-style: italic;
+          font-size: 0.9rem;
+        }
+      }
+    }
+    &.breakfast {
+      .section-heading {
+        margin-left: $main-margin-desktop;
+      }
+    }
+
+    .info-container.info-container__area {
+      h4 {
+        font-size: 1.2rem;
+        margin-top: 2rem;
+      }
+      a {
+        display: block;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 950px) {
+  .rooms-info {
+    margin-top: 22vh;
+    margin-bottom: 8rem;
+    .section-heading {
+      margin-left: $main-margin-desktop;
+    }
+
+    .rooms-intro {
+      .section-heading {
+        margin-bottom: 1.8rem;
+      }
+      .rooms-intro__container {
+        border-top: 3px solid white;
+        border-bottom: 3px solid white;
+        display: flex;
+        justify-content: space-evenly;
+        height: 40vh;
+        padding-right: $sidebar-width;
+        background-image: $linear-bg;
+        justify-content: unset;
+
+        & .image-carousel {
+          height: 120%;
+          align-self: center;
+          & > img {
+            border: 3px solid white;
+            height: 100%;
+          }
+          margin-left: $main-margin-desktop;
+        }
+
+        & .rooms-intro__info {
+          margin: 0;
+          padding: 0;
+          width: 60%;
+          .__content {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+          }
+          .info-container {
+            margin: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          display: flex;
+
+          .info-container__content {
+          }
+
+          & > .info-container {
+            padding: 1.2rem;
+            margin-left: 2rem;
+            border: 1px solid white;
+          }
+        }
+      }
+    }
+    section.rooms {
+      margin-top: 6rem;
+    }
+    .rooms-wrapper {
+      background-color: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(2px);
+      padding-top: 2rem;
+      padding-bottom: 8rem;
+      margin-top: 6rem;
+      margin-bottom: 6rem;
+
+      .section-heading {
+        margin-left: $main-margin-desktop;
+      }
+
+      .section-heading--first {
+        text-align: right;
+        margin-right: $sidebar-width;
+      }
+    }
+    .double-rooms__container,
+    .single-rooms__container {
+      border: 3px solid white;
+      margin-left: $main-margin-desktop;
+      margin-right: $sidebar-width;
+      display: flex;
+      justify-content: space-evenly;
+      height: 40vh;
+      background-image: $linear-bg;
+      justify-content: unset;
+      align-self: center;
+    }
+
+    .double-rooms__image,
+    .single-rooms__image {
+      border: 3px solid white;
+      align-self: center;
+      transform: scale(0.7);
+    }
+    .double-rooms__container {
+      margin-bottom: 12rem;
+    }
+    .single-rooms__container {
+      flex-direction: row-reverse;
+    }
+    .info-container {
+      &__price {
+        margin-top: 3rem;
+        p:first-of-type {
+          color: $cta-text;
+        }
+
+        p:last-of-type {
+          font-style: italic;
+          font-size: 0.9rem;
+        }
+      }
+    }
+    &.breakfast {
+      .section-heading {
+        margin-left: $main-margin-desktop;
+      }
+    }
+
+    .info-container.info-container__area {
+      h4 {
+        font-size: 1.2rem;
+        margin-top: 2rem;
+      }
+      a {
+        display: block;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}

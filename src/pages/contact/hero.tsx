@@ -13,7 +13,17 @@ export const HeroComponent: React.FunctionComponent = () => {
   const { t } = useTranslation(['translation', 'contact']);
   return (
     <section className="hero contact-hero">
-      <div className="hero-img-large"></div>
+      <div className="hero-img-large">
+        <header className="hero__header">
+          <h1>{t('contact:landing-heading')}</h1>
+        </header>
+        <div className="hero-contact-text">
+          <p>{t('contact:landing-text1')}</p>
+          <p>{t('contact:landing-text2')}</p>
+          <p>{t('contact:landing-text3')}</p>
+          <p>{t('contact:landing-text4')}</p>
+        </div>
+      </div>
       <div className="hero-img-mobile">
         <div className="hero__header">
           <h1>{t('contact:landing-heading')}</h1>
