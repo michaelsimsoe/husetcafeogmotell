@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { Image, Transformation } from 'cloudinary-react';
 
 // Components
-import MapLocation from '../../components/map/mapContainer';
 import { HeroComponent } from './hero';
 import { HomeMenu } from './menu';
 import { HomeEvents } from './events';
+import { Loader } from '../../components/loader';
+
+const MapLocation = lazy(() => import('../../components/map/mapContainer'));
 
 interface HomeProps {
   sidebarOpen: (boolean) => void;
@@ -17,6 +19,10 @@ interface HomeProps {
 export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
   const { t } = useTranslation(['translation', 'home']);
   const [ref, inView] = useInView({ rootMargin: '-300px' });
+  const [mapRef, mapInView] = useInView({
+    triggerOnce: true,
+    rootMargin: '-50px',
+  });
 
   useEffect(() => {
     const isDesktopWidth = window.matchMedia('(min-width: 600px)').matches;
@@ -29,9 +35,19 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
     <div className="home">
       <HeroComponent />
       <div ref={ref} className="home-main-content">
-        <section className="home-section map-mobile">
-          <MapLocation />
-          <div>
+        <section className="home-section opening-hours">
+          <h2 className="section-heading">{t('home:opening-hours')}</h2>
+          <ul>
+            <li>{t('home:monday')} kl 11.00 - 17.00</li>
+            <li>{t('home:tuesday')} kl 11.00 - 17.00</li>
+            <li>{t('home:wednesday')} kl 11.00 - 17.00</li>
+            <li>{t('home:thursday')} kl 11.00 - 17.00</li>
+            <li>{t('home:friday')} kl 10.00 - 17.00</li>
+            <li>{t('home:saturday')} kl 11.00 - 18.00</li>
+            <li>{t('home:sunday')} kl 14.00 - 18.00</li>
+          </ul>
+          <div className="opening-hours__welcome">
+            <h3>{t('home:welcome')}</h3>
             <p>
               {t('home:map1')}{' '}
               <a href="https://no.wikipedia.org/wiki/Hemnes">Hemnes Kommune.</a>
@@ -39,6 +55,9 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
             <p>{t('home:map2')}</p>
             <p>{t('home:map3')}</p>
           </div>
+        </section>
+        <section ref={mapRef} className="home-section map-mobile">
+          {mapInView ? <MapLocation /> : <Loader logoColor="#fff" />}
         </section>
         <section className="home-section home-rooms">
           <h2 className="section-heading">{t('home:rooms-title')}</h2>

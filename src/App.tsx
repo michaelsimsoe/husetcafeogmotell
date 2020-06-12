@@ -4,8 +4,9 @@ import { Switch, Route } from 'react-router-dom';
 import { useTracking } from './hooks/useTracking';
 
 import { Home } from './pages/home';
-import { Navigation } from './components/navigation';
 import { Contact } from './pages/contact';
+import { Navigation } from './components/navigation';
+import { Loader } from './components/loader';
 import { Footer } from './components/footer';
 
 const Rooms = lazy(() => import('./pages/rooms'));
@@ -24,22 +25,22 @@ const App: React.FunctionComponent = () => {
           <Home sidebarOpen={toggleSidebar} />
         </Route>
         <Route exact path="/overnatting">
-          <Suspense fallback={<h1>Still Loading…</h1>}>
+          <Suspense fallback={<Loader />}>
             <Rooms sidebarOpen={toggleSidebar} />
           </Suspense>
         </Route>
         <Route exact path="/meny">
-          <Suspense fallback={<h1>Still Loading…</h1>}>
+          <Suspense fallback={<Loader />}>
             <Menu sidebarOpen={toggleSidebar} />
           </Suspense>
         </Route>
         <Route exact path="/arrangementer">
-          <Suspense fallback={<h1>Still Loading…</h1>}>
+          <Suspense fallback={<Loader />}>
             <Events sidebarOpen={toggleSidebar} />
           </Suspense>
         </Route>
         <Route exact path="/tjenester">
-          <Suspense fallback={<h1>Still Loading…</h1>}>
+          <Suspense fallback={<Loader />}>
             <Events sidebarOpen={toggleSidebar} />
           </Suspense>
         </Route>

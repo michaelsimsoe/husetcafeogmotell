@@ -1,39 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from 'react-spring';
 import { Image, Transformation } from 'cloudinary-react';
 
 export const HomeEvents: React.FunctionComponent = () => {
-  const [ref1, inView1] = useInView();
-  const [ref2, inView2] = useInView();
-  const [ref3, inView3] = useInView();
   const { t } = useTranslation(['translation', 'home']);
-  const isDesktopWidth = window.matchMedia('(min-width: 900px)').matches;
-  let animation_style1, animation_style2, animation_style3;
-  animation_style1 = useSpring({
-    transform: inView1 ? 'translateX(-5%)' : 'translateX(0%)',
-  });
-  animation_style2 = useSpring({
-    transform: inView2 ? 'translateX(-5%)' : 'translateX(0%)',
-  });
-  animation_style3 = useSpring({
-    transform: inView3 ? 'translateX(-5%)' : 'translateX(0%)',
-  });
-  if (!isDesktopWidth) {
-    animation_style1 = {};
-    animation_style2 = {};
-    animation_style3 = {};
-  }
+
   return (
     <section className="home-section home-events">
       <h2 className="section-heading">{t('home:events-title')}</h2>
-      <animated.section
-        ref={ref1}
-        className="home-events__event"
-        style={animation_style1}
-      >
+      <section className="home-events__event">
         <figure className="event__image">
           <Image
             cloudName="huset-cafe-og-motell"
@@ -58,12 +34,8 @@ export const HomeEvents: React.FunctionComponent = () => {
             {t('home:events-subs.night.link')}
           </Link>
         </div>
-      </animated.section>
-      <animated.section
-        ref={ref2}
-        className="home-events__event home-events__event--reverse"
-        style={animation_style2}
-      >
+      </section>
+      <section className="home-events__event home-events__event--reverse">
         <figure className="event__image">
           <Image
             cloudName="huset-cafe-og-motell"
@@ -88,12 +60,8 @@ export const HomeEvents: React.FunctionComponent = () => {
             {t('home:events-subs.sushi.link')}
           </Link>
         </div>
-      </animated.section>
-      <animated.section
-        ref={ref3}
-        className="home-events__event"
-        style={animation_style3}
-      >
+      </section>
+      <section className="home-events__event">
         <figure className="event__image">
           <Image
             cloudName="huset-cafe-og-motell"
@@ -118,7 +86,7 @@ export const HomeEvents: React.FunctionComponent = () => {
             {t('home:events-subs.private.link')}
           </Link>
         </div>
-      </animated.section>
+      </section>
       <Link className="button button-padded" to="/meny#kaker">
         {t('home:events-button')}
       </Link>

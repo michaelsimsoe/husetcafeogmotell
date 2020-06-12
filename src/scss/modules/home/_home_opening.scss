@@ -1,0 +1,22 @@
+.home .home-main-content {
+  .opening-hours {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    ul {
+      list-style: none;
+      margin: 1rem 0;
+      padding: 0;
+    }
+    .opening-hours__welcome {
+      h3 {
+        margin: 0.5rem 37px;
+        color: $cta-text;
+      }
+      p {
+        margin: 0.5rem 37px;
+      }
+    }
+  }
+}
