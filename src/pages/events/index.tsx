@@ -1,3 +1,4 @@
+
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, Transformation } from 'cloudinary-react';
@@ -7,9 +8,11 @@ import { Helmet } from 'react-helmet';
 import { HeroComponent } from './hero';
 import { EventCarousel } from './eventCarousel';
 import { TFunction } from 'i18next';
+
 interface EventsProps {
   sidebarOpen: (boolean) => void;
 }
+
 
 const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
   const { t } = useTranslation(['translation', 'events']);

@@ -83,12 +83,14 @@
     position: relative;
     transition: transform 1.5s ease;
 
+
     &-text {
       margin-left: 0;
       max-width: 25rem;
     }
     & img {
       margin-right: 1.8rem;
+
       transition: transform 1.5s ease;
       // transform-origin: 50% 50%;
     }

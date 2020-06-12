@@ -50,6 +50,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             <Transformation fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
           </Image>
+
         </div>
       </div>
       <div className="hero-img-mobile">

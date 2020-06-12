@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Image, Transformation } from 'cloudinary-react';
 
 export const HomeEvents: React.FunctionComponent = () => {
+
   const { t } = useTranslation(['translation', 'home']);
 
   return (

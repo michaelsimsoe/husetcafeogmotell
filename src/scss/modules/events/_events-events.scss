@@ -22,6 +22,7 @@
   .events-special__intro {
     margin: 1rem $main-margin-mobile;
   }
+
   .event__image-image {
     display: none;
   }
@@ -193,6 +194,7 @@
     .events-special {
       margin-top: 12rem;
       & .events-special__intro {
+
         margin-left: $main-margin-desktop;
         margin-right: $sidebar-width;
         margin-bottom: 6rem;
@@ -247,6 +249,7 @@
                 box-shadow: 2px 3px 4px 2px rgba(216, 216, 216, 0.25);
                 filter: grayscale(50%);
               }
+
             }
           }
         }
