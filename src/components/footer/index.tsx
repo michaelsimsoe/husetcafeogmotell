@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useTranslation } from 'react-i18next';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { Loader } from '../loader';
 import facebookIcon from './facebook.svg';
@@ -18,7 +18,7 @@ export const Footer: React.FunctionComponent = () => {
   });
   return (
     <>
-      {/* <section ref={socialRef} className="social-section">
+      <section ref={socialRef} className="social-section">
         {socialInView ? (
           <div className="desktop-map">
             <MapLocation />
@@ -29,7 +29,7 @@ export const Footer: React.FunctionComponent = () => {
         <div className="facebook-feed-container">
           <FacebookFeed />
         </div>
-      </section> */}
+      </section>
       <footer className="main-footer wrapper">
         <div className="main-footer__container">
           <section className="main-footer__primary">
