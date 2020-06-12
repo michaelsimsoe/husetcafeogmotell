@@ -116,8 +116,9 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
                   quality="auto"
                   fetchFormat="auto"
                   crop="scale"
+                  width="auto"
+                  dpr="auto"
                 />
-                <Transformation width="auto" dpr="auto" crop="scale" />
               </Image>
             </figure>
             <div className="full-width__content">

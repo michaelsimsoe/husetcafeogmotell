@@ -227,6 +227,7 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
         {props.images.map((image) => {
           return (
             <Image
+              key={image}
               onClick={thumbClick}
               cloudName="huset-cafe-og-motell"
               publicId={`arr/${image}.webp`}

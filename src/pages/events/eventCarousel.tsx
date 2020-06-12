@@ -21,7 +21,7 @@ export const EventCarousel: React.FunctionComponent<EventCarouselProps> = ({
     >
       {images.map((image) => {
         return (
-          <div>
+          <div key={image}>
             <Image
               cloudName="huset-cafe-og-motell"
               publicId={`arr/${image}.webp`}
