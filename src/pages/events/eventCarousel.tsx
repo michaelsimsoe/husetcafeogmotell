@@ -28,6 +28,7 @@ export const EventCarousel: React.FunctionComponent<EventCarouselProps> = ({
               crop="scale"
               height="300"
               width="300"
+              alt="carousel image"
             >
               <Transformation fetchFormat="auto" crop="scale" />
               <Transformation width="auto" dpr="auto" crop="scale" />

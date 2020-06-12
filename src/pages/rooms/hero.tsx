@@ -45,6 +45,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="rom/rom_en_ipd88c.webp"
             crop="scale"
+            alt="enkeltrom"
           >
             <Transformation fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
@@ -62,6 +63,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           cloudName="huset-cafe-og-motell"
           publicId="rom/rom_bredt_yqkpep.webp"
           crop="scale"
+          alt="panoram av rom"
         >
           <Transformation fetchFormat="auto" crop="scale" />
           <Transformation width="600" dpr="auto" crop="scale" />

@@ -29,6 +29,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="events/dinner_party_gmyewq.webp"
             crop="scale"
+            alt="middagsselskap"
           >
             <Transformation fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
@@ -37,6 +38,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="hjem/moterom_fa1x45.webp"
             crop="scale"
+            alt="møterom"
           >
             <Transformation fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
@@ -45,6 +47,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="hjem/privatfest_qq9rsn.webp"
             crop="scale"
+            alt="privat arrangement"
           >
             <Transformation fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
@@ -66,6 +69,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           cloudName="huset-cafe-og-motell"
           publicId="arr/dinner_party_600_lq1mg1.webp"
           crop="scale"
+          alt="middagsselskap"
         >
           <Transformation fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />

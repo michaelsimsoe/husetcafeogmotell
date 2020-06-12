@@ -7,6 +7,9 @@ import { animated, useSpring } from 'react-spring';
 
 // Images
 import pizzaImage from './assets/pizza.png';
+import hamburgerImage from './assets/hamburger100.png';
+import husmannImage from './assets/hus100.png';
+import kjottImage from './assets/kjott100.png';
 
 export const HomeMenu: React.FunctionComponent = () => {
   const [ref1, inView1] = useInView();
@@ -78,7 +81,7 @@ export const HomeMenu: React.FunctionComponent = () => {
           style={moveHighLightRight}
           className="home-menu__small-circle"
         ></animated.div>
-        <animated.img style={spinDishIn} src={pizzaImage} alt="pizza" />
+        <animated.img style={spinDishIn} src={husmannImage} alt="middag" />
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.traditional.name')}</h3>
           <p>{t('home:menu-subs.traditional.desc')}</p>
@@ -114,7 +117,7 @@ export const HomeMenu: React.FunctionComponent = () => {
           style={moveHighLightRight3}
           className="home-menu__small-circle"
         ></animated.div>
-        <animated.img style={spinDishIn3} src={pizzaImage} alt="pizza" />
+        <animated.img style={spinDishIn3} src={kjottImage} alt="kjøttmat" />
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.meat.name')}</h3>
           <p>{t('home:menu-subs.meat.desc')}</p>
@@ -132,7 +135,11 @@ export const HomeMenu: React.FunctionComponent = () => {
           style={moveHighLightRight4}
           className="home-menu__small-circle home-menu__small-circle--right"
         ></animated.div>
-        <animated.img style={spinDishIn4} src={pizzaImage} alt="pizza" />
+        <animated.img
+          style={spinDishIn4}
+          src={hamburgerImage}
+          alt="hamburger"
+        />
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.child.name')}</h3>
           <p>{t('home:menu-subs.child.desc')}</p>

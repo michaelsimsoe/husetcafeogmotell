@@ -36,16 +36,18 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
       <HeroComponent />
       <div ref={ref} className="home-main-content">
         <section className="home-section opening-hours">
-          <h2 className="section-heading">{t('home:opening-hours')}</h2>
-          <ul>
-            <li>{t('home:monday')} kl 11.00 - 17.00</li>
-            <li>{t('home:tuesday')} kl 11.00 - 17.00</li>
-            <li>{t('home:wednesday')} kl 11.00 - 17.00</li>
-            <li>{t('home:thursday')} kl 11.00 - 17.00</li>
-            <li>{t('home:friday')} kl 10.00 - 17.00</li>
-            <li>{t('home:saturday')} kl 11.00 - 18.00</li>
-            <li>{t('home:sunday')} kl 14.00 - 18.00</li>
-          </ul>
+          <div className="opening-hours__hours">
+            <h2 className="section-heading">{t('home:opening-hours')}</h2>
+            <ul>
+              <li>{t('home:monday')} kl 11.00 - 17.00</li>
+              <li>{t('home:tuesday')} kl 11.00 - 17.00</li>
+              <li>{t('home:wednesday')} kl 11.00 - 17.00</li>
+              <li>{t('home:thursday')} kl 11.00 - 17.00</li>
+              <li>{t('home:friday')} kl 10.00 - 17.00</li>
+              <li>{t('home:saturday')} kl 11.00 - 18.00</li>
+              <li>{t('home:sunday')} kl 14.00 - 18.00</li>
+            </ul>
+          </div>
           <div className="opening-hours__welcome">
             <h3>{t('home:welcome')}</h3>
             <p>
@@ -67,6 +69,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
                 cloudName="huset-cafe-og-motell"
                 publicId="hjem/roomsx2_kf3aoo"
                 crop="scale"
+                alt="to rom i ett"
               >
                 <Transformation
                   quality="auto"
@@ -107,6 +110,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
               <Image
                 cloudName="huset-cafe-og-motell"
                 publicId="hjem/kaker_luc0f6"
+                alt="bord med kaker"
               >
                 <Transformation
                   quality="auto"
@@ -138,6 +142,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
               <Image
                 cloudName="huset-cafe-og-motell"
                 publicId="hjem/catering_jhi8jv"
+                alt="koldtbord"
               >
                 <Transformation
                   quality="auto"

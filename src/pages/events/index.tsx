@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, Transformation } from 'cloudinary-react';
 import { useInView } from 'react-intersection-observer';
+import { Helmet } from 'react-helmet';
 
 import { HeroComponent } from './hero';
 import { EventCarousel } from './eventCarousel';
@@ -23,6 +24,14 @@ const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
 
   return (
     <div className="events">
+      <Helmet>
+        <title>Huset Café & Motell - Arrangmenter</title>
+        <meta
+          name="description"
+          content="Huset Café & Motell har kjører en rekke arrangementer, både faste og mer spontane. Vi forsøker oss på alt fra nattklubbkvelder til sushiaften, og er gjerne med på morroa hvis det skjer noe lokalt i Korgen."
+        />
+      </Helmet>
+      <HeroComponent />
       <HeroComponent />
       <main ref={ref}>
         <section className="events-events">
@@ -33,6 +42,7 @@ const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
                 cloudName="huset-cafe-og-motell"
                 publicId="arr/konsert_600_bodevy.webp"
                 crop="scale"
+                alt="intim gitarkonsert"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
                 <Transformation width="auto" dpr="auto" crop="scale" />
@@ -73,6 +83,7 @@ const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
                 cloudName="huset-cafe-og-motell"
                 publicId="arr/dekket_bord_600_ecsecr.webp"
                 crop="scale"
+                alt="et fint dekket bord"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
                 <Transformation width="auto" dpr="auto" crop="scale" />
@@ -130,6 +141,7 @@ const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
                 cloudName="huset-cafe-og-motell"
                 publicId="hjem/moterom_fa1x45.webp"
                 crop="scale"
+                alt="møterom"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
                 <Transformation width="auto" dpr="auto" crop="scale" />
@@ -148,6 +160,7 @@ const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
                 cloudName="huset-cafe-og-motell"
                 publicId="arr/dinner_party_600_lq1mg1.webp"
                 crop="scale"
+                alt="middagsselskap"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
                 <Transformation width="auto" dpr="auto" crop="scale" />
@@ -191,6 +204,7 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
           cloudName="huset-cafe-og-motell"
           publicId={`arr/${props.images[0]}.webp`}
           crop="scale"
+          alt="spesialarrangement"
           className={
             slide
               ? 'event__image-image event__image-image--slide'
@@ -218,6 +232,7 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
               publicId={`arr/${image}.webp`}
               crop="scale"
               className="thumbnail"
+              alt="spesialarrangement minibilde"
             >
               <Transformation fetchFormat="auto" crop="scale" />
               <Transformation width="auto" dpr="auto" crop="scale" />

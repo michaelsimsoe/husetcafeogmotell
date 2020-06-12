@@ -60,6 +60,7 @@ export const HeroComponent: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="menu/hero_vvqqei.webp"
             crop="scale"
+            alt="familie som spiser i restauranten"
           >
             <Transformation fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
@@ -78,6 +79,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           cloudName="huset-cafe-og-motell"
           publicId="menu/hero600_tntf9p.webp"
           crop="scale"
+          alt="familie som spiser i restauranten"
         >
           <Transformation fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 import { HeroComponent } from './hero';
 import { ContactForm } from './form';
@@ -19,6 +20,13 @@ export const Contact: React.FunctionComponent<ContactProps> = ({
   }, [sidebarOpen]);
   return (
     <section className="contact">
+      <Helmet>
+        <title>Huset Café & Motell - Kontakt oss</title>
+        <meta
+          name="description"
+          content="Kontakt Huset Café & Motell. Send oss en e-post, bruk webskjemaet, eller ring oss på 751 97 200"
+        />
+      </Helmet>
       <HeroComponent />
       <ContactForm />
     </section>

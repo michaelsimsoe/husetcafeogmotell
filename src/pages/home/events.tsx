@@ -15,6 +15,7 @@ export const HomeEvents: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="hjem/nattklubb_w0alyv_qazcu3"
             crop="scale"
+            alt="nattklubb"
           >
             <Transformation quality="auto" fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
@@ -41,6 +42,7 @@ export const HomeEvents: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="hjem/sushi_fat_ven0rs"
             crop="scale"
+            alt="fat med sushi"
           >
             <Transformation quality="auto" fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />
@@ -67,6 +69,7 @@ export const HomeEvents: React.FunctionComponent = () => {
             cloudName="huset-cafe-og-motell"
             publicId="hjem/privatfest_qq9rsn"
             crop="scale"
+            alt="privat arrangement"
           >
             <Transformation quality="auto" fetchFormat="auto" crop="scale" />
             <Transformation width="auto" dpr="auto" crop="scale" />

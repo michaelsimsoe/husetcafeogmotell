@@ -14,6 +14,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
               cloudName="huset-cafe-og-motell"
               publicId="rom/skrivebord_r60crq.webp"
               crop="scale"
+              alt="skrivebord på rom"
             >
               <Transformation fetchFormat="auto" crop="scale" />
               <Transformation width="auto" dpr="auto" crop="scale" />
@@ -48,6 +49,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
                 cloudName="huset-cafe-og-motell"
                 publicId="rom/rom_to_yzolnv.webp"
                 crop="scale"
+                alt="dobbeltrom"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
                 <Transformation width="auto" dpr="auto" crop="scale" />
@@ -71,6 +73,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
                 cloudName="huset-cafe-og-motell"
                 publicId="rom/rom_en_ipd88c.webp"
                 crop="scale"
+                alt="enkeltrom"
               >
                 <Transformation fetchFormat="auto" crop="scale" />
                 <Transformation width="auto" dpr="auto" crop="scale" />
@@ -95,6 +98,7 @@ export const RoomsContainer: React.FunctionComponent = () => {
             <Image
               cloudName="huset-cafe-og-motell"
               publicId="rom/frokost-placeholder_aixosv"
+              alt="frokostbord"
             >
               <Transformation fetchFormat="auto" crop="scale" />
               <Transformation width="auto" dpr="auto" crop="scale" />

@@ -21,6 +21,7 @@ export const HeroParallaxImage = () => {
         cloudName="huset-cafe-og-motell"
         publicId="hjem/sky_bg_hwr6xr"
         resourceType="image"
+        alt="blå himmel"
       >
         <Transformation quality="auto" fetchFormat="auto" crop="scale" />
         <Transformation width="auto" dpr="auto" crop="scale" />
@@ -32,6 +33,7 @@ export const HeroParallaxImage = () => {
           cloudName="huset-cafe-og-motell"
           publicId="hjem/okstinden_qank8s.png"
           resourceType="image"
+          alt="okstinden"
         >
           <Transformation quality="auto" fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />
@@ -43,6 +45,7 @@ export const HeroParallaxImage = () => {
           cloudName="huset-cafe-og-motell"
           publicId="hjem/klubben_bg_lklcfx.png"
           resourceType="image"
+          alt="fjellet Klubben"
         >
           <Transformation quality="auto" fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />
@@ -54,6 +57,7 @@ export const HeroParallaxImage = () => {
           cloudName="huset-cafe-og-motell"
           publicId="hjem/huset_hfy7rh.png"
           resourceType="image"
+          alt="fronten av vertshuset"
         >
           <Transformation quality="auto" fetchFormat="auto" crop="scale" />
           <Transformation width="auto" dpr="auto" crop="scale" />
