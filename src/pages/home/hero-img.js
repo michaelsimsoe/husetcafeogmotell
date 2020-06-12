@@ -2,7 +2,6 @@ import React from 'react';
 import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons';
 import { Image, Transformation } from 'cloudinary-react';
 
-import huset_fasade from './assets/huset_fasade_full-min1200.jpg';
 // eslint-disable-next-line
 let parallax;
 
@@ -17,7 +16,6 @@ export const HeroParallaxImage = () => {
       <div className="hero-img__overlay"></div>
       {/* <img src={huset_fasade} alt="Huset Kafe og Motell fra fronten" /> */}
       {/* <ParallaxLayer offset={0} factor={1} speed={0}> */}
-      {/* <img src={huset_fasade} alt="huset fasade" /> */}
       <Image
         className="hero-img__bg"
         cloudName="huset-cafe-og-motell"
