@@ -7,7 +7,7 @@ import { RoomsContainer } from './rooms';
 interface RoomProps {
   sidebarOpen: (boolean) => void;
 }
-export const Rooms: React.FunctionComponent<RoomProps> = ({ sidebarOpen }) => {
+const Rooms: React.FunctionComponent<RoomProps> = ({ sidebarOpen }) => {
   const [ref, inView] = useInView({ rootMargin: '-300px' });
 
   useEffect(() => {
@@ -24,3 +24,5 @@ export const Rooms: React.FunctionComponent<RoomProps> = ({ sidebarOpen }) => {
     </div>
   );
 };
+
+export default Rooms;

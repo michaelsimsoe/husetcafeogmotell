@@ -10,9 +10,7 @@ interface EventsProps {
   sidebarOpen: (boolean) => void;
 }
 
-export const Events: React.FunctionComponent<EventsProps> = ({
-  sidebarOpen,
-}) => {
+const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
   const { t } = useTranslation(['translation', 'events']);
   const [ref, inView] = useInView({ rootMargin: '-300px' });
 
@@ -217,7 +215,7 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
             <Image
               onClick={thumbClick}
               cloudName="huset-cafe-og-motell"
-              publicId={`events/${image}.webp`}
+              publicId={`arr/${image}.webp`}
               crop="scale"
               className="thumbnail"
             >
@@ -230,3 +228,5 @@ const SpecialEventContainer: React.FunctionComponent<SpecialEventProps> = (
     </div>
   );
 };
+
+export default Events;

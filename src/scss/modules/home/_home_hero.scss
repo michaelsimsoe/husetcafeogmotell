@@ -318,6 +318,7 @@
       top: auto;
       display: flex;
       justify-content: center;
+      flex-direction: unset;
 
       & h2 {
         display: none;

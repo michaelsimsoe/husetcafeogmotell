@@ -8,7 +8,7 @@ import menu from '../../data/menu.json';
 interface MenuProps {
   sidebarOpen: (boolean) => void;
 }
-export const Menu: React.FunctionComponent<MenuProps> = ({ sidebarOpen }) => {
+const Menu: React.FunctionComponent<MenuProps> = ({ sidebarOpen }) => {
   const [ref, inView] = useInView({ rootMargin: '-300px' });
 
   useEffect(() => {
@@ -29,3 +29,5 @@ export const Menu: React.FunctionComponent<MenuProps> = ({ sidebarOpen }) => {
     </div>
   );
 };
+
+export default Menu;

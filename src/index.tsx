@@ -23,7 +23,7 @@ LogRocket.getSessionURL((sessionURL) => {
 });
 
 ReactDOM.render(
-  <Suspense fallback={null}>
+  <Suspense fallback={<div>Loading...</div>}>
     <React.StrictMode>
       <Router>
         <ScrollToTop />
