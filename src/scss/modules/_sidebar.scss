@@ -62,12 +62,21 @@
     align-items: center;
 
     &__item {
-      padding: 2em;
+      padding: 1em;
       text-transform: uppercase;
       & a {
         text-decoration: none;
         color: $nav-color;
         font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        & > svg {
+          height: 35px;
+          stroke: $nav-color;
+          fill: $nav-color;
+        }
 
         &:hover {
           // color: lighten($primary-color, 10%);
@@ -77,6 +86,10 @@
         background: $black-blue;
         color: $nav-bg !important;
         padding: 0.2rem;
+        & > svg {
+          fill: $font-color !important;
+          stroke: $font-color !important;
+        }
       }
       @media (min-width: 600px) {
         &--active {
@@ -198,10 +211,21 @@
           text-decoration: none;
           color: $font-color;
           font-weight: bold;
+          & > svg {
+            height: 35px;
+            stroke: $font-color;
+            fill: $font-color;
+          }
 
           &:hover {
             color: $pink-orange;
           }
+        }
+      }
+      &--active {
+        & > svg {
+          fill: $nav-color !important;
+          stroke: $nav-color !important;
         }
       }
     }
