@@ -17,9 +17,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - run: npm install
         env:
           REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY}}
-      - run: npm install
       - run: yarn build --if-present
 
       - name: Deploy to netlify
