@@ -21,7 +21,7 @@
   height: 80px;
   position: absolute;
   top: 55%;
-  left: 40%;
+  transform: translateX(50%);
 }
 @media (min-width: 60rem) {
   .dots {

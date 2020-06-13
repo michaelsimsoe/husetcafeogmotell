@@ -4,8 +4,6 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import mapStyle from './mapStyles';
 
 const MapContainer = (props) => {
-  console.log(process.env.REACT_APP_GOOGLE_API_KEY);
-  console.log(process.env);
   const _mapLoaded = (mapProps, map) => {
     map.setOptions({
       styles: mapStyle,

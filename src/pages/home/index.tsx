@@ -34,6 +34,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
   return (
     <div className="home">
       <HeroComponent />
+      <Loader />
       <div ref={ref} className="home-main-content">
         <section className="home-section opening-hours">
           <div className="opening-hours__hours">
