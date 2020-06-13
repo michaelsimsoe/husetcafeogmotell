@@ -11,7 +11,7 @@
 .loader__logo {
   animation: logo-flash 5s ease;
   animation-iteration-count: infinite;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .dots {
@@ -19,9 +19,6 @@
   position: relative;
   width: 80px;
   height: 80px;
-  position: absolute;
-  top: 55%;
-  transform: translateX(50%);
 }
 @media (min-width: 60rem) {
   .dots {
