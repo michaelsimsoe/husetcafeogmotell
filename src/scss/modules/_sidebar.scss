@@ -221,11 +221,12 @@
             color: $pink-orange;
           }
         }
-      }
-      &--active {
-        & > svg {
-          fill: $nav-color !important;
-          stroke: $nav-color !important;
+
+        &--active {
+          & > svg {
+            fill: $nav-color !important;
+            stroke: $nav-color !important;
+          }
         }
       }
     }
