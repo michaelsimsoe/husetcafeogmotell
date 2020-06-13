@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 12.x
         env:
-          GOOLE_MAPS_API: ${{ secrets.GOOLE_MAPS_API}}
+          REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY}}
       - run: yarn
       - run: yarn build --if-present
       - run: sed -i -e 's/Disallow:/Disallow:\ \//g' build/robots.txt

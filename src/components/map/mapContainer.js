@@ -4,6 +4,7 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import mapStyle from './mapStyles';
 
 const MapContainer = (props) => {
+  console.log(process.env.REACT_APP_GOOGLE_API_KEY);
   const _mapLoaded = (mapProps, map) => {
     map.setOptions({
       styles: mapStyle,
@@ -33,5 +34,5 @@ const MapContainer = (props) => {
 };
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAWIvpkNc_f8zWp3YqreiTDxloyEe_jWmA',
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 })(MapContainer);
