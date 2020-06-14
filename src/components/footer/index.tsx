@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import { Loader } from '../loader';
 import FacebookFeed from './facebookFeed';
@@ -113,6 +113,10 @@ export const Footer: React.FunctionComponent = () => {
           <p>{t('footer:footer-1')}</p>
           <p>
             {t('footer:footer-2')} <a href="https://simsø.no">Simsø Web</a>
+          </p>
+          <p>
+            {t('footer:footer-3')}{' '}
+            <Link to="anerkjennelse">{t('footer:footer-4')}</Link>
           </p>
         </footer>
       </footer>

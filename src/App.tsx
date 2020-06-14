@@ -8,6 +8,7 @@ import { Contact } from './pages/contact';
 import { Navigation } from './components/navigation';
 import { Loader } from './components/loader';
 import { Footer } from './components/footer';
+import { Credit } from './pages/credit';
 
 const Rooms = lazy(() => import('./pages/rooms'));
 const Events = lazy(() => import('./pages/events'));
@@ -50,6 +51,12 @@ const App: React.FunctionComponent = () => {
         </Route>
         <Route exact path="/privacy">
           <PrivacyPolicy />
+        </Route>
+        <Route exact path="/anerkjennelse">
+          <Credit sidebarOpen={toggleSidebar} />
+        </Route>
+        <Route path="/">
+          <Home sidebarOpen={toggleSidebar} />
         </Route>
       </Switch>
       <Footer />
