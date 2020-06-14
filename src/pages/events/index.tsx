@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image, Transformation } from 'cloudinary-react';
@@ -12,7 +11,6 @@ import { TFunction } from 'i18next';
 interface EventsProps {
   sidebarOpen: (boolean) => void;
 }
-
 
 const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
   const { t } = useTranslation(['translation', 'events']);
@@ -34,7 +32,6 @@ const Events: React.FunctionComponent<EventsProps> = ({ sidebarOpen }) => {
           content="Huset Café & Motell har kjører en rekke arrangementer, både faste og mer spontane. Vi forsøker oss på alt fra nattklubbkvelder til sushiaften, og er gjerne med på morroa hvis det skjer noe lokalt i Korgen."
         />
       </Helmet>
-      <HeroComponent />
       <HeroComponent />
       <main ref={ref}>
         <section className="events-events">
