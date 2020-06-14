@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
 import { Loader } from '../loader';
+import FacebookFeed from './facebookFeed';
 import facebookIcon from './facebook.svg';
 
-const FacebookFeed = lazy(() => import('./facebookFeed'));
+// const FacebookFeed = lazy(() => import('./facebookFeed'));
 const MapLocation = lazy(() => import('../map/mapContainer'));
 
 export const Footer: React.FunctionComponent = () => {

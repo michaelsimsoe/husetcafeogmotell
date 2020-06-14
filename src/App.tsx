@@ -12,6 +12,7 @@ import { Footer } from './components/footer';
 const Rooms = lazy(() => import('./pages/rooms'));
 const Events = lazy(() => import('./pages/events'));
 const Menu = lazy(() => import('./pages/menu'));
+const PrivacyPolicy = lazy(() => import('./pages/privacy'));
 
 const App: React.FunctionComponent = () => {
   const [sidebarOpen, toggleSidebar] = useState<boolean>(false);
@@ -46,6 +47,9 @@ const App: React.FunctionComponent = () => {
         </Route>
         <Route exact path="/kontakt">
           <Contact sidebarOpen={toggleSidebar} />
+        </Route>
+        <Route exact path="/privacy">
+          <PrivacyPolicy />
         </Route>
       </Switch>
       <Footer />
