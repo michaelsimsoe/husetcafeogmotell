@@ -85,7 +85,7 @@ export const HomeMenu: React.FunctionComponent = () => {
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.traditional.name')}</h3>
           <p>{t('home:menu-subs.traditional.desc')}</p>
-          <Link className="cta-link" to="/">
+          <Link className="cta-link" to="/meny">
             {t('home:menu-subs.traditional.link')}
           </Link>
         </div>
@@ -103,7 +103,7 @@ export const HomeMenu: React.FunctionComponent = () => {
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.pizza.name')}</h3>
           <p>{t('home:menu-subs.pizza.desc')}</p>
-          <Link className="cta-link" to="/">
+          <Link className="cta-link" to="/meny">
             {t('home:menu-subs.pizza.link')}
           </Link>
         </div>
@@ -121,7 +121,7 @@ export const HomeMenu: React.FunctionComponent = () => {
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.meat.name')}</h3>
           <p>{t('home:menu-subs.meat.desc')}</p>
-          <Link className="cta-link" to="/">
+          <Link className="cta-link" to="/meny">
             {t('home:menu-subs.meat.link')}
           </Link>
         </div>
@@ -143,7 +143,7 @@ export const HomeMenu: React.FunctionComponent = () => {
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.child.name')}</h3>
           <p>{t('home:menu-subs.child.desc')}</p>
-          <Link className="cta-link" to="/">
+          <Link className="cta-link" to="/meny">
             {t('home:menu-subs.child.link')}
           </Link>
         </div>

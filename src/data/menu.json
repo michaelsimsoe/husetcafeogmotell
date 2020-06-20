@@ -5,8 +5,8 @@
       "en": "Traditional Cookings"
     },
     "description": {
-      "no": "Tradisjonell norsk husmannskost. Vi har bestandig rettene under tilgjengelig og har i tillegg et eget utvalg i vår \"Dagens Meny\"",
-      "en": "Traditional Norwegian cookings. We always have the dishes below and selection in our \"Menu of the Day\"."
+      "no": "Tradisjonell norsk husmannskost. Vi har som regel rettene under tilgjengelig og har i tillegg et eget utvalg i vår \"Dagens Meny\"",
+      "en": "Traditional Norwegian cookings. We usually have the dishes below and selection in our \"Menu of the Day\"."
     },
     "menuItems": [
       {
@@ -18,7 +18,7 @@
           "no": "Kjøttkaketallerken med brunsaus, ertestuing, grønnsaker, poteter og tyttebær.",
           "en": "Traditional Norwegian meat cakes with gravy, vegetables, pea stue, potatoes and lingonberries."
         },
-        "price": "109",
+        "price": "190",
         "allergenes": {
           "no": ["gluten", "melk", "egg"],
           "en": ["gluten", "milk", "egg"]
