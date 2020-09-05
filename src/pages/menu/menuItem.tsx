@@ -6,7 +6,8 @@ interface MenuItemProps {
     name: { no: string; en: string };
     description: { no: string; en: string };
     price: string;
-    allergenes: { no: string[]; en: string[] };
+    allergenes?: { no: string[]; en: string[] };
+    placement?: number;
   };
 }
 
@@ -21,7 +22,10 @@ export const MenuItem: React.FunctionComponent<MenuItemProps> = ({ item }) => {
       <p className="menu-item__description">{item.description.no}</p>
       <p className="menu-item__allergens">
         <span>{t('menu:allergenes')}:</span>{' '}
-        {item.allergenes.no.map((a) => `${a} `)}
+        {item.allergenes.no &&
+          item.allergenes.no.map((a) => {
+            return `${a} `;
+          })}
       </p>
     </div>
   );

@@ -85,7 +85,7 @@ export const HomeMenu: React.FunctionComponent = () => {
         <div className="home-menu__item-text">
           <h3>{t('home:menu-subs.traditional.name')}</h3>
           <p>{t('home:menu-subs.traditional.desc')}</p>
-          <Link className="cta-link" to="/meny">
+          <Link className="cta-link" to="/meny ">
             {t('home:menu-subs.traditional.link')}
           </Link>
         </div>

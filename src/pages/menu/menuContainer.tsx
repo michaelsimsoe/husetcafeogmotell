@@ -5,11 +5,13 @@ interface MenuContainerProps {
   menu: {
     name: { en: string; no: string };
     description: { no: string; en: string };
+    placement?: number;
     menuItems: {
       name: { no: string; en: string };
       description: { no: string; en: string };
       price: string;
       allergenes: { no: string[]; en: string[] };
+      placement?: number;
     }[];
   };
 }
@@ -22,8 +24,8 @@ export const MenuContainer: React.FunctionComponent<MenuContainerProps> = ({
       <h3 className="section-heading">{menu.name.no}</h3>
       <div className="menu-container__content">
         <p>{menu.description.no}</p>
-        {menu.menuItems.map((menuItem) => {
-          return <MenuItem item={menuItem} />;
+        {menu.menuItems.map((menuItem, index) => {
+          return <MenuItem item={menuItem} key={index} />;
         })}
       </div>
     </div>
