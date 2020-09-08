@@ -1,0 +1,91 @@
+.tag {
+  padding: 0.1875rem 0.375rem;
+  border-radius: 0.1875rem;
+  margin-right: 0.4rem;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+}
+.tag > a {
+  text-decoration: none;
+}
+
+.default_tag {
+  background-color: #77ffc8;
+
+  a {
+    color: #46a27c;
+  }
+}
+
+.javascript {
+  background-color: #bfb5ff;
+  a {
+    color: #6c659d;
+  }
+}
+.testing {
+  background-color: #9bc5fe;
+  a {
+    color: #4378bf;
+  }
+}
+.programmering {
+  background-color: #ffab76;
+  a {
+    color: darken(#ffab76, 40%);
+  }
+}
+.kodekvalitet {
+  background-color: #ffee00;
+  a {
+    color: darken(#ffee00, 40%);
+  }
+}
+.refaktorering {
+  background-color: #ff7675;
+  a {
+    color: darken(#ff7675, 40%);
+  }
+}
+.devops {
+  background-color: #81ecec;
+  a {
+    color: darken(#81ecec, 40%);
+  }
+}
+.ixd {
+  background-color: #6ab04c;
+  a {
+    color: darken(#6ab04c, 30%);
+  }
+}
+.ux {
+  background-color: #30336b;
+  a {
+    color: lighten(#30336b, 40%);
+  }
+}
+.css {
+  background-color: #dff9fb;
+  a {
+    color: darken(#dff9fb, 40%);
+  }
+}
+.design {
+  background-color: #130f40;
+  a {
+    color: #fff;
+  }
+}
+.typografi {
+  background-color: #535c68;
+  a {
+    color: #fff;
+  }
+}
+.arkitektur {
+  background-color: #eb4d4b;
+  a {
+    color: #fff;
+  }
+}

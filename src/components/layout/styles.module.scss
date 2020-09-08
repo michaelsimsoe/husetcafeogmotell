@@ -1,0 +1,28 @@
+.wrapper {
+  padding-left: 1.3125rem;
+  padding-right: 1.3125rem;
+}
+main.wrapper_root {
+  margin-top: 120px;
+}
+main.wrapper_article {
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  main.wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 42rem;
+
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  main.wrapper_root {
+    margin-top: 220px;
+  }
+  main.wrapper_article {
+    margin-top: 20px;
+  }
+}

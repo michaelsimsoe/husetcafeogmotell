@@ -1,0 +1,38 @@
+.articles_section {
+  h2 {
+    font-size: 1.25rem;
+
+    & strong {
+      position: relative;
+      white-space: nowrap;
+      z-index: 0;
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        -webkit-transform: scaleX(1);
+        -ms-transform: scaleX(1);
+        transform: scaleX(1);
+        height: 20%;
+        bottom: 10%;
+        left: 0;
+        background-color: #fe0;
+        -webkit-transform-origin: 0 50%;
+        -ms-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+        transition: -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+          -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: -1;
+      }
+    }
+  }
+}
+
+.articles {
+  display: flex;
+  flex-direction: column;
+}
