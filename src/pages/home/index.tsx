@@ -38,7 +38,7 @@ export const Home: React.FunctionComponent<HomeProps> = ({ sidebarOpen }) => {
         <section className="home-section opening-hours">
           <div className="opening-hours__hours">
             <h2 className="section-heading">{t('home:opening-hours')}</h2>
-            <ul>
+            <ul> 
               <li>{t('home:monday')} kl 11.00 - 20.00</li>
               <li>{t('home:tuesday')} kl 11.00 - 20.00</li>
               <li>{t('home:wednesday')} kl 11.00 - 20.00</li>
