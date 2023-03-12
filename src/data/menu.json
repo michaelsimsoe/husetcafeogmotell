@@ -18,7 +18,7 @@
           "no": "Med biffkjøtt, løk og bacon",
           "en": "With beef, onion and bacon"
         },
-        "price": "265",
+        "price": "290",
         "allergenes": {
           "no": [
             "hvete",
@@ -39,7 +39,7 @@
           "no": "Med pepperoni, kjøtteig og løk",
           "en": "With pepperoni, minced meat and onion"
         },
-        "price": "245",
+        "price": "270",
         "allergenes": {
           "no": [
             "hvete",
@@ -60,7 +60,7 @@
           "no": "Med kjøttdeig og bacon",
           "en": "With minced meat and bacon"
         },
-        "price": "245",
+        "price": "270",
         "allergenes": {
           "no": [
             "hvete",
@@ -81,7 +81,7 @@
           "no": "Med skinke",
           "en": "With ham"
         },
-        "price": "210",
+        "price": "230",
         "allergenes": {
           "no": [
             "hvete",
@@ -102,7 +102,7 @@
           "no": "Serveres med skinke ananas",
           "en": "With ham and ananas"
         },
-        "price": "225",
+        "price": "250",
         "allergenes": {
           "no": [
             "hvete",
@@ -123,7 +123,7 @@
           "no": "Med et utvalg av grønnsaker, deriblandt paprika, tomat og rødløk. Spør oss gjerne hva vi kan tilby.",
           "en": "With a selection of vegetables. We'll be pleased to make it as you wish."
         },
-        "price": "225",
+        "price": "250",
         "allergenes": {
           "no": [
             "hvete",
@@ -165,7 +165,7 @@
           "no": "Husets kebabpizza",
           "en": "The kebab pizza of the house"
         },
-        "price": "265",
+        "price": "290",
         "allergenes": {
           "no": [
             "hvete",
@@ -186,7 +186,7 @@
           "no": "Med kylling og løk",
           "en": "With chicken and onion"
         },
-        "price": "265",
+        "price": "290",
         "allergenes": {
           "no": [
             "hvete",
@@ -207,7 +207,7 @@
           "no": "Med tomat, ost basilikum",
           "en": "With tomato, cheese and basilikum"
         },
-        "price": "195",
+        "price": "215",
         "allergenes": {
           "no": [
             "hvete",
@@ -228,7 +228,7 @@
           "no": "Med biffkjøtt, sopp og løk",
           "en": "With beef mushrooms and onions"
         },
-        "price": "265",
+        "price": "290",
         "allergenes": {
           "no": [
             "hvete",
@@ -249,7 +249,7 @@
           "no": "Med chillisaus og kjøttdeig",
           "en": "With chilli sauce and minced meat"
         },
-        "price": "265",
+        "price": "290",
         "allergenes": {
           "no": [
             "hvete",
@@ -270,7 +270,7 @@
           "no": "Velg opp til 5 ingredienser",
           "en": "Choose up to 5 ingredients"
         },
-        "price": "310",
+        "price": "340",
         "allergenes": {
           "no": [
             "hvete",
@@ -303,7 +303,7 @@
           "no": "Serveres med chips og salat. Ost og Bacon kommer ekstra.",
           "en": "Served with chips and a salad. Cheese and bacon are extras."
         },
-        "price": "199",
+        "price": "219",
         "allergenes": {
           "no": [
             "gluten",
@@ -326,7 +326,7 @@
           "no": "Cheddar, løkringer og bacon",
           "en": "Cheddar, onion rings og bacon"
         },
-        "price": "265",
+        "price": "290",
         "allergenes": {
           "no": [
             "gluten",
@@ -349,7 +349,7 @@
           "no": "Kebabkylling, chips og husets dressing",
           "en": "Kebabchicken, chips and the dressing of the house"
         },
-        "price": "205",
+        "price": "225",
         "allergenes": {
           "no": [
             "gluten",
@@ -372,7 +372,7 @@
           "no": "Bacon, nachoschips, dressing og chips.",
           "en": "Bacon, nachos, dressing and chips."
         },
-        "price": "225",
+        "price": "249",
         "allergenes": {
           "no": [
             "gluten",
@@ -395,7 +395,7 @@
           "no": "Med salat, jalapeno, chips og Husets dressing",
           "en": "With salad, jalapeno, chips and the dressing of the House"
         },
-        "price": "199",
+        "price": "219",
         "allergenes": {
           "no": [
             "gluten",
@@ -418,7 +418,7 @@
           "no": "Med salat, chips og Husets dressing",
           "en": "With salad, chips and the dressing of the House"
         },
-        "price": "205",
+        "price": "235",
         "allergenes": {
           "no": [
             "gluten",
@@ -441,7 +441,7 @@
           "no": "Med grønnsaker og hvitløkspoteter",
           "en": "With vegetables garlic potatoes"
         },
-        "price": "275",
+        "price": "305",
         "allergenes": {
           "no": [
             "gluten",
@@ -464,7 +464,7 @@
           "no": "Med salat og chips",
           "en": "With salad and chips"
         },
-        "price": "199",
+        "price": "219",
         "allergenes": {
           "no": [
             "laktose",
@@ -474,29 +474,6 @@
           "en": [
             "laktose",
             "egg",
-            "mustard"
-          ]
-        }
-      },
-      {
-        "name": {
-          "no": "Husets Lammefilet",
-          "en": "The Lamb of the House"
-        },
-        "description": {
-          "no": "Med grønnsaker, hvitløkspoteter og saus",
-          "en": "With vegetables, garlic potatoes and sauce"
-        },
-        "price": "295",
-        "allergenes": {
-          "no": [
-            "gluten",
-            "melk",
-            "sennep"
-          ],
-          "en": [
-            "gluten",
-            "milk",
             "mustard"
           ]
         }
@@ -510,7 +487,7 @@
           "no": "Med salat og chips",
           "en": "With salad and chips"
         },
-        "price": "199",
+        "price": "219",
         "allergenes": {
           "no": [
             "gluten",
@@ -535,7 +512,7 @@
           "no": "Med salat, chips og Husets saus",
           "en": "With salad, chips and the Sauce of the House"
         },
-        "price": "205",
+        "price": "225",
         "allergenes": {
           "no": [
             "gluten",
@@ -593,7 +570,7 @@
           "no": "",
           "en": ""
         },
-        "price": "210",
+        "price": "230",
         "allergenes": {
           "no": [
             "melk",
@@ -614,7 +591,7 @@
           "no": "Med salat og rømme",
           "en": "With salad and sour cream"
         },
-        "price": "205",
+        "price": "225",
         "allergenes": {
           "no": [
             "gluten",
@@ -649,7 +626,7 @@
           "no": "",
           "en": ""
         },
-        "price": "165",
+        "price": "180",
         "allergenes": {
           "no": [
             "melk",
@@ -670,7 +647,7 @@
           "no": "",
           "en": ""
         },
-        "price": "115",
+        "price": "135",
         "allergenes": {
           "no": [
             "gluten",
@@ -695,7 +672,7 @@
           "no": "",
           "en": ""
         },
-        "price": "105",
+        "price": "125",
         "allergenes": {
           "no": [
             "gluten",
@@ -720,7 +697,7 @@
           "no": "",
           "en": ""
         },
-        "price": "130",
+        "price": "145",
         "allergenes": {
           "no": [
             "gluten",
@@ -745,7 +722,7 @@
           "no": "",
           "en": ""
         },
-        "price": "115",
+        "price": "125",
         "allergenes": {
           "no": [
             "gluten",
@@ -768,7 +745,7 @@
           "no": "",
           "en": ""
         },
-        "price": "175",
+        "price": "195",
         "allergenes": {
           "no": [
             "gluten",
@@ -801,7 +778,7 @@
           "no": "",
           "en": ""
         },
-        "price": "155",
+        "price": "170",
         "allergenes": {
           "no": [
             "gluten",
@@ -826,7 +803,7 @@
           "no": "",
           "en": ""
         },
-        "price": "170",
+        "price": "190",
         "allergenes": {
           "no": [
             "gluten",
@@ -851,7 +828,7 @@
           "no": "",
           "en": ""
         },
-        "price": "175",
+        "price": "195",
         "allergenes": {
           "no": [
             "gluten",
@@ -876,7 +853,7 @@
           "no": "",
           "en": ""
         },
-        "price": "175",
+        "price": "195",
         "allergenes": {
           "no": [
             "gluten",
@@ -901,7 +878,7 @@
           "no": "",
           "en": ""
         },
-        "price": "150",
+        "price": "175",
         "allergenes": {
           "no": [
             "gluten",
@@ -926,7 +903,7 @@
           "no": "",
           "en": ""
         },
-        "price": "165",
+        "price": "180",
         "allergenes": {
           "no": [
             "gluten",
@@ -951,7 +928,7 @@
           "no": "",
           "en": ""
         },
-        "price": "150",
+        "price": "165",
         "allergenes": {
           "no": [
             "gluten",
@@ -976,7 +953,7 @@
           "no": "",
           "en": ""
         },
-        "price": "155",
+        "price": "170",
         "allergenes": {
           "no": [
             "gluten",
@@ -1001,7 +978,7 @@
           "no": "",
           "en": ""
         },
-        "price": "175",
+        "price": "195",
         "allergenes": {
           "no": [
             "gluten",
@@ -1026,7 +1003,7 @@
           "no": "",
           "en": ""
         },
-        "price": "160",
+        "price": "175",
         "allergenes": {
           "no": [
             "gluten",
@@ -1063,7 +1040,7 @@
           "no": "",
           "en": ""
         },
-        "price": "105",
+        "price": "115",
         "allergenes": {
           "no": [
             "sennep"
@@ -1082,7 +1059,7 @@
           "no": "",
           "en": ""
         },
-        "price": "95",
+        "price": "105",
         "allergenes": {
           "no": [
             "gluten",
@@ -1103,7 +1080,7 @@
           "no": "",
           "en": ""
         },
-        "price": "105",
+        "price": "115",
         "allergenes": {
           "no": [
             "gluten",
@@ -1126,7 +1103,7 @@
           "no": "Med salat og chips",
           "en": "With salad and chips"
         },
-        "price": "150",
+        "price": "165",
         "allergenes": {
           "no": [
             "sennepsfrø"
@@ -1145,7 +1122,7 @@
           "no": "",
           "en": ""
         },
-        "price": "95",
+        "price": "105",
         "allergenes": {
           "no": [
             "gluten",
@@ -1166,7 +1143,7 @@
           "no": "",
           "en": ""
         },
-        "price": "75",
+        "price": "85",
         "allergenes": {
           "no": [],
           "en": []
@@ -1181,7 +1158,7 @@
           "no": "",
           "en": ""
         },
-        "price": "75",
+        "price": "85",
         "allergenes": {
           "no": [
             "gluten"
@@ -1200,7 +1177,7 @@
           "no": "",
           "en": ""
         },
-        "price": "45",
+        "price": "50",
         "allergenes": {
           "no": [
             "gluten",
@@ -1223,7 +1200,7 @@
           "no": "",
           "en": ""
         },
-        "price": "35",
+        "price": "38",
         "allergenes": {
           "no": [
             "gluten",
@@ -1244,7 +1221,7 @@
           "no": "",
           "en": ""
         },
-        "price": "55",
+        "price": "60",
         "allergenes": {
           "no": [
             "gluten",
