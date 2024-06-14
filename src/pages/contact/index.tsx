@@ -24,7 +24,7 @@ export const Contact: React.FunctionComponent<ContactProps> = ({
         <title>Huset Café & Motell - Kontakt oss</title>
         <meta
           name="description"
-          content="Kontakt Huset Café & Motell. Send oss en e-post, bruk webskjemaet, eller ring oss på 403 17 353"
+          content="Kontakt Huset Café & Motell. Send oss en e-post, bruk webskjemaet, eller ring oss på 40 31 73 53"
         />
       </Helmet>
       <HeroComponent />
