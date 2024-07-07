@@ -36,7 +36,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           <p>{t('contact:landing-text3')}</p>
         </div>
         <div className="hero-contact__buttons">
-          <a className="button" href="tel:+4775197200">
+          <a className="button" href="tel:+4740317353">
             {t('translation:buttons.call')}
             <svg
               version="1.1"
@@ -72,7 +72,7 @@ export const HeroComponent: React.FunctionComponent = () => {
               <g></g>
             </svg>
           </a>
-          <small>751 97 200</small>
+          <small>403 17 353</small>
         </div>
       </section>
     </section>

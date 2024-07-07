@@ -79,7 +79,7 @@ export const HeroComponent: React.FunctionComponent = () => {
           <Link className="button" to="/kontakt">
             {t('translation:buttons.contact')}
           </Link>
-          <a className="button" href="tel:+4775197200">
+          <a className="button" href="tel:+4740317353">
             {t('translation:buttons.call')}
             <svg
               version="1.1"

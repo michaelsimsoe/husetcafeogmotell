@@ -432,7 +432,7 @@ const PrivacyPolicy: React.FunctionComponent = () => {
         <li>
           By visiting this page on our website: https://husetmotell.no/kontakt
         </li>
-        <li>By phone number: +47 751 92 200</li>
+        <li>By phone number: +47 403 17 353</li>
         <li>By mail: Meieriveien 7, 8646 Korgen</li>
       </ul>
     </>
