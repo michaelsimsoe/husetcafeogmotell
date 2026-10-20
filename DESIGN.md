@@ -135,7 +135,7 @@ components:
 
 Two things carry the whole system: a plain white building beside the E6 and the mountain line above Korgen. The page is the house: whitewashed, light, square-cornered, honest about what it is. The ridge is the signature: a single hairline traced from the real skyline above Korgen, which opens the page and returns between sections. Its only companion is another real line, the road: under the masthead the route north from Trondheim draws itself across a map of Norway, and the stretch through Korgen lifts off into a height profile over Korgfjellet. Ornament is only ever a real, traced line. Everything else is the language of a well-set printed page: hairline rules, dot leaders, tabular figures and a serif with a warm italic.
 
-The system is calm, not sparse. Practical answers (open now, today's hours, the phone number, the menu, a room, the way there) sit in the first view, set as editorial type rather than as app widgets. Dark spruce takes over whole regions when the page goes indoors (the menu spread, finding the way, the footer), never as a card. Photography is real and of the place, with its credit printed along the edge like a press photo.
+The system is calm, not sparse. Practical answers (open now, today's hours, the phone number, the menu, a room, the way there) sit in the first view, set as editorial type rather than as app widgets. Dark spruce takes over whole regions when the page goes indoors (the menu spread, finding the way, the footer), never as a card. Photography is real and of the place. Photos from outside sources carry their credit printed along the edge like a press photo; Huset's own photos run without one.
 
 Status: provisional. This file is derived from concept A («Huset i Korgen», `/concepts/a`), which the team has chosen to develop. Concepts B («Neste stopp: Huset») and C («Ly mot fjellan») stay published as references, and anything adopted from them is recorded here when it lands.
 
@@ -145,7 +145,7 @@ Status: provisional. This file is derived from concept A («Huset i Korgen», `/
 - Brygada 1918 for display, with italic for emphasis; Ysabeau Office for text.
 - Structure by 1px rules and proximity, never by cards.
 - Copper only where money or the current state is shown.
-- Real photographs of Huset and Korgen, credited on the image edge; marked placeholders where a photo is missing.
+- Real photographs of Huset and Korgen; outside photos credited on the image edge, Huset's own uncredited; marked placeholders where a photo is missing.
 
 ## Colors
 
@@ -270,7 +270,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 
 ### Photographs
 - Real photographs only, `object-fit: cover` with a deliberate focal point, on a fog ground while loading.
-- The credit is always visible: from 48rem it runs vertically along the image's outer edge in soft ink, falling back to a line under the image when it is longer than the image is tall. A full-bleed photo has no outer edge, so its credit sits as a small whitewash tab inside the bottom-right corner.
+- Huset's own photos (status «egen») carry no credit on the page; the credits page lists them. Every photo from an outside source (Wikimedia Commons, Nasjonalbiblioteket, anything licensed or not yet cleared) shows its credit: from 48rem it runs vertically along the image's outer edge in soft ink, falling back to a line under the image when it is longer than the image is tall. A full-bleed photo has no outer edge, so its credit sits as a small whitewash tab inside the bottom-right corner.
 - Captions are italic Brygada, with an optional upright date.
 
 ### Placeholder
@@ -295,7 +295,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 - **Do** keep ornament to real, traced lines: the skyline, and the road and its height profile in the locator.
 - **Do** set times, prices and phone numbers in tabular lining figures, and big when they answer the visitor's question.
 - **Do** give spruce whole regions and set whitewash, lichen and copper-light on it.
-- **Do** print every photo credit on the image edge or directly under it.
+- **Do** print the credit of every outside photo on the image edge or directly under it. Huset's own photos need none.
 - **Do** mark unconfirmed facts with the «bekreftes» proof mark and missing photos with a crop-marked placeholder.
 - **Do** keep the practical first view (status, hours, phone, and a way to the menu, rooms and directions) on desktop and mobile.
 
@@ -304,5 +304,5 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 - **Don't** use cards or card grids, on any surface.
 - **Don't** use copper for anything but prices, the current state and the here-mark (headings on the menu board excepted).
 - **Don't** set labels in uppercase or put an eyebrow above a heading.
-- **Don't** use stock or AI-generated imagery of the house or the landscape; use a placeholder instead. The one exception is a real photo that the owner has retouched (clutter removed, colour lifted), such as the masthead photo, and its credit must say «KI-retusjert».
+- **Don't** use stock or AI-generated imagery of the house or the landscape; use a placeholder instead. The one exception is a real photo that the owner has retouched (clutter removed, colour lifted), such as the masthead photo, and the credits page must say it is AI-retouched («KI-retusjert»).
 - **Don't** turn the skyline into a pattern, a wave, a filled mountain or a logo.

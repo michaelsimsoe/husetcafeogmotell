@@ -57,7 +57,7 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 ## Evidence on Hand
 
 - Menu screens: `C:\Users\micha\Downloads\husetmotell\meny\skjerm1.png` (pizza, drinks), `skjerm2.png` (grill, fish, småretter, ekstra), `skjerm3.png` (salads, pita, omelettes, children's menu).
-- Current photos of the white building, entrance, reception wall (Skydsstation Oldernæs sign) and meeting room: `C:\Users\micha\Downloads\husetmotell\` (sources and rights to be confirmed).
+- Current photos of the white building, entrance, reception wall (Skydsstation Oldernæs sign) and meeting room: `C:\Users\micha\Downloads\husetmotell\` (Huset's own: the owner confirmed in October 2026 that the local photos and those on husetmotell.no belong to Huset).
 - Legacy site photos in `src/pages/*/assets` (rooms, restaurant interior, sushi platters, outdated yellow facade). Several food/event images there are generic stock and must not be presented as Huset.
 - Regional landscape photography on Wikimedia Commons with explicit licences (Okstindan, Korgen, Røssåga, Korgfjellet).
 - Current-state information architecture: `SITE-MAP.md`.

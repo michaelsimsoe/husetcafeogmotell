@@ -2,10 +2,11 @@ import { withBase } from '@lib/base';
 /**
  * Image registry with provenance. Every photograph used by the prototypes is
  * listed here; concepts must render `credit` near the image (or in a visible
- * credits list on the same page) and show `status` when it is not cleared.
+ * credits list on the same page) and show `status` when it is not cleared. Huset's own photos
+ * (`egen`) need no credit on the page; they are listed on the credits page.
  */
 
-export type RightsStatus = 'lisensiert' | 'fri' | 'avklares';
+export type RightsStatus = 'egen' | 'lisensiert' | 'fri' | 'avklares';
 
 export interface Photo {
   id: string;
@@ -30,8 +31,8 @@ const BY_SA_3 = 'https://creativecommons.org/licenses/by-sa/3.0/deed.no';
 const BY_3 = 'https://creativecommons.org/licenses/by/3.0/deed.no';
 const C = 'https://commons.wikimedia.org/wiki/File:';
 
-const LOCAL = 'Lokalt bildearkiv – fotograf og rettigheter avklares';
-const LEGACY = 'Fra husetmotell.no – trolig egne bilder, rettigheter avklares';
+/** Huset's own photos (local archive and husetmotell.no), confirmed by the owner. */
+const OWN = 'Huset Café & Motell';
 const BOARD = 'Fra menyskjermene – kilde og rettigheter avklares';
 
 const list: Photo[] = [
@@ -40,81 +41,81 @@ const list: Photo[] = [
     id: 'huset-facade-white', w: 2000, h: 1334, widths: [1600, 800],
     alt: 'Huset Café & Motell: et langt, hvitt bygg ved veien, med plen og flaggstang foran og skog bak.',
     caption: 'Huset ved E6 i Korgen',
-    credit: LOCAL, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     // Owner-supplied retouch of huset-facade-white (same shot).
     id: 'huset-facade-sun', w: 1536, h: 1024, widths: [1536, 800],
     alt: 'Huset Café & Motell i sol: et langt, hvitt bygg med mørkt tak bak en grønn plen ved veien, med skog og fjell bak.',
     caption: 'Huset ved E6 i Korgen',
-    credit: 'Lokalt bildearkiv, KI-retusjert – fotograf og rettigheter avklares', status: 'avklares',
-    warning: 'Flaggstang og skilt fjernet og farger forsterket med KI. 1 536 px bred',
+    credit: OWN, status: 'egen',
+    warning: 'KI-retusjert: flaggstang og skilt fjernet, farger forsterket. 1 536 px bred',
   },
   {
     id: 'huset-entrance', w: 945, h: 1000, widths: [800],
     alt: 'Inngangen til Huset med skiltet «Huset Café & Motell», to hvite dører og blomsterkasser.',
     caption: 'Inngangen',
-    credit: LOCAL, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     id: 'huset-parking-mountain', w: 736, h: 500, widths: [800],
     alt: 'Huset sett fra plenen en solskinnsdag, med biler parkert foran og det snøflekkete fjellet over Korgen bak.',
     caption: 'Huset under fjellet',
-    credit: LOCAL, status: 'avklares', warning: 'Lav oppløsning (736 px)',
+    credit: OWN, status: 'egen', warning: 'Lav oppløsning (736 px)',
   },
   {
     id: 'huset-reception-sign', w: 1100, h: 1100, widths: [800],
     alt: 'Innenfor inngangen: et gammelt skysstasjonsskilt i tre på panelvegg, et lite bord med blomster og døra inn til spisesalen.',
     caption: 'Det gamle skiltet i gangen',
-    credit: LOCAL, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     id: 'huset-meeting-room', w: 1500, h: 850, widths: [1600, 800],
     alt: 'Møtelokalet med langbord, mørke stoler, høye vinduer og et nedtrukket lerret.',
     caption: 'Det store møterommet',
-    credit: LOCAL, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     id: 'restaurant-family-pizza', w: 4032, h: 3024, widths: [2400, 1600, 800],
     alt: 'En familie med to små barn deler en pizza ved et bord i restauranten.',
     caption: 'Pizzakveld i spisesalen',
-    credit: LEGACY, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     id: 'party-long-table', w: 3024, h: 3024, widths: [2400, 1600, 800],
     alt: 'Et selskap rundt et langbord med hvit duk, lys og fulle tallerkener.',
     caption: 'Selskap ved langbordet',
-    credit: LEGACY, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     id: 'table-set-napkin', w: 3024, h: 4032, widths: [2400, 1600, 800],
     alt: 'Dekket bord med hvit duk, rød brettet serviett, kniv og vinglass.',
     caption: 'Dekket til selskap',
-    credit: LEGACY, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     id: 'room-double-a', w: 675, h: 900, widths: [800],
     alt: 'Motellrom med seng, mørk blågrønn vegg, hvite gardiner og vindu mot grøntområdet.',
     caption: 'Rom med to senger',
-    credit: LEGACY, status: 'avklares', warning: 'Lav oppløsning (675 px)',
+    credit: OWN, status: 'egen', warning: 'Lav oppløsning (675 px)',
   },
   {
     id: 'room-double-b', w: 675, h: 900, widths: [800],
     alt: 'Motellrom med seng, lenestol, bilde på veggen og vindu med hvite gardiner.',
     caption: 'Rom med lenestol',
-    credit: LEGACY, status: 'avklares', warning: 'Lav oppløsning (675 px)',
+    credit: OWN, status: 'egen', warning: 'Lav oppløsning (675 px)',
   },
   {
     id: 'room-wide', w: 4096, h: 1706, widths: [2400, 1600, 800],
     alt: 'Lyst motellrom med seng, lenestol, skrivebord og vindu.',
     caption: 'Rom med skrivebord',
-    credit: LEGACY, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   {
     id: 'rooms-pair', w: 1890, h: 1417, widths: [1600, 800],
     alt: 'To motellrom side om side: seng under vinduet og seng ved hvitt garderobeskap.',
     caption: 'To av rommene',
-    credit: LEGACY, status: 'avklares',
+    credit: OWN, status: 'egen',
   },
   // — Food from the current screens (placeholder quality) —
   {
@@ -289,7 +290,11 @@ export const creditLine = (id: string) => {
   return `Foto: ${p.credit}${p.license ? `, ${p.license}` : ''}${via}`;
 };
 
+/** Whether the photo must carry a visible credit where it is shown. */
+export const needsCredit = (id: string) => photo(id).status !== 'egen';
+
 export const statusLabel: Record<RightsStatus, string> = {
+  egen: 'Husets egne',
   lisensiert: 'Lisensiert',
   fri: 'Fri bruk',
   avklares: 'Rettigheter avklares',

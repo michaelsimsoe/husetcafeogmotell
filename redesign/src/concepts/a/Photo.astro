@@ -1,5 +1,5 @@
 ---
-import { photo, src, srcset } from '@data/credits';
+import { needsCredit, photo, src, srcset } from '@data/credits';
 import { creditShort } from './lib';
 
 interface Props {
@@ -38,7 +38,7 @@ const vars = [`--ratio:${ratio ?? `${p.w} / ${p.h}`}`, pos ? `--pos:${pos}` : ''
       decoding={priority ? 'sync' : 'async'}
     />
     <slot />
-    <small class="ph-credit">{creditShort(id)}</small>
+    {needsCredit(id) && <small class="ph-credit">{creditShort(id)}</small>}
   </div>
   {
     cap && (

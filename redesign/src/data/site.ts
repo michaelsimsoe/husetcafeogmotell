@@ -128,7 +128,6 @@ export const missingAssets = [
   'Frokostrommet og et dekket frokostbord.',
   'Logo som vektorfil (SVG) – dagens logo finnes bare som raster.',
   'Bekreftede åpningstider, rompris, adresse og allergener.',
-  'Avklarte rettigheter for alle lokale bilder.',
 ];
 
 export type Site = typeof site;

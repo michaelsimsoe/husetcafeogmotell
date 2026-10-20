@@ -13,16 +13,16 @@ related_targets: ["redesign/src/pages/concepts/a/meny.astro","redesign/src/pages
 **Job:** show that Huset is a real, warm, family-run house in remarkable surroundings, and answer the practical questions (open now? what's on the menu? a room tonight? how do I get there?) at once.
 **Action:** see the menu; call 403 17 353 or book a room via Booking.com; get directions. Live opening status in the masthead.
 **Proof:** the real white building; the real Korgen skyline; the real menu with prices; 8 rooms with breakfast (bekreftes); Korgen photographed 1947–49 and in 2008.
-**Constraints:** Norwegian Bokmål; no invented facts; visible «bekreftes» markers on unconfirmed facts; photo credits visible; placeholders labelled; WCAG 2.2 AA; restrained motion honouring reduced motion. Shared data in `src/data`, a separate visual system in `src/concepts/a`.
+**Constraints:** Norwegian Bokmål; no invented facts; visible «bekreftes» markers on unconfirmed facts; credits visible on outside photos (Huset's own photos need none); placeholders labelled; WCAG 2.2 AA; restrained motion honouring reduced motion. Shared data in `src/data`, a separate visual system in `src/concepts/a`.
 **Direction:** pinned by the brief: warm Scandinavian editorial.
 **Memorable moment:** the skyline rule, a hairline traced from the real mountain above Korgen. It draws itself under the headline and returns as every section divider.
-**Unresolved:** final hours, prices and address; photo rights; production food photography; whether a light menu board suits the dining-room light.
+**Unresolved:** final hours, prices and address; licence for the menu-screen food photos; production food photography; whether a light menu board suits the dining-room light.
 
 ## Direction contract
 
 THESIS: Huset as Korgen's almanac, an editorial page where the white house sits under Korgen's own skyline. It refuses the photo-hero-plus-three-cards restaurant template and every card grid.
 
-OWN-WORLD: grounds of cool whitewash #F5F6F2 and fog #E4E8E3. Spruce #1E3A32 owns whole regions (the menu spread, «Finn fram»). Ink #18201D. River green #2E6B5E for the skyline line and links. Copper #9A4A2C only on prices and active rules. Type is Brygada 1918 for display (italic for emphasis) and Ysabeau Office for text. Hairline rules, dot leaders, rotated photo credits along image edges; no radius, no shadows.
+OWN-WORLD: grounds of cool whitewash #F5F6F2 and fog #E4E8E3. Spruce #1E3A32 owns whole regions (the menu spread, «Finn fram»). Ink #18201D. River green #2E6B5E for the skyline line and links. Copper #9A4A2C only on prices and active rules. Type is Brygada 1918 for display (italic for emphasis) and Ysabeau Office for text. Hairline rules, dot leaders, rotated credits along the edges of outside photos; no radius, no shadows.
 
 STORY: the visitor sees a real house in a real place and believes it is warm and honest. Then they read the menu, book a room or find the way.
 

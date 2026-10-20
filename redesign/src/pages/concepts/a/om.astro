@@ -41,7 +41,7 @@ const decisions = [
   },
   {
     t: 'Fotografi',
-    p: 'Ekte bilder fra huset og bygda, beskåret ærlig. Kreditering står på skrå langs bildekanten, som i et magasin, og på mobil rett under bildet. Gamle bilder av Korgen står ved siden av nyere for å fortelle om stedet – uten å finne på en historie om Huset. Toppbildet er unntaket: et ekte bilde av huset der flaggstanga og skiltene foran er fjernet og fargene forsterket med KI, og det står i krediteringen. Der bilder mangler, står en tydelig merket plassholder.',
+    p: 'Ekte bilder fra huset og bygda, beskåret ærlig. Husets egne bilder står uten kreditering. Bilder fra andre har krediteringen på skrå langs bildekanten, som i et magasin, og på mobil rett under bildet. Gamle bilder av Korgen står ved siden av nyere for å fortelle om stedet – uten å finne på en historie om Huset. Toppbildet er unntaket: et ekte bilde av huset der flaggstanga og skiltene foran er fjernet og fargene forsterket med KI, og det står i bildelista nederst på denne siden. Der bilder mangler, står en tydelig merket plassholder.',
   },
   {
     t: 'Menyen og skjermen',
@@ -137,8 +137,8 @@ const conceptNeeds = [
       <div class="g12">
         <h2 id="kreditering" class="om-h lg:col-[1/4]">Bilder <em>og kilder</em></h2>
         <p class="mt-6 lg:mt-0 lg:col-[5/12]">
-          Alle bilder som brukes i konsept A. Bilder merket «{statusLabel.avklares}» kan ikke publiseres før fotograf og rettigheter
-          er avklart.
+          Alle bilder som brukes i konsept A. Husets egne bilder står uten kreditering på sidene; bilder fra andre er kreditert
+          ved bildet. Bilder merket «{statusLabel.avklares}» kan ikke publiseres før fotograf og rettigheter er avklart.
         </p>
       </div>
       <div class="mt-8" style="overflow-x: auto">
@@ -167,7 +167,7 @@ const conceptNeeds = [
                   </td>
                   <td data-label="Bildetekst:">{p.caption}</td>
                   <td data-label="Kreditering:">{p.credit}</td>
-                  <td data-label="Lisens:">{p.license ? p.licenseUrl ? <a href={p.licenseUrl}>{p.license}</a> : p.license : 'Ikke avklart'}</td>
+                  <td data-label="Lisens:">{p.license ? p.licenseUrl ? <a href={p.licenseUrl}>{p.license}</a> : p.license : p.status === 'egen' ? 'Eget bilde' : 'Ikke avklart'}</td>
                   <td data-label="Kilde:">{p.sourceUrl ? <a href={p.sourceUrl}>Wikimedia Commons</a> : 'Lokal fil'}</td>
                   <td data-label="Status:">
                     {statusLabel[p.status]}
