@@ -1,0 +1,69 @@
+---
+import { site } from '@data/site';
+import { krText } from '@data/menu';
+import Pic from '../Pic.astro';
+import Credit from '../Credit.astro';
+import Bek from '../Bek.astro';
+import Icon from '../Icon.astro';
+
+const r = site.rooms;
+const c = site.contact;
+const t = (hhmm: string) => `kl. ${hhmm.replace(':', '.')}`;
+---
+<section id="rom" class="scene" style="--ground: var(--g4); --ground-from: var(--g3)" aria-labelledby="rom-title">
+  <div class="wrap passage rooms">
+    <div class="rooms__text">
+      <h2 id="rom-title" class="passage-title">Et rom for natta.</h2>
+      <div class="prose lede">
+        <p>
+          Huset har {r.count}{!r.verified && <Bek />} rom. Frokosten er inkludert: {r.breakfast.charAt(0).toLowerCase() + r.breakfast.slice(1)}
+        </p>
+      </div>
+
+      <div class="rooms__board">
+        <h3 class="bhead">Rom og priser</h3><Bek />
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__line">
+              <span class="dish__name">Rom med frokost</span>
+              <span class="dish__price">fra {krText(r.priceFrom)}</span>
+            </div>
+            <p class="dish__desc">Per natt. Den engelske siden oppgir 1&nbsp;139&nbsp;kr, så prisen må avklares.</p>
+          </li>
+          <li class="dish">
+            <div class="dish__line"><span class="dish__name">Innsjekk</span><span class="dish__price">fra {t(r.checkIn)}</span></div>
+            <p class="dish__desc">{r.checkInNote}</p>
+          </li>
+          <li class="dish">
+            <div class="dish__line"><span class="dish__name">Utsjekk</span><span class="dish__price">innen {t(r.checkOut)}</span></div>
+          </li>
+          <li class="dish">
+            <div class="dish__line"><span class="dish__name">Betaling</span><span class="dish__price">ved ankomst</span></div>
+            <p class="dish__desc">Om ikke annet er avtalt.</p>
+          </li>
+        </ul>
+        <ul class="rooms__features">
+          {r.features.map((f) => <li>{f}</li>)}
+        </ul>
+      </div>
+
+      <div class="btn-row rooms__cta">
+        <a class="btn btn--lit" href={site.links.booking}><Icon name="bed" size={18} /> Book på Booking.com</a>
+        <a class="btn btn--line" href={c.phoneHref}><Icon name="phone" size={18} /> Ring {c.phone}</a>
+        <a class="btn btn--line" href={c.emailHref}><Icon name="mail" size={18} /> E-post</a>
+      </div>
+      <p class="rooms__full quiet">{r.fullyBooked}</p>
+    </div>
+
+    <div class="rooms__pics">
+      <figure class="rooms__a">
+        <div class="frame lift"><Pic id="room-double-a" sizes="(min-width: 900px) 20vw, 46vw" /></div>
+        <Credit id="room-double-a" />
+      </figure>
+      <figure class="rooms__b">
+        <div class="frame lift"><Pic id="room-double-b" sizes="(min-width: 900px) 20vw, 46vw" /></div>
+        <Credit id="room-double-b" />
+      </figure>
+    </div>
+  </div>
+</section>

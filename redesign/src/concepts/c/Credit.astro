@@ -1,0 +1,31 @@
+---
+import { photo, creditLine, statusLabel } from '@data/credits';
+
+interface Props {
+  id: string;
+  /** Colour-graded in CSS — must be declared next to the credit. */
+  graded?: boolean;
+  /** Hide the caption text and keep only the credit. */
+  bare?: boolean;
+  class?: string;
+  tag?: 'figcaption' | 'p';
+}
+const { id, graded = false, bare = false, class: cls, tag: Tag = 'figcaption' } = Astro.props;
+const p = photo(id);
+const licensed = p.status !== 'avklares';
+---
+<Tag class:list={['credit', cls]}>
+  {!bare && <span class="credit__cap">{p.caption}</span>}
+  <span class="credit__by">{creditLine(id)}</span>
+  {licensed && p.licenseUrl && (
+    <span class="credit__links">
+      <a href={p.licenseUrl}>lisens</a>{p.sourceUrl && <> · <a href={p.sourceUrl}>kilde</a></>}
+    </span>
+  )}
+  {licensed && !p.licenseUrl && p.sourceUrl && (
+    <span class="credit__links"><a href={p.sourceUrl}>kilde</a></span>
+  )}
+  {p.status === 'avklares' && <span class="credit__status">{statusLabel[p.status]}</span>}
+  {p.warning && <span class="credit__warn">{p.warning}</span>}
+  {graded && <span class="credit__graded">fargejustert</span>}
+</Tag>

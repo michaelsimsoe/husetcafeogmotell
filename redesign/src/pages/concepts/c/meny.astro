@@ -1,0 +1,159 @@
+---
+import { withBase } from '@lib/base';
+import Layout from '../../../concepts/c/Layout.astro';
+import Dish from '../../../concepts/c/Dish.astro';
+import Bek from '../../../concepts/c/Bek.astro';
+import Pic from '../../../concepts/c/Pic.astro';
+import Credit from '../../../concepts/c/Credit.astro';
+import Status from '../../../concepts/c/Status.astro';
+import Icon from '../../../concepts/c/Icon.astro';
+import { menu, menuMeta, allergens } from '@data/menu';
+import { site } from '@data/site';
+
+const photos = ['board-pizza', 'board-burger-plate', 'board-wine-beer'];
+---
+<Layout
+  title="Meny – Huset Café & Motell, Korgen"
+  description="Hele menyen på Huset Café & Motell i Korgen: pizza, grill, fisk, småretter, barnemeny og drikke. Designprototype, konsept C."
+  current="meny"
+  bodyClass="page-meny"
+>
+  <header class="mhead">
+    <div class="wrap mhead__in">
+      <div class="mhead__words">
+        <h1 class="mhead__title">Menyen</h1>
+        <p class="lede mhead__lede">
+          Alt kjøkkenet lager, slik det står på skjermene i restauranten. Lurer du på noe, ring{' '}
+          <a class="link num" href={site.contact.phoneHref}>{site.contact.phone}</a>.
+        </p>
+        <p class="mhead__meta">{menuMeta.note.replace(' – bekreftes før lansering.', '.')}<Bek /></p>
+        <Status class="mhead__status" />
+        <p class="mhead__jump"><a class="link" href="#allergener">Allergenlisten står nederst</a></p>
+      </div>
+
+      <div class="mhead__side">
+        <h2 class="bhead">Allergener</h2>
+        <dl class="allergens">
+          {Object.entries(allergens).map(([n, name]) => (
+            <div><dt class="num">{n}</dt><dd>{name}</dd></div>
+          ))}
+        </dl>
+        <p class="mhead__allergy quiet">{menuMeta.allergenNote}</p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mnav" aria-label="Menyseksjoner" data-edge="r">
+    <ul class="wrap mnav__list">
+      {menu.map((s) => (
+        <li><a href={`#m-${s.id}`} data-mnav={s.id}>{s.title}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <div class="wrap mbody">
+    <div class="mcols">
+      {menu.map((s) => (
+        <section class="msec" id={`m-${s.id}`} aria-labelledby={`m-${s.id}-t`}>
+          <div class="msec__head">
+            <h2 class="bhead" id={`m-${s.id}-t`}>{s.title}</h2>
+            {s.note && <p class="bnote msec__note">{s.note}<Bek /></p>}
+          </div>
+          <ul class="dishes">
+            {s.dishes.map((d) => <Dish dish={d} />)}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <div class="mfoot">
+      <section class="mfoot__allergens" id="allergener" aria-labelledby="allergener-t">
+        <h2 class="bhead" id="allergener-t">Allergener</h2>
+        <dl class="allergens">
+          {Object.entries(allergens).map(([n, name]) => (
+            <div><dt class="num">{n}</dt><dd>{name}</dd></div>
+          ))}
+        </dl>
+        <p class="mhead__allergy quiet">{menuMeta.allergenNote}</p>
+      </section>
+      <div class="mfoot__photos">
+        {photos.map((id) => (
+          <figure class="ph-food">
+            <Pic id={id} sizes="180px" />
+            <figcaption>
+              <span class="ph-food__tag">Plassholder – nye matbilder trengs</span>
+              <Credit id={id} tag="p" />
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="mfoot__text">
+        <p>{menuMeta.source}<Bek /></p>
+        <p class="quiet">
+          Tallene i parentes viser allergener. Spør oss gjerne før du bestiller.
+        </p>
+        <div class="btn-row mfoot__cta">
+          <a class="btn btn--lit" href={site.contact.phoneHref}><Icon name="phone" size={18} /> Ring {site.contact.phone}</a>
+          <a class="btn btn--line" href={withBase('/concepts/c/skjerm')}>Se menyskjermen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // On one column, the nav marks the section being read and keeps it in view.
+  const mq = window.matchMedia('(max-width: 760px)');
+  const nav = document.querySelector<HTMLElement>('.mnav');
+  const list = document.querySelector<HTMLElement>('.mnav__list');
+  const secs = Array.from(document.querySelectorAll<HTMLElement>('.msec'));
+  const links = new Map(
+    Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-mnav]')).map((a) => [a.dataset.mnav!, a]),
+  );
+  let current: string | null = null;
+
+  const mark = (id: string | null) => {
+    if (id === current) return;
+    current = id;
+    links.forEach((a, key) => (key === id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    const a = id ? links.get(id) : null;
+    if (a && list && list.scrollWidth > list.clientWidth) {
+      const dx = a.getBoundingClientRect().left - list.getBoundingClientRect().left;
+      list.scrollTo({ left: list.scrollLeft + dx - 20 });
+    }
+  };
+
+  let queued = false;
+  const update = () => {
+    queued = false;
+    if (!mq.matches || secs.length === 0) return mark(null);
+    const line = (nav?.getBoundingClientRect().bottom ?? 0) + 24;
+    let here = secs[0];
+    for (const s of secs) {
+      if (s.getBoundingClientRect().top <= line) here = s;
+      else break;
+    }
+    mark(here.id.slice(2));
+  };
+  const queue = () => {
+    if (!queued) {
+      queued = true;
+      requestAnimationFrame(update);
+    }
+  };
+  addEventListener('scroll', queue, { passive: true });
+  mq.addEventListener('change', queue);
+  update();
+
+  // Fades mark the side where more sections are hidden.
+  const edges = () => {
+    if (!nav || !list) return;
+    const max = list.scrollWidth - list.clientWidth;
+    const l = list.scrollLeft > 4;
+    const r = max > 4 && list.scrollLeft < max - 4;
+    nav.dataset.edge = (l ? 'l' : '') + (r ? 'r' : '');
+  };
+  list?.addEventListener('scroll', edges, { passive: true });
+  addEventListener('resize', edges);
+  edges();
+</script>

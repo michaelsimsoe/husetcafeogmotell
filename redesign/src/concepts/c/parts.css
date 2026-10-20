@@ -1,0 +1,303 @@
+/* ── Icons ──────────────────────────────────────────── */
+.c .icon { flex: none; display: inline-block; vertical-align: -0.2em; }
+
+/* ── «bekreftes» stamp ─────────────────────────────── */
+.bek {
+  display: inline-block;
+  margin-inline-start: 0.45em;
+  padding: 0.12em 0.42em 0.1em;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  color: var(--copper);
+  font-family: var(--text);
+  font-size: 0.72em;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: 0.12em;
+}
+/* In display headlines the stamp keeps text size. */
+.keep { white-space: nowrap; }
+.passage-title .bek {
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  vertical-align: 0.5em;
+}
+
+/* ── Top bar ────────────────────────────────────────── */
+.topbar {
+  position: relative;
+  z-index: 20;
+  background: var(--letterbox);
+  color: var(--bone);
+}
+.topbar__in {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-height: var(--bar-h);
+}
+.logo {
+  display: block;
+  flex: none;
+  width: 76px;
+  height: 46px;
+  background: var(--bone);
+  -webkit-mask: url(/img/shared/huset-logo-mask.png) center / contain no-repeat;
+  mask: url(/img/shared/huset-logo-mask.png) center / contain no-repeat;
+}
+.logo-link { display: block; padding: 6px 0; border-radius: 2px; }
+.logo-link:hover .logo { background: var(--copper-hi); }
+
+.nav { margin-inline-start: auto; }
+.nav__list { display: flex; list-style: none; gap: 4px; }
+.nav__list a {
+  display: flex; align-items: center;
+  min-height: 44px; padding: 0 14px;
+  font-size: 1rem; font-weight: 600; letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--bone);
+  transition: color 160ms var(--ease);
+}
+.nav__list a:hover { color: var(--copper-hi); }
+.nav__list a[aria-current="page"] { color: var(--copper); text-decoration: underline; text-decoration-color: var(--copper); }
+.nav__extra { display: none; }
+.topbar__phone {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 0 4px 0 18px;
+  border-left: 1px solid var(--hair);
+  font-weight: 700; letter-spacing: 0.02em;
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+.topbar__phone .icon { color: var(--copper); }
+.topbar__phone:hover { color: var(--copper-hi); }
+.topbar__toggle, .topbar__call { display: none; }
+
+@media (max-width: 860px) {
+  :root { --bar-h: 60px; }
+  .topbar__in { gap: 8px; }
+  .logo { width: 62px; height: 37px; }
+  .topbar__phone { display: none; }
+  .topbar__call, .topbar__toggle {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; min-width: 44px; padding: 0 14px;
+    border: 1px solid var(--hair); border-radius: 2px;
+    background: transparent; color: var(--bone);
+    font: 700 1rem/1 var(--text); letter-spacing: 0.02em;
+    text-decoration: none; cursor: pointer;
+  }
+  .topbar__call { margin-inline-start: auto; }
+  .topbar__call .icon { color: var(--copper); }
+  .topbar__toggle .icon { transition: transform 200ms var(--ease); }
+  .topbar__toggle[aria-expanded="true"] .icon { transform: rotate(180deg); }
+  .topbar__toggle[aria-expanded="true"] { border-color: var(--copper); }
+
+  /* Without JS the list simply shows as a second row. */
+  .topbar__in { flex-wrap: wrap; }
+  .nav { order: 3; flex-basis: 100%; margin: 0; }
+  .nav__list { flex-wrap: wrap; padding-bottom: 8px; }
+  .nav__extra { display: block; }
+  .js .nav { display: none; }
+  .js .nav.is-open {
+    display: block;
+    border-top: 1px solid var(--hair);
+    padding-block: 6px 14px;
+  }
+  .js .nav__list { flex-direction: column; gap: 0; }
+  .js .nav__list a {
+    min-height: 52px; padding: 0;
+    font-family: var(--display); font-size: 1.5rem; font-weight: 500; letter-spacing: 0;
+    border-bottom: 1px solid var(--hair);
+  }
+}
+
+/* ── Live status ────────────────────────────────────── */
+.status {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
+  font-size: 1.0625rem; font-weight: 600; line-height: 1.35;
+  color: var(--bone);
+}
+.status__dot {
+  flex: none;
+  width: 11px; height: 11px; border-radius: 50%;
+  border: 1.5px solid var(--turq);
+  background: transparent;
+}
+.status[data-state="open"] .status__dot {
+  border-color: var(--candle);
+  background: var(--candle);
+  box-shadow: 0 0 0 4px rgb(242 194 123 / 0.16);
+}
+.status[data-state="open"] .status__text { color: var(--candle); }
+.status .bek { margin: 0; color: var(--muted); }
+
+/* ── Buttons (rare, deliberate) ────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 22px;
+  border: 1px solid var(--copper);
+  border-radius: 2px;
+  font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 160ms var(--ease), color 160ms var(--ease), border-color 160ms var(--ease);
+}
+.btn--lit { background: var(--copper-fill); border-color: var(--copper-fill); color: var(--ink); }
+.btn--lit:hover { background: var(--copper); border-color: var(--copper); }
+.btn--line { color: var(--bone); }
+.btn--line .icon { color: var(--copper); }
+.btn--line:hover { background: rgb(224 144 125 / 0.12); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ── Credits ────────────────────────────────────────── */
+.credit {
+  display: flex; flex-wrap: wrap; gap: 2px 10px;
+  font-size: 0.8125rem; line-height: 1.45;
+  color: var(--muted);
+}
+.credit__cap { color: var(--bone); }
+.credit__links a { color: var(--muted); }
+.credit__links a:hover { color: var(--bone); }
+.credit__status, .credit__warn, .credit__graded {
+  padding: 0 0.4em;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: 0.92em;
+}
+.credit__status { color: var(--copper); }
+.credit__warn { color: var(--bone); }
+.credit__graded { color: var(--turq); }
+
+/* ── Board grammar: heads, dishes, column rules ─────── */
+.bhead {
+  display: inline-block;
+  padding: 0 1.4em 0.18em 0;
+  border-bottom: 1px solid var(--copper);
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.625rem;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+.bnote { margin-top: 10px; color: var(--turq); font-size: 1rem; }
+
+.dishes { list-style: none; display: grid; gap: 14px; margin-top: 18px; }
+.dish__line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 16px;
+}
+.dish__name {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+.dish__all {
+  margin-inline-start: 0.35em;
+  font-weight: 400;
+  font-size: 0.8em;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.dish__price {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: var(--price);
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+.dish__desc { margin-top: 1px; font-size: 1.0625rem; line-height: 1.45; color: var(--turq); }
+.dish__variants { list-style: none; margin-top: 4px; display: grid; gap: 2px; }
+.dish__variants li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; align-items: baseline;
+  padding-inline-start: 1.1em;
+  color: var(--turq);
+  font-size: 1.0625rem;
+}
+
+/* Two board columns with a copper rule between */
+.board-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  column-gap: clamp(24px, 4vw, 64px);
+}
+.vrule { background: var(--copper); width: 1px; }
+@media (max-width: 760px) {
+  .board-cols { grid-template-columns: 1fr; row-gap: 40px; }
+  .board-cols > .vrule { display: none; }
+}
+
+.legend { font-size: 0.9375rem; color: var(--muted); }
+.legend b { color: var(--bone); font-weight: 700; }
+
+/* Small food photos that must be replaced */
+.ph-food { display: grid; gap: 6px; max-width: 180px; }
+.ph-food img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; opacity: 0.92; }
+.ph-food figcaption { display: grid; justify-items: start; gap: 6px; }
+.ph-food__tag {
+  display: block;
+  font-size: 0.8125rem; line-height: 1.3; font-weight: 700;
+  color: var(--copper);
+}
+
+/* ── Horizon line: the Okstindan ridge as a single rule ─ */
+.ridge {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 0.55fr);
+  height: var(--ridge-h, 64px);
+  color: var(--copper);
+}
+.ridge__flat { position: relative; }
+.ridge__flat::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 1px; background: currentColor;
+}
+.ridge__flat--l::before { bottom: 0; }
+.ridge__flat--r::before { top: 53.45%; }
+.ridge svg { display: block; height: 100%; width: auto; overflow: visible; }
+.ridge path { fill: none; stroke: currentColor; stroke-width: 1.25; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+
+/* ── Footer ─────────────────────────────────────────── */
+.foot { background: var(--letterbox); color: var(--bone); padding-block: 56px 40px; }
+.foot__ridge { --ridge-h: 54px; margin-bottom: 44px; opacity: 0.9; }
+.foot__grid {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px 56px;
+  align-items: start;
+}
+.foot .logo { width: 96px; height: 58px; }
+.foot__place { margin-top: 14px; color: var(--turq); font-size: 1rem; }
+.foot h2 {
+  font-family: var(--display); font-weight: 500; font-size: 1rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--copper);
+  margin-bottom: 10px;
+}
+.foot ul { list-style: none; display: grid; gap: 4px; font-size: 1rem; }
+.foot a { text-decoration: none; }
+.foot a:hover { color: var(--copper-hi); text-decoration: underline; }
+.foot__hours li { display: flex; justify-content: space-between; gap: 16px; max-width: 15rem; font-variant-numeric: tabular-nums; }
+.foot__proto {
+  margin-top: 48px; padding-top: 18px;
+  border-top: 1px solid var(--hair);
+  display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
+  font-size: 0.875rem; color: var(--muted);
+}
+.foot__proto a { color: var(--bone); text-decoration: underline; }
+@media (max-width: 900px) {
+  .foot__grid { grid-template-columns: 1fr 1fr; }
+  .foot__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+  .foot__grid { grid-template-columns: 1fr; }
+  .foot ul a { display: inline-flex; align-items: center; min-height: 44px; }
+}

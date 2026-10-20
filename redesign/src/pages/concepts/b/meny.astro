@@ -1,0 +1,239 @@
+---
+import Layout from '../../../concepts/b/Layout.astro';
+import Icon from '../../../concepts/b/Icon.astro';
+import { menu, menuMeta, allergens, allergenList, kr, type AllergenId } from '@data/menu';
+
+const ids = Object.keys(allergens).map(Number) as AllergenId[];
+const total = menu.reduce((n, s) => n + s.dishes.length, 0);
+---
+
+<Layout title="Meny – Huset Café & Motell, Korgen (konsept B)" description="Hele menyen på Huset i Korgen, med priser og allergenfilter." page="meny">
+  <section class="mhead" aria-labelledby="meny-h">
+    <div class="wrap">
+      <div class="mhead__sign sign on-dark">
+        <h1 id="meny-h">Meny</h1>
+        <p class="mhead__meta"><b>{total}</b> retter og drikke · {menu.length} avsnitt · priser i kroner</p>
+        <span class="status" data-hours="state">
+          <Icon name="klokke" />
+          <span data-hours="text">Man–fre 10–21 · lør 11–21 · søn 13–19</span>
+        </span>
+      </div>
+      <p class="mhead__note">{menuMeta.note} <span class="bk">bekreftes</span></p>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Avsnitt i menyen">
+    <div class="wrap">
+      <ul>
+        {
+          menu.map((s) => (
+            <li data-tab-for={s.id}>
+              <a href={`#${s.id}`}>
+                {s.title} <span class="num">{s.dishes.length}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap mgrid">
+    <aside class="mside" aria-labelledby="alg-h">
+      <div class="mside__in">
+        <h2 id="alg-h">Allergener</h2>
+
+        <details class="filter" data-filter hidden>
+          <summary class="filter__sum">
+            <span class="filter__title">Filtrer på allergener</span>
+            <span class="filter__count" data-count>Viser {total} av {total} retter</span>
+            <span class="filter__chev" aria-hidden="true"><Icon name="pil" rotate={90} /></span>
+          </summary>
+          <div class="filter__body">
+            <p class="filter__lede" id="filter-lede">Vis bare retter</p>
+            <div class="filter__btns" role="group" aria-labelledby="filter-lede">
+              {
+                ids.map((id) => (
+                  <button type="button" class="tog" aria-pressed="false" data-allergen={id}>
+                    <span class="tog__box"><Icon name="hake" /></span>
+                    Uten {allergens[id].toLowerCase()}
+                  </button>
+                ))
+              }
+            </div>
+            <button type="button" class="filter__reset" data-reset hidden>Nullstill filter</button>
+          </div>
+        </details>
+        <p class="vh" aria-live="polite" data-count-live></p>
+
+        <dl class="legend" aria-label="Allergennøkkel">
+          {
+            ids.map((id) => (
+              <div>
+                <dt><span class="alg__b">{id}</span></dt>
+                <dd>{allergens[id]}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <p class="warn">
+          <strong>Spør før du bestiller</strong>
+          Merkingen er overført fra menyskjermene og må bekreftes med personalet.
+        </p>
+      </div>
+    </aside>
+
+    <div class="mlist">
+      {
+        menu.map((s) => (
+          <section class="msec" id={s.id} aria-labelledby={`${s.id}-h`} data-section>
+            <div class="msec__head">
+              <h2 id={`${s.id}-h`}>{s.title}</h2>
+              <span class="num msec__n">{s.dishes.length} {s.dishes.length === 1 ? 'rett' : 'valg'}</span>
+            </div>
+            {s.note && <p class="msec__note">{s.note}</p>}
+            <ul class="dishes">
+              {s.dishes.map((d) => (
+                <li class="dish" data-dish data-allergens={d.allergens.join(' ')}>
+                  <div class="dish__main">
+                    <h3 class="dish__name">{d.name}</h3>
+                    {d.desc && <p class="dish__desc">{d.desc}</p>}
+                  </div>
+                  <div class="dish__alg">
+                    {d.allergens.length ? (
+                      <span class="alg">
+                        <span class="vh">Allergener: {allergenList(d.allergens)}.</span>
+                        {d.allergens.map((a) => (
+                          <span class="alg__b" aria-hidden="true">
+                            {a}
+                          </span>
+                        ))}
+                      </span>
+                    ) : (
+                      <span class="alg alg--none">
+                        <span aria-hidden="true">–</span>
+                        <span class="vh">Ingen allergener merket.</span>
+                      </span>
+                    )}
+                  </div>
+                  {d.variants ? (
+                    <ul class="dish__var" aria-label={`Priser for ${d.name}`}>
+                      {d.variants.map((x) => (
+                        <li>
+                          <span>{x.label}</span>
+                          <span class="num">{kr(x.price)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p class="dish__price">{kr(d.price)}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+      <p class="mempty" data-empty hidden>
+        Ingen retter passer filteret.
+        <button type="button" class="filter__reset" data-reset>Nullstill filter</button>
+      </p>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const filter = document.querySelector<HTMLDetailsElement>('details[data-filter]');
+  const toggles = [...document.querySelectorAll<HTMLButtonElement>('button[data-allergen]')];
+  const dishes = [...document.querySelectorAll<HTMLElement>('[data-dish]')];
+  const sections = [...document.querySelectorAll<HTMLElement>('[data-section]')];
+  const count = document.querySelector<HTMLElement>('[data-count]');
+  const live = document.querySelector<HTMLElement>('[data-count-live]');
+  const resets = [...document.querySelectorAll<HTMLButtonElement>('[data-reset]')];
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const tabs = new Map(
+    [...document.querySelectorAll<HTMLElement>('[data-tab-for]')].map((li) => [li.dataset.tabFor!, li]),
+  );
+
+  if (filter && count && empty) {
+    filter.hidden = false;
+    filter.open = window.matchMedia('(min-width: 64rem)').matches;
+    const panelReset = filter.querySelector<HTMLButtonElement>('[data-reset]')!;
+
+    const update = () => {
+      const off = toggles.filter((b) => b.getAttribute('aria-pressed') === 'true').map((b) => b.dataset.allergen!);
+      let shown = 0;
+      for (const d of dishes) {
+        const has = (d.dataset.allergens ?? '').split(' ').filter(Boolean);
+        const hide = has.some((a) => off.includes(a));
+        d.hidden = hide;
+        if (!hide) shown++;
+      }
+      for (const s of sections) {
+        const any = s.querySelector('[data-dish]:not([hidden])');
+        s.hidden = !any;
+        const tab = tabs.get(s.id);
+        if (tab) tab.hidden = !any;
+      }
+      const text = `Viser ${shown} av ${dishes.length} retter`;
+      count.textContent = text;
+      if (live) live.textContent = text;
+      panelReset.hidden = off.length === 0;
+      empty.hidden = shown > 0;
+    };
+
+    toggles.forEach((b) =>
+      b.addEventListener('click', () => {
+        b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+        update();
+      }),
+    );
+    resets.forEach((r) =>
+      r.addEventListener('click', () => {
+        toggles.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        update();
+        toggles[0]?.focus();
+      }),
+    );
+  }
+
+  // Mark the section in view in the tab bar.
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('.tabs a')].map((a) => [a.getAttribute('href')!.slice(1), a]),
+  );
+  const setCurrent = (id: string) => {
+    links.forEach((a, key) => (key === id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    const a = links.get(id);
+    const bar = a?.closest('ul');
+    if (a && bar) {
+      const left = a.offsetLeft - 16;
+      if (left < bar.scrollLeft || a.offsetLeft + a.offsetWidth > bar.scrollLeft + bar.clientWidth) {
+        bar.scrollTo({ left, behavior: 'auto' });
+      }
+    }
+  };
+  // Mark the section in view in the tab bar: the last visible section whose top has passed the bar.
+  let ticking = false;
+  const sync = () => {
+    ticking = false;
+    const shown = sections.filter((s) => !s.hidden);
+    let current = shown[0];
+    for (const s of shown) {
+      if (s.getBoundingClientRect().top <= 140) current = s;
+      else break;
+    }
+    if (current) setCurrent(current.id);
+  };
+  addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(sync);
+      }
+    },
+    { passive: true },
+  );
+  sync();
+</script>

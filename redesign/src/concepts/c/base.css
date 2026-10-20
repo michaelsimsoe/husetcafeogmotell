@@ -1,0 +1,201 @@
+/* Figures come from Besley everywhere: Atkinson Next draws a slashed zero
+   that reads as «Ø» in Norwegian prices and times. */
+@font-face {
+  font-family: "C Figures";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 900;
+  src: url("../../../node_modules/@fontsource-variable/besley/files/besley-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0030-0039;
+}
+
+/* ── Tokens ─────────────────────────────────────────── */
+:root {
+  --letterbox: #060a0a;
+  --g0: #0b1418; /* mountain night */
+  --g1: #0e1a1a; /* midnight forest, the menu screens */
+  --g2: #16302b; /* spruce */
+  --g3: #1b211a; /* moss, the turn indoors */
+  --g4: #241a13; /* umber */
+  --g5: #2a1e15; /* lamplit wood */
+  --copper: #e0907d;
+  --copper-hi: #edb09f;
+  --copper-fill: #c9735e; /* deeper, for filled surfaces only */
+  --bone: #f1ede4;
+  --turq: #7fb5ae;
+  --candle: #f2c27b;
+  --price: #d9d5cc;
+  --muted: #bdb8ae;
+  --hair: rgb(241 237 228 / 0.16);
+  --ink: #0e1a1a;
+
+  --display: "Besley Variable", "Besley", Georgia, serif;
+  --text: "C Figures", "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next", system-ui, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --gutter: clamp(20px, 4.2vw, 64px);
+  --bar-h: 76px;
+  --measure: 64ch;
+
+  color-scheme: dark;
+  scrollbar-color: #3b4744 var(--letterbox);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { scroll-behavior: auto; }
+}
+
+/* ── Base ───────────────────────────────────────────── */
+html { background: var(--letterbox); }
+
+body.c {
+  margin: 0;
+  background: var(--g1);
+  color: var(--bone);
+  font-family: var(--text);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--copper);
+}
+
+.c ::selection { background: var(--copper); color: var(--ink); }
+
+:where(.c) a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+
+.c :focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+:where(.c) :is(h1, h2, h3) { font-family: var(--display); font-weight: 500; margin: 0; text-wrap: balance; }
+:where(.c) p { margin: 0; text-wrap: pretty; }
+:where(.c) :is(ul, ol) { margin: 0; padding: 0; }
+
+.c .num, .c time, .c .price { font-variant-numeric: lining-nums tabular-nums; }
+.c .price { font-family: var(--display); }
+
+.c .sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip {
+  position: absolute; left: var(--gutter); top: -100px; z-index: 100;
+  background: var(--copper-fill); color: var(--ink); padding: 12px 18px;
+  font-weight: 700; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+.wrap { width: min(100% - 2 * var(--gutter), 1320px); margin-inline: auto; }
+
+/* ── Type roles ─────────────────────────────────────── */
+.passage-title {
+  font-size: clamp(2rem, 1.25rem + 2.4vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--bone);
+  max-width: 16ch;
+}
+
+.prose { max-width: var(--measure); }
+.prose p + p { margin-top: 1em; }
+.prose a, .link {
+  color: var(--copper);
+  text-decoration-line: underline;
+  transition: color 160ms var(--ease);
+}
+.prose a:hover, .link:hover { color: var(--copper-hi); }
+
+.quiet { color: var(--turq); }
+.lede { font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem); line-height: 1.55; }
+
+/* ── Scenes: the ground moves from cold to warm ─────── */
+.scene {
+  --ground: var(--g1);
+  --ground-from: var(--ground);
+  position: relative;
+  background-color: var(--ground);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .scene {
+      animation-name: c-ground;
+      animation-duration: 1ms;
+      animation-timing-function: var(--ease);
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+    .lift img {
+      animation-name: c-lift;
+      animation-duration: 1ms;
+      animation-timing-function: var(--ease);
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+  }
+
+  .ground-io .scene {
+    background-color: var(--ground-from);
+    transition: background-color 1800ms var(--ease);
+  }
+  .ground-io .scene.is-lit { background-color: var(--ground); }
+  .ground-io .lift img {
+    filter: brightness(0.6) saturate(0.85) var(--grade, );
+    transition: filter 1800ms var(--ease);
+  }
+  .ground-io .lift.is-lit img { filter: brightness(1) saturate(1) var(--grade, ); }
+}
+
+@keyframes c-ground {
+  from { background-color: var(--ground-from); }
+  to { background-color: var(--ground); }
+}
+
+/* Interiors lift from dim to full; any colour grade on the photo is kept. */
+@keyframes c-lift {
+  from { filter: brightness(0.6) saturate(0.85) var(--grade, ); }
+  to { filter: brightness(1) saturate(1) var(--grade, ); }
+}
+
+/* Mountain photographs, pulled toward evening. Snow stays bright; the cool
+   cast sits on the sky, feathered out like a graduated lens filter. */
+.grade-cold { position: relative; isolation: isolate; }
+.grade-cold img { filter: brightness(0.92) saturate(0.8) contrast(1.16); }
+.grade-cold::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: #c3cfdd;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(#000 40%, transparent 68%);
+  mask-image: linear-gradient(#000 40%, transparent 68%);
+  pointer-events: none;
+}
+/* Valley daylight: the same cool cast over the whole frame, far less darkening. */
+.grade-cold--soft img { filter: brightness(0.92) saturate(0.8) contrast(1.03); }
+.grade-cold--soft::after { background: #c3cfde; -webkit-mask-image: none; mask-image: none; }
+
+/* Indoor photographs, pulled toward lamplight: the warm end of the page. */
+.grade-warm {
+  --grade: sepia(0.16) saturate(1.05) contrast(1.03);
+  position: relative;
+  isolation: isolate;
+}
+.grade-warm img { filter: var(--grade); }
+.grade-warm::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: #f4dcc2;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* Stock food is already loud: calm it before warming it. */
+.grade-warm--food { --grade: saturate(0.88) sepia(0.1) contrast(1.02); }
+.grade-warm--food::after { background: #f7e3cc; }

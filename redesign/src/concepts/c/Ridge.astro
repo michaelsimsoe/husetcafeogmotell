@@ -1,0 +1,27 @@
+---
+import ridges from '@data/ridges.json';
+
+/**
+ * The Okstindan skyline (traced from okstinden-peaks) drawn as one copper
+ * horizon: flat ground, the peaks, flat ground.
+ */
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+const pts = ridges.okstindan.points as [number, number][];
+const W = 1333.3;
+const H = 1000;
+const ys = pts.map(([, y]) => y * H);
+const top = Math.min(...ys);
+const bottom = Math.max(...ys);
+const d = pts
+  .map(([x, y], i) => `${i ? 'L' : 'M'}${(x * W).toFixed(1)} ${(y * H - top).toFixed(1)}`)
+  .join(' ');
+const vb = `0 0 ${W} ${(bottom - top).toFixed(1)}`;
+---
+<div class:list={['ridge', cls]} aria-hidden="true">
+  <span class="ridge__flat ridge__flat--l"></span>
+  <svg viewBox={vb} preserveAspectRatio="xMidYMid meet" focusable="false"><path d={d} /></svg>
+  <span class="ridge__flat ridge__flat--r"></span>
+</div>

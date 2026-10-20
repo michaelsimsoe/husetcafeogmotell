@@ -1,0 +1,74 @@
+---
+import Pic from '../Pic.astro';
+import Credit from '../Credit.astro';
+---
+<section id="fjellet" class="scene" style="--ground: var(--g0); --ground-from: var(--letterbox)" aria-labelledby="fjellet-title">
+  <div class="wrap passage split">
+    <h2 id="fjellet-title" class="passage-title">Nord-Norges høyeste fjell er 24&nbsp;km unna.</h2>
+    <div class="prose lede">
+      <p>
+        Oksskolten, <span class="num">1&nbsp;916</span> moh., ligger i Okstindan, omtrent 24 kilometer øst-sørøst
+        for Huset i luftlinje. Rundt den ligger flere snødekte topper og breer.
+      </p>
+      <p class="quiet">Her nede i dalen går E6. Ved veien står et hvitt hus med mat, kaffe og senger.</p>
+    </div>
+  </div>
+
+  <figure class="bleed">
+    <div class="bleed__img bleed__img--scope grade-cold">
+      <Pic id="okstindan-from-sweden" sizes="100vw" style="object-position: 50% 40%" />
+    </div>
+    <Credit id="okstindan-from-sweden" graded class="wrap bleed__credit" />
+  </figure>
+</section>
+
+<section id="dalen" class="scene" style="--ground: var(--g1); --ground-from: var(--g0)" aria-labelledby="dalen-title">
+  <div class="wrap dalen">
+    <figure class="dalen__big">
+      <div class="frame grade-cold grade-cold--soft">
+        <Pic id="korgfjellet-roadside" sizes="(min-width: 900px) 62vw, 100vw" />
+      </div>
+      <Credit id="korgfjellet-roadside" graded />
+    </figure>
+    <figure class="dalen__small">
+      <div class="frame grade-cold grade-cold--soft">
+        <Pic id="rossaga-a" sizes="(min-width: 900px) 30vw, 70vw" style="object-position: 40% 50%" />
+      </div>
+      <Credit id="rossaga-a" graded />
+    </figure>
+
+    <div class="dalen__text">
+      <h2 id="dalen-title" class="passage-title">Gjennom fjellet, ned i dalen.</h2>
+      <p class="prose lede">
+        Korgen ligger ved Røssåga. E6 går gjennom bygda, og gjennom Korgfjellet i en lang tunnel.
+      </p>
+    </div>
+
+    <div class="dalen__facts">
+      <h3 class="bhead">Landskapet</h3>
+      <div class="board-cols facts">
+        <ul class="dishes">
+          <li class="dish facts__extra">
+            <div class="dish__line"><span class="dish__name">Korgfjellet</span><span class="dish__price">ca. 600 moh.</span></div>
+            <p class="dish__desc">Fjellområdet E6 går gjennom, i snitt rundt 600 meter over havet.</p>
+          </li>
+          <li class="dish">
+            <div class="dish__line"><span class="dish__name">Korgfjelltunnelen</span><span class="dish__price">ca. 8,5 km</span></div>
+            <p class="dish__desc">E6 gjennom Korgfjellet, åpnet i 2005.</p>
+          </li>
+        </ul>
+        <span class="vrule" aria-hidden="true"></span>
+        <ul class="dishes">
+          <li class="dish">
+            <div class="dish__line"><span class="dish__name">Røssåga</span><span class="dish__price">50 km</span></div>
+            <p class="dish__desc">Fra Røssvatnet nordover til Sørfjorden ved Bjerka.</p>
+          </li>
+          <li class="dish">
+            <div class="dish__line"><span class="dish__name">Oksskolten</span><span class="dish__price">1&nbsp;916 moh.</span></div>
+            <p class="dish__desc">Nord-Norges høyeste fjell, i Okstindan.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

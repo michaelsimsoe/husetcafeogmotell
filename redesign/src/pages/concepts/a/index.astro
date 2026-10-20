@@ -1,0 +1,336 @@
+---
+import Layout from '../../../concepts/a/Layout.astro';
+import Ridge from '../../../concepts/a/Ridge.astro';
+import Photo from '../../../concepts/a/Photo.astro';
+import Dish from '../../../concepts/a/Dish.astro';
+import Confirm from '../../../concepts/a/Confirm.astro';
+import Arrow from '../../../concepts/a/Arrow.astro';
+import { site } from '@data/site';
+import { sectionById, allergens, krText } from '@data/menu';
+import { base, coords, groupsLine, kl, hr, ridgeOnPhoto } from '../../../concepts/a/lib';
+
+const grill = sectionById('grill');
+const pizza = sectionById('pizza');
+const pick = (ids: string[], from: typeof grill) => ids.map((id) => from.dishes.find((d) => d.id === id)!);
+const grillPicks = pick(['biffburger', 'husets-biff', 'chilliburger', 'vertshusburger', 'kyllingsnadder'], grill);
+const pizzaPicks = pick(['biffpizza', 'pepperoni', 'hawaii', 'margherita', 'fredagspizza'], pizza);
+
+const r = site.rooms;
+const v = site.venues;
+const occ = v.occasions;
+const occasionSentence = `${occ[0][0].toUpperCase()}${occ[0].slice(1)} og ${occ[1]}, ${occ[2]} og ${occ[3]}, ${occ[4]} og ${occ[5]}.`;
+const overlay = ridgeOnPhoto(1000, 0.012);
+const ox = site.landscape.oksskolten;
+---
+
+<Layout title="Huset Café & Motell – mat og husrom ved E6 i Korgen (konsept A)">
+  <!-- Masthead -->
+  <section class="hero wrap g12" aria-labelledby="tittel">
+    <div class="dateline">
+      <p class="dl-place">Korgen<span class="dl-long"> · Hemnes</span> · ved E6</p>
+      <p class="dl-coords num">{coords}</p>
+      <p class="dl-status" data-hours="state">
+        <span data-a-live hidden>
+          <svg class="mark" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4"></circle></svg>
+          <span class="dl-day"><span data-a-day></span> ·</span>
+        </span>
+        <span data-hours="text">{groupsLine}</span>
+      </p>
+    </div>
+
+    <h1 id="tittel" class="display hero-h1 lg:col-[1/10]">Mat og husrom <em>midt i dalen</em></h1>
+    <p class="hero-stand lg:col-[10/13]">
+      Familiedrevet kafé og motell ved E6 i Korgen. Her spiser bygdefolk middag, familier tar en pizza, og reisende får mat og
+      en seng for natten.
+    </p>
+
+    <Ridge bleed height="clamp(44px, 4.6vw, 68px)" class="hero-ridge" />
+
+    <Photo
+      id="huset-facade-white"
+      class="hero-ph lg:col-[4/13] lg:row-[4]"
+      ratio="5 / 2"
+      pos="50% 80%"
+      priority
+      sizes="(min-width: 84rem) 63rem, (min-width: 64rem) 72vw, 100vw"
+    />
+
+    <aside class="today lg:col-[1/4] lg:row-[4]" aria-labelledby="idag">
+      <h2 id="idag" class="today-h">I dag</h2>
+      <p class="today-time num" data-hours="today" data-a-live hidden></p>
+      <p class="today-week num">
+        {groupsLine.split(' · ').map((g, i) => (
+          <>
+            {i > 0 && ' · '}
+            <span class="whitespace-nowrap">{g}</span>
+          </>
+        ))}{' '}<Confirm />
+      </p>
+      <a class="today-phone" href={site.contact.phoneHref}>
+        <span class="label">Ring oss</span>
+        <span class="num">{site.contact.phone}</span>
+      </a>
+      <ul class="rows">
+        <li><a href={`${base}/meny`}>Se menyen <Arrow /></a></li>
+        <li class="rows-split">
+          <a href="#rom">
+            <span>Rom fra <span class="price num">{krText(r.priceFrom)}</span>{' '}<Confirm /></span>
+            <Arrow />
+          </a>
+          <a href={site.links.booking}><span>Book<span class="sr-only"> rom på Booking.com</span></span><Arrow /></a>
+        </li>
+        <li><a href={site.links.directions}>Veibeskrivelse <Arrow /></a></li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- Restaurant -->
+  <section id="mat" class="on-spruce sec" aria-labelledby="mat-h" style="margin-top: clamp(4rem, 8vw, 7rem)">
+    <div class="wrap g12">
+      <div class="mat-ph lg:col-[1/5]">
+        <Photo id="restaurant-family-pizza" ratio="4 / 5" pos="58% 50%" caption sizes="(min-width: 64rem) 30vw, 100vw" />
+      </div>
+      <div class="lg:col-[6/13] mt-10 lg:mt-0">
+        <h2 id="mat-h" class="h2">Grill, pizza og <em>en kopp kaffe</em></h2>
+        <p class="lede mt-5">
+          Middag, en pizza å dele eller bare kaffe på veien videre. Her er et utvalg fra menyen – hele menyen med alle retter og
+          allergener har sin egen side.
+        </p>
+        <div class="mat-cols">
+          <section aria-labelledby="mat-grill">
+            <h3 id="mat-grill" class="h3">{grill.title}</h3>
+            <ul class="dishes">{grillPicks.map((d) => <Dish dish={d} />)}</ul>
+          </section>
+          <section aria-labelledby="mat-pizza">
+            <h3 id="mat-pizza" class="h3">{pizza.title}</h3>
+            <ul class="dishes">{pizzaPicks.map((d) => <Dish dish={d} />)}</ul>
+          </section>
+        </div>
+        <div class="mat-foot">
+          <a class="go go-big" href={`${base}/meny`}>Se hele menyen <Arrow /></a>
+          <ul>
+            <li>
+              <Confirm /> Priser og allergener som på dagens menyskjermer.
+            </li>
+            <li class="num">
+              Allergener: {
+                Object.entries(allergens)
+                  .map(([n, name]) => `${n} ${name}`)
+                  .join(' · ')
+              }
+            </li>
+            <li>Barnemeny, og barneporsjon av dagens meny med 30&nbsp;% rabatt.</li>
+            <li>{v.extras[0]} og {v.extras[1].toLowerCase()} <Confirm /></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms -->
+  <section id="rom" class="sec" aria-labelledby="rom-h">
+    <div class="wrap g12">
+      <Ridge from={0.13} to={1} start={0.42} end={1} height="clamp(40px, 5vw, 72px)" class="sec-ridge" />
+      <h2 id="rom-h" class="h2 lg:col-[1/10]">Et rom for natten, <em>frokost om morgenen</em></h2>
+      <Photo id="room-wide" class="mt-8 lg:mt-10" ratio="12 / 5" pos="50% 55%" sizes="(min-width: 84rem) 84rem, 92vw" />
+
+      <div class="lg:col-[1/5] mt-10">
+        <dl class="facts num">
+          <div><dt>Rom</dt><dd>{r.count}</dd></div>
+          <div><dt>Frokost</dt><dd>Inkludert</dd></div>
+          <div><dt>Innsjekk</dt><dd>fra {kl(r.checkIn)}</dd></div>
+          <div><dt>Utsjekk</dt><dd>{kl(r.checkOut)}</dd></div>
+          <div class="facts-price">
+            <dt>Per natt</dt><dd class="price">fra {krText(r.priceFrom)}</dd>
+          </div>
+        </dl>
+        <p class="mt-3"><Confirm note="Engelsk versjon av dagens nettside oppgir 1 139 kr." /></p>
+        <div class="stack mt-6">
+          <a class="btn" href={site.links.booking}>Book på Booking.com <Arrow /></a>
+          <a class="go" href={site.contact.phoneHref}>Ring {site.contact.phone}</a>
+          <a class="go" href={site.contact.emailHref}>Skriv til {site.contact.email}</a>
+        </div>
+      </div>
+
+      <div class="prose lg:col-[6/10] mt-10">
+        <p class="lede">
+          Motellet har {r.count} rom: dobbeltrom med to senger som kan stå hver for seg eller skyves sammen, og to enkeltrom. Alle
+          dobbeltrommene kan også leies som enkeltrom.{' '}<Confirm />
+        </p>
+        <p>Rommene har TV og rene bad. Frokosten er en tradisjonell norsk frokost, selvbetjent i eget frokostrom.</p>
+        <p>Kommer du sent, kan ankomst avtales. Betaling skjer ved ankomst, om ikke annet er avtalt.</p>
+        <p>{r.fullyBooked}</p>
+      </div>
+
+      <Photo id="rooms-pair" class="lg:col-[10/13] mt-10" caption sizes="(min-width: 64rem) 22vw, 100vw" />
+    </div>
+  </section>
+
+  <!-- Gatherings -->
+  <section id="selskap" class="on-fog sec" aria-labelledby="selskap-h">
+    <div class="wrap g12">
+      <Ridge from={0.2} to={1} start={0} end={0.55} mirror height="clamp(36px, 4vw, 56px)" class="sec-ridge" />
+      <h2 id="selskap-h" class="h2 lg:col-[1/9]">Når det er noe <em>å samles om</em></h2>
+      <p class="occasions mt-6 lg:col-[1/11]">{occasionSentence}</p>
+
+      <Photo
+        id="party-long-table"
+        class="lg:col-[1/7] mt-10 lg:mt-14"
+        creditSide="left"
+        ratio="1 / 1"
+        caption
+        sizes="(min-width: 64rem) 45vw, 100vw"
+      />
+
+      <div class="lg:col-[8/13] mt-10 lg:mt-14">
+        <div class="prose">
+          <p class="lede">
+            Det er plass til {v.capacity} gjester i spisesalen. Vi lager mat til selskapet – {v.catering.join(', ').replace(/, ([^,]*)$/, ' og $1')} – og {v.cakes.toLowerCase()}.
+          </p>
+          <p><Confirm note="Kapasitet, mat til selskap og kaker er hentet fra dagens nettside." /></p>
+        </div>
+
+        <table class="rooms-table num mt-10">
+          <caption>Møterom</caption>
+          <tbody>
+            {
+              v.meetingRooms.map((m) => (
+                <tr>
+                  <th scope="row">{m.name}</th>
+                  <td>{m.equipment}</td>
+                  <td class="price">{krText(m.price)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="mt-3"><Confirm note="Pris og om den gjelder per time eller per dag." /></p>
+
+        <Photo id="huset-meeting-room" class="mt-8" caption sizes="(min-width: 64rem) 38vw, 100vw" />
+
+        <p class="mt-8">
+          <a class="go go-big" href={site.contact.phoneHref}>Ring {site.contact.phone}</a><br />
+          <a class="go" href={site.contact.emailHref}>eller skriv til {site.contact.email}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The valley -->
+  <section id="dalen" class="sec" aria-labelledby="dalen-h">
+    <div class="wrap g12">
+      <Ridge height="clamp(28px, 3vw, 40px)" class="sec-ridge" />
+      <h2 id="dalen-h" class="h2 lg:col-[1/8]">Dalen, <em>før og nå</em></h2>
+
+      <div class="lg:col-[1/8] mt-8 lg:mt-10">
+        <Photo
+          id="korgen-1950s-c"
+          creditSide="left"
+          caption="Korgen og Røssåga"
+          date="1947–49"
+          sizes="(min-width: 64rem) 55vw, 100vw"
+        />
+        <div class="prose dalen-text mt-10 lg:pr-[8%]">
+          <p>
+            Korgen ligger der Røssåga renner gjennom dalen. Elva er 50 kilometer lang og går fra Røssvatnet nordover til Sørfjorden
+            ved Bjerka.
+          </p>
+          <p>
+            E6 går gjennom Korgfjellet i Korgfjelltunnelen, som er om lag 8,5 kilometer lang og ble åpnet i 2005. Fjellet ligger i
+            snitt rundt 600 meter over havet.
+          </p>
+          <p>
+            Om lag {ox.kmFromHuset} kilometer {ox.bearing} for Huset ligger Okstindan, med Oksskolten – 1 916 meter over havet og
+            Nord-Norges høyeste fjell.
+          </p>
+        </div>
+      </div>
+
+      <div class="dalen-now lg:col-[8/13]">
+        <Photo id="korgen-village-2008b" caption="Korgen sentrum fra Røssåga" date="mai 2008" sizes="(min-width: 64rem) 38vw, 100vw">
+          <div class="ridge ph-ridge" data-ridge aria-hidden="true">
+            <svg viewBox={overlay.viewBox} preserveAspectRatio="none" focusable="false"><path d={overlay.d}></path></svg>
+          </div>
+        </Photo>
+        <p class="soft mt-4" style="font-size: 0.9375rem; max-width: 30em">
+          Den grønne streken er fjellet over Korgen, tegnet etter dette bildet. Den samme linja går igjen gjennom hele siden.
+        </p>
+        <Photo id="okstinden-peaks" class="peaks" caption date="mai 2009" ratio="3 / 2" sizes="(min-width: 64rem) 38vw, 100vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Around -->
+  <section id="rundt" class="sec" aria-labelledby="rundt-h" style="padding-top: 0">
+    <div class="wrap g12">
+      <Ridge from={0.35} to={0.85} start={0.62} end={0.92} height="28px" class="sec-ridge" />
+      <div class="lg:col-[1/5]">
+        <h2 id="rundt-h" class="h2">Rundt <em>Huset</em></h2>
+        <p class="lede mt-5">Butikk, apotek og drivstoff ligger et steinkast unna.</p>
+        <Photo id="huset-parking-mountain" class="mt-8" caption sizes="(min-width: 64rem) 26vw, 100vw" style="max-width: 368px" />
+      </div>
+      <div class="lg:col-[6/13] mt-10 lg:mt-2">
+        <dl class="near">
+          {
+            site.surroundings.nearby.map((n) => (
+              <div>
+                <dt>
+                  {n.name}
+                  <span>{n.where}</span>
+                </dt>
+                <dd>{n.what}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="mt-3"><Confirm /></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find us -->
+  <section id="finn-fram" class="on-spruce sec" aria-labelledby="finn-h">
+    <div class="wrap g12">
+      <h2 id="finn-h" class="h2 lg:col-[1/8]">Finn <em>fram</em></h2>
+
+      <div class="lg:col-[1/6] mt-10">
+        <table class="week num">
+          <caption class="h3">Åpningstider</caption>
+          <tbody>
+            {
+              site.hours.days.map((d) => (
+                <tr data-hours-day={d.day}>
+                  <th scope="row">
+                    {d.label}
+                    <span class="week-today">i dag</span>
+                  </th>
+                  <td>
+                    {hr(d.open)}–{hr(d.close)}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="mt-3"><Confirm note="Åpningstidene er hentet fra dagens nettside." /></p>
+      </div>
+
+      <div class="lg:col-[7/13] mt-12 lg:mt-10">
+        <p class="label">Telefon</p>
+        <a class="find-phone num" href={site.contact.phoneHref}>{site.contact.phone}</a>
+        <ul class="find-list mt-8">
+          <li><a href={site.contact.emailHref}>{site.contact.email} <Arrow /></a></li>
+          <li><a href={site.contact.facebook}>Facebook <Arrow /></a></li>
+          <li><a href={site.links.directions}>Veibeskrivelse <Arrow /></a></li>
+          <li><a href={site.links.map}>Se kartet <Arrow /></a></li>
+        </ul>
+        <dl class="mt-8 facts-light">
+          <dt class="label">Adresse</dt>
+          <dd>Ved E6 i Korgen, {site.place.municipality}. <Confirm /></dd>
+          <dt class="label mt-4">Koordinater</dt>
+          <dd class="num">{coords}</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+</Layout>

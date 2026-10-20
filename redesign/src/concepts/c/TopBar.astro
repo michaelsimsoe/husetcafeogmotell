@@ -1,0 +1,68 @@
+---
+import { withBase } from '@lib/base';
+import { site } from '@data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  current?: 'home' | 'meny' | 'om' | 'skjerm';
+}
+const { current = 'home' } = Astro.props;
+const base = withBase('/concepts/c');
+const onHome = current === 'home';
+const items = [
+  { href: `${base}/meny`, label: 'Meny', key: 'meny' },
+  { href: `${onHome ? '' : base}#rom`, label: 'Rom', key: 'rom' },
+  { href: `${onHome ? '' : base}#selskap`, label: 'Selskap', key: 'selskap' },
+  { href: `${onHome ? '' : base}#finn-fram`, label: 'Finn fram', key: 'finn-fram' },
+];
+---
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <a class="logo-link" href={base} aria-label="Huset Café & Motell – til forsiden">
+      <span class="logo" aria-hidden="true"></span>
+    </a>
+    <a class="topbar__call" href={site.contact.phoneHref}>
+      <Icon name="phone" size={18} /> Ring
+    </a>
+    <button class="topbar__toggle" type="button" aria-expanded="false" aria-controls="c-nav" hidden>
+      Gå til <Icon name="chevron" size={18} />
+    </button>
+    <nav class="nav" id="c-nav" aria-label="Hovednavigasjon">
+      <ul class="nav__list">
+        {items.map((it) => (
+          <li>
+            <a href={it.href} aria-current={current === it.key ? 'page' : undefined}>{it.label}</a>
+          </li>
+        ))}
+        <li class="nav__extra"><a href={site.links.booking}>Book rom</a></li>
+        <li class="nav__extra"><a href={site.links.directions}>Veibeskrivelse</a></li>
+      </ul>
+    </nav>
+    <a class="topbar__phone" href={site.contact.phoneHref}>
+      <Icon name="phone" size={18} />
+      <span><span class="sr-only">Ring </span>{site.contact.phone}</span>
+    </a>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.topbar__toggle');
+  const nav = document.getElementById('c-nav');
+  if (btn && nav) {
+    btn.hidden = false;
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    nav.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) set(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        set(false);
+        btn.focus();
+      }
+    });
+  }
+</script>

@@ -1,0 +1,288 @@
+---
+import Icon from './Icon.astro';
+import Photo from './Photo.astro';
+import { routeCredit } from '@data/credits';
+import {
+  points,
+  TOTAL,
+  Z_TOP,
+  U,
+  LEN,
+  HUSET_KM,
+  approaches,
+  korgfjell,
+  places,
+  horizontal as H,
+  vertical as V,
+  zAt,
+  pctKm,
+  pctZ,
+  dec,
+} from './route';
+
+const at = (km: number, z = zAt(km)) => `--k:${pctKm(km).toFixed(3)};--z:${pctZ(z).toFixed(3)}`;
+
+const peak = points.reduce((m, p) => (p[4] > m[4] ? p : m), points[0]);
+const tunnelMid = (korgfjell.fromKm + korgfjell.toKm) / 2;
+const husetZ = zAt(HUSET_KM);
+const toTunnel = Math.round(HUSET_KM - korgfjell.toKm);
+
+const shownPlaces = [
+  { name: 'Mosjøen', km: 0, cls: 'place--start' },
+  ...places.filter((p) => ['Forsmoen', 'Straum', 'Luktvatnet', 'Bjerka', 'Dalsgrenda'].includes(p.name)).map((p) => ({ name: p.name, km: p.km, cls: p.name === 'Luktvatnet' ? 'place--luktvatnet' : p.name === 'Forsmoen' ? 'place--forsmoen' : '' })),
+  { name: 'Korgen', km: HUSET_KM, cls: 'place--korgen' },
+  { name: 'Mo i Rana', km: TOTAL, cls: 'place--end' },
+].sort((a, b) => a.km - b.km);
+
+const ticks = Array.from({ length: Math.floor(TOTAL / 10) + 1 }, (_, i) => i * 10);
+
+const cards = [
+  { id: 'korgfjellet-roadside', km: 35, cls: 'card--left', caption: 'Korgfjellet · km\u00a035' },
+  { id: 'huset-parking-mountain', km: HUSET_KM, cls: 'card--huset', caption: `Huset i Korgen · km\u00a0${dec(HUSET_KM)}` },
+];
+
+const sor = approaches.sor;
+const nord = approaches.nord;
+
+const summary =
+  `Høydeprofil for E6 fra Mosjøen (km 0) til Mo i Rana (km ${dec(TOTAL)}). ` +
+  `Veien stiger til ca. ${Math.round(zAt(korgfjell.fromKm))} moh. ved Korgfjelltunnelen (km ${dec(korgfjell.fromKm)}–${dec(korgfjell.toKm)}), ` +
+  `der fjellet over tunnelen når ca. ${Math.round(peak[4])} moh. Huset ligger ved km ${dec(HUSET_KM)} i Korgen, ca. ${Math.round(husetZ)} moh. ` +
+  `Fra Mosjøen er det ca. ${dec(sor.km)} km og ca. ${sor.min} minutter, fra Mo i Rana ca. ${dec(nord.km)} km og ca. ${nord.min} minutter.`;
+---
+
+<section class="strip on-dark" aria-labelledby="strip-h">
+  <div class="wrap">
+    <div class="strip__head">
+      <div>
+        <h2 id="strip-h"><span class="shield">E6</span> Mosjøen – Korgen – Mo i Rana</h2>
+        <p class="strip__lede">Huset ligger i Korgen, ca. {toTunnel} km nord for Korgfjelltunnelen.</p>
+      </div>
+      <div class="strip__ctl" data-ctl hidden>
+        <fieldset class="come" data-come>
+          <legend>Kommer fra:</legend>
+          <div class="come__seg">
+            <label>
+              <input type="radio" name="kommer-fra" value="sor" />
+              <span>Sør <small>(Mosjøen)</small></span>
+            </label>
+            <label>
+              <input type="radio" name="kommer-fra" value="nord" />
+              <span>Nord <small>(Mo i Rana)</small></span>
+            </label>
+          </div>
+        </fieldset>
+        <p class="readout" aria-hidden="true">
+          <span class="readout__k" data-readout-k>Avstand til Huset</span>
+          <span class="readout__v" data-readout-v>Velg retning</span>
+        </p>
+        <p class="vh" aria-live="polite" data-announce></p>
+      </div>
+    </div>
+
+    <div class="map" data-map>
+      <div class="prof">
+        <svg class="prof__svg prof__svg--h" viewBox={H.viewBox} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <clipPath id="clip-h-sor"><rect data-clip="sor" data-o="h" x="0" y="-50" width={LEN} height={Z_TOP + 100} /></clipPath>
+            <clipPath id="clip-h-nord"><rect data-clip="nord" data-o="h" x="0" y="-50" width={LEN} height={Z_TOP + 100} /></clipPath>
+          </defs>
+          <path class="terrain" d={H.terrain} />
+          <line class="sea" x1="0" x2={LEN} y1={Z_TOP} y2={Z_TOP} />
+          <path class="road" d={H.open} />
+          <path class="road road--tunnel" d={H.tunnel} />
+          <path class="trail trail--sor" d={H.sor} clip-path="url(#clip-h-sor)" />
+          <path class="trail trail--nord" d={H.nord} clip-path="url(#clip-h-nord)" />
+        </svg>
+        <svg class="prof__svg prof__svg--v" viewBox={V.viewBox} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <clipPath id="clip-v-sor"><rect data-clip="sor" data-o="v" x="-50" y="0" width={Z_TOP + 100} height={LEN} /></clipPath>
+            <clipPath id="clip-v-nord"><rect data-clip="nord" data-o="v" x="-50" y="0" width={Z_TOP + 100} height={LEN} /></clipPath>
+          </defs>
+          <path class="terrain" d={V.terrain} />
+          <line class="sea" x1="0" x2="0" y1="0" y2={LEN} />
+          <path class="road" d={V.open} />
+          <path class="road road--tunnel" d={V.tunnel} />
+          <path class="trail trail--sor" d={V.sor} clip-path="url(#clip-v-sor)" />
+          <path class="trail trail--nord" d={V.nord} clip-path="url(#clip-v-nord)" />
+        </svg>
+
+        <div aria-hidden="true">
+          <span class="ends ends--s"><span class="ends__arr"><Icon name="pil" /></span> Trondheim ca. 434 km</span>
+          <span class="ends ends--n">Bodø ca. 267 km <span class="ends__arr"><Icon name="pil" /></span></span>
+
+          {ticks.map((t) => <span class:list={['o tick', { 'tick--0': t === 0 }]} style={at(t, 0)}>{t === 80 ? '80 km' : t}</span>)}
+
+          {
+            shownPlaces.map((p) => (
+              <span class:list={['o place', p.cls]} style={at(p.km, 0)}>
+                {p.name}
+                <small>km {dec(p.km)}</small>
+              </span>
+            ))
+          }
+
+          <span class="o tunnel-lbl" style={at(tunnelMid, 0)}>
+            <Icon name="tunnel" />
+            <span>Korgfjell&shy;tunnelen<small>ca. 8,5 km</small></span>
+          </span>
+
+          <span class="o peak-lbl" style={at(peak[0], peak[4])}>Korgfjellet<small>ca. 600 moh.</small></span>
+
+          <span class="o post" style={at(HUSET_KM, husetZ)} />
+          <span class="o husign sign" style={at(HUSET_KM, husetZ)}>
+            <span class="pict"><Icon name="spis" /></span>
+            <span class="pict"><Icon name="seng" /></span>
+            Huset
+            <span class="num">km {dec(HUSET_KM)}</span>
+          </span>
+        </div>
+
+        <span class="o marker" data-marker style={at(HUSET_KM, husetZ)} aria-hidden="true"></span>
+      </div>
+
+      <ul class="cards" aria-label="Bilder langs strekningen">
+        {
+          cards.map((c) => (
+            <li class:list={['card', c.cls]} style={at(c.km)}>
+              <span class="card__lead" aria-hidden="true" />
+              <Photo id={c.id} sizes="(max-width: 47.99rem) 45vw, 8rem" caption={c.caption} compact />
+            </li>
+          ))
+        }
+      </ul>
+      <p class="vh">{summary}</p>
+    </div>
+
+    <div class="strip__foot">
+      <table class="board" data-board>
+        <caption class="vh">Avstand og kjøretid til Huset langs E6</caption>
+        <thead>
+          <tr>
+            <th scope="col">Fra</th>
+            <th scope="col">Avstand</th>
+            <th scope="col">Kjøretid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-row="sor">
+            <th scope="row">Mosjøen<small>sør</small></th>
+            <td>ca. {dec(sor.km)} km</td>
+            <td>ca. {sor.min} min</td>
+          </tr>
+          <tr data-row="nord">
+            <th scope="row">Mo i Rana<small>nord</small></th>
+            <td>ca. {dec(nord.km)} km</td>
+            <td>ca. {nord.min} min</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="strip__aside">
+        <div class="strip__links">
+          <a class="oks sign sign--white" href="#rundt">
+            <Icon name="fjell" />
+            <span>Okstindan <span class="num">ca. 24 km</span></span>
+            <span class="go__arr" aria-hidden="true"><Icon name="pil" /></span>
+          </a>
+          <a class="go strip__menu" href="#spis">Til menyen <span class="go__arr go__arr--down" aria-hidden="true"><Icon name="pil" /></span></a>
+        </div>
+        <p class="strip__notes">
+          Høyder overdrevet. Tunnelene er interpolert mellom åpningene. Avstander og kjøretider er omtrentlige. {routeCredit}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { TOTAL, HUSET_KM, Z_TOP, U, LEN, zAt, approaches, dec } from './route';
+
+  type Dir = 'sor' | 'nord';
+  const map = document.querySelector<HTMLElement>('[data-map]');
+  const ctl = document.querySelector<HTMLElement>('[data-ctl]');
+  const come = document.querySelector<HTMLFieldSetElement>('[data-come]');
+  const board = document.querySelector<HTMLTableElement>('[data-board]');
+  const announce = document.querySelector<HTMLElement>('[data-announce]');
+  const outK = document.querySelector<HTMLElement>('[data-readout-k]');
+  const outV = document.querySelector<HTMLElement>('[data-readout-v]');
+
+  if (map && ctl && come && board && outK && outV) {
+    ctl.hidden = false;
+    const marker = map.querySelector<HTMLElement>('[data-marker]')!;
+    const rects = [...map.querySelectorAll<SVGRectElement>('[data-clip]')];
+    const rows = [...board.querySelectorAll<HTMLTableRowElement>('[data-row]')];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let raf = 0;
+
+    const place = (km: number) => {
+      marker.style.setProperty('--k', ((km / TOTAL) * 100).toFixed(3));
+      marker.style.setProperty('--z', ((zAt(km) / Z_TOP) * 100).toFixed(3));
+    };
+
+    const clip = (dir: Dir, km: number) => {
+      for (const r of rects) {
+        if (r.dataset.clip !== dir) continue;
+        if (r.dataset.o === 'h') {
+          const x = dir === 'sor' ? 0 : km * U;
+          const w = dir === 'sor' ? km * U : LEN - km * U;
+          r.setAttribute('x', String(x));
+          r.setAttribute('width', String(Math.max(0, w)));
+        } else {
+          const y = (TOTAL - km) * U;
+          r.setAttribute('y', String(dir === 'sor' ? y : 0));
+          r.setAttribute('height', String(Math.max(0, dir === 'sor' ? LEN - y : y)));
+        }
+      }
+    };
+
+    // Whole kilometres while far out, one decimal on the last stretch.
+    const kmText = (rem: number) => (rem >= 10 ? Math.round(rem).toLocaleString('nb-NO') : dec(Math.floor(rem * 10) / 10));
+
+    const arrive = (dir: Dir) => {
+      const a = approaches[dir];
+      outK.textContent = `Fremme fra ${a.from}`;
+      outV.textContent = `ca. ${dec(a.km)} km · ca. ${a.min} min`;
+      if (announce) {
+        announce.textContent = `Fra ${a.from}: ca. ${dec(a.km)} km og ca. ${a.min} minutter til Huset.`;
+      }
+    };
+
+    const drive = (dir: Dir) => {
+      cancelAnimationFrame(raf);
+      const a = approaches[dir];
+      map.dataset.dir = dir;
+      rows.forEach((r) => r.toggleAttribute('data-active', r.dataset.row === dir));
+
+      if (reduce.matches) {
+        place(HUSET_KM);
+        clip(dir, HUSET_KM);
+        arrive(dir);
+        return;
+      }
+
+      outK.textContent = 'Igjen til Huset';
+      const t0 = performance.now();
+      const D = 3800;
+      const step = (now: number) => {
+        const t = Math.min(1, (now - t0) / D);
+        const e = 1 - Math.pow(1 - t, 3);
+        const km = a.startKm + (HUSET_KM - a.startKm) * e;
+        place(km);
+        clip(dir, km);
+        if (t < 1) {
+          const rem = Math.abs(HUSET_KM - km);
+          outV.textContent = `${kmText(rem)} km · ${Math.ceil((a.min * rem) / a.km)} min`;
+          raf = requestAnimationFrame(step);
+        } else {
+          arrive(dir);
+        }
+      };
+      raf = requestAnimationFrame(step);
+    };
+
+    come.addEventListener('change', (e) => {
+      const v = (e.target as HTMLInputElement).value;
+      if (v === 'sor' || v === 'nord') drive(v);
+    });
+  }
+</script>

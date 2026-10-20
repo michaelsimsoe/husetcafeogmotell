@@ -1,0 +1,70 @@
+---
+import { photo, src, creditLine } from '@data/credits';
+import Pic from '../Pic.astro';
+import Credit from '../Credit.astro';
+import Bek from '../Bek.astro';
+
+const ref = photo('huset-facade-white');
+---
+<section id="inngangen" class="scene" style="--ground: var(--g2); --ground-from: var(--g1)" aria-labelledby="inngangen-title">
+  <div class="wrap">
+    <figure class="night">
+      <div class="night__frame">
+        <span class="night__corner night__corner--tl" aria-hidden="true"></span>
+        <span class="night__corner night__corner--tr" aria-hidden="true"></span>
+        <span class="night__corner night__corner--bl" aria-hidden="true"></span>
+        <span class="night__corner night__corner--br" aria-hidden="true"></span>
+        <div class="night__body">
+          <p class="night__title">Plassholder: Huset fotografert en kveld, med lys i vinduene</p>
+          <ul class="night__brief">
+            <li>Fasaden sett fra plenen, hele bygget med</li>
+            <li>Blåtime: himmelen har fortsatt farge, alle vinduer tent</li>
+            <li>Liggende format, minst 2400 px bredt</li>
+          </ul>
+        </div>
+        <div class="night__ref">
+          <img
+            src={src('huset-facade-white', 800)}
+            width={ref.w}
+            height={ref.h}
+            alt={ref.alt}
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="night__refcap">
+            Referanse: samme bygg i dagslys.
+            <span>{creditLine('huset-facade-white')}</span>
+            <span class="credit__status">Rettigheter avklares</span>
+          </p>
+        </div>
+      </div>
+    </figure>
+
+    <div class="door">
+      <div class="door__text">
+        <h2 id="inngangen-title" class="passage-title">Et hvitt hus ved veien.</h2>
+        <div class="prose lede">
+          <p>
+            Huset ligger tett inntil E6 gjennom Korgen. Korgensenteret ligger rett ved siden av, og Circle K
+            over veien.<Bek />
+          </p>
+          <p class="quiet">
+            I gangen henger et gammelt skilt i tre der det står «skysstasjon». Så er du inne.
+          </p>
+        </div>
+      </div>
+      <figure class="door__entrance">
+        <div class="frame lift">
+          <Pic id="huset-entrance" sizes="(min-width: 900px) 34vw, 100vw" />
+        </div>
+        <Credit id="huset-entrance" />
+      </figure>
+      <figure class="door__sign">
+        <div class="frame lift">
+          <Pic id="huset-reception-sign" sizes="(min-width: 900px) 26vw, 80vw" />
+        </div>
+        <Credit id="huset-reception-sign" />
+      </figure>
+    </div>
+  </div>
+</section>

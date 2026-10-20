@@ -1,0 +1,115 @@
+---
+import { withBase } from '@lib/base';
+import './styles.css';
+import { site } from '@data/site';
+import Ridge from './Ridge.astro';
+import Confirm from './Confirm.astro';
+import { base } from './lib';
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: 'home' | 'meny' | 'om';
+}
+
+const { title, description = 'Huset Café & Motell i Korgen – designprototype, konsept A.', current = 'home' } = Astro.props;
+const home = current === 'home';
+const nav = [
+  { href: `${base}/meny`, label: 'Mat', current: current === 'meny' },
+  { href: `${home ? '' : base}#rom`, label: 'Rom', current: false },
+  { href: `${home ? '' : base}#selskap`, label: 'Selskap', current: false },
+  { href: `${home ? '' : base}#finn-fram`, label: 'Finn fram', current: false },
+];
+---
+
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f6f2" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip" href="#innhold">Hopp til innholdet</a>
+    <header class="tb">
+      <div class="wrap tb-row">
+        <a class="wm" href={base} aria-label="Huset Café & Motell, til forsiden">
+          <span class="wm-name">Huset</span>
+          <span class="wm-sub">Café &amp; Motell</span>
+        </a>
+        <nav class="tb-nav" aria-label="Hovednavigasjon">
+          <ul>
+            {
+              nav.map((n) => (
+                <li>
+                  <a href={n.href} aria-current={n.current ? 'page' : undefined}>
+                    {n.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <a class="tb-phone" href={site.contact.phoneHref}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a1.8 1.8 0 0 1-1.9 1.8A16.6 16.6 0 0 1 4.8 5.4a1.8 1.8 0 0 1 1.8-1.9Z"></path>
+          </svg>
+          <span><span class="sr-only">Ring </span>{site.contact.phone}</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="innhold" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="on-spruce">
+      <Ridge from={0} to={1} mirror bleed height="clamp(36px, 5vw, 64px)" class="ft-ridge" />
+      <div class="wrap ft g12">
+        <div class="md:col-[1/5]">
+          <img class="ft-logo" src={withBase('/img/shared/huset-logo-mask.png')} width="267" height="160" alt="" />
+          <h2>{site.name}</h2>
+          <p class="soft">Korgen · Hemnes · ved E6</p>
+        </div>
+        <div class="md:col-[5/9] mt-6 md:mt-0">
+          <ul class="ft-list">
+            <li><a href={site.contact.phoneHref}>Ring {site.contact.phone}</a></li>
+            <li><a href={site.contact.emailHref}>{site.contact.email}</a></li>
+            <li><a href={site.contact.facebook}>Facebook</a></li>
+            <li><a href={site.links.directions}>Veibeskrivelse</a></li>
+          </ul>
+        </div>
+        <div class="md:col-[9/13] mt-6 md:mt-0">
+          <p class="label">Åpningstider</p>
+          <ul class="ft-list num mt-2">
+            {
+              site.hours.groups.map((g) => (
+                <li>
+                  {g.label} {g.open}–{g.close}
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mt-2"><Confirm /></p>
+        </div>
+        <p class="ft-proto">
+          Designprototype – konsept A. Ikke publisert. <a href={withBase('/')}>Alle konsepter</a> · <a href={`${base}/om`}>Designvalg og kreditering</a>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      import { mountConceptA } from './client';
+      mountConceptA();
+    </script>
+  </body>
+</html>
+
+<style>
+  main:focus { outline: none; }
+  .ft-ridge { padding-top: clamp(2rem, 4vw, 3.5rem); }
+</style>

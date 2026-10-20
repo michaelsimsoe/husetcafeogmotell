@@ -1,0 +1,49 @@
+---
+import { photo, src, srcset, creditLine, statusLabel } from '@data/credits';
+
+interface Props {
+  id: string;
+  sizes: string;
+  lazy?: boolean;
+  /** CSS aspect-ratio for the crop, e.g. "4 / 3". Omit to keep the natural ratio. */
+  ratio?: string;
+  position?: string;
+  class?: string;
+  /** Short caption override; defaults to the registry caption. */
+  caption?: string;
+  /** Compact credit block (strip postcards). */
+  compact?: boolean;
+}
+
+const { id, sizes, lazy = true, ratio, position = '50% 50%', class: cls, caption, compact = false } = Astro.props;
+const p = photo(id);
+const cap = caption ?? p.caption;
+---
+
+<figure class:list={['ph', cls, { 'ph--compact': compact }]}>
+  <div class="ph__frame" style={ratio ? `aspect-ratio: ${ratio}` : undefined}>
+    <img
+      src={src(id, 1600)}
+      srcset={srcset(id)}
+      sizes={sizes}
+      width={p.w}
+      height={p.h}
+      alt={p.alt}
+      loading={lazy ? 'lazy' : 'eager'}
+      decoding="async"
+      style={`object-position: ${position}`}
+    />
+  </div>
+  <figcaption class="ph__cap">
+    <span class="ph__title">{cap}</span>
+    <span class="ph__credit">{creditLine(id)}</span>
+    {
+      (p.status === 'avklares' || p.warning) && (
+        <span class="ph__flags">
+          {p.status === 'avklares' && <span class="flag">{statusLabel.avklares}</span>}
+          {p.warning && <span class="flag flag--quiet">{p.warning}</span>}
+        </span>
+      )
+    }
+  </figcaption>
+</figure>

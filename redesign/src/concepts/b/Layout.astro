@@ -1,0 +1,141 @@
+---
+import { withBase } from '@lib/base';
+import './styles.css';
+import Icon from './Icon.astro';
+import { site } from '@data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Which concept page is open, for aria-current. */
+  page?: 'home' | 'meny' | 'om';
+  /** The 16:9 board renders without site chrome. */
+  bare?: boolean;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description = 'Huset Café & Motell ved E6 i Korgen – konsept B (designprototype).',
+  page,
+  bare = false,
+  bodyClass,
+} = Astro.props;
+const base = withBase('/concepts/b');
+const home = page === 'home' ? '' : base;
+const c = site.contact;
+---
+
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b6b45" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add('has-js');</script>
+  </head>
+  <body class={bodyClass}>
+    {
+      bare ? (
+        <slot />
+      ) : (
+        <>
+          <a class="skip" href="#innhold">Hopp til innhold</a>
+          <header class="top">
+            <div class="wrap top__in">
+              <a class="brand" href={base} aria-label="Huset Café & Motell, forsiden">
+                <span class="logo" aria-hidden="true" />
+              </a>
+              <nav class="dest" aria-label="Hovedmeny">
+                <ul>
+                  <li>
+                    <a href={`${base}/meny`} aria-current={page === 'meny' ? 'page' : undefined}>
+                      Meny <span class="go__arr" aria-hidden="true"><Icon name="pil" /></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`${home}#sov`}>
+                      Rom <span class="go__arr" aria-hidden="true"><Icon name="pil" /></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`${home}#samles`}>
+                      Selskap <span class="go__arr" aria-hidden="true"><Icon name="pil" /></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`${home}#finn-fram`}>
+                      Finn fram <span class="go__arr" aria-hidden="true"><Icon name="pil" rotate={90} /></span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <a class="top__phone" href={c.phoneHref}>
+                <Icon name="ring" />
+                <span><span class="vh">Ring </span>{c.phone}</span>
+              </a>
+            </div>
+          </header>
+          <main id="innhold" tabindex="-1">
+            <slot />
+          </main>
+          <footer class="foot on-dark">
+            <div class="wrap">
+              <div class="foot__grid">
+                <div>
+                  <img class="foot__logo" src={withBase('/img/shared/huset-logo-mask.png')} width="267" height="160" alt="" loading="lazy" />
+                  <h2>{site.name}</h2>
+                  <p>Korgen · Hemnes · ved E6</p>
+                  <p class="num" style="margin-top:.35rem">66,0808° N 13,8257° Ø</p>
+                </div>
+                <div>
+                  <h2>Kontakt</h2>
+                  <ul>
+                    <li><a href={c.phoneHref}>{c.phone}</a></li>
+                    <li><a href={c.emailHref}>{c.email}</a></li>
+                    <li><a href={c.facebook} rel="noopener">Facebook</a></li>
+                    <li><a href={site.links.directions} rel="noopener">Veibeskrivelse</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h2>Åpningstider</h2>
+                  <ul class="hours-list">
+                    {site.hours.groups.map((g) => (
+                      <li>
+                        <span>{g.label}</span>
+                        <span class="num">{g.open}–{g.close}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p style="margin-top:.6rem"><span class="bk">bekreftes</span></p>
+                </div>
+                <div>
+                  <h2>Konsept B</h2>
+                  <ul>
+                    <li><a href={base} aria-current={page === 'home' ? 'page' : undefined}>Forside</a></li>
+                    <li><a href={`${base}/meny`} aria-current={page === 'meny' ? 'page' : undefined}>Meny</a></li>
+                    <li><a href={`${base}/skjerm`}>Menyskjerm 16:9</a></li>
+                    <li><a href={`${base}/om`} aria-current={page === 'om' ? 'page' : undefined}>Designvalg og kreditering</a></li>
+                  </ul>
+                </div>
+              </div>
+              <p class="foot__proto">
+                <span>Designprototype – konsept B. Ikke publisert.</span>
+                <a href={withBase('/')}>Alle konsepter</a>
+              </p>
+            </div>
+          </footer>
+        </>
+      )
+    }
+    <script>
+      import { mountHours } from '@lib/hours';
+      mountHours();
+      document.querySelectorAll<HTMLElement>('[data-today-label]').forEach((el) => (el.textContent = 'I dag'));
+    </script>
+  </body>
+</html>

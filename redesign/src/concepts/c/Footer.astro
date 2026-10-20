@@ -1,0 +1,50 @@
+---
+import { withBase } from '@lib/base';
+import { site } from '@data/site';
+import Ridge from './Ridge.astro';
+import Bek from './Bek.astro';
+
+const c = site.contact;
+const base = withBase('/concepts/c');
+---
+<footer class="foot">
+  <div class="wrap">
+    <Ridge class="foot__ridge" />
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <span class="logo" role="img" aria-label={site.name}></span>
+        <p class="foot__place">{site.name}<br />Korgen · Hemnes · ved E6</p>
+      </div>
+      <div>
+        <h2>Kontakt</h2>
+        <ul>
+          <li><a href={c.phoneHref}>Telefon {c.phone}</a></li>
+          <li><a href={c.emailHref}>{c.email}</a></li>
+          <li><a href={c.facebook}>Facebook</a></li>
+          <li><a href={site.links.directions}>Veibeskrivelse</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Åpent <Bek /></h2>
+        <ul class="foot__hours">
+          {site.hours.groups.map((g) => (
+            <li><span>{g.label}</span><span>{g.open}–{g.close}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2>Sider</h2>
+        <ul>
+          <li><a href={base}>Forsiden</a></li>
+          <li><a href={`${base}/meny`}>Hele menyen</a></li>
+          <li><a href={`${base}/skjerm`}>Menyskjermen</a></li>
+          <li><a href={`${base}/om`}>Designvalg</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot__proto">
+      <span>Designprototype – konsept C. Ikke publisert.</span>
+      <a href={withBase('/')}>Alle konsepter</a>
+    </p>
+  </div>
+</footer>

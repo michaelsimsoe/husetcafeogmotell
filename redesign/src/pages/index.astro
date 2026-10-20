@@ -1,0 +1,92 @@
+---
+import { withBase } from '@lib/base';
+const concepts = [
+  {
+    id: 'a',
+    name: 'Huset i dalen',
+    line: 'Lys, redaksjonell og varm. Det hvite huset under Korgens egen fjellsilhuett.',
+  },
+  {
+    id: 'b',
+    name: 'Neste stopp: Huset',
+    line: 'Skilt, strekningskart og ekte E6-data. Praktisk først, for deg som er på vei.',
+  },
+  {
+    id: 'c',
+    name: 'Ly mot fjellan',
+    line: 'Mørk og filmatisk. Fra kald fjellnatt til varmt lys, i fargene fra menyskjermene.',
+  },
+];
+const pages = [
+  { path: '', label: 'Forside' },
+  { path: '/meny', label: 'Meny' },
+  { path: '/skjerm', label: 'Menyskjerm 16:9' },
+  { path: '/om', label: 'Designvalg' },
+];
+---
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <title>Huset Café & Motell – designkonsepter (prototype)</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1b1f1e;
+        --muted: #4d5653;
+        --line: #d5d9d6;
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+        color: var(--ink);
+        background: #f7f8f6;
+      }
+      body { margin: 0; }
+      main { max-width: 64rem; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+      h1 { font-size: 1.75rem; font-weight: 650; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
+      .lede { color: var(--muted); max-width: 60ch; margin: 0 0 3rem; line-height: 1.55; }
+      ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+      ol > li { display: grid; grid-template-columns: 3rem 1fr; gap: 0 1rem; padding: 1.75rem 0; border-bottom: 1px solid var(--line); }
+      .letter { font-size: 2rem; font-weight: 700; line-height: 1; }
+      h2 { margin: 0 0 0.25rem; font-size: 1.25rem; font-weight: 650; }
+      h2 a { color: inherit; text-underline-offset: 0.2em; }
+      p { margin: 0 0 1rem; line-height: 1.5; color: var(--muted); max-width: 60ch; }
+      nav ul { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; list-style: none; margin: 0; padding: 0; }
+      nav a { color: #0f5132; text-underline-offset: 0.2em; }
+      a:focus-visible { outline: 2px solid #0f5132; outline-offset: 3px; }
+      footer { margin-top: 3rem; font-size: 0.875rem; color: var(--muted); line-height: 1.5; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Huset Café &amp; Motell – tre designkonsepter</h1>
+      <p class="lede">
+        Prototyper for designutforsking. Faktainnholdet er det samme i alle tre, men hvert konsept har sitt eget visuelle
+        system. Ikke publisert, ikke koblet til CMS. Opplysninger merket «bekreftes» må sjekkes før lansering.
+      </p>
+      <ol>
+        {concepts.map((c) => (
+          <li>
+            <span class="letter" aria-hidden="true">{c.id.toUpperCase()}</span>
+            <div>
+              <h2><a href={withBase(`/concepts/${c.id}`)}>Konsept {c.id.toUpperCase()}: {c.name}</a></h2>
+              <p>{c.line}</p>
+              <nav aria-label={`Sider i konsept ${c.id.toUpperCase()}`}>
+                <ul>
+                  {pages.map((p) => (
+                    <li><a href={withBase(`/concepts/${c.id}${p.path}`)}>{p.label}</a></li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <footer>
+        Dagens nettside: <a href="https://www.husetmotell.no/">husetmotell.no</a>. Bildekreditering og lisenser står på
+        hvert konsepts «Designvalg»-side.
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+---
+import { site } from '@data/site';
+import Bek from '../Bek.astro';
+import Icon from '../Icon.astro';
+import Status from '../Status.astro';
+
+const c = site.contact;
+const g = site.place.geo;
+const dms = (n: number) => n.toFixed(4).replace('.', ',');
+const t = (hhmm: string) => hhmm.replace(':00', '').replace(':', '.');
+---
+<section id="finn-fram" class="scene" style="--ground: var(--g4); --ground-from: var(--g5)" aria-labelledby="finn-title">
+  <div class="wrap passage find">
+    <h2 id="finn-title" class="passage-title find__title">Finn fram.</h2>
+
+    <div class="find__cols">
+      <div class="find__col">
+        <h3 class="bhead">Åpningstider</h3>
+        <Status class="find__status" />
+        <table class="hours">
+          <caption class="sr-only">Åpningstider for restauranten, alle dager</caption>
+          <tbody>
+            {site.hours.days.map((d) => (
+              <tr data-hours-day={d.day}>
+                <th scope="row">{d.label} <span class="hours__today">i dag</span></th>
+                <td class="num">{t(d.open)}–{t(d.close)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <span class="vrule" aria-hidden="true"></span>
+
+      <div class="find__col">
+        <h3 class="bhead">Kontakt</h3>
+        <a class="find__phone num" href={c.phoneHref}><span class="sr-only">Ring </span>{c.phone}</a>
+        <ul class="find__links">
+          <li><a href={c.emailHref}><Icon name="mail" /> {c.email}</a></li>
+          <li><a href={c.facebook}><Icon name="people" /> Huset på Facebook</a></li>
+          <li><a href={site.links.booking}><Icon name="bed" /> Book rom på Booking.com</a></li>
+        </ul>
+      </div>
+
+      <span class="vrule" aria-hidden="true"></span>
+
+      <div class="find__col">
+        <h3 class="bhead">Her ligger vi</h3>
+        <p class="find__place">
+          Korgen · {site.place.municipality} · ved {site.place.road}
+          <br /><Bek text="Adresse bekreftes" />
+        </p>
+        <p class="find__geo num quiet">{dms(g.lat)}° N, {dms(g.lon)}° Ø</p>
+        <a class="btn btn--lit find__go" href={site.links.directions}><Icon name="route" size={18} /> Veibeskrivelse</a>
+        <ul class="near">
+          {site.surroundings.nearby.map((n) => (
+            <li>
+              <span class="near__name">{n.name}</span>
+              <span class="near__where">{n.where}</span>
+              <span class="near__what">{n.what}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="near__note"><Bek text="Naboer bekreftes" /></p>
+      </div>
+    </div>
+  </div>
+</section>

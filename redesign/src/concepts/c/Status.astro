@@ -1,0 +1,15 @@
+---
+import { site } from '@data/site';
+import Bek from './Bek.astro';
+
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+const fallback = site.hours.groups.map((g, i) => `${i === 0 ? g.short : g.short.toLowerCase()} ${g.open}–${g.close}`).join(' · ');
+---
+<p class:list={['status', cls]} data-hours="state">
+  <span class="status__dot" aria-hidden="true"></span>
+  <span class="status__text num" data-status-text>{fallback}</span>
+  <Bek text="Tider bekreftes" />
+</p>

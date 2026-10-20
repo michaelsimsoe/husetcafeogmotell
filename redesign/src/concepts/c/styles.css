@@ -1,0 +1,23 @@
+@import "@fontsource-variable/besley";
+@import "@fontsource-variable/atkinson-hyperlegible-next";
+@import "tailwindcss" source(none);
+@import "./base.css";
+@import "./parts.css";
+@import "./home.css";
+@import "./meny.css";
+@import "./skjerm.css";
+@import "./om.css";
+
+@source "./";
+@source "../../pages/concepts/c";
+
+@theme {
+  --font-display: "Besley Variable", "Besley", Georgia, serif;
+  --font-text: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible Next", system-ui, sans-serif;
+  --color-letterbox: #060a0a;
+  --color-copper: #e0907d;
+  --color-bone: #f1ede4;
+  --color-turq: #7fb5ae;
+  --color-candle: #f2c27b;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}

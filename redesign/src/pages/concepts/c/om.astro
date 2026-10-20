@@ -1,0 +1,285 @@
+---
+import { withBase } from '@lib/base';
+import Layout from '../../../concepts/c/Layout.astro';
+import Bek from '../../../concepts/c/Bek.astro';
+import { photo, creditLine, statusLabel } from '@data/credits';
+import { missingAssets } from '@data/site';
+
+type Use = { id: string; where: string; adapt?: string };
+const uses: Use[] = [
+  { id: 'okstinden-peaks', where: 'Forsiden, første skjermbilde', adapt: 'Fargejustert: litt dempet, med en kjølig tone over himmelen som tones ut før snøen (CSS-filter og blå multiplikasjon)' },
+  { id: 'okstindan-from-sweden', where: 'Forsiden, fjellseksjonen (ikke på mobil)', adapt: 'Fargejustert som over' },
+  { id: 'korgfjellet-roadside', where: 'Forsiden, dalen', adapt: 'Fargejustert: lett kjølig tone over hele bildet (CSS)' },
+  { id: 'rossaga-a', where: 'Forsiden, dalen (ikke på mobil)', adapt: 'Fargejustert: lett kjølig tone over hele bildet (CSS)' },
+  { id: 'huset-facade-white', where: 'Forsiden, ved plassholderen for kveldsbildet', adapt: 'Nedtonet (gjennomsiktighet)' },
+  { id: 'huset-entrance', where: 'Forsiden, inngangen', adapt: 'Dempes og lysner til originalen ved rulling' },
+  { id: 'huset-reception-sign', where: 'Forsiden, inngangen', adapt: 'Dempes og lysner til originalen ved rulling' },
+  { id: 'restaurant-family-pizza', where: 'Forsiden, kjøkkenet', adapt: 'Fargejustert: varmere, mot lampelys (CSS-filter og varm multiplikasjon). Dempes og lysner ved rulling' },
+  { id: 'board-pizza', where: 'Forsiden (stort), menyen og menyskjermen, som plassholder', adapt: 'Fargejustert på forsiden: roligere og varmere (CSS). Uendret på menyen og skjermen. Aldri forstørret' },
+  { id: 'board-burger-plate', where: 'Menyen, som plassholder' },
+  { id: 'board-wine-beer', where: 'Menyen og menyskjermen, som plassholder' },
+  { id: 'room-double-a', where: 'Forsiden, rom', adapt: 'Dempes og lysner til originalen ved rulling' },
+  { id: 'room-double-b', where: 'Forsiden, rom', adapt: 'Dempes og lysner til originalen ved rulling' },
+  { id: 'party-long-table', where: 'Forsiden, selskap', adapt: 'Dempes og lysner til originalen ved rulling' },
+  { id: 'huset-meeting-room', where: 'Forsiden, selskap', adapt: 'Dempes og lysner til originalen ved rulling' },
+  { id: 'table-set-napkin', where: 'Forsiden, selskap', adapt: 'Dempes og lysner til originalen ved rulling' },
+];
+
+const decisions = [
+  {
+    name: 'Typografi',
+    val: 'Besley · Atkinson',
+    why: 'Besley har kraftige, litt gammeldagse seriffer som minner om skilt og trykksaker, og bærer overskriftene. Atkinson Hyperlegible Next er laget for lesbarhet og brukes til all tekst, 18 px med god linjeavstand på mørk bunn. Seksjonsoverskriftene er satt som på skjermene: versaler med sperring og en kobberstrek under. Besley har ikke ekte kapitéler, så vi lager ingen falske. Alle tall, priser og klokkeslett settes i Besley, fordi Atkinson har en overstreket null som lett leses som «Ø» i norske priser.',
+  },
+  {
+    name: 'Farge',
+    val: 'kobber på mørkt',
+    why: 'Grunnfargene er hentet fra menyskjermene: mørk grønnsvart bunn, kobber til overskrifter og streker, benhvitt til navn og tekst, turkis til beskrivelser. Et varmt lys-gult brukes bare når restauranten er åpen. All tekst har minst 5,7:1 kontrast mot bakgrunnen. Fylte knapper bruker en dypere, mer rødbrun kobber med mørk tekst (5,2:1), så de ikke blir laksefarget.',
+  },
+  {
+    name: 'Komposisjon',
+    val: '2,39 : 1',
+    why: 'Første skjermbilde er et fjellbilde i kinoformat mellom to svarte felt, med tilbudet og snarveiene rett under. Videre veksler sidene mellom bilder i full bredde og mørke tekstpartier, i ujevn rytme. Meny, rom og møterom settes i samme oppsett som skjermene: navn, pris, beskrivelse og en kobberlinje mellom kolonnene.',
+  },
+  {
+    name: 'Bevegelse',
+    val: 'én idé',
+    why: 'Bakgrunnen går fra kald til varm mens du ruller nedover, og interiørbildene lysner når de kommer inn i bildet. Det skjer sakte og uten sprett. Ønsker du redusert bevegelse, eller mangler nettleseren støtte, har hver seksjon sin faste farge og alle bilder vises fullt. Innholdet er aldri skjult.',
+  },
+  {
+    name: 'Fotografi',
+    val: 'ekte, nøkternt',
+    why: 'Fjellbildene får en kjølig tone over himmelen, mens snøen holdes lys, omtrent som et gradert linsefilter. De gjøres aldri om til falsk natt. Bildene fra spisesalen og maten trekkes mot lampelys, så skiftet fra kaldt til varmt også skjer i bildene. Matbildet på forsiden er dagens skjermbilde, vist i sin egen størrelse og aldri forstørret, og merket som plassholder.',
+  },
+  {
+    name: 'Menyskjermen',
+    val: '40 px',
+    why: 'Samme grammatikk som i dag, men med mer luft og ryddigere linjer. Navn og priser er 40 px på 1080p, så de kan leses på 3–5 meter. Som i dag står maten i en bildekolonne til høyre: to av dagens bilder i egen størrelse, merket som plassholdere til nye finnes. Okstindan-ryggen ligger som en tynn horisont over bunnlinjen.',
+  },
+];
+
+const grounds = [
+  { name: 'Kantfelt', hex: '#060A0A', where: 'Toppfelt og bunntekst' },
+  { name: 'Fjellnatt', hex: '#0B1418', where: 'Fjellet' },
+  { name: 'Skjermgrønn', hex: '#0E1A1A', where: 'Dalen, menyen' },
+  { name: 'Gran', hex: '#16302B', where: 'Inngangen' },
+  { name: 'Mose', hex: '#1B211A', where: 'Kjøkkenet' },
+  { name: 'Umbra', hex: '#241A13', where: 'Rom, finn fram' },
+  { name: 'Lampetre', hex: '#2A1E15', where: 'Selskap' },
+];
+
+const concept = [
+  'Kveldsbilde av Huset med lys i vinduene. Det er plassholder på forsiden og det viktigste bildet konseptet mangler.',
+  'Rombilder i høyere oppløsning (dagens er 675 px brede).',
+  'Fotografier fra spisesalen en kveld, med lampene tent, til kjøkkenseksjonen.',
+  'Nye matbilder i høy oppløsning. Først: pizza rett fra ovnen, i varmt lys, til forsiden og bildekolonnen på menyskjermen.',
+  'Et bilde av Okstindan tatt fra Korgen eller E6, så fjellet sees slik gjestene ser det.',
+];
+---
+<Layout
+  title="Designvalg – konsept C, Huset Café & Motell"
+  description="Hvorfor konsept C ser ut som det gjør: idé, valg, styrker, svakheter, plassholdere og bildekreditering."
+  current="om"
+  bodyClass="page-om"
+>
+  <header class="ohead">
+    <div class="wrap">
+      <h1 class="ohead__title">Ly mot fjellan</h1>
+      <p class="ohead__sub">Konsept C · designvalg</p>
+    </div>
+  </header>
+
+  <section class="scene osec" style="--ground: var(--g0); --ground-from: var(--letterbox)" aria-labelledby="o-ide">
+    <div class="wrap osec__in">
+      <h2 id="o-ide" class="osec__title">Idéen</h2>
+      <div class="prose lede">
+        <p>
+          Konseptet vokser ut av menyskjermene som allerede henger i restauranten: mørk grønnsvart bunn,
+          kobberoverskrifter og turkise beskrivelser. Nettsiden er bygd som en kveldskjøring langs E6, fra
+          kalde, blå fjell utenfor til et varmt rom inne. Det store landskapet og det enkle, lyse huset ved
+          veien er kontrasten hele uttrykket hviler på.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene osec" style="--ground: var(--g1); --ground-from: var(--g0)" aria-labelledby="o-valg">
+    <div class="wrap osec__in">
+      <h2 id="o-valg" class="osec__title">Valgene</h2>
+      <ul class="dishes odecisions">
+        {decisions.map((d) => (
+          <li class="dish">
+            <div class="dish__line">
+              <h3 class="dish__name">{d.name}</h3>
+              <span class="dish__price">{d.val}</span>
+            </div>
+            <p class="dish__desc">{d.why}</p>
+          </li>
+        ))}
+      </ul>
+
+      <figure class="grounds">
+        <ol class="grounds__strip">
+          {grounds.map((g) => (
+            <li style={`background:${g.hex}`}>
+              <span class="grounds__name">{g.name}</span>
+              <span class="grounds__hex num">{g.hex}</span>
+              <span class="grounds__where">{g.where}</span>
+            </li>
+          ))}
+        </ol>
+        <figcaption>
+          Bakgrunnene i rekkefølge nedover forsiden, fra kaldt til varmt. Tekstfargene: benhvitt{' '}
+          <span class="num">12–17:1</span>, turkis <span class="num">6,1–8,6:1</span>, kobber{' '}
+          <span class="num">5,7–8:1</span> og lys-gult <span class="num">8,6–12:1</span> mot disse bakgrunnene.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="scene osec" style="--ground: var(--g2); --ground-from: var(--g1)" aria-labelledby="o-styrker">
+    <div class="wrap osec__in osec__in--two">
+      <div>
+        <h2 id="o-styrker" class="osec__title">Styrker</h2>
+        <ul class="olist">
+          <li>Gjenkjennelig: den som har sett skjermene i restauranten, kjenner igjen huset på nettet, og omvendt.</li>
+          <li>Meny, telefon, rombestilling og veibeskrivelse ligger i første skjermbilde både på mobil og PC, sammen med en levende åpent/stengt-status.</li>
+          <li>Den mørke bunnen gjør mat og interiør varmt, og nettside og skjermer kan dele samme menydata og samme uttrykk.</li>
+          <li>Landskapet brukes som fakta, ikke pynt: høyder, lengder og avstander er kontrollert.</li>
+          <li>Høy kontrast, store trykkflater og tydelig tastaturfokus.</li>
+        </ul>
+      </div>
+      <div>
+        <h2 id="o-svakheter" class="osec__title">Svakheter og risiko</h2>
+        <ul class="olist">
+          <li>Mørke sider kan bli tunge i sterkt dagslys og på mobil ute. Lange tekster leses tyngre lyst på mørkt.</li>
+          <li>Uttrykket står og faller på kveldsbildet av huset og nye matbilder. Uten dem blir det mange plassholdere og fjellbilder tatt av andre.</li>
+          <li>Kinostemning kan bli for stor for en veikro hvis bildene redigeres for hardt. Fargejusteringen må holdes nøktern.</li>
+          <li>Fargeskiftet merkes mest når man ruller rolig. Mange vil aldri legge merke til det; det er stemning, ikke informasjon.</li>
+          <li>På mobil er toppbildet lavere enn 4:5 slik at alle fire snarveier får plass i første skjermbilde.</li>
+          <li>Matbildene er lånt fra dagens skjermer: lav oppløsning og trolig bildebank. Til nye bilder er tatt, mangler både forsiden og skjermen den appetitten konseptet trenger.</li>
+          <li>På mobil er ett fjellbilde, ett elvebilde og noen landskapsfakta tatt bort, så maten kommer tidligere. Mobilen forteller derfor mindre om landskapet enn PC-en.</li>
+          <li>Seksjonene har hver sin bakgrunnsfarge. Det krever disiplin når innhold flyttes rundt i et CMS.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene osec" style="--ground: var(--g3); --ground-from: var(--g2)" aria-labelledby="o-mangler">
+    <div class="wrap osec__in osec__in--two">
+      <div>
+        <h2 id="o-mangler" class="osec__title">Det som mangler</h2>
+        <p class="quiet osec__note">Felles for alle konseptene:</p>
+        <ul class="olist">
+          {missingAssets.map((m) => <li>{m}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h3 class="bhead">For dette konseptet</h3>
+        <ul class="olist">
+          {concept.map((m) => <li>{m}</li>)}
+        </ul>
+        <p class="osec__note">
+          Åpningstider, rompris, møteromspriser, naboer og menyen er hentet fra dagens nettside og skjermer og er
+          merket<Bek /> der de vises.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene osec" style="--ground: var(--g4); --ground-from: var(--g3)" aria-labelledby="o-kilder">
+    <div class="wrap osec__in">
+      <h2 id="o-kilder" class="osec__title">Bilder og kilder</h2>
+      <p class="prose osec__note">
+        Alle bilder konseptet bruker. Bilder fra lokalt arkiv og menyskjermene er merket «Rettigheter avklares»
+        og må avklares før publisering. Fargejusterte bilder med CC BY-SA-lisens er bearbeidelser og deles videre på
+        samme vilkår.
+      </p>
+      <div class="otable-wrap">
+        <table class="otable">
+          <caption class="sr-only">Bilder brukt i konsept C, med kreditering, lisens og status</caption>
+          <thead>
+            <tr>
+              <th scope="col">Bilde</th>
+              <th scope="col">Fotograf / kilde</th>
+              <th scope="col">Lisens</th>
+              <th scope="col">Status</th>
+              <th scope="col">Brukt</th>
+              <th scope="col">Bearbeiding</th>
+            </tr>
+          </thead>
+          <tbody>
+            {uses.map((u) => {
+              const p = photo(u.id);
+              return (
+                <tr>
+                  <th scope="row" data-label="Bilde">
+                    <span class="otable__cap">{p.caption}</span>
+                    <code class="otable__id">{u.id}</code>
+                  </th>
+                  <td data-label="Fotograf / kilde">
+                    {creditLine(u.id)}
+                    {p.sourceUrl && <> · <a href={p.sourceUrl}>kilde</a></>}
+                    {p.warning && <span class="credit__warn otable__warn">{p.warning}</span>}
+                  </td>
+                  <td data-label="Lisens">
+                    {p.licenseUrl ? <a href={p.licenseUrl}>{p.license}</a> : (p.license ?? 'Ikke avklart')}
+                  </td>
+                  <td data-label="Status">
+                    <span class:list={['otable__status', `is-${p.status}`]}>{statusLabel[p.status]}</span>
+                  </td>
+                  <td data-label="Brukt">{u.where}</td>
+                  <td data-label="Bearbeiding">
+                    {u.adapt?.startsWith('Fargejustert') && <span class="credit__graded">fargejustert</span>}{' '}
+                    {u.adapt ?? 'Ingen'}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="bhead osec__sub">Andre kilder</h3>
+      <ul class="dishes osources">
+        <li class="dish">
+          <div class="dish__line"><span class="dish__name">Okstindan-ryggen</span></div>
+          <p class="dish__desc">
+            Linjen i bunnteksten og på menyskjermen er tegnet etter fjellprofilen i «{photo('okstinden-peaks').caption}»
+            ({creditLine('okstinden-peaks')}). Den er en bearbeidelse av bildet.
+          </p>
+        </li>
+        <li class="dish">
+          <div class="dish__line"><span class="dish__name">Logo</span></div>
+          <p class="dish__desc">Husets egen logo, gjort om til en maske fra dagens rasterlogo. Vektorfil trengs.</p>
+        </li>
+        <li class="dish">
+          <div class="dish__line"><span class="dish__name">Meny og fakta</span></div>
+          <p class="dish__desc">
+            Menyen er overført fra de tre skjermene i restauranten. Åpningstider, rom, selskap og kontakt er fra dagens
+            husetmotell.no.<Bek /> Høyder, lengder og avstander i landskapet er kontrollert mot offentlige kilder.
+          </p>
+        </li>
+        <li class="dish">
+          <div class="dish__line"><span class="dish__name">Skrift</span></div>
+          <p class="dish__desc">
+            Besley (Owen Earl) og Atkinson Hyperlegible Next (Braille Institute), begge under{' '}
+            <a class="link" href="https://openfontlicense.org/">SIL Open Font License</a>.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="scene osec osec--last" style="--ground: var(--g5); --ground-from: var(--g4)" aria-labelledby="o-videre">
+    <div class="wrap osec__in">
+      <h2 id="o-videre" class="osec__title">Se konseptet</h2>
+      <ul class="onav">
+        <li><a href={withBase('/concepts/c')}>Forsiden <span class="quiet">PC og mobil</span></a></li>
+        <li><a href={withBase('/concepts/c/meny')}>Hele menyen <span class="quiet">alle seksjoner</span></a></li>
+        <li><a href={withBase('/concepts/c/skjerm')}>Menyskjermen <span class="quiet">1920 × 1080</span></a></li>
+        <li><a href={withBase('/')}>Alle konsepter <span class="quiet">A, B og C</span></a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

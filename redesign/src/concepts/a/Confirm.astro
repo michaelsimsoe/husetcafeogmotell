@@ -1,0 +1,10 @@
+---
+interface Props {
+  /** Optional longer note shown after the mark. */
+  note?: string;
+  class?: string;
+}
+const { note, class: cls } = Astro.props;
+---
+
+<span class:list={['bk', cls]}>bekreftes</span>{note && <span class="bk-note"> {note}</span>}

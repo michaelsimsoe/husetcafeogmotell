@@ -1,0 +1,331 @@
+---
+import Layout from '../../../concepts/b/Layout.astro';
+import { sectionById, allergens, allergenList, kr, type AllergenId } from '@data/menu';
+import { photo, src, creditLine } from '@data/credits';
+
+const pizza = sectionById('pizza');
+const drikke = sectionById('drikke');
+const drinkRows = drikke.dishes.flatMap((d) =>
+  d.variants
+    ? d.variants.map((x) => ({ name: d.name, size: x.label, allergens: d.allergens, price: x.price }))
+    : [{ name: d.name, size: '', allergens: d.allergens, price: d.price }],
+);
+const ids = Object.keys(allergens).map(Number) as AllergenId[];
+const pic = photo('board-pizza');
+---
+
+<Layout title="Menyskjerm 16:9 – Huset (konsept B)" description="Eksempel på digital menyskjerm, 1920 × 1080." bare bodyClass="b-screen">
+  <div class="stage">
+    <main class="scr" data-scr aria-labelledby="scr-h">
+      <header class="scr__top sign">
+        <div class="scr__brand">
+          <span class="scr__logo" aria-hidden="true"></span>
+          <h1 id="scr-h">Huset <span class="scr__sub">Café &amp; Motell · Korgen</span></h1>
+          <span class="shield scr__shield">E6</span>
+        </div>
+        <div class="scr__now">
+          <span class="scr__status status" data-hours="state">
+            <span data-hours="short">Åpent til 21</span>
+          </span>
+          <span class="scr__bk">Tider bekreftes</span>
+          <time class="scr__clock" data-clock aria-label="Klokken">--:--</time>
+        </div>
+      </header>
+
+      <div class="scr__body">
+        <section class="scr__sec scr__sec--pizza" aria-labelledby="scr-pizza">
+          <h2 id="scr-pizza">Pizza</h2>
+          <table>
+            <caption class="vh">Pizza: rett, beskrivelse, allergener og pris</caption>
+            <tbody>
+              {
+                pizza.dishes.map((d) => (
+                  <tr>
+                    <th scope="row">{d.name}</th>
+                    <td class="c-desc">{d.desc}</td>
+                    <td class="c-alg">
+                      <span class="vh">Allergener: {allergenList(d.allergens)}.</span>
+                      {d.allergens.map((a) => <span class="b" aria-hidden="true">{a}</span>)}
+                    </td>
+                    <td class="c-pris">{kr(d.price)}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </section>
+
+        <section class="scr__sec scr__sec--drikke" aria-labelledby="scr-drikke">
+          <h2 id="scr-drikke">Drikke</h2>
+          <table>
+            <caption class="vh">Drikke: navn, allergener og pris</caption>
+            <tbody>
+              {
+                drinkRows.map((d) => (
+                  <tr>
+                    <th scope="row">
+                      {d.name}
+                      {d.size && <span class="size">{d.size}</span>}
+                    </th>
+                    <td class="c-alg">
+                      <span class="vh">{d.allergens.length ? `Allergener: ${allergenList(d.allergens)}.` : 'Ingen allergener merket.'}</span>
+                      {d.allergens.map((a) => <span class="b" aria-hidden="true">{a}</span>)}
+                    </td>
+                    <td class="c-pris">{kr(d.price)}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </section>
+
+        <aside class="scr__side" aria-label="Bilde og allergener">
+          <figure class="scr__photo sign">
+            <img src={src('board-pizza', 800)} width={pic.w} height={pic.h} alt={pic.alt} />
+            <figcaption>
+              <span class="scr__flag">Plassholder – nye matbilder trengs · Rettigheter avklares</span>
+              <span class="scr__credit">{creditLine('board-pizza')}</span>
+            </figcaption>
+          </figure>
+
+          <div class="scr__alg">
+            <h2 id="scr-alg">Allergener</h2>
+            <dl class="scr__legend" aria-labelledby="scr-alg">
+              {
+                ids.map((id) => (
+                  <div>
+                    <dt><span class="b">{id}</span></dt>
+                    <dd>{allergens[id]}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+            <p class="scr__note">Spør oss om allergener. Priser og merking bekreftes.</p>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+</Layout>
+<style is:global>
+  html:has(.b-screen) { background: #000; }
+  .b-screen {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+  }
+  .b-screen .stage { position: fixed; inset: 0; overflow: hidden; }
+
+  .scr {
+    --pad: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1920px;
+    height: 1080px;
+    transform: translate(-50%, -50%) scale(var(--s, 1));
+    transform-origin: 50% 50%;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    background: var(--color-asphalt);
+    color: var(--color-white);
+    font-family: var(--font-display);
+    overflow: hidden;
+  }
+
+  .scr__top {
+    --inset: 10px;
+    margin: 18px 28px 0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 16px 44px 16px 36px;
+  }
+  .scr__top::before { border-radius: 6px; border-width: 3px; }
+  .scr__brand { display: flex; align-items: center; gap: 28px; }
+  .scr__logo {
+    display: block;
+    width: 100px;
+    aspect-ratio: 267 / 160;
+    background: var(--color-white);
+    -webkit-mask: url('/img/shared/huset-logo-mask.png') center / contain no-repeat;
+    mask: url('/img/shared/huset-logo-mask.png') center / contain no-repeat;
+  }
+  .scr h1 {
+    font-size: 66px;
+    font-weight: 820;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+  }
+  .scr__sub { font-size: 34px; font-weight: 560; letter-spacing: -0.01em; color: var(--color-green-mist); }
+  .scr__shield { font-size: 40px; }
+
+  .scr__now { display: flex; align-items: center; gap: 28px; }
+  .scr__status {
+    min-height: 0;
+    padding: 8px 20px 10px;
+    font-size: 38px;
+    border-radius: 6px;
+    letter-spacing: 0.03em;
+  }
+  .scr__bk { font-family: var(--font-sign); font-size: 26px; font-weight: 600; color: var(--color-green-mist); max-width: 7ch; line-height: 1.05; }
+  .scr__clock {
+    font-family: var(--font-sign);
+    font-variant-numeric: tabular-nums;
+    font-weight: 750;
+    font-size: 80px;
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    min-width: 4ch;
+    text-align: right;
+  }
+
+  .scr__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 410px 372px;
+    gap: 48px;
+    padding: 22px var(--pad) 30px;
+    min-height: 0;
+  }
+  .scr__sec { min-height: 0; }
+  .scr h2 {
+    font-size: 48px;
+    font-weight: 820;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--color-white);
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--color-white);
+  }
+  .scr table { width: 100%; }
+  .scr th, .scr td {
+    border-bottom: 1px solid #4a524f;
+    padding: 8px 0 9px;
+    vertical-align: middle;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .scr tbody th {
+    width: 1%;
+    font-size: 42px;
+    font-weight: 750;
+    letter-spacing: -0.015em;
+    line-height: 1;
+    padding-right: 26px;
+  }
+  .scr .c-desc {
+    font-family: var(--font-sign);
+    font-size: 31px;
+    font-weight: 500;
+    color: var(--color-mist);
+    padding-right: 22px;
+    line-height: 1;
+  }
+  .scr .c-alg { width: 1%; padding-right: 22px; line-height: 0; }
+  .scr .c-alg .b + .b { margin-left: 6px; }
+  .scr .c-pris {
+    width: 1%;
+    text-align: right;
+    font-family: var(--font-sign);
+    font-variant-numeric: tabular-nums;
+    font-weight: 780;
+    font-size: 46px;
+    line-height: 1;
+  }
+  .scr .size {
+    font-family: var(--font-sign);
+    font-variant-numeric: tabular-nums;
+    font-weight: 650;
+    font-size: 34px;
+    color: var(--color-mist);
+    margin-left: 12px;
+  }
+  .scr .b {
+    display: inline-grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 2px solid var(--color-mist);
+    border-radius: 5px;
+    font-family: var(--font-sign);
+    font-variant-numeric: tabular-nums;
+    font-weight: 750;
+    font-size: 31px;
+    line-height: 1;
+    color: var(--color-white);
+  }
+
+  .scr__side { display: grid; align-content: start; gap: 26px; min-height: 0; }
+  .scr__photo {
+    --inset: 8px;
+    margin: 0;
+    padding: 18px 18px 16px;
+    border-radius: 12px;
+    display: grid;
+    gap: 12px;
+  }
+  .scr__photo::before { border-radius: 6px; }
+  .scr__photo img {
+    display: block;
+    width: 100%;
+    max-width: 518px;
+    height: auto;
+    aspect-ratio: 518 / 410;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+  .scr__photo figcaption { display: grid; gap: 4px; font-family: var(--font-sign); line-height: 1.1; }
+  .scr__flag { font-size: 23px; font-weight: 700; color: var(--color-white); }
+  .scr__credit { font-size: 20px; font-weight: 550; color: var(--color-green-mist); }
+
+  .scr__alg h2 { font-size: 40px; color: var(--color-white); }
+  .scr__legend {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    gap: 12px 30px;
+    margin: 16px 0 0;
+  }
+  .scr__legend div { display: flex; align-items: center; gap: 12px; }
+  .scr__legend dt { margin: 0; line-height: 0; }
+  .scr__legend dd { margin: 0; font-family: var(--font-sign); font-size: 31px; font-weight: 650; line-height: 1; }
+  .scr__note {
+    margin-top: 18px;
+    font-family: var(--font-sign);
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-mist);
+  }</style>
+
+<script>
+  const scr = document.querySelector<HTMLElement>('[data-scr]');
+  const clockEl = document.querySelector<HTMLElement>('[data-clock]');
+
+  const fit = () => {
+    if (!scr) return;
+    const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    scr.style.setProperty('--s', String(s));
+  };
+  fit();
+  window.addEventListener('resize', fit);
+
+  const fmt = new Intl.DateTimeFormat('nb-NO', { timeZone: 'Europe/Oslo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  const tick = () => {
+    if (!clockEl) return;
+    const t = fmt.format(new Date()).replace('.', ':');
+    clockEl.textContent = t;
+    clockEl.setAttribute('datetime', t);
+  };
+  tick();
+  window.setTimeout(() => {
+    tick();
+    window.setInterval(tick, 60_000);
+  }, 60_000 - (Date.now() % 60_000));
+</script>

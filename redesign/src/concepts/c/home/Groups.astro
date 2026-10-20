@@ -1,0 +1,62 @@
+---
+import { site } from '@data/site';
+import { kr, krText } from '@data/menu';
+import Pic from '../Pic.astro';
+import Credit from '../Credit.astro';
+import Bek from '../Bek.astro';
+import Icon from '../Icon.astro';
+
+const v = site.venues;
+const c = site.contact;
+const list = (xs: readonly string[]) => xs.slice(0, -1).join(', ') + ' og ' + xs[xs.length - 1];
+---
+<section id="selskap" class="scene" style="--ground: var(--g5); --ground-from: var(--g4)" aria-labelledby="selskap-title">
+  <figure class="bleed">
+    <div class="bleed__img bleed__img--table lift">
+      <Pic id="party-long-table" sizes="100vw" style="object-position: 50% 52%" />
+    </div>
+    <Credit id="party-long-table" class="wrap bleed__credit" />
+  </figure>
+
+  <div class="wrap passage groups">
+    <div class="groups__text">
+      <h2 id="selskap-title" class="passage-title">Plass til <span class="keep">{v.capacity}{!v.verified && <Bek />}</span> gjester.</h2>
+      <div class="prose lede">
+        <p>
+          Vi tar imot selskap til {list(v.occasions)}, med opptil {v.capacity} gjester.
+        </p>
+        <p>
+          Vi har catering med {list(v.catering)}. {v.cakes}.<Bek />
+        </p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--lit" href={c.phoneHref}><Icon name="phone" size={18} /> Ring {c.phone}</a>
+        <a class="btn btn--line" href={c.emailHref}><Icon name="mail" size={18} /> Skriv til oss</a>
+      </div>
+    </div>
+
+    <div class="groups__board">
+      <h3 class="bhead">Møterom</h3><Bek />
+      <ul class="dishes">
+        {v.meetingRooms.map((m) => (
+          <li class="dish">
+            <div class="dish__line">
+              <span class="dish__name">{m.name}</span>
+              <span class="dish__price"><span aria-hidden="true">{kr(m.price)}</span><span class="sr-only">{krText(m.price)}</span></span>
+            </div>
+            <p class="dish__desc">{m.equipment}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <figure class="groups__room">
+      <div class="frame lift"><Pic id="huset-meeting-room" sizes="(min-width: 900px) 44vw, 100vw" /></div>
+      <Credit id="huset-meeting-room" />
+    </figure>
+    <figure class="groups__napkin">
+      <div class="frame lift"><Pic id="table-set-napkin" sizes="(min-width: 900px) 22vw, 60vw" style="object-position: 50% 60%" /></div>
+      <Credit id="table-set-napkin" />
+    </figure>
+  </div>
+</section>

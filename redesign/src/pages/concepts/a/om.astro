@@ -1,0 +1,219 @@
+---
+import { withBase } from '@lib/base';
+import Layout from '../../../concepts/a/Layout.astro';
+import Ridge from '../../../concepts/a/Ridge.astro';
+import Arrow from '../../../concepts/a/Arrow.astro';
+import { photo, src, statusLabel } from '@data/credits';
+import { missingAssets } from '@data/site';
+import { menuMeta } from '@data/menu';
+import { base } from '../../../concepts/a/lib';
+
+const used = [
+  'huset-facade-white',
+  'restaurant-family-pizza',
+  'room-wide',
+  'rooms-pair',
+  'party-long-table',
+  'huset-meeting-room',
+  'korgen-1950s-c',
+  'korgen-village-2008b',
+  'okstinden-peaks',
+  'huset-parking-mountain',
+  'board-pizza',
+].map(photo);
+
+const decisions = [
+  {
+    t: 'Typografi',
+    p: 'Titlene er satt i Brygada 1918, en serif med trykkpreg som tåler å stå stort, med kursiv der teksten skal være varm. Brødtekst, menyer og små etiketter står i Ysabeau Office, som er lettlest i små størrelser og har gode tall. Priser og klokkeslett bruker tabelltall, så kolonnene står rett under hverandre.',
+  },
+  {
+    t: 'Farger',
+    p: 'Kalkhvit og tåkegrå grunn, holdt kjølig – ikke krem eller beige – slik at det hvite huset og bildene får være varme. Granmørk grønn dekker hele flater: restauranten, Finn fram og bunnen. Elvegrønt brukes til lenker og fjellinja, og kobber bare til priser og markeringer. Grønt og kobber er arven fra dagens menyskjermer. All tekst er kontrollert mot WCAG AA (minst 4,5:1).',
+  },
+  {
+    t: 'Komposisjon',
+    p: 'Et rutenett på tolv kolonner brukt skjevt: en bred tittel, en smal praktisk spalte, store bilder i ærlige utsnitt og faktaspalter med hårlinjer. Hver del har sin egen rytme, slik et oppslag i et blad har. Ingen kort, ingen runde hjørner og ingen skygger.',
+  },
+  {
+    t: 'Bevegelse',
+    p: 'Bare én ting beveger seg: fjellinja tegner seg selv én gang når den kommer til syne, på 1,6 sekunder med myk utfasing. Innholdet venter aldri på den. Uten JavaScript, eller når nettleseren ber om redusert bevegelse, står linja ferdig tegnet fra start. Ellers er det bare små overganger på lenker og fokus.',
+  },
+  {
+    t: 'Fotografi',
+    p: 'Ekte bilder fra huset og bygda, beskåret ærlig. Kreditering står på skrå langs bildekanten, som i et magasin, og på mobil rett under bildet. Gamle bilder av Korgen står ved siden av nyere for å fortelle om dalen – uten å finne på en historie om Huset. Der bilder mangler, står en tydelig merket plassholder.',
+  },
+  {
+    t: 'Menyen og skjermen',
+    p: 'Menyen er satt som et trykt kort: rettene med punktlinjer bort til prisen, allergener som små tall og forklaringer som fotnoter. Skjermen bruker samme data, samme linje og samme kobber i overskrifter og priser, med retter og priser i 42 px og beskrivelser i 32 px ved 1080p – lesbart på 3–5 meters avstand. Som dagens skjermer har den ett matbilde; det er en merket plassholder til nye bilder er tatt.',
+  },
+  {
+    t: 'Tilgjengelighet',
+    p: 'Hopp-lenke, tydelige landemerker, én h1 per side og synlig fokus. Åpent/stengt står alltid i tekst, ikke bare som farge. Alle trykkflater på mobil er minst 44 px høye.',
+  },
+];
+
+const strengths = [
+  'Det praktiske kommer først: åpningstid i dag, telefon, meny, rom og veibeskrivelse står i første skjermbilde, både på mobil og PC.',
+  'Fjellinja hører bare hjemme i Korgen. Den er et enkelt kjennetegn som kan brukes på nett, på skjermen og på trykk.',
+  'Uttrykket er rolig og troverdig, som et ekte sted ved veien – ikke et hotell som later som det er noe annet.',
+  'Menytypografien tåler mange retter og mye tekst, og fungerer godt på telefon.',
+  'Lys grunn, store skrifter og god kontrast gir lav terskel for alle aldre.',
+];
+
+const risks = [
+  'Konseptet står og faller på bildene. Med dagens få, lavoppløste og uavklarte bilder blir det tynnere enn det kan bli, og uten egne matbilder virker restaurantdelen nøktern.',
+  'En lys menyskjerm kan blende i et mørkt lokale om kvelden, og den bryter med dagens mørke skjermer. Lysstyrken må prøves på stedet.',
+  'Den redaksjonelle stilen kan virke litt «fin» for en veikro. Tekstene må være enkle og jordnære for at det skal kjennes riktig.',
+  'Fjellinja er stille. På små skjermer blir den nesten en rett strek, og ikke alle vil kjenne igjen fjellet.',
+  'Forsiden er lang på mobil. Det viktigste står øverst, men resten krever at man vil lese.',
+  'Kobber og grønt må brukes med disiplin. Brukes kobber til mer enn priser og markeringer, mister prisene tydeligheten.',
+];
+
+const conceptNeeds = [
+  'Et bredt fasadebilde (helst 2:1) der hele det hvite huset og fjellet bak kommer med – erstatter toppbildet på forsiden.',
+  'Matbilde av en burger fra kjøkkenet (plassholder i menyen ved «Fra grillen»).',
+  'Nye matbilder til menyskjermen i minst 1 040 px bredde – pizzabildet på skjermen er hentet fra dagens skjermer, er lavoppløst og har uavklarte rettigheter.',
+  'Et nytt bilde av fjellet over Korgen tatt fra Huset, så fjellinja kan tegnes fra selve stedet.',
+  'Rombildene i høyere oppløsning, særlig enkeltrom og frokostrom.',
+];
+---
+
+<Layout title="Designvalg – konsept A, Huset i dalen" current="om" description="Designvalg, styrker, svakheter og kreditering for konsept A.">
+  <article>
+    <header class="wrap g12 mn-head">
+      <h1 class="display lg:col-[1/10]">Designvalg <em>for Huset i dalen</em></h1>
+      <p class="lede mt-6 lg:col-[1/9]" style="font-size: clamp(1.1875rem, 1rem + 0.6vw, 1.5rem); max-width: 40em">
+        Nettsiden er satt som et oppslag i et lokalt magasin: lyse sider, store serifer, tynne linjer og ekte bilder fra bygda. Det
+        hvite huset og dalen rundt får plass, men det praktiske – åpent i dag, telefon, meny og rom – står alltid først. Én tegnet
+        linje, fjellet over Korgen, binder sidene sammen.
+      </p>
+      <Ridge from={0} to={1} height="clamp(32px, 4vw, 56px)" class="mt-10" />
+    </header>
+
+    <section class="wrap g12 om-sec" aria-labelledby="valg">
+      <h2 id="valg" class="om-h lg:col-[1/4]">Valgene <em>og hvorfor</em></h2>
+      <ul class="om-list mt-6 lg:mt-0 lg:col-[5/13]">
+        {
+          decisions.map((d) => (
+            <li>
+              <b>{d.t}</b>
+              <p>{d.p}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="wrap g12 om-sec" aria-labelledby="styrker">
+      <h2 id="styrker" class="om-h lg:col-[1/4]">Styrker</h2>
+      <ul class="plain list-disc mt-6 lg:mt-0 lg:col-[5/12]">{strengths.map((s) => <li>{s}</li>)}</ul>
+    </section>
+
+    <section class="wrap g12 om-sec" aria-labelledby="svakheter">
+      <h2 id="svakheter" class="om-h lg:col-[1/4]">Svakheter <em>og risiko</em></h2>
+      <ul class="plain list-disc mt-6 lg:mt-0 lg:col-[5/12]">{risks.map((s) => <li>{s}</li>)}</ul>
+    </section>
+
+    <section class="wrap g12 om-sec" aria-labelledby="mangler">
+      <h2 id="mangler" class="om-h lg:col-[1/4]">Plassholdere <em>og bilder som mangler</em></h2>
+      <div class="mt-6 lg:mt-0 lg:col-[5/12] prose">
+        <p>Dette trengs før lansering, for alle konseptene:</p>
+        <ul class="plain list-disc">{missingAssets.map((s) => <li>{s}</li>)}</ul>
+        <p>I tillegg for dette konseptet:</p>
+        <ul class="plain list-disc">{conceptNeeds.map((s) => <li>{s}</li>)}</ul>
+        <p>
+          Fakta som ikke er bekreftet av Huset (åpningstider, rompris, møteromspriser, kapasitet, nærmeste tjenester og menyen) er
+          merket med <span class="bk">bekreftes</span> der de står. Konseptet bruker ingen egne bildefiler; alle bilder er felles og
+          beskåret med CSS.
+        </p>
+      </div>
+    </section>
+
+    <section class="wrap om-sec" aria-labelledby="kreditering">
+      <div class="g12">
+        <h2 id="kreditering" class="om-h lg:col-[1/4]">Bilder <em>og kilder</em></h2>
+        <p class="mt-6 lg:mt-0 lg:col-[5/12]">
+          Alle bilder som brukes i konsept A. Bilder merket «{statusLabel.avklares}» kan ikke publiseres før fotograf og rettigheter
+          er avklart.
+        </p>
+      </div>
+      <div class="mt-8" style="overflow-x: auto">
+        <table class="credits">
+          <caption class="sr-only">Bilder, kreditering og lisenser</caption>
+          <thead>
+            <tr>
+              <th scope="col">Bilde</th>
+              <th scope="col">Id</th>
+              <th scope="col">Bildetekst</th>
+              <th scope="col">Kreditering</th>
+              <th scope="col">Lisens</th>
+              <th scope="col">Kilde</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              used.map((p) => (
+                <tr>
+                  <td>
+                    <img class="thumb" src={src(p.id, 800)} width="72" height="52" alt="" loading="lazy" decoding="async" />
+                  </td>
+                  <td data-label="Id:">
+                    <code>{p.id}</code>
+                  </td>
+                  <td data-label="Bildetekst:">{p.caption}</td>
+                  <td data-label="Kreditering:">{p.credit}</td>
+                  <td data-label="Lisens:">{p.license ? p.licenseUrl ? <a href={p.licenseUrl}>{p.license}</a> : p.license : 'Ikke avklart'}</td>
+                  <td data-label="Kilde:">{p.sourceUrl ? <a href={p.sourceUrl}>Wikimedia Commons</a> : 'Lokal fil'}</td>
+                  <td data-label="Status:">
+                    {statusLabel[p.status]}
+                    {p.warning && <span class="soft"> · {p.warning}</span>}
+                  </td>
+                </tr>
+              ))
+            }
+            <tr>
+              <td>
+                <img class="thumb" src={withBase('/img/shared/huset-logo-mask.png')} width="72" height="52" alt="" loading="lazy" style="object-fit: contain; background: var(--color-spruce); padding: 6px" />
+              </td>
+              <td data-label="Id:"><code>huset-logo-mask</code></td>
+              <td data-label="Bildetekst:">Husets logo, brukt i bunnen av sidene</td>
+              <td data-label="Kreditering:">Huset Café &amp; Motell, fra dagens nettside</td>
+              <td data-label="Lisens:">Husets eget merke</td>
+              <td data-label="Kilde:"><a href="https://www.husetmotell.no/">husetmotell.no</a></td>
+              <td data-label="Status:">Vektorfil mangler</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="g12 mt-12">
+        <h3 class="h3 lg:col-[1/4]">Data og andre kilder</h3>
+        <ul class="plain list-disc mt-4 lg:mt-0 lg:col-[5/12]">
+          <li>Fjellsilhuetten er tegnet etter fotografiet korgen-village-2008b (Magne Tor Ingvald Aga, CC BY-SA 4.0).</li>
+          <li>Menyen: {menuMeta.source} Priser og allergener bekreftes.</li>
+          <li>Åpningstider, rom, selskap og nærmeste tjenester: fra <a href="https://www.husetmotell.no/">dagens nettside</a>. Bekreftes.</li>
+          <li>
+            Røssåga, Korgfjellet, Korgfjelltunnelen og Oksskolten: kontrollert mot offentlige kilder under arbeidet med prototypene.
+          </li>
+          <li>Koordinater og veibeskrivelse: lenker til Google Maps.</li>
+          <li>
+            Skrifter: <a href="https://fontsource.org/fonts/brygada-1918">Brygada 1918</a> og{' '}
+            <a href="https://fontsource.org/fonts/ysabeau-office">Ysabeau Office</a>, begge under SIL Open Font License, via Fontsource.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <nav class="wrap g12 om-sec" aria-labelledby="videre" style="padding-bottom: clamp(3rem, 6vw, 5rem)">
+      <h2 id="videre" class="om-h lg:col-[1/4]">Se konseptet</h2>
+      <ul class="rows mt-6 lg:mt-0 lg:col-[5/10]">
+        <li><a href={base}>Forsiden <Arrow /></a></li>
+        <li><a href={`${base}/meny`}>Menyen <Arrow /></a></li>
+        <li><a href={`${base}/skjerm`}>Menyskjermen, 16:9 <Arrow /></a></li>
+        <li><a href={withBase('/')}>Alle konsepter <Arrow /></a></li>
+      </ul>
+    </nav>
+  </article>
+</Layout>

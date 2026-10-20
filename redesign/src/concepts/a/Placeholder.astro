@@ -1,0 +1,16 @@
+---
+interface Props {
+  need: string;
+  detail?: string;
+  ratio?: string;
+  class?: string;
+}
+const { need, detail, ratio = '4 / 3', class: cls } = Astro.props;
+---
+
+<figure class:list={['hold', 'hold-box', cls]} style={`--ratio:${ratio}`}>
+  <span class="hold-tick" aria-hidden="true"></span><span class="hold-tick" aria-hidden="true"></span><span
+    class="hold-tick"
+    aria-hidden="true"></span><span class="hold-tick" aria-hidden="true"></span>
+  <figcaption class="hold-text"><b>Plassholder: {need}</b>{detail}</figcaption>
+</figure>

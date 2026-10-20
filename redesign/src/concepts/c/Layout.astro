@@ -1,0 +1,64 @@
+---
+import { withBase } from '@lib/base';
+import './styles.css';
+import TopBar from './TopBar.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: 'home' | 'meny' | 'om' | 'skjerm';
+  /** No site chrome (used by the menu board). */
+  bare?: boolean;
+  bodyClass?: string;
+}
+const {
+  title,
+  description = 'Huset Café & Motell – restaurant og motell ved E6 i Korgen. Designprototype, konsept C.',
+  current = 'home',
+  bare = false,
+  bodyClass,
+} = Astro.props;
+---
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#060a0a" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+        var native = window.CSS && CSS.supports && CSS.supports('animation-timeline: view()');
+        if (calm && !native && 'IntersectionObserver' in window) d.classList.add('ground-io');
+      })();
+    </script>
+  </head>
+  <body class:list={['c', bodyClass]}>
+    {bare ? (
+      <slot />
+    ) : (
+      <>
+        <a class="skip" href="#innhold">Hopp til innhold</a>
+        <TopBar current={current} />
+        <main id="innhold" tabindex="-1">
+          <slot />
+        </main>
+        <Footer />
+      </>
+    )}
+    <script>
+      import { mountStatus } from './status';
+      import { mountGround } from './ground';
+      mountStatus();
+      mountGround();
+    </script>
+  </body>
+</html>

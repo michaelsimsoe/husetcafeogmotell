@@ -1,0 +1,210 @@
+---
+import { withBase } from '@lib/base';
+import '../../../concepts/a/styles.css';
+import { sectionById, allergens, kr, type Dish } from '@data/menu';
+import { photo, src } from '@data/credits';
+import { site } from '@data/site';
+import { ridgePath, groupsLine } from '../../../concepts/a/lib';
+
+const pizza = sectionById('pizza');
+const drinks = sectionById('drikke');
+const drinkRows = drinks.dishes.flatMap((d: Dish) =>
+  d.variants?.length
+    ? d.variants.map((v) => ({ id: `${d.id}-${v.label}`, name: d.name, size: v.label, allergens: d.allergens, price: v.price }))
+    : [{ id: d.id, name: d.name, size: '', allergens: d.allergens, price: d.price }],
+);
+// The whole mountain sits under the house name; the rest of the rule runs level.
+const ridge = ridgePath({ w: 1920, h: 56, pad: 2, start: 0, end: 0.33 });
+const keys = Object.entries(allergens);
+const food = photo('board-pizza');
+---
+
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <title>Menyskjerm: pizza og drikke – Huset (konsept A)</title>
+  </head>
+  <body>
+    <main class="board" aria-label="Menyskjerm, 1920 × 1080">
+      <div class="b-panel" aria-hidden="true"></div>
+
+      <h1 class="b-wm"><span class="b-wm-name">Huset</span> <span class="b-wm-sub">Café &amp; Motell</span></h1>
+
+      <figure class="b-ph">
+        <img src={src(food.id, 800)} width={food.w} height={food.h} alt={food.alt} decoding="sync" />
+        <figcaption class="b-ph-cap">Plassholder – nye matbilder trengs · Rettigheter avklares</figcaption>
+      </figure>
+
+      <div class="b-now" data-hours="state">
+        <p class="b-clock num" data-a-live hidden><time data-clock></time></p>
+        <p class="b-status">
+          <span data-a-live hidden>
+            <svg class="mark" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4"></circle></svg>
+            <span data-a-day></span> ·
+          </span>
+          <span data-hours="short" class="num">{groupsLine}</span>
+        </p>
+      </div>
+
+      <svg class="b-ridge" viewBox="0 0 1920 56" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <defs>
+          <clipPath id="b-left"><rect x="0" y="-10" width="636" height="76"></rect></clipPath>
+          <clipPath id="b-right"><rect x="1240" y="-10" width="680" height="76"></rect></clipPath>
+        </defs>
+        <path d={ridge} clip-path="url(#b-left)" class="b-ridge-dark"></path>
+        <path d={ridge} clip-path="url(#b-right)" class="b-ridge-light"></path>
+      </svg>
+
+      <section class="b-pizza" aria-labelledby="b-pizza-h">
+        <h2 id="b-pizza-h" class="b-h">{pizza.title}</h2>
+        <ul class="b-list b-list--two">
+          {
+            pizza.dishes.map((d) => (
+              <li class="b-dish">
+                <div class="b-line">
+                  <span class="b-name">
+                    {d.name}
+                    {d.allergens.length > 0 && <sup>{d.allergens.join(',')}</sup>}
+                  </span>
+                  <span class="b-lead" aria-hidden="true" />
+                  <span class="b-price num">{kr(d.price)}</span>
+                </div>
+                {d.desc && <p class="b-desc">{d.desc}</p>}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="b-drinks" aria-labelledby="b-drinks-h">
+        <h2 id="b-drinks-h" class="b-h">{drinks.title}</h2>
+        <ul class="b-list">
+          {
+            drinkRows.map((d) => (
+              <li class="b-line b-drink">
+                <span class="b-name">
+                  {d.name}
+                  {d.size && <span class="b-size num"> {d.size}</span>}
+                  {d.allergens.length > 0 && <sup>{d.allergens.join(',')}</sup>}
+                </span>
+                <span class="b-lead" aria-hidden="true" />
+                <span class="b-price num">{kr(d.price)}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <footer class="b-foot">
+        <p class="b-keys num">
+          {
+            keys.map(([n, name]) => (
+              <span>
+                <b>{n}</b> {name}
+              </span>
+            ))
+          }
+        </p>
+        <p class="b-note"><span class="bk">bekreftes</span> Priser og allergener fra dagens skjermer. Spør oss om allergener.</p>
+      </footer>
+      <p class="b-phone num">Ring {site.contact.phone} · Korgen</p>
+    </main>
+
+    <p class="b-proto">Designprototype – konsept A. <a href={withBase('/concepts/a')}>Til forsiden</a> · <a href={withBase('/')}>Alle konsepter</a></p>
+
+    <script>
+      import { mountHours, osloNow, hoursStatus } from '@lib/hours';
+      const tick = () => {
+        const { minutes } = osloNow();
+        const t = `${String(Math.floor(minutes / 60)).padStart(2, '0')}.${String(minutes % 60).padStart(2, '0')}`;
+        document.querySelectorAll<HTMLElement>('[data-clock]').forEach((el) => {
+          el.textContent = t;
+          el.setAttribute('datetime', t.replace('.', ':'));
+        });
+        const s = hoursStatus();
+        document.querySelectorAll<HTMLElement>('[data-a-day]').forEach((el) => (el.textContent = s.today.label));
+        document.querySelectorAll<HTMLElement>('[data-a-live]').forEach((el) => el.removeAttribute('hidden'));
+      };
+      mountHours();
+      tick();
+      window.setInterval(tick, 15_000);
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  html, body { height: 100%; }
+  body {
+    margin: 0; overflow: hidden; background: #0f1513;
+    display: grid; place-items: center;
+    --u: calc(min(100vw, 177.7778vh) / 1920);
+  }
+  .board {
+    position: relative; width: calc(1920 * var(--u)); height: calc(1080 * var(--u));
+    background: var(--color-whitewash); color: var(--color-ink); overflow: hidden;
+    font-family: var(--font-text); font-size: calc(26 * var(--u)); line-height: 1.3;
+  }
+  .b-panel { position: absolute; left: calc(1240 * var(--u)); top: 0; width: calc(680 * var(--u)); height: 100%; background: var(--color-spruce); }
+
+  .b-wm { position: absolute; left: calc(80 * var(--u)); top: calc(44 * var(--u)); display: flex; align-items: baseline; gap: calc(24 * var(--u)); margin: 0; font-weight: inherit; }
+  .b-wm-name { font-family: var(--font-display); font-weight: 560; font-size: calc(76 * var(--u)); line-height: 1; letter-spacing: -0.015em; }
+  .b-wm-sub { font-size: calc(28 * var(--u)); font-weight: 600; letter-spacing: 0.04em; color: var(--color-ink-soft); padding-left: calc(22 * var(--u)); border-left: 1px solid var(--color-hair); }
+
+  .b-now { position: absolute; left: calc(1304 * var(--u)); right: calc(64 * var(--u)); top: calc(40 * var(--u)); display: flex; align-items: baseline; justify-content: space-between; color: var(--color-whitewash); }
+  .b-clock { margin: 0; font-family: var(--font-display); font-weight: 480; font-size: calc(76 * var(--u)); line-height: 1; letter-spacing: -0.01em; }
+  .b-status { margin: 0; display: inline-flex; align-items: center; gap: calc(12 * var(--u)); font-size: calc(28 * var(--u)); font-weight: 620; color: var(--color-lichen); }
+  .b-status [data-a-live] { display: inline-flex; align-items: center; gap: calc(12 * var(--u)); }
+  .b-status .mark { width: calc(18 * var(--u)); height: calc(18 * var(--u)); }
+  .b-now[data-state="open"] .mark circle { fill: var(--color-river-light); stroke: var(--color-river-light); }
+  .b-now .mark circle { stroke: var(--color-lichen); }
+
+  .b-ph { position: absolute; left: calc(660 * var(--u)); top: 0; width: calc(516 * var(--u)); margin: 0; }
+  .b-ph img { display: block; width: 100%; height: calc(190 * var(--u)); object-fit: cover; object-position: 50% 74%; }
+  .b-ph-cap { margin-top: calc(8 * var(--u)); width: calc(560 * var(--u)); font-size: calc(20 * var(--u)); line-height: 1.25; font-weight: 600; color: var(--color-ink-soft); }
+
+  .b-ridge { position: absolute; left: 0; top: calc(124 * var(--u)); width: 100%; height: calc(56 * var(--u)); overflow: visible; }
+  .b-ridge path { fill: none; stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  .b-ridge-dark { stroke: var(--color-river); }
+  .b-ridge-light { stroke: var(--color-river-light); }
+
+  .b-h { margin: 0 0 calc(14 * var(--u)); font-family: var(--font-display); font-style: italic; font-weight: 480; font-size: calc(68 * var(--u)); line-height: 1; letter-spacing: -0.015em; color: var(--color-copper); }
+  .b-drinks .b-h { color: var(--color-copper-light); }
+  .b-pizza { position: absolute; left: calc(80 * var(--u)); top: calc(198 * var(--u)); width: calc(1096 * var(--u)); }
+  .b-drinks { position: absolute; left: calc(1304 * var(--u)); top: calc(198 * var(--u)); width: calc(552 * var(--u)); color: var(--color-whitewash); }
+  .b-list { list-style: none; margin: 0; padding: 0; }
+  .b-list--two { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(7, auto); grid-auto-flow: column; column-gap: calc(64 * var(--u)); }
+  .b-dish { padding-block: calc(3 * var(--u)) calc(5 * var(--u)); }
+  .b-line { display: flex; align-items: last baseline; gap: calc(10 * var(--u)); }
+  .b-drink { padding-block: calc(4 * var(--u)); }
+  .b-name { font-weight: 640; font-size: calc(42 * var(--u)); line-height: 1.1; white-space: nowrap; }
+  .b-name sup { font-size: calc(28 * var(--u)); line-height: 0; font-weight: 600; margin-left: calc(4 * var(--u)); vertical-align: 0; position: relative; top: -0.62em; color: var(--color-ink-soft); }
+  .b-drinks .b-name sup { color: var(--color-lichen); }
+  .b-size { font-weight: 500; color: var(--color-lichen); }
+  .b-lead {
+    flex: 1 1 auto; min-width: calc(24 * var(--u)); height: calc(6 * var(--u)); margin-bottom: calc(6 * var(--u));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Ccircle cx='3' cy='3' r='1.7' fill='%238e9993'/%3E%3C/svg%3E");
+    background-size: calc(12 * var(--u)) calc(6 * var(--u)); background-repeat: repeat-x; background-position: left center;
+  }
+  .b-drinks .b-lead { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Ccircle cx='3' cy='3' r='1.7' fill='%23688a7f'/%3E%3C/svg%3E"); }
+  .b-price { font-weight: 640; font-size: calc(42 * var(--u)); line-height: 1.12; color: var(--color-copper); white-space: nowrap; }
+  .b-drinks .b-price { color: var(--color-copper-light); }
+  .b-desc { margin: 0; font-size: calc(32 * var(--u)); line-height: 1.15; color: var(--color-ink-soft); }
+
+  .b-foot { position: absolute; left: calc(80 * var(--u)); bottom: calc(34 * var(--u)); width: calc(1096 * var(--u)); padding-top: calc(14 * var(--u)); border-top: 1px solid var(--color-ink); display: grid; row-gap: calc(6 * var(--u)); }
+  .b-keys { margin: 0; display: flex; gap: calc(30 * var(--u)); font-size: calc(28 * var(--u)); line-height: 1.25; }
+  .b-keys > * { white-space: nowrap; }
+  .b-keys b { font-weight: 700; }
+  .b-note { margin: 0; display: flex; align-items: baseline; gap: calc(12 * var(--u)); font-size: calc(28 * var(--u)); line-height: 1.25; color: var(--color-ink-soft); }
+  .b-note .bk { font-size: calc(24 * var(--u)); }
+  .b-phone { position: absolute; left: calc(1304 * var(--u)); bottom: calc(34 * var(--u)); width: calc(552 * var(--u)); margin: 0; padding-top: calc(14 * var(--u)); border-top: 1px solid var(--color-hair-dark); font-size: calc(28 * var(--u)); line-height: 1.25; font-weight: 620; color: var(--color-lichen); }
+
+  .b-proto { display: none; position: fixed; left: 0; right: 0; bottom: 0; margin: 0; padding: 0.35rem 0.75rem; font-size: 0.75rem; color: #b9c8c0; text-align: center; }
+  .b-proto a { color: #b9c8c0; }
+  @media (max-aspect-ratio: 1900/1080) {
+    .b-proto { display: block; }
+  }
+</style>

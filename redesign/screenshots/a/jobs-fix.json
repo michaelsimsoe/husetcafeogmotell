@@ -1,0 +1,11 @@
+[
+  { "url": "/concepts/a", "out": "screenshots/a/fix-home-fold-desktop.png", "w": 1440, "h": 900, "full": false },
+  { "url": "/concepts/a", "out": "screenshots/a/fix-home-fold-mobile.png", "w": 390, "h": 844, "full": false },
+  { "url": "/concepts/a", "out": "screenshots/a/fix-home-desktop.png", "w": 1440, "h": 900, "full": true },
+  { "url": "/concepts/a", "out": "screenshots/a/fix-home-mobile.png", "w": 390, "h": 844, "full": true },
+  { "url": "/concepts/a/meny", "out": "screenshots/a/fix-meny-desktop.png", "w": 1440, "h": 900, "full": true },
+  { "url": "/concepts/a/meny", "out": "screenshots/a/fix-meny-mobile.png", "w": 390, "h": 844, "full": true },
+  { "url": "/concepts/a/skjerm", "out": "screenshots/a/fix-skjerm.png", "w": 1920, "h": 1080, "full": false },
+  { "url": "/concepts/a/om", "out": "screenshots/a/fix-om-desktop.png", "w": 1440, "h": 900, "full": true },
+  { "url": "/concepts/a", "out": "screenshots/a/fix-home-1024.png", "w": 1024, "h": 768, "full": true }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "w": 1440,
+    "full": false,
+    "url": "/concepts/a",
+    "out": "../.impeccable/review/a/desktop.png",
+    "h": 900
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/a",
+    "out": "../.impeccable/review/a/desktop-full.png",
+    "h": 900
+  },
+  {
+    "w": 390,
+    "full": false,
+    "url": "/concepts/a",
+    "out": "../.impeccable/review/a/mobile.png",
+    "h": 844
+  },
+  {
+    "w": 390,
+    "full": true,
+    "url": "/concepts/a",
+    "out": "../.impeccable/review/a/mobile-full.png",
+    "h": 844
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/a/meny",
+    "out": "../.impeccable/review/a/meny-desktop.png",
+    "h": 900
+  },
+  {
+    "w": 390,
+    "full": true,
+    "url": "/concepts/a/meny",
+    "out": "../.impeccable/review/a/meny-mobile.png",
+    "h": 844
+  },
+  {
+    "w": 1920,
+    "full": false,
+    "url": "/concepts/a/skjerm",
+    "out": "../.impeccable/review/a/skjerm.png",
+    "h": 1080
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/a/om",
+    "out": "../.impeccable/review/a/om.png",
+    "h": 900
+  },
+  {
+    "w": 1440,
+    "full": false,
+    "url": "/concepts/b",
+    "out": "../.impeccable/review/b/desktop.png",
+    "h": 900
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/b",
+    "out": "../.impeccable/review/b/desktop-full.png",
+    "h": 900
+  },
+  {
+    "w": 390,
+    "full": false,
+    "url": "/concepts/b",
+    "out": "../.impeccable/review/b/mobile.png",
+    "h": 844
+  },
+  {
+    "w": 390,
+    "full": true,
+    "url": "/concepts/b",
+    "out": "../.impeccable/review/b/mobile-full.png",
+    "h": 844
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/b/meny",
+    "out": "../.impeccable/review/b/meny-desktop.png",
+    "h": 900
+  },
+  {
+    "w": 390,
+    "full": true,
+    "url": "/concepts/b/meny",
+    "out": "../.impeccable/review/b/meny-mobile.png",
+    "h": 844
+  },
+  {
+    "w": 1920,
+    "full": false,
+    "url": "/concepts/b/skjerm",
+    "out": "../.impeccable/review/b/skjerm.png",
+    "h": 1080
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/b/om",
+    "out": "../.impeccable/review/b/om.png",
+    "h": 900
+  },
+  {
+    "w": 1440,
+    "full": false,
+    "url": "/concepts/c",
+    "out": "../.impeccable/review/c/desktop.png",
+    "h": 900
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/c",
+    "out": "../.impeccable/review/c/desktop-full.png",
+    "h": 900
+  },
+  {
+    "w": 390,
+    "full": false,
+    "url": "/concepts/c",
+    "out": "../.impeccable/review/c/mobile.png",
+    "h": 844
+  },
+  {
+    "w": 390,
+    "full": true,
+    "url": "/concepts/c",
+    "out": "../.impeccable/review/c/mobile-full.png",
+    "h": 844
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/c/meny",
+    "out": "../.impeccable/review/c/meny-desktop.png",
+    "h": 900
+  },
+  {
+    "w": 390,
+    "full": true,
+    "url": "/concepts/c/meny",
+    "out": "../.impeccable/review/c/meny-mobile.png",
+    "h": 844
+  },
+  {
+    "w": 1920,
+    "full": false,
+    "url": "/concepts/c/skjerm",
+    "out": "../.impeccable/review/c/skjerm.png",
+    "h": 1080
+  },
+  {
+    "w": 1440,
+    "full": true,
+    "url": "/concepts/c/om",
+    "out": "../.impeccable/review/c/om.png",
+    "h": 900
+  }
+]

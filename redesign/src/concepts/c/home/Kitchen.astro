@@ -1,0 +1,87 @@
+---
+import { withBase } from '@lib/base';
+import { sectionById, menuMeta, allergens } from '@data/menu';
+import { site } from '@data/site';
+import { photo, creditLine, statusLabel } from '@data/credits';
+import Pic from '../Pic.astro';
+import Credit from '../Credit.astro';
+import Bek from '../Bek.astro';
+import Dish from '../Dish.astro';
+import Icon from '../Icon.astro';
+
+const pizza = sectionById('pizza');
+const grill = sectionById('grill');
+const barn = sectionById('barn');
+const extras = site.venues.extras.map((e) => e.toLowerCase());
+const food = photo('board-pizza');
+---
+<section id="kjokkenet" class="scene" style="--ground: var(--g3); --ground-from: var(--g2)" aria-labelledby="kjokkenet-title">
+  <figure class="bleed">
+    <div class="bleed__img bleed__img--room lift grade-warm">
+      <Pic id="restaurant-family-pizza" sizes="100vw" style="object-position: 50% 58%" />
+    </div>
+    <Credit id="restaurant-family-pizza" graded class="wrap bleed__credit" />
+  </figure>
+
+  <div class="wrap passage kitchen">
+    <div class="kitchen__intro">
+      <div class="kitchen__words">
+        <h2 id="kjokkenet-title" class="passage-title">Noe varmt å spise.</h2>
+        <div class="prose lede">
+          <p>
+            Menyen er den samme som på skjermene i restauranten: pizza, burgere og biff fra grillen, fisk,
+            salater, pitabrød, omeletter, småretter og egen barnemeny.
+          </p>
+          <p class="quiet">
+            {barn.note} Vi har også {extras[1]} og {extras[0]}.<Bek />
+          </p>
+        </div>
+      </div>
+
+      <figure class="food">
+        <div class="food__img grade-warm grade-warm--food">
+          <Pic id="board-pizza" sizes="(min-width: 900px) 518px, calc(100vw - 40px)" />
+          <p class="food__tag">Plassholder – nye matbilder trengs · {statusLabel[food.status]}</p>
+        </div>
+        <span class="vrule" aria-hidden="true"></span>
+        <figcaption class="food__cap">
+          <p class="food__need">Bildet som trengs: pizza rett fra ovnen, i varmt lys.</p>
+          <p class="credit">
+            <span class="credit__by">{creditLine('board-pizza')}</span>
+            {food.warning && <span class="credit__warn">{food.warning}</span>}
+            <span class="credit__graded">fargejustert</span>
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="kitchen__board">
+      <div class="board-cols">
+        <div>
+          <h3 class="bhead">{pizza.title}</h3>
+          <ul class="dishes">
+            {pizza.dishes.slice(0, 5).map((d) => <Dish dish={d} />)}
+          </ul>
+        </div>
+        <span class="vrule" aria-hidden="true"></span>
+        <div>
+          <h3 class="bhead">{grill.title}</h3>
+          <ul class="dishes">
+            {grill.dishes.slice(0, 5).map((d) => <Dish dish={d} />)}
+          </ul>
+        </div>
+      </div>
+
+      <div class="kitchen__foot">
+        <a class="btn btn--lit" href={withBase('/concepts/c/meny')}>Se hele menyen <Icon name="arrow" size={18} /></a>
+        <p class="legend">
+          {menuMeta.note.replace(' – bekreftes før lansering.', '.')}<Bek />
+          <br />
+          Allergener: {Object.entries(allergens).map(([n, name], i) => (
+            <span class="num">{i > 0 && ' · '}<b>{n}</b> {name}</span>
+          ))}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

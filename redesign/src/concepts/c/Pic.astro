@@ -1,0 +1,29 @@
+---
+import { photo, src, srcset } from '@data/credits';
+
+interface Props {
+  id: string;
+  sizes: string;
+  /** Above the fold: eager + high priority. */
+  priority?: boolean;
+  class?: string;
+  /** Override the default alt (e.g. when a caption already says it). */
+  alt?: string;
+  style?: string;
+}
+const { id, sizes, priority = false, class: cls, alt, style } = Astro.props;
+const p = photo(id);
+---
+<img
+  class={cls}
+  src={src(id, 1600)}
+  srcset={srcset(id)}
+  sizes={sizes}
+  width={p.w}
+  height={p.h}
+  alt={alt ?? p.alt}
+  loading={priority ? 'eager' : 'lazy'}
+  decoding={priority ? 'sync' : 'async'}
+  fetchpriority={priority ? 'high' : undefined}
+  style={style}
+/>

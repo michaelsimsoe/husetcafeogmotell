@@ -1,0 +1,417 @@
+---
+import { withBase } from '@lib/base';
+import Layout from '../../../concepts/b/Layout.astro';
+import Icon from '../../../concepts/b/Icon.astro';
+import Photo from '../../../concepts/b/Photo.astro';
+import RouteStrip from '../../../concepts/b/RouteStrip.astro';
+import { approaches } from '../../../concepts/b/route';
+import { site } from '@data/site';
+import { menu, menuMeta, sectionById, kr, krText } from '@data/menu';
+
+const c = site.contact;
+const r = site.rooms;
+const v = site.venues;
+const base = withBase('/concepts/b');
+
+const pick = (sectionId: string, ids: string[]) => {
+  const s = sectionById(sectionId);
+  return { section: s, dishes: ids.map((id) => s.dishes.find((d) => d.id === id)!) };
+};
+const grill = pick('grill', ['biffburger', 'chilliburger', 'kebabtallerken', 'kyllingsnadder', 'husets-biff']);
+const pizza = pick('pizza', ['margherita', 'pepperoni', 'biffpizza', 'fredagspizza', 'mix']);
+
+const others = menu
+  .filter((s) => s.id !== 'grill' && s.id !== 'pizza')
+  .map((s) => {
+    const prices = s.dishes.flatMap((d) => (d.variants ? d.variants.map((x) => x.price) : [d.price]));
+    const lo = Math.min(...prices);
+    const hi = Math.max(...prices);
+    return { id: s.id, title: s.title, n: s.dishes.length, range: lo === hi ? krText(lo) : `${lo}–${krText(hi)}` };
+  });
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const join = (xs: readonly string[]) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} og ${xs[xs.length - 1]}` : xs[0]);
+const hhmm = (s: string) => s.replace(':', '.');
+
+const roomFacts = r.features.filter((f) => f !== 'Frokost inkludert');
+---
+
+<Layout title="Neste stopp: Huset – Huset Café & Motell, Korgen (konsept B)" page="home">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero__sign sign on-dark">
+        <div>
+          <h1 id="hero-h">Neste stopp: Huset</h1>
+          <p class="hero__sub">Kafé, restaurant og motell ved <span class="shield">E6</span> i Korgen</p>
+        </div>
+
+        <table class="dist">
+          <caption>Langs E6 herfra</caption>
+          <tbody>
+            <tr>
+              <th scope="row"><span><Icon name="pil" rotate={-90} />Bodø</span></th>
+              <td><small>ca.</small>267 km</td>
+            </tr>
+            <tr>
+              <th scope="row"><span><Icon name="pil" rotate={-90} />Mo i Rana</span></th>
+              <td><small>ca.</small>{Math.round(approaches.nord.km)} km</td>
+            </tr>
+            <tr>
+              <th scope="row"><span><Icon name="pil" rotate={90} />Mosjøen</span></th>
+              <td><small>ca.</small>{Math.round(approaches.sor.km)} km</td>
+            </tr>
+            <tr>
+              <th scope="row"><span><Icon name="pil" rotate={90} />Trondheim</span></th>
+              <td><small>ca.</small>434 km</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ul class="svc" aria-label="Her finner du">
+          <li>
+            <span class="pict"><Icon name="spis" /></span>
+            <span class="svc__k">Spisested</span>
+            <span class="svc__v"><span data-today-label>Man–fre</span> <span data-hours="today">10–21</span></span>
+            <span class="status" data-hours="state">
+              <Icon name="klokke" />
+              <span data-hours="text">Lør 11–21 · søn 13–19</span>
+            </span>
+          </li>
+          <li>
+            <span class="pict"><Icon name="seng" /></span>
+            <span class="svc__k">Overnatting</span>
+            <span class="svc__v">{r.count} rom <span class="bk">bekreftes</span></span>
+          </li>
+          <li>
+            <span class="pict"><Icon name="mote" /></span>
+            <span class="svc__k">Møterom</span>
+            <span class="svc__v">selskap inntil {v.capacity} <span class="bk">bekreftes</span></span>
+          </li>
+        </ul>
+
+        <div class="acts">
+          <a class="btn btn--go" href={site.links.directions} rel="noopener">
+            <Icon name="sving" />Veibeskrivelse
+          </a>
+          <a class="btn btn--white" href={c.phoneHref}>
+            <Icon name="ring" />Ring <span class="num">{c.phone}</span>
+          </a>
+          <div class="acts__more">
+            <a class="go" href={`${base}/meny`}>Meny <span class="go__arr" aria-hidden="true"><Icon name="pil" /></span></a>
+            <a class="go" href="#sov">Rom <span class="go__arr" aria-hidden="true"><Icon name="pil" /></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <RouteStrip />
+
+  <section class="sec" id="spis" aria-labelledby="spis-h">
+    <div class="wrap sec__grid">
+      <header class="sec__head">
+        <h2 id="spis-h">Spis</h2>
+        <p class="sec__lede">Grill, pizza, fisk, småretter og barnemeny.</p>
+        <p class="sec__note">{menuMeta.note} <span class="bk">bekreftes</span></p>
+        <div class="sec__acts">
+          <a class="btn btn--ink" href={`${base}/meny`}>Hele menyen <Icon name="pil" class="arr" /></a>
+        </div>
+      </header>
+
+      <div class="sec__body">
+        <div class="spis__cols">
+          {
+            [grill, pizza].map(({ section, dishes }) => (
+              <div>
+                <h3>
+                  {section.title}
+                  <a class="go" href={`${base}/meny#${section.id}`}>
+                    Alle {section.dishes.length} <span class="go__arr" aria-hidden="true"><Icon name="pil" /></span>
+                  </a>
+                </h3>
+                <ul class="rows">
+                  {dishes.map((d) => (
+                    <li>
+                      <span>
+                        <span class="rows__name">{d.name}</span>
+                        {d.desc && <span class="rows__desc">{d.desc}</span>}
+                      </span>
+                      <span class="rows__price">{kr(d.price)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+
+        <ul class="index" aria-label="Resten av menyen">
+          {
+            others.map((s) => (
+              <li>
+                <a href={`${base}/meny#${s.id}`}>
+                  <span class="index__name">{s.title}</span>
+                  <span class="index__meta">{s.n} {s.n === 1 ? 'rett' : 'valg'}</span>
+                  <span class="index__meta">{s.range}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="spis__photo">
+          <Photo id="restaurant-family-pizza" sizes="(max-width: 63.99rem) 100vw, 36vw" ratio="4 / 3" position="50% 55%" />
+          <div class="ph-hold">
+            <span class="pict"><Icon name="spis" /></span>
+            <p>Plassholder: egne bilder av rettene, fotografert på Huset</p>
+            <small>Dagens matbilder fra menyskjermene er for små og trolig bildebank.</small>
+          </div>
+        </div>
+
+        <div class="spis__foot">
+          <p>Allergener: 1 gluten · 2 laktose · 3 egg · 4 sennep · 5 nøtter. {menuMeta.allergenNote}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="sov" aria-labelledby="sov-h">
+    <div class="wrap sec__grid">
+      <header class="sec__head">
+        <h2 id="sov-h">Sov</h2>
+        <p class="sec__lede">Åtte rom i samme hus som restauranten. Frokost er med.</p>
+        <p class="sec__note">{r.checkInNote} {r.payment}</p>
+        <div class="sec__acts">
+          <a class="btn btn--ink" href={site.links.booking} rel="noopener">
+            Bestill på Booking.com <Icon name="ut" />
+          </a>
+          <a class="btn btn--line" href={c.phoneHref}>
+            <Icon name="ring" />Ring <span class="num">{c.phone}</span>
+          </a>
+        </div>
+      </header>
+
+      <div class="sec__body sov__grid">
+        <div>
+          <div class="spec">
+            <dl>
+              <div class="spec__row"><dt>Rom</dt><dd>{r.count} <span class="bk">bekreftes</span></dd></div>
+              <div class="spec__row"><dt>Frokost</dt><dd>Inkludert</dd></div>
+              <div class="spec__row"><dt>Innsjekk</dt><dd><small>fra kl.</small> {hhmm(r.checkIn)}</dd></div>
+              <div class="spec__row"><dt>Utsjekk</dt><dd><small>kl.</small> {hhmm(r.checkOut)}</dd></div>
+              <div class="spec__row"><dt>Pris</dt><dd><small>fra</small> {krText(r.priceFrom)} <small>per natt</small> <span class="bk">bekreftes</span></dd></div>
+            </dl>
+            <p class="spec__foot">Alle tall bekreftes. Engelsk versjon av dagens nettside oppgir 1&nbsp;139&nbsp;kr.</p>
+          </div>
+          <ul class="facts">
+            {roomFacts.map((f) => <li>{f}</li>)}
+            <li>{r.breakfast}</li>
+            <li>{r.fullyBooked}</li>
+          </ul>
+        </div>
+        <div class="sov__photos">
+          <Photo id="rooms-pair" sizes="(max-width: 63.99rem) 100vw, 30vw" ratio="4 / 3" />
+          <Photo id="room-wide" sizes="(max-width: 63.99rem) 100vw, 30vw" ratio="16 / 9" position="40% 50%" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="samles" aria-labelledby="samles-h">
+    <div class="wrap sec__grid">
+      <header class="sec__head">
+        <h2 id="samles-h">Samles</h2>
+        <p class="sec__lede">Selskap, minnestund eller møte. Ring, så legger vi en plan sammen.</p>
+        <div class="sec__acts">
+          <a class="btn btn--ink" href={c.phoneHref}><Icon name="ring" />Ring <span class="num">{c.phone}</span></a>
+          <a class="btn btn--line" href={c.emailHref}><Icon name="epost" />Send e-post</a>
+        </div>
+      </header>
+
+      <div class="sec__body samles__grid">
+        <div>
+          <p class="big-line">Plass til <span class="num">{v.capacity}</span> gjester <span class="bk">bekreftes</span></p>
+          <ul class="occ" aria-label="Anledninger">
+            {v.occasions.map((o) => <li>{cap(o)}</li>)}
+          </ul>
+          <ul class="samles__list">
+            <li><b>Catering:</b> {join(v.catering)}</li>
+            <li><b>{v.cakes}</b></li>
+          </ul>
+          <table class="mtable">
+            <caption>Møterom</caption>
+            <thead>
+              <tr>
+                <th scope="col">Rom</th>
+                <th scope="col">Utstyr</th>
+                <th scope="col">Pris</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                v.meetingRooms.map((m) => (
+                  <tr>
+                    <th scope="row">{m.name}</th>
+                    <td>{m.equipment}</td>
+                    <td><span class="num">{krText(m.price)}</span></td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          <p class="sec__note">Pris og leieperiode bekreftes. <span class="bk">bekreftes</span></p>
+        </div>
+        <div class="samles__photos">
+          <Photo id="party-long-table" sizes="(max-width: 63.99rem) 100vw, 30vw" ratio="4 / 3" position="50% 60%" />
+          <Photo id="huset-meeting-room" sizes="(max-width: 63.99rem) 50vw, 15vw" ratio="4 / 3" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="rundt" aria-labelledby="rundt-h">
+    <div class="wrap sec__grid">
+      <header class="sec__head">
+        <h2 id="rundt-h">Rundt deg</h2>
+        <p class="sec__lede">Det nærmeste først.</p>
+        <p class="sec__note">Avstandene er omtrentlige. Nabotilbudene er hentet fra dagens nettside. <span class="bk">bekreftes</span></p>
+      </header>
+
+      <div class="sec__body">
+        <ul class="around">
+          <li>
+            <span class="arrow"><Icon name="butikk" /></span>
+            <span>
+              <span class="around__name">Korgensenteret</span>
+              <span class="around__what">Dagligvare, apotek, Vinmonopolet og frisør.</span>
+            </span>
+            <span class="around__dist">Nabobygget</span>
+          </li>
+          <li>
+            <span class="arrow"><Icon name="drivstoff" /></span>
+            <span>
+              <span class="around__name">Circle K</span>
+              <span class="around__what">Bensinstasjon.</span>
+            </span>
+            <span class="around__dist">Over veien</span>
+          </li>
+          <li>
+            <span class="arrow"><Icon name="pil" rotate={-90} label="Nord" /></span>
+            <span>
+              <span class="around__name">Røssåga og Bjerka</span>
+              <span class="around__what">Elva renner 50 km fra Røssvatnet til Sørfjorden ved Bjerka.</span>
+            </span>
+            <span class="around__dist">ca. 8 km<small>nord til Bjerka</small></span>
+          </li>
+          <li>
+            <span class="arrow"><Icon name="pil" rotate={90} label="Sør" /></span>
+            <span>
+              <span class="around__name">Korgfjelltunnelen</span>
+              <span class="around__what">E6 sørover mot Mosjøen, ca. 8,5 km gjennom Korgfjellet. Åpnet i 2005.</span>
+            </span>
+            <span class="around__dist">ca. 2 km<small>sør</small></span>
+          </li>
+          <li>
+            <span class="arrow"><Icon name="pil" rotate={20} label="Øst-sørøst" /></span>
+            <span>
+              <span class="around__name">Okstindan</span>
+              <span class="around__what">Oksskolten, 1 916 moh., er Nord-Norges høyeste fjell.</span>
+            </span>
+            <span class="around__dist">ca. 24 km<small>luftlinje</small></span>
+          </li>
+        </ul>
+
+        <div class="rundt__photos">
+          <Photo id="okstinden-peaks" sizes="(max-width: 47.99rem) 100vw, 34vw" ratio="3 / 2" />
+          <Photo id="rossaga-a" sizes="(max-width: 47.99rem) 100vw, 24vw" ratio="4 / 3" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="finn-fram" aria-labelledby="finn-h">
+    <div class="wrap sec__grid">
+      <header class="sec__head">
+        <h2 id="finn-h">Finn fram</h2>
+        <p class="sec__lede">Ved E6 i Korgen, ca. 2 km nord for Korgfjelltunnelen. Se etter det hvite bygget.</p>
+        <p class="sec__note">Adresse bekreftes. <span class="bk">bekreftes</span></p>
+        <div class="sec__acts">
+          <a class="btn btn--go" href={site.links.directions} rel="noopener"><Icon name="sving" />Veibeskrivelse</a>
+        </div>
+      </header>
+
+      <div class="sec__body">
+        <div class="finn__grid">
+          <div class="week on-dark">
+            <div class="week__top">
+              <h3>Åpningstider</h3>
+              <span class="status" data-hours="state"><Icon name="klokke" /><span data-hours="short">Se tidene under</span></span>
+            </div>
+            <table>
+              <caption class="vh">Åpningstider for hver ukedag</caption>
+              <tbody>
+                {
+                  site.hours.days.map((d) => (
+                    <tr data-hours-day={d.day}>
+                      <th scope="row">{d.label}</th>
+                      <td class="today-mark"><span>I dag</span></td>
+                      <td>{`${Number(d.open.slice(0, 2))}–${Number(d.close.slice(0, 2))}`}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+            <p class="week__note">{site.hours.note} <span class="bk">bekreftes</span></p>
+          </div>
+
+          <ul class="contact">
+            <li>
+              <a href={c.phoneHref}>
+                <span class="pict"><Icon name="ring" /></span>
+                <span><span class="contact__k">Telefon</span><span class="contact__v num">{c.phone}</span></span>
+                <span class="contact__go" aria-hidden="true"><Icon name="pil" /></span>
+              </a>
+            </li>
+            <li>
+              <a href={c.emailHref}>
+                <span class="pict"><Icon name="epost" /></span>
+                <span><span class="contact__k">E-post</span><span class="contact__v">{c.email}</span></span>
+                <span class="contact__go" aria-hidden="true"><Icon name="pil" /></span>
+              </a>
+            </li>
+            <li>
+              <a href={c.facebook} rel="noopener">
+                <span class="pict"><Icon name="ut" /></span>
+                <span><span class="contact__k">Facebook</span><span class="contact__v">Husetcafe</span></span>
+                <span class="contact__go" aria-hidden="true"><Icon name="pil" /></span>
+              </a>
+            </li>
+            <li>
+              <a href={site.links.directions} rel="noopener">
+                <span class="pict"><Icon name="sving" /></span>
+                <span><span class="contact__k">Veibeskrivelse</span><span class="contact__v">Åpne i Google Maps</span></span>
+                <span class="contact__go" aria-hidden="true"><Icon name="pil" /></span>
+              </a>
+            </li>
+            <li>
+              <a href={site.links.map} rel="noopener">
+                <span class="pict"><Icon name="pin" /></span>
+                <span><span class="contact__k">Koordinater</span><span class="contact__v num">66,0808° N 13,8257° Ø</span></span>
+                <span class="contact__go" aria-hidden="true"><Icon name="pil" /></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <Photo
+          id="huset-facade-white"
+          class="finn__photo"
+          sizes="(max-width: 63.99rem) 100vw, 62vw"
+          ratio="21 / 9"
+          position="50% 60%"
+          caption="Se etter det hvite bygget"
+        />
+      </div>
+    </div>
+  </section>
+</Layout>

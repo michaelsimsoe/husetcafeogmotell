@@ -1,0 +1,114 @@
+---
+import { withBase } from '@lib/base';
+import Layout from '../../../concepts/c/Layout.astro';
+import Ridge from '../../../concepts/c/Ridge.astro';
+import Pic from '../../../concepts/c/Pic.astro';
+import { sectionById, allergens, kr, krText, type Dish } from '@data/menu';
+import { site } from '@data/site';
+import { photo, creditLine, statusLabel } from '@data/credits';
+
+const foodIds = ['board-pizza', 'board-wine-beer'];
+
+const pizza = sectionById('pizza');
+const drikke = sectionById('drikke');
+const half = Math.ceil(pizza.dishes.length / 2);
+const cols = [pizza.dishes.slice(0, half), pizza.dishes.slice(half)];
+const all = (d: Dish) => (d.allergens.length ? `(${d.allergens.join(', ')})` : '');
+---
+<Layout
+  title="Menyskjerm 16:9 – Huset Café & Motell (konsept C)"
+  description="Menyskjerm for restauranten, 1920 × 1080. Designprototype, konsept C."
+  current="skjerm"
+  bare
+  bodyClass="page-skjerm"
+>
+  <main class="stage" aria-label="Menyskjerm, pizza og drikke">
+    <div class="sk" id="sk">
+      <h1 class="sr-only">Menyskjerm: pizza og drikke</h1>
+
+      <h2 class="sk__head sk__head--pizza">{pizza.title}</h2>
+
+      {cols.map((list, i) => (
+        <ul class:list={['sk__list', `sk__list--p${i + 1}`]}>
+          {list.map((d) => (
+            <li class="sk-dish">
+              <span class="sk-dish__name">{d.name}</span>
+              <span class="sk-dish__price"><span aria-hidden="true">{kr(d.price)}</span><span class="sr-only">{krText(d.price)}</span></span>
+              <span class="sk-dish__desc">{d.desc} <span class="sk-dish__all"><span class="sr-only">Allergener: </span>{all(d)}</span></span>
+            </li>
+          ))}
+        </ul>
+      ))}
+
+      <span class="sk__rule sk__rule--a" aria-hidden="true"></span>
+      <span class="sk__rule sk__rule--b" aria-hidden="true"></span>
+
+      <h2 class="sk__head sk__head--drikke">{drikke.title}</h2>
+      <ul class="sk__list sk__list--drikke">
+        {drikke.dishes.map((d) => (
+          <li class="sk-dish sk-dish--drink">
+            <span class="sk-dish__name">
+              {d.name}
+              {d.allergens.length > 0 && <span class="sk-dish__all"><span class="sr-only">Allergener: </span>{all(d)}</span>}
+            </span>
+            {!d.variants && (
+              <span class="sk-dish__price"><span aria-hidden="true">{kr(d.price)}</span><span class="sr-only">{krText(d.price)}</span></span>
+            )}
+            {d.variants && (
+              <ul class="sk-dish__variants">
+                {d.variants.map((v) => (
+                  <li>
+                    <span>{v.label}</span>
+                    <span class="sk-dish__price"><span aria-hidden="true">{kr(v.price)}</span><span class="sr-only">{krText(v.price)}</span></span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <figure class="sk__food">
+        {foodIds.map((id) => (
+          <div class={`sk__shot sk__shot--${id}`}>
+            <Pic id={id} sizes="518px" />
+          </div>
+        ))}
+        <figcaption class="sk__foodcap">
+          <span class="sk__foodtag">Plassholder – nye matbilder trengs · {statusLabel.avklares}</span>
+          <span>{creditLine('board-pizza')}. {photo('board-pizza').warning}.</span>
+        </figcaption>
+      </figure>
+
+      <footer class="sk__foot">
+        <Ridge class="sk__ridge" />
+        <div class="sk__footrow">
+          <div class="sk__brand">
+            <span class="logo sk__logo" role="img" aria-label={site.name}></span>
+            <span class="sk__place">Korgen · ved E6</span>
+          </div>
+          <p class="sk__legend">
+            <span class="sk__legend-h">Allergener</span>
+            {Object.entries(allergens).map(([n, name]) => (
+              <span><b>{n}</b> {name}</span>
+            ))}
+          </p>
+          <p class="sk__proto">Prototype · priser bekreftes</p>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <p class="sk-back"><a href={withBase('/concepts/c/om')}>Designvalg, konsept C</a> · <a href={withBase('/')}>Alle konsepter</a></p>
+
+  <script>
+    const root = document.documentElement;
+    const fit = () => {
+      const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      root.style.setProperty('--s', String(s));
+      root.classList.add('sk-fit');
+    };
+    fit();
+    window.addEventListener('resize', fit);
+  </script>
+</Layout>

@@ -1,0 +1,351 @@
+---
+import { withBase } from '@lib/base';
+import Layout from '../../../concepts/b/Layout.astro';
+import Icon from '../../../concepts/b/Icon.astro';
+import { usedPhotos, photoUse, conceptAssets } from '../../../concepts/b/used';
+import { photo, src, creditLine, statusLabel, routeCredit } from '@data/credits';
+import { missingAssets } from '@data/site';
+
+const base = withBase('/concepts/b');
+
+const conceptMissing = [
+  'Et skarpt bilde av avkjøringen og skiltet fra E6, til kartet ved km 47,7 (dagens bilde er 736 px bredt).',
+  'Pris og leieperiode for møterommene (400 og 200 kr står uten enhet).',
+  'Avklaring av om retter uten allergenmerking faktisk er fri for de fem allergenene, eller bare umerket.',
+  'Menyskjermen bruker dagens pizzabilde fra menyskjermene (518 px) som merket plassholder. Det trengs et eget bilde fra Huset på minst 1200 px.',
+];
+
+const data = [
+  {
+    what: 'Veigeometri, E6 Mosjøen–Mo i Rana',
+    credit: '© OpenStreetMap-bidragsytere, rute beregnet med OSRM',
+    license: 'ODbL 1.0',
+    licenseUrl: 'https://opendatacommons.org/licenses/odbl/1-0/',
+    source: 'https://www.openstreetmap.org/copyright',
+    status: 'Lisensiert',
+  },
+  {
+    what: 'Høyde for vei og terreng',
+    credit: '© Kartverket',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/deed.no',
+    source: 'https://www.kartverket.no/',
+    status: 'Lisensiert',
+  },
+  {
+    what: 'Tunnelstrekninger i profilen',
+    credit: 'Interpolert mellom tunnelåpningene i OSM-dataene',
+    license: 'Avledet av dataene over',
+    licenseUrl: '',
+    source: '',
+    status: 'Omtrentlig',
+  },
+  {
+    what: 'Kjøretider (ca. 44 og ca. 42 min)',
+    credit: 'OSRM-estimat uten trafikk og føre',
+    license: 'Avledet av OSM (ODbL)',
+    licenseUrl: 'https://opendatacommons.org/licenses/odbl/1-0/',
+    source: 'https://project-osrm.org/',
+    status: 'Omtrentlig',
+  },
+  {
+    what: 'Skrift: Schibsted Grotesk',
+    credit: 'Bakken & Bæck for Schibsted, via Fontsource',
+    license: 'SIL Open Font License 1.1',
+    licenseUrl: 'https://openfontlicense.org/',
+    source: 'https://fontsource.org/fonts/schibsted-grotesk',
+    status: 'Fri bruk',
+  },
+  {
+    what: 'Skrift: Sofia Sans Condensed',
+    credit: 'Lettersoup, via Fontsource',
+    license: 'SIL Open Font License 1.1',
+    licenseUrl: 'https://openfontlicense.org/',
+    source: 'https://fontsource.org/fonts/sofia-sans-condensed',
+    status: 'Fri bruk',
+  },
+];
+---
+
+<Layout title="Designvalg – konsept B: Neste stopp: Huset" description="Hvorfor konsept B ser ut som det gjør, med styrker, svakheter og full kreditering." page="om" bodyClass="b-om">
+  <section class="hero" aria-labelledby="om-h">
+    <div class="wrap">
+      <div class="om-head__sign sign on-dark">
+        <h1 id="om-h">Designvalg</h1>
+        <p><b>Konsept B – Neste stopp: Huset.</b> Hva vi valgte, hvorfor, og hva som fortsatt mangler.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="ide-h">
+    <div class="wrap sec__grid">
+      <div class="sec__head">
+        <h2 id="ide-h">Idéen</h2>
+      </div>
+      <div class="sec__body prose prose--big">
+        <p>
+          De fleste møter Huset fra bilen. Konsept B tar derfor språket fra veiskiltene langs E6: store, korte beskjeder
+          først – hva dette er, om det er åpent, hvordan du kommer dit – og et strekningskart på ekte høydedata som viser
+          hvor Huset ligger mellom Mosjøen og Mo i Rana.
+        </p>
+        <p>Under skiltene er det et vanlig sted å spise og sove, fortalt med fakta i stedet for store ord.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="valg-h">
+    <div class="wrap sec__grid">
+      <div class="sec__head">
+        <h2 id="valg-h">Valgene</h2>
+      </div>
+      <div class="sec__body">
+        <dl class="choices">
+          <div>
+            <dt>Typografi</dt>
+            <dd>
+              <p>
+                <b>Schibsted Grotesk</b> i tung vekt for titler og i normal vekt for tekst. Den har tydelige, åpne former som
+                tåler både 6 rem og vanlig brødtekst, og den leses godt på avstand.
+              </p>
+              <p>
+                <b>Sofia Sans Condensed</b> med tabellsiffer for alt som er tall: kilometer, klokkeslett, priser. Smale tall
+                tar lite plass, og kolonnene står rett under hverandre, slik de gjør på skilt og avgangstavler.
+              </p>
+            </dd>
+          </div>
+          <div>
+            <dt>Farge</dt>
+            <dd>
+              <p>
+                E-veigrønn brukes bare på det som faktisk er skilt: hovedskiltet øverst, Huset-skiltet på kartet,
+                Okstindan-skiltet, sidetitlene, menyfanene og topplinjen på menyskjermen. Hvit kant trukket inn fra kanten
+                gjør dem til skilt, ikke bokser. Fakta som rom, priser og avstander står i linjerte tabeller på den lyse grunnen.
+              </p>
+              <p>
+                Signaloransje er reservert for to ting: åpent-statusen og hovedknappen «Veibeskrivelse». Da betyr fargen
+                alltid noe. Grunnen er lys salviegrønn, teksten mørk skifer, og strekningskartet ligger på asfalt.
+              </p>
+              <p>Kontrast: hvit på grønn ca. 6,6:1, mørk tekst på oransje ca. 5,2:1, brødtekst over 7:1.</p>
+            </dd>
+          </div>
+          <div>
+            <dt>Komposisjon</dt>
+            <dd>
+              <p>
+                Første skjermbilde er ett stort skilt, ikke et stort foto. Der står tilbudet, åpningstiden i dag med levende
+                status, avstander langs E6, og knappene for veibeskrivelse og telefon. Rett under ligger strekningskartet, med
+                høydeprofilen, Huset-skiltet og retningsvalget innenfor samme skjermbilde.
+              </p>
+              <p>
+                Seksjonene heter det du skal gjøre – Spis, Sov, Samles – og fakta står i linjerte tabeller med en kraftig
+                topplinje, så pris, innsjekk og kapasitet kan leses på sekunder.
+              </p>
+            </dd>
+          </div>
+          <div>
+            <dt>Bevegelse</dt>
+            <dd>
+              <p>
+                Det finnes én bevegelse. Velger du «Kommer fra: Sør» eller «Nord», kjører en markør langs veien til Huset på
+                knapt fire sekunder med myk utbremsing, mens avstand og tid telles ned ved siden av valget: hele kilometer så
+                lenge det er 10 km eller mer igjen, deretter med én desimal. Alt annet står stille, bortsett fra små hover- og
+                fokusoverganger.
+              </p>
+              <p>Med redusert bevegelse slått på hopper markøren rett til målet. Uten JavaScript står markøren ved Huset, og begge avstandene vises.</p>
+            </dd>
+          </div>
+          <div>
+            <dt>Foto</dt>
+            <dd>
+              <p>
+                Ekte bilder fra strekningen og fra huset. På kartet er bildene festet der de er tatt: Korgfjellet og Korgen. På
+                mobil står de to og to rett under kartet. I seksjonene dokumenterer bildene rom, selskap og omgivelser.
+                Kreditering står synlig under hvert bilde.
+              </p>
+            </dd>
+          </div>
+          <div>
+            <dt>Piktogrammer</dt>
+            <dd>
+              <p>
+                Egne SVG-piktogrammer på ett 24-rutenett med 2 px strek og runde ender: spisested, overnatting, møterom,
+                telefon, piler, tunnel og nål. I serviceraden og kontaktlisten står de i hvite felt, slik symbolene gjør på
+                serviceskilt. Også pilene i lenkene er tegnet, ikke skrifttegn.
+              </p>
+            </dd>
+          </div>
+          <div>
+            <dt>Menyskjerm</dt>
+            <dd>
+              <p>
+                Bygget som en avgangstavle: navn, klokke og åpent-status øverst, deretter pizza og drikke uten kolonneetiketter.
+                Navn og priser er 40 px eller mer ved 1080p, beskrivelser og allergenruter minst 30 px, så alt kan leses på
+                3–5 meter. Ett matbilde, dagens pizzabilde i lav oppløsning, står i en skilteramme og er tydelig merket som
+                plassholder.
+              </p>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="styrker-h">
+    <div class="wrap sec__grid">
+      <div class="sec__head">
+        <h2 id="styrker-h">Styrker</h2>
+      </div>
+      <div class="sec__body">
+        <ul class="plain-list">
+          <li><Icon name="hake" /><span>Det viktigste er synlig først, både på mobil og stor skjerm: åpent nå, veibeskrivelse, telefon, meny og rom.</span></li>
+          <li><Icon name="hake" /><span>Strekningskartet er nyttig – avstand, kjøretid og tunnelen – og samtidig et særpreg som ingen mal har.</span></li>
+          <li><Icon name="hake" /><span>Skiltspråket er kjent for alle som kjører E6, og det samme systemet fungerer på nettsiden, på mobil og på menyskjermen.</span></li>
+          <li><Icon name="hake" /><span>Menyen er rask å skanne, har faste priskolonner og et allergenfilter som skjuler retter og tomme avsnitt.</span></li>
+          <li><Icon name="hake" /><span>Lite JavaScript, ingen rammeverk. Siden virker uten skript, med faste tider i stedet for levende status.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="svak-h">
+    <div class="wrap sec__grid">
+      <div class="sec__head">
+        <h2 id="svak-h">Svakheter og risiko</h2>
+      </div>
+      <div class="sec__body">
+        <ul class="plain-list plain-list--risk">
+          <li><Icon name="pil" /><span>Skiltgrammatikken kan bli streng og kjølig. Varmen må komme fra bilder og tekst, og gode matbilder mangler fortsatt.</span></li>
+          <li><Icon name="pil" /><span>Grønne skilt og oransje signalfarge ligger nær offentlig skilting og bensinstasjoner. Doseres det feil, kan Huset se ut som en etat eller en kjede.</span></li>
+          <li><Icon name="pil" /><span>Høydeprofilen er overdrevet og tunnelene er interpolert. Kartet er en illustrasjon, ikke et navigasjonsverktøy, og dataene må vedlikeholdes.</span></li>
+          <li><Icon name="pil" /><span>Kjøretidene er beregnet uten trafikk, vinterføre og veiarbeid, og må alltid stå med «ca.».</span></li>
+          <li><Icon name="pil" /><span>Det vertikale kartet på mobil tar fortsatt en skjermhøyde før menyen. Det er kortet ned, bildene står under kartet, og en «Til menyen»-lenke følger rett etter, men snarveiene øverst må alltid være med.</span></li>
+          <li><Icon name="pil" /><span>Korte, skiltaktige tekster gir lite rom for lengre fortellinger om stedet og menneskene. Trengs det, må konseptet få en roligere teksttype.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="mangler-h">
+    <div class="wrap sec__grid">
+      <div class="sec__head">
+        <h2 id="mangler-h">Plassholdere og det som mangler</h2>
+        <p class="sec__note">Alt som er merket «bekreftes» i prototypen er hentet fra dagens nettside eller menyskjermene og må sjekkes med Huset.</p>
+      </div>
+      <div class="sec__body">
+        <ul class="plain-list">
+          {missingAssets.map((m) => <li><Icon name="pil" /><span>{m}</span></li>)}
+          {conceptMissing.map((m) => <li><Icon name="pil" /><span>{m}</span></li>)}
+        </ul>
+        <div class="ph-hold" style="margin-top:2rem;min-height:0">
+          <span class="pict"><Icon name="spis" /></span>
+          <p>Plassholder på forsiden: egne bilder av rettene, fotografert på Huset</p>
+          <small>Slik ser plassholderne ut i konsept B: stiplet ramme og teksten «Plassholder».</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="kreditering" aria-labelledby="kred-h">
+    <div class="wrap">
+      <h2 id="kred-h">Kreditering og lisenser</h2>
+      <p class="sec__note" style="max-width:75ch">
+        Bilder med status «Rettigheter avklares» er lokale bilder med ukjent eller uavklart opphav. De kan ikke publiseres før
+        rettighetene er på plass.
+      </p>
+
+      <div class="credits-wrap" role="region" aria-labelledby="cap-foto" tabindex="0">
+        <table class="credits">
+          <caption id="cap-foto">Bilder i konsept B</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="thumb"><span class="vh">Miniatyr</span></th>
+              <th scope="col">Id</th>
+              <th scope="col">Bilde</th>
+              <th scope="col">Kreditering</th>
+              <th scope="col">Lisens</th>
+              <th scope="col">Kilde</th>
+              <th scope="col">Status</th>
+              <th scope="col">Brukt</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              usedPhotos.map((id) => {
+                const p = photo(id);
+                return (
+                  <tr>
+                    <td class="thumb">
+                      <img src={src(id, 800)} width={p.w} height={p.h} alt="" loading="lazy" decoding="async" />
+                    </td>
+                    <th scope="row">{id}</th>
+                    <td>{p.caption}</td>
+                    <td>{creditLine(id)}</td>
+                    <td>{p.license ? (p.licenseUrl ? <a href={p.licenseUrl} rel="noopener">{p.license}</a> : p.license) : 'Ukjent'}</td>
+                    <td>{p.sourceUrl ? <a href={p.sourceUrl} rel="noopener">Wikimedia Commons</a> : 'Lokal fil'}</td>
+                    <td>
+                      {p.status === 'avklares' ? <span class="flag">{statusLabel[p.status]}</span> : statusLabel[p.status]}
+                      {p.warning && <span style="display:block;margin-top:.3rem">{p.warning}</span>}
+                    </td>
+                    <td>{photoUse[id]}</td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="credits-wrap" role="region" aria-labelledby="cap-data" tabindex="0" style="margin-top:2.5rem">
+        <table class="credits">
+          <caption id="cap-data">Data og skrift</caption>
+          <thead>
+            <tr>
+              <th scope="col">Hva</th>
+              <th scope="col">Kreditering</th>
+              <th scope="col">Lisens</th>
+              <th scope="col">Kilde</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              data.map((d) => (
+                <tr>
+                  <th scope="row">{d.what}</th>
+                  <td>{d.credit}</td>
+                  <td>{d.licenseUrl ? <a href={d.licenseUrl} rel="noopener">{d.license}</a> : d.license}</td>
+                  <td>{d.source ? <a href={d.source} rel="noopener">{d.source.replace(/^https:\/\//, '').replace(/\/$/, '')}</a> : '–'}</td>
+                  <td>{d.status}</td>
+                </tr>
+              ))
+            }
+            {
+              conceptAssets.map((a) => (
+                <tr>
+                  <th scope="row">{a.name}</th>
+                  <td>{a.provenance}</td>
+                  <td>–</td>
+                  <td><code>{a.path}</code></td>
+                  <td>{a.status}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="sec__note" style="max-width:75ch">Kreditering slik den står under strekningskartet: {routeCredit} Konsept B har ingen egne bildefiler; alt raster er felles.</p>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="videre-h">
+    <div class="wrap">
+      <h2 id="videre-h" style="font-size:clamp(2rem,1.4rem + 1.8vw,3rem)">Se konseptet</h2>
+      <div class="om-links" style="margin-top:1.5rem">
+        <a class="btn btn--ink" href={base}>Forsiden <Icon name="pil" class="arr" /></a>
+        <a class="btn btn--line" href={`${base}/meny`}>Menyen <Icon name="pil" class="arr" /></a>
+        <a class="btn btn--line" href={`${base}/skjerm`}>Menyskjerm 16:9 <Icon name="pil" class="arr" /></a>
+        <a class="btn btn--line" href={withBase('/')}>Alle konsepter <Icon name="pil" class="arr" /></a>
+      </div>
+    </div>
+  </section>
+</Layout>

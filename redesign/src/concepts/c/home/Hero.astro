@@ -1,0 +1,65 @@
+---
+import { withBase } from '@lib/base';
+import { site } from '@data/site';
+import { photo, creditLine } from '@data/credits';
+import Pic from '../Pic.astro';
+import Icon from '../Icon.astro';
+import Status from '../Status.astro';
+
+const hero = photo('okstinden-peaks');
+const c = site.contact;
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__frame">
+    <div class="hero__band grade-cold">
+      <Pic id="okstinden-peaks" sizes="100vw" priority />
+    </div>
+    <p class="hero__credit">
+      <span>{hero.caption}</span>
+      <span>{creditLine('okstinden-peaks')}</span>
+      <a href={hero.licenseUrl}>lisens</a>
+      <span class="hero__graded">fargejustert</span>
+    </p>
+  </div>
+
+  <div class="wrap hero__foot">
+    <div class="hero__words">
+      <h1 id="hero-title" class="hero__title">Kom inn fra veien.</h1>
+      <p class="hero__sub">Restaurant og motell ved E6 i Korgen, med Okstindan i øst.</p>
+    </div>
+
+    <div class="hero__act">
+      <Status class="hero__status" />
+      <ul class="acts" aria-label="Snarveier">
+        <li>
+          <a class="act act--lit" href={withBase('/concepts/c/meny')}>
+            <Icon name="cutlery" />
+            <span class="act__label">Meny</span>
+            <span class="act__detail">Pizza, grill og fisk</span>
+          </a>
+        </li>
+        <li>
+          <a class="act" href={c.phoneHref}>
+            <Icon name="phone" />
+            <span class="act__label">Ring</span>
+            <span class="act__detail num">{c.phone}</span>
+          </a>
+        </li>
+        <li>
+          <a class="act" href={site.links.booking}>
+            <Icon name="bed" />
+            <span class="act__label">Book rom</span>
+            <span class="act__detail">Booking.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="act" href={site.links.directions}>
+            <Icon name="route" />
+            <span class="act__label">Veibeskrivelse</span>
+            <span class="act__detail">Google Maps</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

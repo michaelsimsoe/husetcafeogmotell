@@ -1,0 +1,9 @@
+---
+/** Visible «bekreftes» stamp for facts the owners have not confirmed yet. */
+interface Props {
+  text?: string;
+  class?: string;
+}
+const { text = 'bekreftes', class: cls } = Astro.props;
+---
+<span class:list={['bek', cls]}>{text}</span>

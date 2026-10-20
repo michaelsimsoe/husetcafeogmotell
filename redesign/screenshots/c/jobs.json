@@ -1,0 +1,10 @@
+[
+  { "url": "/concepts/c", "out": "screenshots/c/home-desktop.png", "w": 1440, "h": 900, "full": true },
+  { "url": "/concepts/c", "out": "screenshots/c/home-mobile.png", "w": 390, "h": 844, "full": true },
+  { "url": "/concepts/c", "out": "screenshots/c/home-fold-desktop.png", "w": 1440, "h": 900, "full": false },
+  { "url": "/concepts/c", "out": "screenshots/c/home-fold-mobile.png", "w": 390, "h": 844, "full": false },
+  { "url": "/concepts/c/meny", "out": "screenshots/c/meny-desktop.png", "w": 1440, "h": 900, "full": true },
+  { "url": "/concepts/c/meny", "out": "screenshots/c/meny-mobile.png", "w": 390, "h": 844, "full": true },
+  { "url": "/concepts/c/skjerm", "out": "screenshots/c/skjerm.png", "w": 1920, "h": 1080, "full": false },
+  { "url": "/concepts/c/om", "out": "screenshots/c/om-desktop.png", "w": 1440, "h": 900, "full": true }
+]

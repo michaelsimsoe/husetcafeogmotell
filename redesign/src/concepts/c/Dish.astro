@@ -1,0 +1,34 @@
+---
+import { kr, krText, type Dish } from '@data/menu';
+
+interface Props {
+  dish: Dish;
+  class?: string;
+}
+const { dish, class: cls } = Astro.props;
+const hasVariants = !!dish.variants?.length;
+---
+<li class:list={['dish', cls]}>
+  <div class="dish__line">
+    <span class="dish__name">
+      {dish.name}
+      {dish.allergens.length > 0 && (
+        <span class="dish__all"><span class="sr-only">Allergener: </span>({dish.allergens.join(', ')})</span>
+      )}
+    </span>
+    {!hasVariants && (
+      <span class="dish__price"><span aria-hidden="true">{kr(dish.price)}</span><span class="sr-only">{krText(dish.price)}</span></span>
+    )}
+  </div>
+  {dish.desc && <p class="dish__desc">{dish.desc}</p>}
+  {hasVariants && (
+    <ul class="dish__variants">
+      {dish.variants!.map((v) => (
+        <li>
+          <span>{v.label}</span>
+          <span class="dish__price"><span aria-hidden="true">{kr(v.price)}</span><span class="sr-only">{krText(v.price)}</span></span>
+        </li>
+      ))}
+    </ul>
+  )}
+</li>

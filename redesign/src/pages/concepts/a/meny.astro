@@ -1,0 +1,175 @@
+---
+import Layout from '../../../concepts/a/Layout.astro';
+import Ridge from '../../../concepts/a/Ridge.astro';
+import Photo from '../../../concepts/a/Photo.astro';
+import Dish from '../../../concepts/a/Dish.astro';
+import Confirm from '../../../concepts/a/Confirm.astro';
+import Placeholder from '../../../concepts/a/Placeholder.astro';
+import { menu, menuMeta, allergens } from '@data/menu';
+import { site } from '@data/site';
+import { base, groupsLine } from '../../../concepts/a/lib';
+
+const keys = Object.entries(allergens) as [string, string][];
+const withAside = ['grill', 'pizza', 'barn', 'drikke'];
+---
+
+<Layout title="Menyen – Huset Café & Motell (konsept A)" current="meny" description="Hele menyen på Huset i Korgen, med priser og allergener.">
+  <div class="wrap g12 mn-head">
+    <h1 class="display lg:col-[1/9]">Menyen <em>på Huset</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">
+      Fra grillen, pizza, fisk, småretter og barnemeny. Tallene etter en rett viser allergener – forklaringen står i margen og
+      nederst på siden.
+    </p>
+    <p class="bk-note mt-5 lg:col-[9/13] lg:self-end lg:mt-0">
+      <Confirm />{' '}{menuMeta.note.replace(' – bekreftes før lansering.', '.')} Åpent {groupsLine.toLowerCase()}.
+    </p>
+    <Ridge from={0.13} to={1} start={0} end={0.7} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+  </div>
+
+  <div class="wrap g12 mt-2 lg:mt-6">
+    <nav class="mn-index lg:col-[1/4]" aria-label="Menyens deler">
+      <ul>
+        {
+          menu.map((s) => (
+            <li>
+              <a href={`#${s.id}`} data-index={s.id}>
+                {s.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mn-legend">
+        <p class="label">Allergener</p>
+        <dl>
+          {
+            keys.map(([n, name]) => (
+              <>
+                <dt>{n}</dt>
+                <dd>{name}</dd>
+              </>
+            ))
+          }
+        </dl>
+      </div>
+    </nav>
+
+    <div class="lg:col-[5/13]">
+      {
+        menu.map((s) => (
+          <section id={s.id} class="mn-sec" aria-labelledby={`${s.id}-h`} data-section>
+            <h2 id={`${s.id}-h`} class="mn-h">
+              {s.title}
+            </h2>
+            {s.lede && <p class="mn-lede">{s.lede}</p>}
+            <div class:list={['mn-grid', { 'mn-grid--flow': !withAside.includes(s.id) }]}>
+              <ul class="dishes">
+                {s.dishes.map((d) => (
+                  <Dish dish={d} />
+                ))}
+              </ul>
+              {s.id === 'grill' && (
+                <div class="mn-margin">
+                  <Placeholder
+                    need="burger fra kjøkkenet"
+                    detail="Eget bilde av en av burgerne slik den serveres, tatt i dagslys ved bordet."
+                    ratio="4 / 5"
+                  />
+                </div>
+              )}
+              {s.id === 'pizza' && (
+                <div class="mn-margin">
+                  <Photo id="restaurant-family-pizza" ratio="4 / 5" pos="58% 50%" caption sizes="(min-width: 64rem) 16rem, 100vw" />
+                </div>
+              )}
+              {s.id === 'barn' && s.note && (
+                <div class="mn-margin">
+                  <p class="mn-note">
+                    Barneporsjon av dagens meny: <span class="price">30&nbsp;%</span> rabatt.
+                  </p>
+                </div>
+              )}
+              {s.id === 'drikke' && (
+                <div class="mn-margin">
+                  <p class="mn-note">Fatøl i tre størrelser.</p>
+                  <p class="soft mt-2" style="font-size: 0.9375rem">Prisen står ved hver størrelse.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        ))
+      }
+
+      <footer class="notes" aria-labelledby="noter">
+        <h2 id="noter" class="sr-only">Merknader</h2>
+        <ol>
+          <li class="fn">
+            <span class="fn-m" aria-hidden="true">1–5</span>
+            <span>
+              <span class="keys">
+                {
+                  keys.map(([n, name]) => (
+                    <span>
+                      <b>{n}</b> {name}
+                    </span>
+                  ))
+                }
+              </span>
+            </span>
+          </li>
+          <li class="fn">
+            <span class="fn-m" aria-hidden="true">*</span>
+            <span><Confirm /> {menuMeta.note} {menuMeta.allergenNote}</span>
+          </li>
+          <li class="fn">
+            <span class="fn-m" aria-hidden="true">*</span>
+            <span>Barnemeny: barneporsjon av dagens meny gir 30&nbsp;% rabatt.</span>
+          </li>
+          <li class="fn">
+            <span class="fn-m" aria-hidden="true">*</span>
+            <span>
+              Spørsmål om maten eller allergener? Ring <a href={site.contact.phoneHref}>{site.contact.phone}</a>.{' '}
+              <a href={base}>Til forsiden</a>.
+            </span>
+          </li>
+        </ol>
+      </footer>
+    </div>
+  </div>
+  <div style="height: clamp(3rem, 6vw, 5rem)"></div>
+</Layout>
+
+<script>
+  const links = new Map<string, HTMLAnchorElement>();
+  document.querySelectorAll<HTMLAnchorElement>('[data-index]').forEach((a) => links.set(a.dataset.index!, a));
+  let current = '';
+  const setCurrent = (id: string) => {
+    if (id === current) return;
+    current = id;
+    links.forEach((a, key) => {
+      if (key === id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  };
+  const sections = [...document.querySelectorAll<HTMLElement>('[data-section]')];
+  const pick = () => {
+    const line = window.innerHeight * 0.3;
+    let id = sections[0]?.id ?? '';
+    for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;
+    setCurrent(id);
+  };
+  let queued = false;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        pick();
+      });
+    },
+    { passive: true },
+  );
+  pick();
+</script>
