@@ -1,5 +1,6 @@
 ---
 import { norway as m, profile as p, distances, stretchKm } from './locator';
+import { base } from './lib';
 
 const side: Record<string, 'l' | 'r' | 'b'> = { trondheim: 'b', mosjoen: 'l', korgen: 'r', moirana: 'l', bodo: 'l' };
 const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
@@ -102,8 +103,8 @@ const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
         }
       </dl>
       <p class="loc-note">
-        Avstander og kjøretider er omtrentlige. Høydene er overdrevet, og veien i tunnelene er stiplet. Kart: Natural Earth.
-        Veidata © OpenStreetMap-bidragsytere (ODbL). Høydedata © Kartverket (CC BY 4.0).
+        Avstander og kjøretider er omtrentlige. Høydene er overdrevet, og veien i tunnelene er stiplet.
+        Veidata fra <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>. <a href={`${base}/om#kilder`}>Kilder og lisenser</a>.
       </p>
     </div>
   </div>

@@ -251,7 +251,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
   - When the map is half in view, it zooms from all of Norway to the region and the road draws north from Trondheim. Each city, the E6 tag and Korgen appear as the line reaches them; Korgen gets one copper ripple.
   - When the profile is in view, the Mosjøen–Mo i Rana stretch lifts off the map, crosses the page and unrolls into the profile. The terrain then rises under it and the labels and Huset appear.
   - Only the line moves; everything else fades in. Without JavaScript, when printing or with reduced motion, the finished state is simply there.
-- **Data:** `redesign/scripts/build-map.mjs` generates `src/data/norway-map.json`. The coast and borders come from Natural Earth, the route from OpenStreetMap via OSRM (ODbL), and the heights from Kartverket (CC BY 4.0). Distances are rounded and heights exaggerated, and the note says so. The whole line is never called E6, because the last stretch to Bodø is Rv 80.
+- **Data:** `redesign/scripts/build-map.mjs` generates `src/data/norway-map.json`. The coast and borders come from Natural Earth, the route from OpenStreetMap via OSRM (ODbL), and the heights from Kartverket (CC BY 4.0). Distances are rounded and heights exaggerated, and the note says so. The note credits only OpenStreetMap, linked to its copyright page, because OSM's attribution guideline asks for the credit beside the map; it links on to the «Om» page, which credits all three sources. The whole line is never called E6, because the last stretch to Bodø is Rv 80.
 - **Rule:** the profile's fill is measured terrain, not the skyline, and it does not appear anywhere else as a decorative mountain.
 
 ### Action rows
