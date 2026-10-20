@@ -450,6 +450,141 @@
   .today-rows > li:nth-child(2) > a { padding-left: 0.9rem; border-left: 1px solid var(--color-hair); }
   .today-rows > .rows-split { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
+  /* ——— Home: «Her ligger Korgen» – Norway, the road north, and the stretch through Korgen as a height profile ——— */
+  .loc { position: relative; --land: color-mix(in srgb, var(--color-lichen) 62%, var(--color-whitewash)); }
+  .loc-grid { row-gap: clamp(2.25rem, 4vw, 3rem); }
+  .loc-map { margin: 0; width: min(100%, 26rem); }
+  .loc-map-box { position: relative; overflow: hidden; border: 1px solid var(--color-hair); }
+  .loc-map-svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+  .loc-land { fill: var(--land); }
+  .loc-nb { fill: var(--color-fog); }
+  .loc-road, .loc-stretch {
+    fill: none; stroke: var(--color-river); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke;
+  }
+  .loc-road { stroke-width: 2; }
+  .loc-stretch { stroke-width: 4.5; }
+
+  .loc-city {
+    position: absolute; display: flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+    transform: translate(-0.3125rem, -50%);
+  }
+  .loc-city--l { flex-direction: row-reverse; transform: translate(calc(-100% + 0.3125rem), -50%); }
+  .loc-city--b { flex-direction: column; gap: 0.3rem; transform: translate(-50%, -0.3125rem); }
+  .loc-dot {
+    position: relative; flex: none; width: 0.625rem; height: 0.625rem; border-radius: 50%;
+    background: var(--color-ink); outline: 2px solid var(--color-whitewash);
+  }
+  .loc-name { font-size: 0.8125rem; line-height: 1.3; font-weight: 600; letter-spacing: 0.04em; color: var(--color-ink); }
+  .loc-city--here { gap: 0.875rem; transform: translate(-0.4375rem, -50%); }
+  .loc-city--here .loc-dot { width: 0.875rem; height: 0.875rem; background: var(--color-copper); }
+  .loc-city--here .loc-dot::before,
+  .loc-city--here .loc-dot::after {
+    content: ""; position: absolute; inset: -0.4375rem; border: 1.5px solid var(--color-copper); border-radius: 50%;
+  }
+  .loc-city--here .loc-dot::after { opacity: 0; }
+  .loc-city--here .loc-name {
+    font-family: var(--font-display); font-style: italic; font-weight: 460; letter-spacing: -0.01em;
+    font-size: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem); line-height: 1.1; color: var(--color-copper);
+  }
+  .loc-tag {
+    position: absolute; transform: translate(0.55rem, -50%);
+    font-size: 0.8125rem; line-height: 1.3; font-weight: 600; letter-spacing: 0.04em; color: var(--color-river);
+  }
+  .loc-inset {
+    position: absolute; right: 0; bottom: 0; width: 27%; height: auto; aspect-ratio: 4 / 5;
+    padding: 0.375rem; background: var(--color-whitewash); border: solid var(--color-hair); border-width: 1px 0 0 1px;
+  }
+  .loc-inset path { fill: var(--land); }
+  .loc-inset rect { fill: none; stroke: var(--color-ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+  .loc-prof { margin: 0; }
+  .loc-prof-box { position: relative; height: clamp(9rem, 16vw, 15rem); margin-top: 1.5rem; }
+  .loc-prof-svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
+  .loc-terrain { fill: var(--land); transform-box: view-box; transform-origin: 50% 100%; }
+  .loc-open, .loc-tunnel {
+    fill: none; stroke: var(--color-river); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke;
+  }
+  .loc-open { stroke-linecap: round; }
+  .loc-tunnel { stroke-dasharray: 2 5; }
+  .loc-600 { stroke: var(--color-ink-soft); stroke-width: 1; stroke-dasharray: 1 4; vector-effect: non-scaling-stroke; }
+  .loc-pl {
+    position: absolute; white-space: nowrap;
+    font-size: 0.8125rem; line-height: 1.3; font-weight: 600; letter-spacing: 0.04em; color: var(--color-ink-soft);
+  }
+  .loc-pl--600 { left: 0; transform: translateY(calc(-100% - 0.15rem)); }
+  .loc-pl--peak { transform: translate(-50%, calc(-100% - 0.35rem)); color: var(--color-ink); }
+  .loc-pl--tunnel { transform: translate(calc(-100% - 0.4rem), calc(-100% - 0.25rem)); font-style: italic; }
+  .loc-huset { position: absolute; width: 0; height: 0; }
+  .loc-huset::before {
+    content: ""; position: absolute; left: -0.375rem; top: -0.375rem; width: 0.75rem; height: 0.75rem; border-radius: 50%;
+    background: var(--color-copper); outline: 2px solid var(--color-whitewash);
+  }
+  .loc-huset::after {
+    content: ""; position: absolute; left: -0.5px; bottom: 0.5rem; width: 1px; height: clamp(2.5rem, 5vw, 4rem); background: var(--color-copper);
+  }
+  .loc-huset-name {
+    position: absolute; left: 0.5rem; bottom: calc(clamp(2.5rem, 5vw, 4rem) - 0.75rem);
+    font-family: var(--font-display); font-style: italic; font-weight: 460; letter-spacing: -0.01em;
+    font-size: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem); line-height: 1.1; color: var(--color-ink);
+  }
+  .loc-axis { position: relative; height: 3.5rem; border-top: 1px solid var(--color-ink); }
+  .loc-tick {
+    position: absolute; top: 0; transform: translateX(-50%); padding-top: 0.5rem;
+    font-size: 0.8125rem; line-height: 1.3; font-weight: 600; letter-spacing: 0.04em; color: var(--color-ink-soft);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .loc-tick::before { content: ""; position: absolute; left: 50%; top: 0; width: 1px; height: 0.35rem; background: var(--color-ink); }
+  .loc-end { position: absolute; top: 1.85rem; font-weight: 640; line-height: 1.3; white-space: nowrap; }
+  .loc-end--s { left: 0; }
+  .loc-end--n { right: 0; }
+  .loc-end .soft { font-weight: 500; }
+
+  .loc-dist-h { margin: 0; }
+  .loc-dist dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap); margin: 1rem 0 0; }
+  @media (min-width: 48rem) { .loc-dist dl { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .loc-dist dl > div { padding-block: 0.6rem 1rem; border-top: 1px solid var(--color-ink); }
+  .loc-dist dt { font-size: 0.8125rem; line-height: 1.3; font-weight: 600; letter-spacing: 0.04em; color: var(--color-ink-soft); }
+  .loc-dist dd { margin: 0.35rem 0 0; }
+  .loc-km {
+    display: block; font-family: var(--font-display); font-weight: 500; letter-spacing: -0.005em; line-height: 1.05;
+    font-size: clamp(1.75rem, 1.45rem + 0.8vw, 2.25rem);
+  }
+  .loc-km small { font-family: var(--font-text); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; color: var(--color-ink-soft); }
+  .loc-min { display: block; margin-top: 0.3rem; font-size: 0.8125rem; line-height: 1.3; font-weight: 600; letter-spacing: 0.04em; color: var(--color-ink-soft); }
+  .loc-note { margin-top: 1.25rem; max-width: 46em; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-soft); }
+
+  @media (min-width: 64rem) {
+    .loc-grid { align-items: start; }
+    .loc-map { grid-column: 1 / 6; grid-row: 1 / 4; width: 100%; }
+    .loc-head { grid-column: 7 / 13; grid-row: 1; }
+    .loc-prof { grid-column: 7 / 13; grid-row: 2; }
+    .loc-dist { grid-column: 7 / 13; grid-row: 3; }
+  }
+  @media (min-width: 64rem) and (max-width: 79.99rem) {
+    .loc-dist dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 80rem) {
+    .loc-map { grid-column: 1 / 5; }
+    .loc-head, .loc-prof, .loc-dist { grid-column: 6 / 13; }
+  }
+
+  /* The one-time flight (see client.ts). Only ever armed when motion is welcome. */
+  .loc-fly { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .loc-fly path { fill: none; stroke: var(--color-river); stroke-linecap: round; stroke-linejoin: round; }
+  .loc :is(.loc-city, .loc-tag, .loc-inset, .loc-stretch, .loc-pl, .loc-huset, .loc-open, .loc-tunnel, .loc-600) {
+    transition: opacity 0.6s var(--ease-out);
+  }
+  .loc-terrain { transition: transform 0.9s var(--ease-out); }
+  .loc.is-armed :is(.loc-city, .loc-tag, .loc-inset, .loc-stretch, .loc-pl, .loc-huset, .loc-open, .loc-tunnel, .loc-600):not(.is-on) { opacity: 0; }
+  .loc.is-armed .loc-terrain:not(.is-on) { transform: scaleY(0); }
+  .loc.is-armed .loc-city .loc-dot { transform: scale(0.2); transition: transform 0.6s var(--ease-out); }
+  .loc.is-armed .loc-city.is-on .loc-dot { transform: none; }
+  .loc-city--here.is-on .loc-dot::after { animation: loc-ripple 1.6s var(--ease-out) 0.15s 1; }
+  @keyframes loc-ripple {
+    from { opacity: 0.9; transform: scale(0.6); }
+    to { opacity: 0; transform: scale(3); }
+  }
+
   /* ——— Home: restaurant ——— */
   .mat-cols { display: grid; gap: 2.5rem var(--gap); margin-top: 2.5rem; }
   .mat-cols h3 { padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-hair-dark); margin-bottom: 0.4rem; }

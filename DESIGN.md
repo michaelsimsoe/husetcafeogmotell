@@ -133,7 +133,7 @@ components:
 
 **Creative North Star: "The white house under the ridge"**
 
-Two things carry the whole system: a plain white building beside the E6 and the mountain line above Korgen. The page is the house: whitewashed, light, square-cornered, honest about what it is. The ridge is the only ornament: a single hairline traced from the real skyline above Korgen, which opens the page and returns between sections. Everything else is the language of a well-set printed page: hairline rules, dot leaders, tabular figures and a serif with a warm italic.
+Two things carry the whole system: a plain white building beside the E6 and the mountain line above Korgen. The page is the house: whitewashed, light, square-cornered, honest about what it is. The ridge is the signature: a single hairline traced from the real skyline above Korgen, which opens the page and returns between sections. Its only companion is another real line, the road: under the masthead the route north from Trondheim draws itself across a map of Norway, and the stretch through Korgen lifts off into a height profile over Korgfjellet. Ornament is only ever a real, traced line. Everything else is the language of a well-set printed page: hairline rules, dot leaders, tabular figures and a serif with a warm italic.
 
 The system is calm, not sparse. Practical answers (open now, today's hours, the phone number, the menu, a room, the way there) sit in the first view, set as editorial type rather than as app widgets. Dark spruce takes over whole regions when the page goes indoors (the menu spread, finding the way, the footer), never as a card. Photography is real and of the place, with its credit printed along the edge like a press photo.
 
@@ -141,7 +141,7 @@ Status: provisional. This file is derived from concept A («Huset i Korgen», `/
 
 **Key Characteristics:**
 - Light whitewash ground, ink type, spruce regions; no gradients, no radius, no shadows.
-- The Korgen skyline as a river-green hairline: the system's one ornament and its signature.
+- The Korgen skyline as a river-green hairline: the system's signature. The only other ornament is the road and its height profile in «Her ligger Korgen»; both are real lines.
 - Brygada 1918 for display, with italic for emphasis; Ysabeau Office for text.
 - Structure by 1px rules and proximity, never by cards.
 - Copper only where money or the current state is shown.
@@ -159,7 +159,7 @@ A cool, near-white paper with dark green-black ink, one deep forest region colou
 - **Spruce** (spruce): owns whole full-bleed regions (the menu spread, «Finn fram», the footer) and fills the primary button. Text on it is whitewash, with lichen for secondary text.
 
 ### Tertiary
-- **Price Copper** (copper): prices, the current item in navigation and the menu index (a 1px rule or short dash), and list markers. On the 16:9 menu board it also sets the section heads, in keeping with the existing screens' copper headings.
+- **Price Copper** (copper): prices, the current item in navigation and the menu index (a 1px rule or short dash), list markers, and the here-mark (Korgen on the map and Huset on the height profile). On the 16:9 menu board it also sets the section heads, in keeping with the existing screens' copper headings.
 - **Copper on Spruce** (copper-light): the same roles inside spruce regions, plus link hover and focus rings there.
 
 ### Neutral
@@ -171,9 +171,10 @@ A cool, near-white paper with dark green-black ink, one deep forest region colou
 - **Hairline on Spruce** (hair-dark): rules between rows inside spruce regions.
 - **Lichen** (lichen): secondary text on spruce (7:1).
 - **Selection** (selection): text selection on light grounds; inside spruce, selection uses copper-light with spruce text.
+- **Land** (lichen mixed 62% into whitewash, about #d0dad3): land on the locator map and the terrain under the height profile, with neighbouring countries in fog.
 
 ### Named Rules
-**The Copper Means Money Rule.** Copper marks a price or the current state, and nothing else on the web. Never a heading, a button fill or a background.
+**The Copper Means Money Rule.** Copper marks a price, the current state or where Huset is (the here-mark), and nothing else on the web. Never a heading, a button fill or a background.
 
 **The Spruce Region Rule.** Spruce changes the room: it fills a full-width region or a button, never a box floating on whitewash.
 
@@ -219,7 +220,7 @@ Flat. There are no shadows anywhere. Depth comes from tonal grounds (whitewash �
 
 ## Shapes
 
-Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px dot every 7px) run from a dish name to its price. Placeholders are fog fields with an inset hairline frame and printer's crop marks at the corners. The only curves are the ridge itself and the small open-status dot.
+Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px dot every 7px) run from a dish name to its price. Placeholders are fog fields with an inset hairline frame and printer's crop marks at the corners. The only curves are the real lines (the ridge, the road and the height profile) and small round dots: the open status and the places on the map.
 
 ## Components
 
@@ -239,6 +240,19 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 ### «I dag» column
 - An italic title (1.375rem) over an ink rule. Today's hours (figure) and the phone number (figure small, river green with a soft underline, «Ring oss» label above) share one line, hours left and phone right. The week's hours follow in soft ink with a proof mark.
 - Action rows in two columns: «Se menyen» | «Veibeskrivelse», then the «Rom fra … / Book» split row across the full width. Rows here are 3.75rem tall.
+
+### Locator («Her ligger Korgen»)
+- **What:** the section directly under the masthead. It has a headline and a lede, then three parts:
+  - **The map:** central Norway with land in the land tint and neighbouring countries in fog, inside a 1px hairline frame. An inset of all of Norway sits in the corner. The road from Trondheim to Bodø is a 2px river-green line, and the Mosjøen–Mo i Rana stretch is drawn heavier. Cities are ink dots with label type. Korgen is the copper here-mark, with its name in italic title type.
+  - **The height profile:** the Mosjøen–Mo i Rana stretch, with the terrain as a land-tint silhouette over a km axis. The road is a river-green line, Korgfjelltunnelen is dotted, and a dotted line marks 600 moh. Huset is a copper pin with its name in italic.
+  - **The distances:** «Kjøreavstand til Huset» as four figures (Trondheim, Mosjøen, Mo i Rana, Bodø), each opened by an ink rule. Each shows «ca.» km, plus minutes where the estimate is reliable. A small note follows on approximations and data credits.
+- **Layout:** from 64rem the map takes columns 1–4, and the head, profile and distances sit in columns 6–12. Below that it stacks: head, map, profile, distances.
+- **Motion:** it plays once, in two steps.
+  - When the map is half in view, it zooms from all of Norway to the region and the road draws north from Trondheim. Each city, the E6 tag and Korgen appear as the line reaches them; Korgen gets one copper ripple.
+  - When the profile is in view, the Mosjøen–Mo i Rana stretch lifts off the map, crosses the page and unrolls into the profile. The terrain then rises under it and the labels and Huset appear.
+  - Only the line moves; everything else fades in. Without JavaScript, when printing or with reduced motion, the finished state is simply there.
+- **Data:** `redesign/scripts/build-map.mjs` generates `src/data/norway-map.json`. The coast and borders come from Natural Earth, the route from OpenStreetMap via OSRM (ODbL), and the heights from Kartverket (CC BY 4.0). Distances are rounded and heights exaggerated, and the note says so. The whole line is never called E6, because the last stretch to Bodø is Rv 80.
+- **Rule:** the profile's fill is measured terrain, not the skyline, and it does not appear anywhere else as a decorative mountain.
 
 ### Action rows
 - **Style:** full-width links between hairlines, 3rem tall, ink text at 600 weight, with a river-green arrow on the right. A row can split in two with a hairline between, as with «Rom fra … / Book».
@@ -278,7 +292,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 
 ### Do:
 - **Do** build structure from 1px rules and proximity: an ink rule to open a group, hairlines between rows.
-- **Do** keep the skyline as the only ornament, drawn from the real traced line.
+- **Do** keep ornament to real, traced lines: the skyline, and the road and its height profile in the locator.
 - **Do** set times, prices and phone numbers in tabular lining figures, and big when they answer the visitor's question.
 - **Do** give spruce whole regions and set whitewash, lichen and copper-light on it.
 - **Do** print every photo credit on the image edge or directly under it.
@@ -288,7 +302,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 ### Don't:
 - **Don't** use rounded corners, shadows, gradients or glass.
 - **Don't** use cards or card grids, on any surface.
-- **Don't** use copper for anything but prices and the current state (headings on the menu board excepted).
+- **Don't** use copper for anything but prices, the current state and the here-mark (headings on the menu board excepted).
 - **Don't** set labels in uppercase or put an eyebrow above a heading.
 - **Don't** use stock or AI-generated or retouched imagery of the house or the landscape; use a placeholder instead.
 - **Don't** turn the skyline into a pattern, a wave, a filled mountain or a logo.

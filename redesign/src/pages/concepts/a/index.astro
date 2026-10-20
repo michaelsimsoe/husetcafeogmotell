@@ -5,6 +5,7 @@ import Photo from '../../../concepts/a/Photo.astro';
 import Dish from '../../../concepts/a/Dish.astro';
 import Confirm from '../../../concepts/a/Confirm.astro';
 import Arrow from '../../../concepts/a/Arrow.astro';
+import Locator from '../../../concepts/a/Locator.astro';
 import { site } from '@data/site';
 import { sectionById, allergens, krText } from '@data/menu';
 import { base, coords, groupsLine, kl, hr, ridgeOnPhoto } from '../../../concepts/a/lib';
@@ -83,8 +84,11 @@ const ox = site.landscape.oksskolten;
     </div>
   </section>
 
+  <!-- Where: Norway, the road north, the stretch through Korgen -->
+  <Locator />
+
   <!-- Restaurant -->
-  <section id="mat" class="on-spruce sec" aria-labelledby="mat-h" style="margin-top: clamp(4rem, 8vw, 7rem)">
+  <section id="mat" class="on-spruce sec" aria-labelledby="mat-h">
     <div class="wrap g12">
       <div class="mat-ph lg:col-[1/5]">
         <Photo id="restaurant-family-pizza" ratio="4 / 5" pos="58% 50%" caption sizes="(min-width: 64rem) 30vw, 100vw" />

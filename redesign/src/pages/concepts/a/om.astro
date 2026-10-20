@@ -37,7 +37,7 @@ const decisions = [
   },
   {
     t: 'Bevegelse',
-    p: 'Bare én ting beveger seg: fjellinja tegner seg selv én gang når den kommer til syne, på 1,6 sekunder med myk utfasing. Innholdet venter aldri på den. Uten JavaScript, eller når nettleseren ber om redusert bevegelse, står linja ferdig tegnet fra start. Ellers er det bare små overganger på lenker og fokus.',
+    p: 'Bare linjene beveger seg. Fjellinja tegner seg selv én gang når den kommer til syne, på 1,6 sekunder med myk utfasing. I «Her ligger Korgen» zoomer Norgeskartet inn og veien tegner seg nordover fra Trondheim; byene dukker opp når streken når dem. Så løfter strekningen mellom Mosjøen og Mo i Rana seg av kartet og rulles ut til en høydeprofil over Korgfjellet. Alt annet toner bare inn, og innholdet venter aldri på linjene. Uten JavaScript, eller når nettleseren ber om redusert bevegelse, står alt ferdig tegnet fra start. Ellers er det bare små overganger på lenker og fokus.',
   },
   {
     t: 'Fotografi',
@@ -56,6 +56,7 @@ const decisions = [
 const strengths = [
   'Det praktiske kommer først: åpningstid i dag og telefon står i første skjermbilde, og meny, rom og veibeskrivelse ligger i toppmenyen – både på mobil og PC.',
   'Fjellinja hører bare hjemme i Korgen. Den er et enkelt kjennetegn som kan brukes på nett, på skjermen og på trykk.',
+  'Kartet rett under toppen viser hvor Korgen ligger og hvor langt det er hit, før noen rekker å lure. Høydeprofilen forteller at Huset ligger like nord for Korgfjellet, med samme strek som fjellinja.',
   'Uttrykket er rolig og troverdig, som et ekte sted ved veien – ikke et hotell som later som det er noe annet.',
   'Menytypografien tåler mange retter og mye tekst, og fungerer godt på telefon.',
   'Lys grunn, store skrifter og god kontrast gir lav terskel for alle aldre.',
@@ -66,6 +67,7 @@ const risks = [
   'En lys menyskjerm kan blende i et mørkt lokale om kvelden, og den bryter med dagens mørke skjermer. Lysstyrken må prøves på stedet.',
   'Den redaksjonelle stilen kan virke litt «fin» for en veikro. Tekstene må være enkle og jordnære for at det skal kjennes riktig.',
   'Fjellinja er stille. På små skjermer blir den nesten en rett strek, og ikke alle vil kjenne igjen fjellet.',
+  'Kartet og høydeprofilen er det mest krevende på siden. Avstandene og kjøretidene er beregnet og avrundet, og må kontrolleres før lansering. Kartdataene må lages på nytt hvis veien endres.',
   'Forsiden er lang på mobil. Det viktigste står øverst, men resten krever at man vil lese.',
   'Det store fasadebildet øverst gjør at lenkene i «I dag» havner rett under første skjermbilde. Toppmenyen dekker dem, men de krever et lite rull.',
   'Kobber og grønt må brukes med disiplin. Brukes kobber til mer enn priser og markeringer, mister prisene tydeligheten.',
@@ -199,6 +201,11 @@ const conceptNeeds = [
             Røssåga, Korgfjellet, Korgfjelltunnelen og Oksskolten: kontrollert mot offentlige kilder under arbeidet med prototypene.
           </li>
           <li>Koordinater og veibeskrivelse: lenker til Google Maps.</li>
+          <li>
+            Kartet i «Her ligger Korgen»: kystlinje og grenser fra Natural Earth (fri bruk). Veien, avstander og kjøretider fra
+            OpenStreetMap-data via OSRM (© OpenStreetMap-bidragsytere, ODbL). Høydeprofilen bygger på høydedata fra Kartverket
+            (CC BY 4.0); tunnelene er stiplet mellom tunnelåpningene.
+          </li>
           <li>
             Skrifter: <a href="https://fontsource.org/fonts/brygada-1918">Brygada 1918</a> og{' '}
             <a href="https://fontsource.org/fonts/ysabeau-office">Ysabeau Office</a>, begge under SIL Open Font License, via Fontsource.

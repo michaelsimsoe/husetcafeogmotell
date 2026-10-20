@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-20T16:22:28+00:00",
+  "generatedAt": "2026-10-20T18:15:22+00:00",
   "title": "Design System: Huset Café & Motell",
   "extensions": {
     "colorMeta": {
@@ -343,14 +343,22 @@
       "description": "Wordmark with a hairline-separated sub, four nav items; the current item underlined in copper.",
       "html": "<header class=\"ds-top\"><a class=\"ds-mark\" href=\"#\">Huset<span>Café &amp; Motell</span></a><nav><a href=\"#\" aria-current=\"page\">Mat</a><a href=\"#\">Rom</a><a href=\"#\">Selskap</a><a href=\"#\">Finn fram</a></nav></header>",
       "css": ".ds-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.75rem 2rem;padding:1rem 0;color:#18201d}.ds-mark{display:inline-flex;align-items:baseline;gap:.7rem;font:560 1.875rem/1 'Brygada 1918 Variable','Brygada 1918',Georgia,serif;color:#18201d;text-decoration:none;letter-spacing:-.01em}.ds-mark span{font:500 .875rem/1 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;color:#4a5651;border-left:1px solid #c3cbc5;padding-left:.7rem;letter-spacing:.01em}.ds-top nav{display:flex;gap:1.5rem;font:600 1rem/1 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif}.ds-top nav a{color:#18201d;text-decoration:none;padding:.5rem 0;border-bottom:1px solid transparent;transition:border-color .15s}.ds-top nav a:hover{border-bottom-color:#18201d}.ds-top nav a[aria-current]{border-bottom-color:#9a4a2c}.ds-top a:focus-visible{outline:2px solid #2e6b5e;outline-offset:3px}"
+    },
+    {
+      "name": "Distance Figures",
+      "kind": "custom",
+      "refersTo": "ink",
+      "description": "«Kjøreavstand til Huset» in the «Her ligger Korgen» locator: rounded driving distances as figures under ink rules, with minutes only where the estimate is reliable.",
+      "html": "<div class=\"ds-dist\"><h3>Kjøreavstand til Huset</h3><dl><div><dt>Trondheim</dt><dd><span class=\"ds-km\"><small>ca.</small> 434 km</span></dd></div><div><dt>Mosjøen</dt><dd><span class=\"ds-km\"><small>ca.</small> 48 km</span><span class=\"ds-min\">ca. 44 min</span></dd></div><div><dt>Mo i Rana</dt><dd><span class=\"ds-km\"><small>ca.</small> 39 km</span><span class=\"ds-min\">ca. 42 min</span></dd></div><div><dt>Bodø</dt><dd><span class=\"ds-km\"><small>ca.</small> 267 km</span></dd></div></dl></div>",
+      "css": ".ds-dist{max-width:46rem;color:#18201d;font-family:'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif}.ds-dist h3{margin:0;font:italic 460 1.625rem/1.1 'Brygada 1918 Variable','Brygada 1918',Georgia,serif;letter-spacing:-.01em}.ds-dist dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 1.25rem;margin:1rem 0 0}.ds-dist dl>div{padding:.6rem 0 1rem;border-top:1px solid #18201d}.ds-dist dt{font:600 .8125rem/1.3 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;letter-spacing:.04em;color:#4a5651}.ds-dist dd{margin:.35rem 0 0;font-variant-numeric:tabular-nums lining-nums}.ds-km{display:block;font:500 2rem/1.05 'Brygada 1918 Variable','Brygada 1918',Georgia,serif;letter-spacing:-.005em}.ds-km small{font:600 .8125rem 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;letter-spacing:.04em;color:#4a5651}.ds-min{display:block;margin-top:.3rem;font:600 .8125rem/1.3 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;letter-spacing:.04em;color:#4a5651}"
     }
   ],
   "narrative": {
     "northStar": "The white house under the ridge",
-    "overview": "Two things carry the whole system: a plain white building beside the E6 and the mountain line above Korgen. The page is the house: whitewashed, light, square-cornered, honest about what it is. The ridge is the only ornament: a single hairline traced from the real skyline above Korgen, which opens the page and returns between sections. Everything else is the language of a well-set printed page: hairline rules, dot leaders, tabular figures and a serif with a warm italic.\n\nThe system is calm, not sparse. Practical answers (open now, today's hours, the phone number, the menu, a room, the way there) sit in the first view, set as editorial type rather than as app widgets. Dark spruce takes over whole regions when the page goes indoors (the menu spread, finding the way, the footer), never as a card. Photography is real and of the place, with its credit printed along the edge like a press photo.\n\nStatus: provisional. This file is derived from concept A («Huset i Korgen», `/concepts/a`), which the team has chosen to develop. Concepts B («Neste stopp: Huset») and C («Ly mot fjellan») stay published as references, and anything adopted from them is recorded here when it lands.",
+    "overview": "Two things carry the whole system: a plain white building beside the E6 and the mountain line above Korgen. The page is the house: whitewashed, light, square-cornered, honest about what it is. The ridge is the signature: a single hairline traced from the real skyline above Korgen, which opens the page and returns between sections. Its only companion is another real line, the road: under the masthead the route north from Trondheim draws itself across a map of Norway, and the stretch through Korgen lifts off into a height profile over Korgfjellet. Ornament is only ever a real, traced line. Everything else is the language of a well-set printed page: hairline rules, dot leaders, tabular figures and a serif with a warm italic.\n\nThe system is calm, not sparse. Practical answers (open now, today's hours, the phone number, the menu, a room, the way there) sit in the first view, set as editorial type rather than as app widgets. Dark spruce takes over whole regions when the page goes indoors (the menu spread, finding the way, the footer), never as a card. Photography is real and of the place, with its credit printed along the edge like a press photo.\n\nStatus: provisional. This file is derived from concept A («Huset i Korgen», `/concepts/a`), which the team has chosen to develop. Concepts B («Neste stopp: Huset») and C («Ly mot fjellan») stay published as references, and anything adopted from them is recorded here when it lands.",
     "keyCharacteristics": [
       "Light whitewash ground, ink type, spruce regions; no gradients, no radius, no shadows.",
-      "The Korgen skyline as a river-green hairline: the system's one ornament and its signature.",
+      "The Korgen skyline as a river-green hairline: the system's signature. The only other ornament is the road and its height profile in «Her ligger Korgen»; both are real lines.",
       "Brygada 1918 for display, with italic for emphasis; Ysabeau Office for text.",
       "Structure by 1px rules and proximity, never by cards.",
       "Copper only where money or the current state is shown.",
@@ -359,7 +367,7 @@
     "rules": [
       {
         "name": "The Copper Means Money Rule",
-        "body": "Copper marks a price or the current state, and nothing else on the web. Never a heading, a button fill or a background.",
+        "body": "Copper marks a price, the current state or where Huset is (the here-mark), and nothing else on the web. Never a heading, a button fill or a background.",
         "section": "colors"
       },
       {
@@ -385,7 +393,7 @@
     ],
     "dos": [
       "**Do** build structure from 1px rules and proximity: an ink rule to open a group, hairlines between rows.",
-      "**Do** keep the skyline as the only ornament, drawn from the real traced line.",
+      "**Do** keep ornament to real, traced lines: the skyline, and the road and its height profile in the locator.",
       "**Do** set times, prices and phone numbers in tabular lining figures, and big when they answer the visitor's question.",
       "**Do** give spruce whole regions and set whitewash, lichen and copper-light on it.",
       "**Do** print every photo credit on the image edge or directly under it.",
@@ -395,7 +403,7 @@
     "donts": [
       "**Don't** use rounded corners, shadows, gradients or glass.",
       "**Don't** use cards or card grids, on any surface.",
-      "**Don't** use copper for anything but prices and the current state (headings on the menu board excepted).",
+      "**Don't** use copper for anything but prices, the current state and the here-mark (headings on the menu board excepted).",
       "**Don't** set labels in uppercase or put an eyebrow above a heading.",
       "**Don't** use stock or AI-generated or retouched imagery of the house or the landscape; use a placeholder instead.",
       "**Don't** turn the skyline into a pattern, a wave, a filled mountain or a logo."

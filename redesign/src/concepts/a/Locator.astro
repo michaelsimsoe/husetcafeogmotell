@@ -1,0 +1,114 @@
+---
+import { norway as m, profile as p, distances, stretchKm } from './locator';
+
+const side: Record<string, 'l' | 'r' | 'b'> = { trondheim: 'b', mosjoen: 'l', korgen: 'r', moirana: 'l', bodo: 'l' };
+const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
+---
+
+<section id="her" class="sec loc" aria-labelledby="her-h" data-loc>
+  <div class="wrap g12 loc-grid">
+    <div class="loc-head">
+      <h2 id="her-h" class="h2">Her ligger <em>Korgen</em></h2>
+      <p class="lede mt-5">
+        Korgen ligger i Hemnes på Helgeland, ved E6 mellom Mosjøen og Mo i Rana. Huset står ved veien, ca.&nbsp;2&nbsp;km nord
+        for Korgfjelltunnelen.
+      </p>
+    </div>
+
+    <figure
+      class="loc-map"
+      role="img"
+      aria-label="Kart over Norge. Veien går fra Trondheim nordover til Bodø, og Korgen ligger mellom Mosjøen og Mo i Rana."
+    >
+      <div class="loc-map-box" style={`aspect-ratio: ${m.aspect}`}>
+        <svg
+          class="loc-map-svg"
+          viewBox={m.viewBox}
+          data-full={m.full}
+          data-loc-map
+          preserveAspectRatio="xMidYMid meet"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path class="loc-nb" d={m.neighbours}></path>
+          <path class="loc-land" d={m.land}></path>
+          <path class="loc-road" d={m.road} data-loc-road></path>
+          <path class="loc-stretch" d={m.stretch} data-at={m.stretchAt} data-loc-stretch></path>
+        </svg>
+
+        <span class="loc-tag" style={`left:${m.e6Tag.left}%;top:${m.e6Tag.top}%`} data-at={m.e6Tag.at} aria-hidden="true">E6</span>
+        {
+          m.cities.map((c) => (
+            <span
+              class:list={['loc-city', `loc-city--${side[c.id]}`, { 'loc-city--here': c.id === 'korgen' }]}
+              style={`left:${c.left}%;top:${c.top}%`}
+              data-at={c.at}
+              aria-hidden="true"
+            >
+              <i class="loc-dot" />
+              <span class="loc-name">{c.name}</span>
+            </span>
+          ))
+        }
+
+        <svg class="loc-inset" viewBox={m.full} aria-hidden="true" focusable="false">
+          <path d={m.inset}></path>
+          <rect x={m.region.x} y={m.region.y} width={m.region.w} height={m.region.h}></rect>
+        </svg>
+      </div>
+    </figure>
+
+    <figure
+      class="loc-prof"
+      role="img"
+      aria-label={`Høydeprofil langs E6 fra Mosjøen til Mo i Rana, ${stretchKm} km. Veien går i tunnel gjennom Korgfjellet, og Huset ligger like nord for tunnelen.`}
+    >
+      <div class="loc-prof-box">
+        <svg class="loc-prof-svg" viewBox={p.viewBox} preserveAspectRatio="none" data-loc-profile aria-hidden="true" focusable="false">
+          <line class="loc-600" x1="0" x2={p.w} y1={p.y600} y2={p.y600}></line>
+          <path class="loc-terrain" d={p.terrain}></path>
+          <path class="loc-open" d={p.open}></path>
+          <path class="loc-tunnel" d={p.tunnel}></path>
+        </svg>
+        <span class="loc-pl loc-pl--600" style={`top:${((p.y600 / 660) * 100).toFixed(1)}%`} aria-hidden="true">600 moh.</span>
+        <span class="loc-pl loc-pl--peak" style={`left:${p.peak.x}%;top:${p.peak.y}%`} aria-hidden="true">Korgfjellet</span>
+        <span class="loc-pl loc-pl--tunnel" style={`left:${p.tunnelAt.x}%;top:${p.tunnelAt.y}%`} aria-hidden="true">Korgfjelltunnelen</span>
+        <span class="loc-huset" style={`left:${p.huset.x}%;top:${p.huset.y}%`} aria-hidden="true">
+          <span class="loc-huset-name">Huset</span>
+        </span>
+      </div>
+      <div class="loc-axis" aria-hidden="true">
+        {kmTicks.map((t) => <span class="loc-tick" style={`left:${p.pctX(t)}%`}>{t}</span>)}
+        <span class="loc-end loc-end--s">Mosjøen</span>
+        <span class="loc-end loc-end--n">Mo i Rana <span class="soft num">{stretchKm} km</span></span>
+      </div>
+    </figure>
+
+    <div class="loc-dist">
+      <h3 class="h3 loc-dist-h">Kjøreavstand til Huset</h3>
+      <dl class="num">
+        {
+          distances.map((d) => (
+            <div>
+              <dt>{d.from}</dt>
+              <dd>
+                <span class="loc-km">
+                  <small>ca.</small> {d.km} km
+                </span>
+                {d.min && <span class="loc-min">ca. {d.min} min</span>}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="loc-note">
+        Avstander og kjøretider er omtrentlige. Høydene er overdrevet, og veien i tunnelene er stiplet. Kart: Natural Earth.
+        Veidata © OpenStreetMap-bidragsytere (ODbL). Høydedata © Kartverket (CC BY 4.0).
+      </p>
+    </div>
+  </div>
+
+  <svg class="loc-fly" data-loc-fly aria-hidden="true" focusable="false">
+    <path data-from={m.stretchPts} data-to={p.road}></path>
+  </svg>
+</section>
