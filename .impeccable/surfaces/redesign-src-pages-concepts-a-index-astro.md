@@ -16,7 +16,7 @@ related_targets: ["redesign/src/pages/concepts/a/meny.astro","redesign/src/pages
 **Constraints:** Norwegian Bokmål; no invented facts; visible «bekreftes» markers on unconfirmed facts; credits visible on outside photos (Huset's own photos need none); placeholders labelled; WCAG 2.2 AA; restrained motion honouring reduced motion. Shared data in `src/data`, a separate visual system in `src/concepts/a`.
 **Direction:** pinned by the brief: warm Scandinavian editorial.
 **Memorable moment:** the skyline rule, a hairline traced from the real mountain above Korgen. It draws itself under the headline and returns as every section divider.
-**Unresolved:** final hours, prices and address; licence for the menu-screen food photos; production food photography; whether a light menu board suits the dining-room light.
+**Unresolved:** final hours and prices; whether directions should end on the parking between the house and E6 (taken from OpenStreetMap, to be confirmed by Huset); native map-app launching on real iPhone and Android devices; licence for the menu-screen food photos; production food photography; whether a light menu board suits the dining-room light.
 
 ## Direction contract
 

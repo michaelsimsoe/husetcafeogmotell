@@ -1,0 +1,56 @@
+---
+/**
+ * «Veibeskrivelse» with a quiet «Velg kartapp» beside it. The server renders
+ * working HTTPS links; `mountDirections` (client) swaps in the visitor's saved
+ * app or the platform default. Works without JavaScript: the chooser is a
+ * native <details> and every option is a plain link.
+ */
+import Arrow from './Arrow.astro';
+import { PROVIDER_IN_SENTENCE, PROVIDER_NAMES, PROVIDERS, type LatLon } from '@lib/directions/links';
+import { hrefFor, initialDirections } from '@lib/directions/resolve';
+
+interface Props {
+  /** Where the route ends. */
+  point: LatLon;
+  /** Pin name for Android's map handler. */
+  label: string;
+  class?: string;
+}
+
+const { point, label, class: cls } = Astro.props;
+const dest = { point, label };
+const first = initialDirections(dest);
+---
+
+<div class:list={['dir', cls]} data-directions-widget data-lat={point.lat} data-lon={point.lon} data-label={label}>
+  <a class="dir-go" href={first.href} data-dir-primary>
+    <span>
+      <span class="dir-go-title">Veibeskrivelse</span>{' '}<span class="dir-go-app">Åpnes i <span data-dir-app>{PROVIDER_IN_SENTENCE[first.provider]}</span></span>
+    </span>
+    <Arrow />
+  </a>
+  <details class="dir-pick">
+    <summary>
+      Velg kartapp
+      <svg class="dir-chev" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3.5 6 4.5 4.5L12.5 6"></path></svg>
+    </summary>
+    <div class="dir-panel">
+      <p class="dir-note" data-dir-note>Åpne veibeskrivelsen i en annen app.</p>
+      <ul class="dir-list">
+        {
+          PROVIDERS.map((p) => (
+            <li data-dir-item={p} hidden={p === 'system'}>
+              <a href={hrefFor(p, dest)} data-dir-option={p}>
+                <span>
+                  {PROVIDER_NAMES[p]}{' '}<span class="dir-mark" data-dir-mark hidden>ditt valg</span>
+                </span>
+                <Arrow />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <button type="button" class="dir-forget" data-dir-forget hidden>Glem valget</button>
+    </div>
+  </details>
+</div>

@@ -1,0 +1,194 @@
+/*
+ * Shared map chrome: the frame, the branded marker and popup, the controls,
+ * gesture hints, the fallback, and restyled library attribution. Works with or
+ * without concept A's tokens on the page (each token has a fallback value).
+ */
+.hm-frame {
+  --hm-whitewash: var(--color-whitewash, #f5f6f2);
+  --hm-fog: var(--color-fog, #e4e8e3);
+  --hm-spruce: var(--color-spruce, #1e3a32);
+  --hm-ink: var(--color-ink, #18201d);
+  --hm-ink-soft: var(--color-ink-soft, #4a5651);
+  --hm-river: var(--color-river, #2e6b5e);
+  --hm-copper: var(--color-copper, #9a4a2c);
+  --hm-hair: var(--color-hair, #c3cbc5);
+  --hm-display: var(--font-display, Georgia, serif);
+  --hm-text: var(--font-text, system-ui, sans-serif);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: var(--hm-h, 26rem);
+  background: var(--hm-fog);
+  color: var(--hm-ink);
+  font-family: var(--hm-text);
+}
+.hm-frame [hidden] { display: none !important; }
+.hm-frame :focus-visible { outline: 2px solid var(--hm-river); outline-offset: 2px; }
+
+.hm-frame > .hm-host { position: absolute; inset: 0; z-index: 0; container-type: size; background: var(--hm-fog); }
+
+/* ——— Marker: concept A's here-mark ——— */
+.hm-marker {
+  display: block; width: 44px; height: 44px; margin: 0; padding: 0;
+  border: 0; background: none; color: var(--hm-ink); cursor: pointer;
+  font: inherit; -webkit-tap-highlight-color: transparent;
+}
+.hm-marker__dot {
+  position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px;
+  border-radius: 50%; background: var(--hm-copper);
+  border: 2px solid var(--hm-whitewash); box-shadow: 0 0 0 1px var(--hm-ink);
+  box-sizing: border-box;
+}
+.hm-marker__dot::before {
+  content: ""; position: absolute; inset: -9px; border: 1.5px solid var(--hm-copper); border-radius: 50%;
+}
+.hm-marker__stem {
+  position: absolute; left: calc(50% - 0.5px); bottom: calc(50% + 14px); width: 1px; height: 22px;
+  background: var(--hm-ink);
+}
+.hm-marker__plate {
+  position: absolute; left: calc(50% - 0.5px); bottom: calc(50% + 36px);
+  padding: 0.1rem 0.5rem 0.18rem; white-space: nowrap;
+  background: var(--hm-whitewash); border: 1px solid var(--hm-ink); color: var(--hm-ink);
+  font-family: var(--hm-display); font-style: italic; font-weight: 460;
+  font-size: 1.125rem; line-height: 1.15; letter-spacing: -0.01em;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.hm-marker:hover .hm-marker__plate { background: var(--hm-ink); color: var(--hm-whitewash); }
+/* While the popup is open it takes the plate's place at the top of the stem. */
+.hm-marker[aria-expanded="true"] .hm-marker__plate { visibility: hidden; }
+.hm-frame .hm-marker:focus-visible { outline-offset: 0; }
+.hm-frame .hm-marker:focus-visible .hm-marker__plate { outline: 2px solid var(--hm-river); outline-offset: 2px; }
+
+.hm-leaflet-icon { background: none; border: 0; }
+.hm-leaflet-icon .hm-marker { position: relative; pointer-events: auto; }
+
+/* ——— Popup ——— */
+.hm-pop {
+  position: relative; box-sizing: border-box; width: min(19rem, 100cqw - 5.5rem);
+  padding: 0.9rem 1rem 0.35rem; background: var(--hm-whitewash); border: 1px solid var(--hm-ink);
+  color: var(--hm-ink); font-family: var(--hm-text); font-size: 1.0625rem; line-height: 1.4; text-align: left;
+}
+.hm-pop p { margin: 0; }
+.hm-pop__name {
+  padding-right: 2.25rem; font-family: var(--hm-display); font-style: italic; font-weight: 460;
+  font-size: 1.375rem; line-height: 1.1; letter-spacing: -0.01em;
+}
+.hm-pop__addr { margin-top: 0.2rem; color: var(--hm-ink-soft); font-size: 1.0625rem; }
+.hm-pop__close {
+  position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 44px; height: 44px;
+  margin: 0; padding: 0; border: 0; background: none; color: var(--hm-ink); cursor: pointer;
+}
+.hm-pop__close:hover { color: var(--hm-river); }
+
+.hm-links { list-style: none; margin: 0.75rem 0 0; padding: 0; border-top: 1px solid var(--hm-hair); }
+.hm-links li { margin: 0; }
+.hm-frame .hm-links a,
+.hm-links a {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px;
+  padding-block: 0.3rem; border-bottom: 1px solid var(--hm-hair);
+  color: var(--hm-ink); font-weight: 600; font-size: 1.0625rem; line-height: 1.3; text-decoration: none;
+}
+.hm-links li:last-child a { border-bottom: 0; }
+.hm-frame .hm-links a:hover,
+.hm-links a:hover { color: var(--hm-river); }
+.hm-arr { flex: none; width: 0.9em; height: 0.9em; color: var(--hm-river); transition: transform 0.15s ease; }
+.hm-links a:hover .hm-arr { transform: translateX(0.15em); }
+
+.hm-popup.maplibregl-popup { max-width: none !important; }
+.hm-popup .maplibregl-popup-content { padding: 0; background: none; border-radius: 0; box-shadow: none; }
+.hm-popup .maplibregl-popup-tip { display: none; }
+.leaflet-popup.hm-popup { margin: 0; }
+.hm-popup .leaflet-popup-content-wrapper { padding: 0; background: none; border-radius: 0; box-shadow: none; color: inherit; }
+.hm-popup .leaflet-popup-content { width: auto !important; margin: 0; font-size: inherit; line-height: inherit; }
+.hm-popup .leaflet-popup-content p { margin: 0; }
+.hm-popup .leaflet-popup-tip-container { display: none; }
+
+/* ——— Controls ——— */
+.hm-ctl {
+  position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2;
+  display: flex; flex-direction: column;
+}
+.hm-btn, .hm-activate {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; box-sizing: border-box;
+  min-width: 44px; min-height: 44px; margin: 0; padding: 0;
+  background: var(--hm-whitewash); color: var(--hm-ink); border: 1px solid var(--hm-ink);
+  font: inherit; font-weight: 640; font-size: 1.0625rem; line-height: 1; cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.hm-btn + .hm-btn { border-top: 0; }
+.hm-btn:hover { background: var(--hm-fog); }
+.hm-btn:active { background: var(--hm-ink); color: var(--hm-whitewash); }
+.hm-activate {
+  position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2; padding: 0 1rem 0 0.85rem;
+  background: var(--hm-spruce); color: var(--hm-whitewash); border-color: var(--hm-spruce);
+}
+.hm-activate:hover { background: var(--hm-ink); border-color: var(--hm-ink); }
+.hm-frame[data-active="true"] .hm-activate { background: var(--hm-whitewash); color: var(--hm-ink); border-color: var(--hm-ink); }
+.hm-frame[data-active="true"] .hm-activate:hover { background: var(--hm-fog); }
+
+/* ——— Gesture hint and loading ——— */
+.hm-hint {
+  position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 1rem;
+  pointer-events: none; opacity: 0; transition: opacity 0.2s ease;
+}
+.hm-hint.is-on { opacity: 1; }
+.hm-hint span {
+  max-width: 22rem; padding: 0.6rem 0.9rem; background: var(--hm-ink); color: var(--hm-whitewash);
+  font-weight: 600; font-size: 1.0625rem; line-height: 1.35; text-align: center;
+}
+.hm-loading {
+  position: absolute; left: 50%; top: 50%; z-index: 1; margin: 0; transform: translate(-50%, -50%);
+  padding: 0.35rem 0.7rem; background: var(--hm-whitewash); color: var(--hm-ink-soft);
+  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap;
+}
+.hm-frame[data-state="ready"] .hm-loading { display: none; }
+/* While the library downloads, the fallback is the content: keep the label out of its way and hide dead controls. */
+.hm-fallback:not([hidden]) ~ .hm-loading { left: auto; top: auto; right: 0.75rem; bottom: 0.75rem; transform: none; }
+.hm-fallback:not([hidden]) ~ .hm-ctl { display: none; }
+
+/* ——— Static fallback (no JS, failure, before load) ——— */
+.hm-fallback {
+  position: relative; z-index: 1; box-sizing: border-box; min-height: var(--hm-h, 26rem);
+  display: grid; align-content: center; justify-items: start;
+  padding: var(--hm-fallback-pad, clamp(1.25rem, 4vw, 2.5rem)); background: var(--hm-fog); color: var(--hm-ink);
+}
+.hm-fallback > * { width: min(100%, 26rem); }
+.hm-fallback p { margin: 0; }
+.hm-fallback__title {
+  margin-bottom: 1rem !important; padding-bottom: 0.5rem; border-bottom: 1px solid var(--hm-ink);
+  font-weight: 640; font-size: 1.0625rem;
+}
+.hm-fallback__name {
+  font-family: var(--hm-display); font-weight: 470; font-size: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem);
+  line-height: 1.1; letter-spacing: -0.01em;
+}
+.hm-fallback__addr { margin-top: 0.3rem !important; color: var(--hm-ink-soft); }
+.hm-fallback .hm-links { margin-top: 1rem; border-top-color: var(--hm-ink-soft); }
+.hm-fallback .hm-links a { border-bottom-color: var(--hm-hair); }
+
+/* ——— Embed ——— */
+.hm-embed { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
+.hm-shield { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+
+/* ——— Library chrome: legible attribution, own focus ring, own gesture hint ——— */
+.hm-frame .maplibregl-map,
+.hm-frame .leaflet-container { font-family: var(--hm-text); background: var(--hm-fog); -webkit-tap-highlight-color: transparent; }
+.hm-frame .maplibregl-cooperative-gesture-screen { display: none; }
+.hm-frame .maplibregl-canvas:focus-visible,
+.hm-frame .leaflet-container:focus-visible { outline: 2px solid var(--hm-river); outline-offset: -3px; }
+.hm-frame .maplibregl-ctrl-attrib,
+.hm-frame .leaflet-control-attribution {
+  margin: 0; padding: 0.2rem 0.45rem; background: var(--hm-whitewash);
+  color: var(--hm-ink-soft); font-size: 0.75rem; line-height: 1.4;
+}
+.hm-frame .maplibregl-ctrl-attrib a,
+.hm-frame .leaflet-control-attribution a { color: var(--hm-ink-soft); text-decoration: underline; text-underline-offset: 0.15em; }
+.hm-frame .maplibregl-ctrl-attrib a:hover,
+.hm-frame .leaflet-control-attribution a:hover { color: var(--hm-ink); }
+.hm-frame .maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib { margin: 0; }
+.hm-frame .leaflet-control-attribution svg { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hm-hint, .hm-marker__plate, .hm-btn, .hm-activate, .hm-arr { transition: none; }
+}

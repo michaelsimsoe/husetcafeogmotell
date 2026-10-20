@@ -68,6 +68,7 @@ const risks = [
   'Den redaksjonelle stilen kan virke litt «fin» for en veikro. Tekstene må være enkle og jordnære for at det skal kjennes riktig.',
   'Fjellinja er stille. På små skjermer blir den nesten en rett strek, og ikke alle vil kjenne igjen fjellet.',
   'Kartet og høydeprofilen er det mest krevende på siden. Avstandene og kjøretidene er beregnet og avrundet, og må kontrolleres før lansering. Kartdataene må lages på nytt hvis veien endres.',
+  'Veibeskrivelsen velger kartapp ut fra telefonen og husker valget. Den er prøvd i nettleser med simulerte telefoner, ikke på ekte iPhone og Android, og må testes der før lansering.',
   'Forsiden er lang på mobil. Det viktigste står øverst, men resten krever at man vil lese.',
   'Det store fasadebildet øverst gjør at lenkene i «I dag» havner rett under første skjermbilde. Toppmenyen dekker dem, men de krever et lite rull.',
   'Kobber og grønt må brukes med disiplin. Brukes kobber til mer enn priser og markeringer, mister prisene tydeligheten.',
@@ -200,7 +201,16 @@ const conceptNeeds = [
           <li>
             Røssåga, Korgfjellet, Korgfjelltunnelen og Oksskolten: kontrollert mot offentlige kilder under arbeidet med prototypene.
           </li>
-          <li>Koordinater og veibeskrivelse: lenker til Google Maps.</li>
+          <li>
+            Adressen og kartpunktet: Meieriveien 7, 8646 Korgen, fra Kartverkets adresseregister (Matrikkelen,{' '}
+            <a href="https://creativecommons.org/licenses/by/4.0/deed.no">CC BY 4.0</a>). Postnummeret 8646 hører til Korgen; Olderneset
+            er tettstedet adressen ligger i.
+          </li>
+          <li>
+            Veibeskrivelsen ender på parkeringen mellom huset og E6. Punktet er hentet fra OpenStreetMap (©{' '}
+            <a href="https://www.openstreetmap.org/copyright">OpenStreetMap-bidragsytere</a>, ODbL) og bekreftes av Huset. Knappen åpner
+            Google Maps, Apple Maps, Waze eller telefonens egen kartapp. Siden henter ingen kart og ber ikke om posisjon.
+          </li>
           <li>
             Kartet i «Her ligger Korgen»: kystlinje og grenser fra <a href="https://www.naturalearthdata.com/">Natural Earth</a> (fri
             bruk). Veien, avstander og kjøretider fra

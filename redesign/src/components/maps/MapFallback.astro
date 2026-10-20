@@ -1,0 +1,38 @@
+---
+/**
+ * The static stand-in for a map: name, address and directions links. It is
+ * what visitors see before the map loads, without JavaScript, and when tiles,
+ * the style or WebGL fail. The map frame hides it while a map is live.
+ */
+import { ICONS, linkItems } from '@lib/maps/dom';
+import { placeLinks } from '@lib/maps/place';
+import type { Place } from '@lib/maps/types';
+import '@lib/maps/map-ui.css';
+
+interface Props {
+  place: Place;
+}
+
+const { place } = Astro.props;
+const items = linkItems(placeLinks(place));
+---
+
+<div class="hm-fallback" data-hm-fallback>
+  <p class="hm-fallback__title" data-hm-fallback-title hidden>Kartet kunne ikke lastes</p>
+  <p class="hm-fallback__name">{place.name}</p>
+  <p class="hm-fallback__addr">{place.addressLine}</p>
+  <ul class="hm-links">
+    {
+      items.map(([text, href]) => (
+        <li>
+          <a href={href}>
+            <span>{text}</span>
+            <svg class="hm-arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d={ICONS.arrow} />
+            </svg>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

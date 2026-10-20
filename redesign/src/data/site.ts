@@ -4,6 +4,9 @@
  * rendered with a visible «bekreftes» marker in the prototypes.
  */
 
+import { googleDirections, googleMapLink } from '../lib/directions/links.ts';
+import { addressLine, location } from './location.ts';
+
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6; // 0 = mandag
 
 export interface OpeningDay {
@@ -23,9 +26,10 @@ export const site = {
     region: 'Helgeland',
     county: 'Nordland',
     road: 'E6',
-    /** Street address is not confirmed — never render one. */
-    address: null as string | null,
-    geo: { lat: 66.080837, lon: 13.825746 },
+    /** Official address from Kartverket's address register. */
+    address: addressLine,
+    /** Map marker. Directions route to `location.arrival` instead. */
+    geo: location.addressPoint,
   },
   contact: {
     phone: '403 17 353',
@@ -36,8 +40,9 @@ export const site = {
     facebook: 'https://www.facebook.com/Husetcafe',
   },
   links: {
-    directions: 'https://www.google.com/maps/dir/?api=1&destination=66.080837,13.825746',
-    map: 'https://www.google.com/maps/search/?api=1&query=66.080837,13.825746',
+    /** Universal fallback. Concept A upgrades it to the visitor's own map app in the browser. */
+    directions: googleDirections(location.arrival),
+    map: googleMapLink(location.addressPoint),
     booking: 'https://www.booking.com/hotel/no/huset-cafe-amp-motell-as.en-gb.html',
     current: 'https://www.husetmotell.no/',
   },
@@ -127,7 +132,8 @@ export const missingAssets = [
   'Interiør av restauranten med folk, dagslys og kveldslys.',
   'Frokostrommet og et dekket frokostbord.',
   'Logo som vektorfil (SVG) – dagens logo finnes bare som raster.',
-  'Bekreftede åpningstider, rompris, adresse og allergener.',
+  'Bekreftede åpningstider, rompris og allergener.',
+  'Bekreftelse på at veibeskrivelsen skal ende på parkeringen ut mot E6.',
 ];
 
 export type Site = typeof site;

@@ -1,0 +1,27 @@
+{
+  "e-shield": {
+    "width": 32,
+    "height": 32,
+    "x": 0,
+    "y": 0,
+    "pixelRatio": 2,
+    "stretchX": [
+      [
+        8,
+        24
+      ]
+    ],
+    "stretchY": [
+      [
+        8,
+        24
+      ]
+    ],
+    "content": [
+      8,
+      8,
+      24,
+      24
+    ]
+  }
+}

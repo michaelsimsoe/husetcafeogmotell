@@ -1,4 +1,5 @@
 import { mountHours, hoursStatus } from '@lib/hours';
+import { mountDirections } from '@lib/directions/enhance';
 
 /** Weekday name for the masthead, plus un-hiding the bits that only make sense with live data. */
 function mountDay() {
@@ -272,4 +273,5 @@ export function mountConceptA() {
   mountRidges();
   mountLocator();
   mountCredits();
+  mountDirections();
 }

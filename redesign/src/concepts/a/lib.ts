@@ -2,6 +2,7 @@ import { withBase } from '@lib/base';
 import ridges from '@data/ridges.json';
 import { photo, statusLabel } from '@data/credits';
 import { site } from '@data/site';
+import { location } from '@data/location';
 import { allergens, type AllergenId } from '@data/menu';
 
 type Pt = [number, number];
@@ -79,6 +80,16 @@ export const hr = (hhmm: string) => {
   return m === '00' ? String(Number(h)) : `${Number(h)}.${m}`;
 };
 
-export const coords = '66,0808° N, 13,8257° Ø';
+const deg = (n: number) => n.toFixed(4).replace('.', ',');
+/** The address point, written the Norwegian way: 66,0809° N, 13,8260° Ø */
+export const coords = `${deg(site.place.geo.lat)}° N, ${deg(site.place.geo.lon)}° Ø`;
+
+/** Spread onto a plain «Veibeskrivelse» link so the client can point it at the visitor's map app. */
+export const directionsAttrs = {
+  'data-directions': '',
+  'data-lat': location.arrival.lat,
+  'data-lon': location.arrival.lon,
+  'data-label': location.name,
+};
 
 export const base = withBase('/concepts/a');

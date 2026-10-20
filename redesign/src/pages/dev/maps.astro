@@ -1,0 +1,563 @@
+---
+/**
+ * /dev/maps: the map playground. Compares four free ways to show where Huset
+ * is, with one live map at a time. Development and evaluation only; not
+ * linked from any concept page and not indexed.
+ */
+import '../../concepts/a/styles.css';
+import '@lib/maps/map-ui.css';
+import MapFallback from '../../components/maps/MapFallback.astro';
+import { withBase } from '@lib/base';
+import { addressLine, location } from '@data/location';
+import { ICONS, linkItems } from '@lib/maps/dom';
+import { placeLinks } from '@lib/maps/place';
+import { formatCoordinates } from '@lib/maps/view';
+import { COMPARISON, IMPLS, IMPL_ORDER, OFM_STYLES, STYLE_ORDER, TREATMENTS, TREATMENT_ORDER } from '@lib/maps/options';
+import type { Place } from '@lib/maps/types';
+
+const place: Place = {
+  name: location.name,
+  addressLine,
+  marker: location.addressPoint,
+  destination: location.arrival,
+  label: 'Huset',
+};
+const links = linkItems(placeLinks(place));
+const coordinates = formatCoordinates(location.addressPoint);
+
+const DEFAULT_IMPL = 'c';
+const short: Record<string, string> = {
+  a: 'MapLibre · vektor',
+  b: 'Leaflet · raster',
+  c: 'MapLibre · egen stil',
+  d: 'iframe · ingen JS',
+};
+const initial = IMPLS[DEFAULT_IMPL];
+---
+
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="Kartlab for Huset Café & Motell: fire gratis kartløsninger sammenlignet." />
+    <meta name="theme-color" content="#f5f6f2" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <title>Kartlab · Huset Café & Motell</title>
+  </head>
+  <body data-pg>
+    <a class="skip" href="#innhold">Hopp til innholdet</a>
+    <header class="wrap pg-top">
+      <p class="wm">
+        <span class="wm-name">Huset</span>
+        <span class="wm-sub">Kartlab, kun for utvikling</span>
+      </p>
+      <a class="go" href={withBase('/')}>Alle konsepter</a>
+    </header>
+
+    <main id="innhold">
+      <div class="wrap pg-intro">
+        <h1 class="pg-h1">Kart for Huset</h1>
+        <p class="lede">
+          Fire gratis måter å vise hvor Huset ligger, uten API-nøkler og uten fakturakonto. Alle bruker samme markørpunkt,
+          samme sentrum og samme utsnitt. Bare ett kart er i live om gangen: når du bytter, blir det forrige fjernet helt.
+        </p>
+      </div>
+
+      <form class="wrap pg-controls" data-pg-controls aria-label="Kartvalg">
+        <fieldset class="pg-field pg-field--impl">
+          <legend class="label">Løsning</legend>
+          <div class="pg-impls">
+            {
+              IMPL_ORDER.map((id) => (
+                <label class="opt opt--impl">
+                  <input class="sr-only" type="radio" name="impl" value={id} checked={id === DEFAULT_IMPL} />
+                  <span class="opt-body">
+                    <span class="opt-letter">{IMPLS[id].letter}</span>
+                    <span class="opt-text">
+                      <span class="opt-name">{IMPLS[id].name}</span>
+                      <span class="opt-meta">
+                        {short[id]}
+                        {id === 'b' && <span class="opt-tag">Kun utvikling</span>}
+                        {id === 'c' && <span class="opt-tag">Anbefalt</span>}
+                      </span>
+                    </span>
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <div class="pg-row">
+          <fieldset class="pg-field" data-pg-style-field hidden>
+            <legend class="label">Stil</legend>
+            <div class="seg">
+              {
+                STYLE_ORDER.map((id) => (
+                  <label class="opt">
+                    <input class="sr-only" type="radio" name="style" value={id} checked={id === 'positron'} />
+                    <span class="opt-body">{OFM_STYLES[id].name}</span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <fieldset class="pg-field">
+            <legend class="label">Oppsett</legend>
+            <div class="seg">
+              {
+                TREATMENT_ORDER.map((id) => (
+                  <label class="opt">
+                    <input class="sr-only" type="radio" name="treatment" value={id} checked={id === 'editorial'} />
+                    <span class="opt-body">{TREATMENTS[id].name}</span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <fieldset class="pg-field">
+            <legend class="label">Bevegelser</legend>
+            <div class="seg">
+              <label class="opt">
+                <input class="sr-only" type="radio" name="gestures" value="cooperative" checked />
+                <span class="opt-body">To fingre</span>
+              </label>
+              <label class="opt">
+                <input class="sr-only" type="radio" name="gestures" value="tap" />
+                <span class="opt-body">Trykk for å aktivere</span>
+              </label>
+            </div>
+            <p class="pg-hint" data-pg-gesture-note hidden>Innbyggingen kan bare aktiveres med et trykk.</p>
+          </fieldset>
+
+          <fieldset class="pg-field">
+            <legend class="label">Test</legend>
+            <div class="seg">
+              <button class="opt-btn" type="button" data-pg-reset>
+                <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={ICONS.reset} /></svg>
+                Tilbakestill visning
+              </button>
+              <label class="opt opt--check">
+                <input type="checkbox" name="fail" value="1" />
+                <span>Simuler feil</span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+
+        <p class="pg-status" data-pg-status role="status">Kartet starter …</p>
+        <p class="pg-warn" data-pg-desc="b" hidden>
+          B henter fliser direkte fra OpenStreetMaps egne servere. Det er greit for en kort vurdering, men ikke for et
+          nettsted i drift: flisene er ment for lett bruk og gis uten garanti.
+        </p>
+      </form>
+
+      <section class="pg-stage" data-pg-stage data-treatment="editorial" aria-labelledby="finn-fram">
+        <div class="stage-in">
+          <figure class="st-figure">
+            <div class="hm-frame st-map" data-pg-map data-place={JSON.stringify(place)}>
+              <MapFallback place={place} />
+            </div>
+            <figcaption class="st-cap">
+              <span class="st-cap-name">{place.name}</span>
+              <span class="st-cap-coord">{coordinates}</span>
+              <span class="st-scale" data-pg-scale hidden>
+                <span class="st-scale-bar" data-pg-scale-bar></span>
+                <span class="st-scale-label" data-pg-scale-label></span>
+              </span>
+              <span class="st-north" role="img" aria-label="Nord er opp">
+                <svg viewBox="0 0 16 24" width="16" height="24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M8 2 13 14 8 11 3 14Z" fill="currentColor" />
+                  <path d="M5.5 22v-5l5 5v-5" stroke-linecap="round" />
+                </svg>
+              </span>
+            </figcaption>
+          </figure>
+
+          <div class="st-text">
+            <h2 class="st-h" id="finn-fram">Finn fram</h2>
+            <div class="st-body">
+              <div class="st-place">
+                <p class="st-name">{place.name}</p>
+                <p class="st-addr">{place.addressLine}</p>
+                <p class="st-road">Rett ved E6 i Korgen.</p>
+              </div>
+              <ul class="rows st-rows">
+                {
+                  links.map(([text, href]) => (
+                    <li>
+                      <a href={href}>
+                        <span>{text}</span>
+                        <svg class="arr" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                          <path d={ICONS.arrow} />
+                        </svg>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap pg-sec pg-about" aria-labelledby="valgt">
+        <div class="pg-about-main">
+          <h2 class="pg-h2" id="valgt" data-pg-name>{initial.letter} · {initial.name}</h2>
+          {
+            IMPL_ORDER.map((id) => (
+              <p class="pg-desc" data-pg-desc={id} hidden={id !== DEFAULT_IMPL}>
+                {IMPLS[id].description}
+              </p>
+            ))
+          }
+          {
+            STYLE_ORDER.map((id) => (
+              <p class="pg-note" data-pg-style-note={id} hidden>
+                <strong>{OFM_STYLES[id].name}:</strong> {OFM_STYLES[id].note}
+              </p>
+            ))
+          }
+          <p class="pg-note">
+            <strong>Oppsett:</strong> <span data-pg-treatment-note>{TREATMENTS.editorial.note}</span>
+          </p>
+        </div>
+        <dl class="pg-facts">
+          <div><dt>Tegnes av</dt><dd data-pg-renderer>{initial.renderer}</dd></div>
+          <div><dt>Fliser</dt><dd data-pg-tiles>{initial.tiles}</dd></div>
+          <div><dt>Stil</dt><dd data-pg-style>Huset (egen, i prosjektet)</dd></div>
+          <div><dt>Kreditering</dt><dd data-pg-credit>{initial.credit}</dd></div>
+          <div><dt>Nedlasting</dt><dd data-pg-download>{initial.download}</dd></div>
+          <div><dt>I produksjon</dt><dd data-pg-production>{initial.production}</dd></div>
+        </dl>
+      </section>
+
+      <section class="wrap pg-sec" aria-labelledby="sammenligning">
+        <h2 class="pg-h2" id="sammenligning">Sammenligning</h2>
+        <div class="pg-table-wrap">
+          <table class="pg-table">
+            <thead>
+              <tr>
+                <th scope="col">Kriterium</th>
+                {
+                  IMPL_ORDER.map((id) => (
+                    <th scope="col" class:list={[id === 'c' && 'is-pick']}>
+                      {IMPLS[id].letter} · {IMPLS[id].name}
+                    </th>
+                  ))
+                }
+              </tr>
+            </thead>
+            <tbody>
+              {
+                COMPARISON.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    {IMPL_ORDER.map((id) => (
+                      <td data-col={`${IMPLS[id].letter} · ${IMPLS[id].name}`}>{row.cells[id]}</td>
+                    ))}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="pg-sec pg-rec on-spruce" aria-labelledby="anbefaling">
+        <div class="wrap pg-rec-in">
+          <h2 class="pg-h2" id="anbefaling">Anbefaling: C, Huset-stilen</h2>
+          <div class="pg-rec-body">
+            <p class="lede">
+              Bruk MapLibre med OpenFreeMap-fliser og den egne Huset-stilen. Det er det eneste alternativet som ser ut som
+              resten av nettstedet, og det koster ingenting: ingen nøkkel, ingen konto, ingen faktura.
+            </p>
+            <ul class="pg-points">
+              <li>
+                Én finger ruller siden, to fingre styrer kartet. Kartet lastes først når det nærmer seg skjermen, og adresse
+                og veibeskrivelse står alltid som vanlig tekst ved siden av.
+              </li>
+              <li>
+                Alle kilder står i én fil. Hvis OpenFreeMap blir borte, kan de samme flisene driftes selv (OpenFreeMap er
+                åpen kildekode) eller hentes fra en annen OpenMapTiles-kilde, uten å endre stilen.
+              </li>
+              <li>
+                Prisen er ca. 450 kB (gzip) og krav om WebGL2. Uten WebGL2, eller hvis flisene ikke kommer, vises
+                adressen og lenkene i stedet.
+              </li>
+              <li>
+                A med Positron er et brukbart alternativ uten egen stil. B skal ikke i drift. D holder som nødløsning:
+                den viser stedet, men ikke merkevaren, og vi kan ikke se om den feiler.
+              </li>
+            </ul>
+            <p>
+              Holder en enkel innbygging? For den som skal finne fram, er adressen og én trykkbar veibeskrivelse det
+              viktigste, og de står uansett som tekst. Kartet skal vise at Huset ligger rett ved E6. Det gjør C tydeligst,
+              og i nettstedets eget uttrykk.
+            </p>
+            <p><a class="go" href={withBase('/dev/maps-komponent')}>Se den ferdige komponenten alene</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap pg-foot">
+      <p>
+        Adressepunkt: {location.sources.address}. Ankomstpunkt (parkeringsplassen foran huset, ennå ikke bekreftet av
+        eierne): {location.sources.arrival}. Kartdata ©{' '}
+        <a href="https://www.openstreetmap.org/copyright">OpenStreetMap-bidragsytere</a>. Fliser og fonter:{' '}
+        <a href="https://openfreemap.org">OpenFreeMap</a>, ©{' '}
+        <a href="https://www.openmaptiles.org/">OpenMapTiles</a>.
+      </p>
+    </footer>
+
+    <script>
+      import { mountPlayground } from '@lib/maps/playground';
+      const page = document.querySelector<HTMLElement>('[data-pg]');
+      if (page) mountPlayground(page);
+    </script>
+  </body>
+</html>
+
+<style>
+  /* ——— Page frame ——— */
+  .pg-top {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--gap);
+    padding-block: 0.875rem; border-bottom: 1px solid var(--color-hair);
+  }
+  .pg-top .wm { margin: 0; }
+  .pg-top .go { white-space: nowrap; }
+  .pg-intro { padding-block: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.25rem); }
+  .pg-h1 {
+    margin: 0; font-size: clamp(2.125rem, 1.25rem + 2.9vw, 3.75rem); line-height: 1.02; letter-spacing: -0.02em;
+  }
+  .pg-intro .lede { margin-top: 1rem; }
+  .pg-h2 {
+    margin: 0; font-size: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem); line-height: 1.1; font-style: italic; font-weight: 460; letter-spacing: -0.01em;
+  }
+  .pg-sec { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+
+  /* ——— Controls ——— */
+  .pg-controls { display: grid; gap: 1.25rem; padding-bottom: 1.5rem; }
+  .pg-field { margin: 0; padding: 0; border: 0; min-width: 0; }
+  .pg-field legend { padding: 0; margin-bottom: 0.5rem; }
+  .pg-row { display: flex; flex-wrap: wrap; gap: 1.25rem clamp(1.5rem, 3vw, 2.5rem); align-items: flex-start; }
+  .pg-row > [hidden] { display: none; }
+  .pg-impls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+  @media (min-width: 64rem) {
+    .pg-impls { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .seg { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+
+  .opt { position: relative; display: flex; cursor: pointer; }
+  .opt-body {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0.4rem 0.9rem; box-sizing: border-box;
+    border: 1px solid var(--color-ink-soft); background: var(--color-whitewash); color: var(--color-ink);
+    font-weight: 600; line-height: 1.2;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .opt:hover .opt-body { background: var(--color-fog); }
+  .opt input:checked + .opt-body { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-whitewash); }
+  .opt input:focus-visible + .opt-body { outline: 2px solid var(--color-river); outline-offset: 3px; }
+  .opt input:disabled + .opt-body { border-style: dashed; color: var(--color-ink-soft); background: transparent; cursor: not-allowed; }
+  .opt:has(input:disabled) { cursor: not-allowed; }
+
+  .opt--impl { display: grid; }
+  .opt--impl .opt-body { align-items: flex-start; gap: 0.75rem; width: 100%; padding: 0.7rem 0.9rem 0.75rem; }
+  .opt-letter {
+    font-family: var(--font-display); font-style: italic; font-weight: 460; font-size: 1.375rem; line-height: 1;
+  }
+  .opt-text { display: grid; gap: 0.2rem; }
+  .opt-name { font-weight: 640; line-height: 1.25; }
+  .opt-meta {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.5rem;
+    font-weight: 560; font-size: 0.8125rem; line-height: 1.3; color: var(--color-ink-soft);
+  }
+  .opt input:checked + .opt-body .opt-meta { color: var(--color-lichen); }
+  .opt-tag {
+    padding: 0.1em 0.4em 0.14em; border: 1px solid currentColor;
+    font-size: 0.75rem; font-weight: 620; letter-spacing: 0.04em; line-height: 1.2;
+  }
+
+  .opt-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0.4rem 0.9rem;
+    border: 1px solid var(--color-ink); background: var(--color-whitewash); color: var(--color-ink);
+    font: inherit; font-weight: 600; line-height: 1.2; cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .opt-btn:hover { background: var(--color-fog); }
+  .opt-btn:active { background: var(--color-ink); color: var(--color-whitewash); }
+  .opt--check { align-items: center; gap: 0.6rem; min-height: 44px; padding-inline: 0.5rem 0.25rem; font-weight: 600; }
+  .opt--check input { width: 1.25rem; height: 1.25rem; margin: 0; }
+
+  .pg-hint { margin: 0.5rem 0 0; font-size: 0.8125rem; line-height: 1.4; color: var(--color-ink-soft); }
+  .pg-status {
+    margin: 0; padding-top: 0.75rem; border-top: 1px solid var(--color-hair);
+    font-weight: 600; line-height: 1.4; color: var(--color-ink-soft);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .pg-status[data-state="error"] { color: var(--color-copper); }
+  .pg-warn {
+    margin: 0; max-width: 46rem; padding: 0.6rem 0.85rem; border: 1px solid var(--color-copper);
+    color: var(--color-ink); line-height: 1.45;
+  }
+
+  /* ——— Stage: four layouts around one map node ——— */
+  .pg-stage { padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2.5rem, 5vw, 4rem); }
+  .st-figure { margin: 0; }
+  .st-map { --hm-h: clamp(22rem, 60vh, 36rem); }
+  .st-cap { display: none; }
+  .st-text { min-width: 0; }
+  .st-h { margin: 0; font-size: clamp(2.125rem, 1.25rem + 2.9vw, 3.75rem); line-height: 1.02; letter-spacing: -0.02em; }
+  .st-body { display: grid; gap: 1.25rem; margin-top: 1rem; }
+  .st-place p { margin: 0; }
+  .st-name { font-family: var(--font-display); font-style: italic; font-weight: 460; font-size: 1.375rem; line-height: 1.15; }
+  .st-addr { margin-top: 0.25rem !important; }
+  .st-road { color: var(--color-ink-soft); }
+  .st-rows { max-width: 32rem; }
+
+  /* Redaksjonell: full width, the text below in the page grid */
+  [data-treatment="editorial"] .st-map {
+    --hm-h: clamp(24rem, 66vh, 42rem);
+    --hm-fallback-pad: clamp(1.25rem, 4vw, 2.5rem) max(var(--pad), (100% - 84rem) / 2);
+  }
+  [data-treatment="editorial"] .st-text {
+    width: min(100% - 2 * var(--pad), 84rem); margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  }
+  @media (min-width: 64rem) {
+    [data-treatment="editorial"] .st-text { display: grid; grid-template-columns: 5fr 7fr; column-gap: var(--gap); }
+    [data-treatment="editorial"] .st-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); column-gap: var(--gap); margin-top: 0.35rem; }
+  }
+
+  /* Ved siden av: spruce section, text beside the map */
+  [data-treatment="side"] .stage-in {
+    display: grid; gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: min(100% - 2 * var(--pad), 84rem); margin-inline: auto;
+  }
+  [data-treatment="side"] .st-text { order: 1; }
+  [data-treatment="side"] .st-figure { order: 2; }
+  [data-treatment="side"] .st-road { color: var(--color-lichen); }
+  [data-treatment="side"] .st-rows { border-top-color: var(--color-hair-dark); }
+  [data-treatment="side"] .st-rows a { color: var(--color-whitewash); border-bottom-color: var(--color-hair-dark); }
+  [data-treatment="side"] .st-rows a:hover { color: var(--color-copper-light); border-bottom-color: currentColor; }
+  [data-treatment="side"] .st-rows .arr { color: var(--color-copper-light); }
+  @media (max-width: 63.999rem) {
+    [data-treatment="side"] .st-figure { margin-inline: calc(-1 * var(--pad) + 0px); }
+  }
+  @media (min-width: 64rem) {
+    [data-treatment="side"] .stage-in { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; }
+    [data-treatment="side"] .st-map { --hm-h: clamp(26rem, 64vh, 38rem); }
+  }
+
+  /* Avgrenset: a plain bordered window on fog */
+  [data-treatment="card"] { background: var(--color-fog); }
+  [data-treatment="card"] .stage-in {
+    width: min(100% - 2 * var(--pad), 60rem); margin-inline: auto;
+    border: 1px solid var(--color-ink); background: var(--color-whitewash);
+  }
+  [data-treatment="card"] .st-map { --hm-h: clamp(20rem, 48vh, 28rem); border-bottom: 1px solid var(--color-ink); }
+  [data-treatment="card"] .st-text { padding: clamp(1.25rem, 3vw, 2rem); }
+  [data-treatment="card"] .st-h { font-size: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem); font-style: italic; font-weight: 460; }
+  @media (min-width: 48rem) {
+    [data-treatment="card"] .st-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); column-gap: var(--gap); }
+  }
+
+  /* Kunstnerisk: a printed plate with mat, keyline, coordinates, scale and north */
+  [data-treatment="artistic"] { background: var(--color-fog); }
+  [data-treatment="artistic"] .stage-in {
+    display: grid; gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: min(100% - 2 * var(--pad), 84rem); margin-inline: auto;
+  }
+  [data-treatment="artistic"] .st-figure { padding: clamp(0.75rem, 2.5vw, 2rem); background: var(--color-whitewash); }
+  [data-treatment="artistic"] .st-map { --hm-h: clamp(24rem, 70vh, 44rem); outline: 1px solid var(--color-ink); }
+  [data-treatment="artistic"] .st-cap {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: end; gap: 0.25rem 1.25rem;
+    margin-top: 0.9rem; padding-top: 0.6rem; border-top: 1px solid var(--color-ink);
+  }
+  [data-treatment="artistic"] .st-cap-name {
+    grid-column: 1; font-family: var(--font-display); font-style: italic; font-weight: 460;
+    font-size: 1.375rem; line-height: 1.1;
+  }
+  [data-treatment="artistic"] .st-cap-coord {
+    grid-column: 1; grid-row: 2; font-size: 0.8125rem; color: var(--color-ink-soft);
+    font-variant-numeric: tabular-nums lining-nums; letter-spacing: 0.02em;
+  }
+  [data-treatment="artistic"] .st-scale:not([hidden]) {
+    grid-column: 2; grid-row: 1 / span 2; display: grid; gap: 0.3rem; justify-items: start;
+    font-size: 0.8125rem; font-weight: 600; color: var(--color-ink-soft); font-variant-numeric: tabular-nums lining-nums;
+  }
+  [data-treatment="artistic"] .st-scale-bar {
+    display: block; height: 0.4rem; min-width: 1.5rem; box-sizing: border-box;
+    border: 1px solid var(--color-ink); border-top: 0;
+  }
+  [data-treatment="artistic"] .st-north { grid-column: 3; grid-row: 1 / span 2; color: var(--color-ink); line-height: 0; }
+  @media (min-width: 64rem) {
+    [data-treatment="artistic"] .stage-in { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); align-items: end; }
+    [data-treatment="artistic"] .st-text { padding-bottom: clamp(0.75rem, 2.5vw, 2rem); }
+  }
+
+  /* ——— About the selected option ——— */
+  .pg-about { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); border-top: 1px solid var(--color-ink); }
+  @media (min-width: 64rem) {
+    .pg-about { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(2rem, 4vw, 4rem); }
+  }
+  .pg-desc { margin: 1rem 0 0; max-width: 40em; }
+  .pg-note { margin: 0.9rem 0 0; max-width: 40em; color: var(--color-ink-soft); }
+  .pg-note strong { color: var(--color-ink); }
+  .pg-facts { margin: 0; border-top: 1px solid var(--color-hair); }
+  .pg-facts > div {
+    display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 1rem;
+    padding-block: 0.6rem; border-bottom: 1px solid var(--color-hair);
+  }
+  .pg-facts dt { font-size: 0.8125rem; font-weight: 600; line-height: 1.5; color: var(--color-ink-soft); }
+  .pg-facts dd { margin: 0; line-height: 1.45; }
+
+  /* ——— Comparison ——— */
+  .pg-table-wrap { margin-top: 1.5rem; }
+  .pg-table { width: 100%; border-collapse: collapse; line-height: 1.45; }
+  .pg-table th, .pg-table td { padding: 0.75rem 0.9rem 0.8rem 0; text-align: left; vertical-align: top; }
+  .pg-table thead th {
+    padding-bottom: 0.6rem; border-bottom: 1px solid var(--color-ink);
+    font-weight: 640; line-height: 1.3;
+  }
+  .pg-table thead th.is-pick { box-shadow: inset 0 -3px 0 var(--color-copper); }
+  .pg-table tbody tr { border-bottom: 1px solid var(--color-hair); }
+  .pg-table tbody th { font-weight: 640; width: 11rem; }
+  .pg-table td:nth-child(4) { background: color-mix(in srgb, var(--color-fog) 55%, transparent); padding-left: 0.9rem; }
+  .pg-table thead th.is-pick { padding-left: 0.9rem; }
+  @media (max-width: 63.999rem) {
+    .pg-table, .pg-table tbody, .pg-table tr, .pg-table th, .pg-table td { display: block; width: auto; }
+    .pg-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .pg-table tbody tr { padding-block: 0.75rem 1rem; border-bottom: 1px solid var(--color-ink); }
+    .pg-table tbody th { padding: 0 0 0.35rem; font-family: var(--font-display); font-style: italic; font-weight: 460; font-size: 1.375rem; width: auto; }
+    .pg-table td { padding: 0.45rem 0; border-top: 1px solid var(--color-hair); }
+    .pg-table td:nth-child(4) { padding-inline: 0.6rem; }
+    .pg-table td::before {
+      content: attr(data-col); display: block; margin-bottom: 0.1rem;
+      font-size: 0.8125rem; font-weight: 640; letter-spacing: 0.02em; color: var(--color-ink-soft);
+    }
+  }
+
+  /* ——— Recommendation ——— */
+  .pg-rec-in { display: grid; gap: 1.25rem; }
+  @media (min-width: 64rem) {
+    .pg-rec-in { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(2rem, 4vw, 4rem); }
+  }
+  .pg-rec-body > * + * { margin-top: 1rem; }
+  .pg-rec-body .lede { margin-top: 0; color: var(--color-whitewash); }
+  .pg-rec-body p { max-width: 40em; }
+  .pg-points { margin: 1.25rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-hair-dark); }
+  .pg-points li { padding-block: 0.7rem; border-bottom: 1px solid var(--color-hair-dark); max-width: 40em; }
+
+  .pg-foot { padding-block: 1.5rem 2.5rem; font-size: 0.8125rem; line-height: 1.5; color: var(--color-ink-soft); }
+  .pg-foot p { margin: 0; max-width: 68ch; }
+  .pg-foot a { color: var(--color-ink-soft); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .opt-body, .opt-btn { transition: none; }
+  }
+</style>

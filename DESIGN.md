@@ -285,6 +285,17 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 ### Opening-hours table
 - Days and hours between hairlines inside spruce; today's row is bolder, with a copper-light rule and an italic «i dag».
 
+### Address («Finn fram»)
+- The address leads the section, because it is what a driver needs: «Meieriveien 7» and «8646 Korgen» on two lines in Brygada 500 at display size (2.25–3.25rem), then one soft line with the area, the municipality and the coordinates («Olderneset, Hemnes · 66,0809° N, 13,8260° Ø»). The directions follow directly under it, the hours table sits to the right, and phone, e-mail, Facebook and the map link close the section in a band below.
+- The postal place is Korgen (Posten's place for 8646). Olderneset is the built-up area and is only shown as such. The footer repeats the address in an `<address>` element.
+- **Data:** `redesign/src/data/location.ts` is the single source for the address (Kartverket), the address point the map uses, and the arrival point the directions end on. Every page and link reads from it.
+
+### Directions («Veibeskrivelse»)
+- **What:** one obvious way to get there, and a quiet way to choose the app. A slab button carries «Veibeskrivelse» in 680 weight with «Åpnes i Google Maps» (or the app in use) under it in a smaller line, and the arrow on the right. It uses the button colours: spruce on light ground, whitewash on spruce, at least 4.25rem tall. Under it, a native `<details>` with the underlined summary «Velg kartapp» and a small chevron opens a list of apps as action rows between hairlines. The list holds the phone's own map app (on Android only), Google Maps, Apple Maps (on Apple devices) and Waze. Four equal buttons are never shown.
+- **Remembered choice:** choosing an app in the list opens it and saves the choice on the device. The row is then marked like today's row in the hours table: a copper rule under it and an italic «ditt valg». The button names that app, the hero and footer links follow it, and a plain «Glem valget» link appears under the list. A short note above the list says what happens: that the choice is remembered, that a saved app cannot open in this browser and where the link goes instead, or that the browser does not let the page remember.
+- **Routing:** with no saved choice, Android opens the phone's own map app (`geo:`), iPhone, iPad and Mac open Apple Maps (the new URL format from iOS 18.4, the old one before that and on Mac), and everything else, including in-app browsers, opens Google Maps. The server renders the Google link, so the button works without JavaScript; the script only swaps the link once the page has loaded, without changing the layout. The page never asks for the visitor's location and never tries to detect installed apps.
+- **Code:** the URL builders, platform rules and storage are plain modules in `redesign/src/lib/directions/` with unit tests in `redesign/tests/directions.test.ts`. Any link with `data-directions` follows the same choice.
+
 ### Menu board (16:9)
 - The same world on a 1920×1080 screen: a whitewash board with a spruce panel on the right for drinks, the live clock and the phone number. Section heads are copper italic Brygada; dishes use the menu-row grammar scaled for reading at 3–5 m. It is drawn from the same menu data as the website.
 

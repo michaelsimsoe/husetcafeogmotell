@@ -2,9 +2,10 @@
 import { withBase } from '@lib/base';
 import './styles.css';
 import { site } from '@data/site';
+import { location } from '@data/location';
 import Ridge from './Ridge.astro';
 import Confirm from './Confirm.astro';
-import { base } from './lib';
+import { base, directionsAttrs } from './lib';
 
 interface Props {
   title: string;
@@ -73,14 +74,17 @@ const nav = [
         <div class="md:col-[1/5]">
           <img class="ft-logo" src={withBase('/img/shared/huset-logo-mask.png')} width="267" height="160" alt="" />
           <h2>{site.name}</h2>
-          <p class="soft">Korgen · Hemnes · ved E6</p>
+          <address class="soft not-italic">
+            {location.address.street}, {location.address.postcode} {location.address.postalPlace}<br />
+            Hemnes · ved E6
+          </address>
         </div>
         <div class="md:col-[5/9] mt-6 md:mt-0">
           <ul class="ft-list">
             <li><a href={site.contact.phoneHref}>Ring {site.contact.phone}</a></li>
             <li><a href={site.contact.emailHref}>{site.contact.email}</a></li>
             <li><a href={site.contact.facebook}>Facebook</a></li>
-            <li><a href={site.links.directions}>Veibeskrivelse</a></li>
+            <li><a href={site.links.directions} {...directionsAttrs}>Veibeskrivelse</a></li>
           </ul>
         </div>
         <div class="md:col-[9/13] mt-6 md:mt-0">

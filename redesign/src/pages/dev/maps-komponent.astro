@@ -1,0 +1,70 @@
+---
+/**
+ * /dev/maps-komponent: the extracted production map on its own, exactly as a
+ * page would use it. Development only; not linked from any concept page and
+ * not indexed. Props and licensing notes are in MAPS.md.
+ */
+import '../../concepts/a/styles.css';
+import HusetMap from '../../components/maps/HusetMap.astro';
+import { withBase } from '@lib/base';
+import { addressLine, location } from '@data/location';
+---
+
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="Den ferdige kartkomponenten for Huset Café & Motell, vist alene." />
+    <meta name="theme-color" content="#f5f6f2" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <title>Kartkomponent · Huset Café & Motell</title>
+  </head>
+  <body>
+    <a class="skip" href="#innhold">Hopp til innholdet</a>
+    <header class="wrap top">
+      <p class="wm">
+        <span class="wm-name">Huset</span>
+        <span class="wm-sub">Kartkomponent, kun for utvikling</span>
+      </p>
+      <a class="go" href={withBase('/dev/maps')}>Til kartlaben</a>
+    </header>
+
+    <main id="innhold">
+      <div class="wrap intro">
+        <h1 class="h1">HusetMap</h1>
+        <p class="lede">
+          Komponenten slik en side vil bruke den: MapLibre, OpenFreeMap-fliser og Huset-stilen. Den er ikke tatt i bruk på
+          noen konseptside ennå. Uten JavaScript, eller hvis kartet feiler, står adressen og lenkene igjen.
+        </p>
+      </div>
+
+      <div class="wrap demo">
+        <HusetMap
+          name={location.name}
+          addressLine={addressLine}
+          marker={location.addressPoint}
+          destination={location.arrival}
+          label="Huset"
+          title={`Kart over ${location.name}, ${addressLine}`}
+        />
+        <p class="note">Egenskaper, lisenser og kjente begrensninger står i MAPS.md i roten av prosjektet.</p>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  .top {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--gap);
+    padding-block: 0.875rem; border-bottom: 1px solid var(--color-hair);
+  }
+  .top .wm { margin: 0; }
+  .top .go { white-space: nowrap; }
+  .intro { padding-block: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.25rem); }
+  .h1 { margin: 0; font-size: clamp(2.125rem, 1.25rem + 2.9vw, 3.75rem); line-height: 1.02; letter-spacing: -0.02em; }
+  .intro .lede { margin-top: 1rem; max-width: 60ch; }
+  .demo { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .note { margin: 1.25rem 0 0; color: var(--color-ink-soft); }
+</style>
