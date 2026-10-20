@@ -231,7 +231,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 
 ### Masthead (homepage)
 - **Order:** the dateline; then the skyline rule and a photograph of the white house from the road, both full bleed, with the skyline sitting directly on the photo's top edge; then the H1 and its stand (columns 1–7) beside the «I dag» column (columns 8–12).
-- **Photo:** the facade crop at about half the viewport height (clamp 18.75–37.5rem, 52.5svh; 15–21.25rem on phones), focal point 50% 56%.
+- **Photo:** the owner's sunny facade shot (`huset-facade-sun`, an AI-retouched copy of `huset-facade-white` with the flagpole and signs removed), cropped at about half the viewport height (clamp 18.75–37.5rem, 52.5svh; 15–21.25rem on phones), focal point 50% 56%.
 - **Below 64rem:** H1, then «I dag», then the stand, stacked.
 
 ### Masthead dateline
@@ -304,5 +304,5 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 - **Don't** use cards or card grids, on any surface.
 - **Don't** use copper for anything but prices, the current state and the here-mark (headings on the menu board excepted).
 - **Don't** set labels in uppercase or put an eyebrow above a heading.
-- **Don't** use stock or AI-generated or retouched imagery of the house or the landscape; use a placeholder instead.
+- **Don't** use stock or AI-generated imagery of the house or the landscape; use a placeholder instead. The one exception is a real photo that the owner has retouched (clutter removed, colour lifted), such as the masthead photo, and its credit must say «KI-retusjert».
 - **Don't** turn the skyline into a pattern, a wave, a filled mountain or a logo.

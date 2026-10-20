@@ -43,6 +43,14 @@ const list: Photo[] = [
     credit: LOCAL, status: 'avklares',
   },
   {
+    // Owner-supplied retouch of huset-facade-white (same shot).
+    id: 'huset-facade-sun', w: 1536, h: 1024, widths: [1536, 800],
+    alt: 'Huset Café & Motell i sol: et langt, hvitt bygg med mørkt tak bak en grønn plen ved veien, med skog og fjell bak.',
+    caption: 'Huset ved E6 i Korgen',
+    credit: 'Lokalt bildearkiv, KI-retusjert – fotograf og rettigheter avklares', status: 'avklares',
+    warning: 'Flaggstang og skilt fjernet og farger forsterket med KI. 1 536 px bred',
+  },
+  {
     id: 'huset-entrance', w: 945, h: 1000, widths: [800],
     alt: 'Inngangen til Huset med skiltet «Huset Café & Motell», to hvite dører og blomsterkasser.',
     caption: 'Inngangen',
