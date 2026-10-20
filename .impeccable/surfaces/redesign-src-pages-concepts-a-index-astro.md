@@ -26,7 +26,7 @@ OWN-WORLD: grounds of cool whitewash #F5F6F2 and fog #E4E8E3. Spruce #1E3A32 own
 
 STORY: the visitor sees a real house in a real place and believes it is warm and honest. Then they read the menu, book a room or find the way.
 
-FIRST VIEWPORT: a masthead dateline carrying the live open status. Below it, the H1 «Mat og husrom midt i Korgen» across 9 columns at about 5.5rem, with the skyline rule full width beneath. Under the rule, a 3-column «I dag» action column (hours, Ring, Meny, Veibeskrivelse) beside a 9-column crop of the white facade.
+FIRST VIEWPORT: a masthead dateline carrying the live open status. Below it, the skyline rule full width, sitting on the top edge of a full-bleed photograph of the white house from the road (about half the viewport tall). Under the photo, the H1 «Mat og husrom midt i Korgen» across 7 columns beside a compact 5-column «I dag» column: hours and «Ring oss» on one line, then Se menyen | Veibeskrivelse and Rom fra … / Book. The top nav carries Mat, Rom and Finn fram, so the «I dag» rows may start just below the fold. Chosen in a live hero session (V1 «Under linja», photo and spacing at 1.25×).
 
 FORM: an asymmetric 12-column editorial spread, position 1 on the ordered list. Signature: the skyline rule draws on load and redraws at each section divider, fully drawn under reduced motion. A then-and-now pairing sets Korgen 1947–49 against Korgen 2008. seed: not rolled. The brief pins this direction by name, and a brief-pinned direction beats the roll, so concept-seed was deliberately skipped and its mode rules were read from the mode file instead.
 

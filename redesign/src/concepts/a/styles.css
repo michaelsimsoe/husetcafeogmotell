@@ -368,47 +368,64 @@
   .arr { display: inline-block; flex: none; width: 0.9em; height: 0.9em; vertical-align: -0.1em; transition: transform 0.15s ease; }
   a:hover .arr { transform: translateX(0.15em); }
 
-  /* ——— Home: masthead ——— */
-  .hero { padding-top: clamp(0.5rem, 1.5vw, 1.25rem); }
+  /* ——— Home: masthead ———
+     Dateline, then the skyline and the house from the road at full width,
+     then the H1 beside a compact «I dag» column. */
+  .hero { padding-top: clamp(0.625rem, 1.875vw, 1.5625rem); }
   .dl-status [data-a-live] { display: inline-flex; align-items: center; gap: 0.45rem; }
-  .hero-h1 { margin-top: clamp(1.25rem, 2.6vw, 2.25rem); }
+  .hero-ridge { margin-top: clamp(1.25rem, 2.75vw, 2.1875rem); }
+  .hero-ph img { height: clamp(18.75rem, 52.5svh, 37.5rem); aspect-ratio: auto; }
+  /* The full-bleed photo has no outer edge to carry a vertical credit, so it sits as a tab inside the frame. */
+  .hero-ph .ph-credit,
+  .hero-ph.ph--flat .ph-credit {
+    position: absolute; top: auto; bottom: 0; left: auto; right: var(--pad);
+    margin: 0; max-width: calc(100% - 2 * var(--pad)); max-height: none;
+    writing-mode: horizontal-tb; transform: none; white-space: normal; overflow: visible;
+    padding: 0.3rem 0.65rem 0.28rem;
+    background: var(--color-whitewash); color: var(--color-ink-soft);
+    font-size: 0.8125rem; line-height: 1.3;
+  }
+  .hero-body { row-gap: 1.5625rem; align-items: start; margin-top: clamp(1.5625rem, 3vw, 2.5rem); }
+  .hero-h1 { margin: 0; }
   .hero-h1 em { display: block; }
-  .hero-stand { order: 3; margin-top: 1.5rem; color: var(--color-ink-soft); max-width: 32em; }
-  .hero-ridge { margin-top: clamp(0.75rem, 1.8vw, 1.5rem); }
-  .hero-ph { margin-top: 1.1rem; }
+  .hero-stand { margin-top: 1.375rem; max-width: 30em; color: var(--color-ink-soft); }
   .today { margin-top: 1.1rem; }
+  @media (max-width: 63.999rem) {
+    .hero-head { display: contents; }
+    .hero-h1 { grid-column: 1 / -1; }
+    .hero .today { order: 1; }
+    .hero-stand { grid-column: 1 / -1; order: 2; margin-top: 0; }
+  }
   @media (max-width: 47.999rem) {
-    .hero-ph { margin-inline: calc(-1 * var(--pad)); }
-    .hero-ph .ph-credit { margin-top: 0.4rem; padding-inline: var(--pad); }
-    .today-h { font-size: 1.3125rem; padding-bottom: 0.4rem; }
-    .today-time { margin-top: 0.55rem; font-size: 2.375rem; }
-    .today-week { margin-top: 0.35rem; }
-    .today-phone { margin-top: 0.75rem; padding-block: 0.45rem 0.55rem; }
-    .today-phone .num { font-size: 1.875rem; }
+    .hero-ph img { height: clamp(15rem, 37.5svh, 21.25rem); }
   }
   @media (min-width: 64rem) {
-    .hero-stand { order: 0; align-self: end; margin: 0 0 0.55rem; font-size: 1.0625rem; line-height: 1.5; }
-    .today { margin-top: clamp(1.25rem, 2vw, 1.75rem); }
-    .hero-ph { margin-top: clamp(1.25rem, 2vw, 1.75rem); }
+    .hero-head { grid-column: 1 / 8; }
+    .hero .today { grid-column: 8 / 13; margin-top: clamp(1.25rem, 2vw, 1.75rem); }
+    .hero-stand { font-size: 1.0625rem; line-height: 1.5; }
   }
 
   .today-h {
-    font-size: 1.5rem; line-height: 1.1; font-style: italic; font-weight: 460;
-    padding-bottom: 0.55rem; border-bottom: 1px solid var(--color-ink);
+    font-size: 1.375rem; line-height: 1.1; font-style: italic; font-weight: 460;
+    padding-bottom: 0.45rem; border-bottom: 1px solid var(--color-ink);
+  }
+  .today-top {
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+    gap: 0.5rem 1.5rem; margin-top: 1rem;
   }
   .today-time {
-    margin-top: 0.85rem;
-    font-family: var(--font-display); font-weight: 450; font-size: clamp(2.75rem, 2.1rem + 1.6vw, 3.5rem);
+    margin: 0;
+    font-family: var(--font-display); font-weight: 450; font-size: clamp(2.375rem, 1.9rem + 1.2vw, 3.25rem);
     line-height: 1; letter-spacing: -0.01em;
   }
-  .today-week { margin-top: 0.6rem; font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-soft); }
+  .today-week { margin-top: 0.5625rem; font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-soft); }
   .today-phone {
-    display: grid; margin-top: 1.25rem; padding-block: 0.7rem 0.8rem;
-    border-top: 1px solid var(--color-hair); color: var(--color-ink); text-decoration: none;
+    display: grid; margin: 0 0 0 auto; text-align: right;
+    color: var(--color-ink); text-decoration: none;
   }
   .today-phone .label { font-weight: 600; }
   .today-phone .num {
-    font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 1.6rem + 1vw, 2.375rem);
+    font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 1.45rem + 0.8vw, 2.25rem);
     line-height: 1.05; letter-spacing: -0.005em; color: var(--color-river);
     text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.16em;
     text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
@@ -426,6 +443,12 @@
   .rows-split { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
   .rows-split > a:first-child { padding-right: 0.9rem; }
   .rows-split > a + a { gap: 0.5rem; padding-left: 0.9rem; border-left: 1px solid var(--color-hair); }
+  /* «I dag» rows: menu | directions side by side, then the full-width room/booking split. */
+  .today-rows { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-top: 1.125rem; }
+  .today-rows a { min-height: 3.75rem; }
+  .today-rows > li:first-child > a { padding-right: 0.9rem; }
+  .today-rows > li:nth-child(2) > a { padding-left: 0.9rem; border-left: 1px solid var(--color-hair); }
+  .today-rows > .rows-split { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
   /* ——— Home: restaurant ——— */
   .mat-cols { display: grid; gap: 2.5rem var(--gap); margin-top: 2.5rem; }

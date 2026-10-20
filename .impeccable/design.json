@@ -1,0 +1,404 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T16:22:28+00:00",
+  "title": "Design System: Huset Café & Motell",
+  "extensions": {
+    "colorMeta": {
+      "whitewash": {
+        "role": "neutral",
+        "displayName": "Whitewash",
+        "canonical": "oklch(97.1% 0.005 117.9)",
+        "tonalRamp": [
+          "#0b0b09",
+          "#252522",
+          "#42423f",
+          "#61625e",
+          "#82837f",
+          "#a4a5a2",
+          "#c9cac6",
+          "#eeefeb"
+        ]
+      },
+      "fog": {
+        "role": "neutral",
+        "displayName": "Fog",
+        "canonical": "oklch(92.7% 0.008 139.4)",
+        "tonalRamp": [
+          "#090c09",
+          "#232622",
+          "#40433f",
+          "#5f625e",
+          "#80837f",
+          "#a2a6a2",
+          "#c6cac6",
+          "#ecf0eb"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(23.4% 0.013 170.4)",
+        "tonalRamp": [
+          "#060d0a",
+          "#1f2724",
+          "#3b4441",
+          "#5a6460",
+          "#7b8581",
+          "#9ea8a4",
+          "#c1ccc8",
+          "#e6f1ed"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "oklch(44.1% 0.017 168.5)",
+        "tonalRamp": [
+          "#050d0a",
+          "#1d2823",
+          "#394540",
+          "#58655f",
+          "#798680",
+          "#9ba9a3",
+          "#bfcdc7",
+          "#e4f2ec"
+        ]
+      },
+      "hair": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(83.4% 0.012 153.6)",
+        "tonalRamp": [
+          "#070d09",
+          "#212722",
+          "#3d443f",
+          "#5c635e",
+          "#7d857f",
+          "#a0a7a2",
+          "#c3cbc5",
+          "#e9f1eb"
+        ]
+      },
+      "hair-dark": {
+        "role": "neutral",
+        "displayName": "Hairline on Spruce",
+        "canonical": "oklch(44.9% 0.038 171.1)",
+        "tonalRamp": [
+          "#000f09",
+          "#0f2b23",
+          "#2c493f",
+          "#4b695e",
+          "#6c8a7f",
+          "#8eada2",
+          "#b1d2c6",
+          "#d6f7eb"
+        ]
+      },
+      "lichen": {
+        "role": "neutral",
+        "displayName": "Lichen",
+        "canonical": "oklch(81.9% 0.020 162.8)",
+        "tonalRamp": [
+          "#040e09",
+          "#1c2822",
+          "#39453f",
+          "#58655e",
+          "#78867f",
+          "#9ba9a1",
+          "#becdc5",
+          "#e3f3eb"
+        ]
+      },
+      "spruce": {
+        "role": "secondary",
+        "displayName": "Spruce",
+        "canonical": "oklch(32.3% 0.037 173.5)",
+        "tonalRamp": [
+          "#000f0a",
+          "#0f2b23",
+          "#2c4940",
+          "#4b685f",
+          "#6c8a80",
+          "#8eada3",
+          "#b1d2c7",
+          "#d6f7ec"
+        ]
+      },
+      "river": {
+        "role": "primary",
+        "displayName": "Røssåga Green",
+        "canonical": "oklch(48.3% 0.067 177.3)",
+        "tonalRamp": [
+          "#000f0b",
+          "#012c25",
+          "#084d41",
+          "#316e61",
+          "#539082",
+          "#76b3a4",
+          "#9ad8c8",
+          "#bffeee"
+        ]
+      },
+      "river-light": {
+        "role": "primary",
+        "displayName": "Pale River",
+        "canonical": "oklch(77.4% 0.058 174.6)",
+        "tonalRamp": [
+          "#000f0a",
+          "#012d23",
+          "#1a4c40",
+          "#3b6c5f",
+          "#5d8e80",
+          "#7fb1a3",
+          "#a2d6c7",
+          "#c7fcec"
+        ]
+      },
+      "copper": {
+        "role": "tertiary",
+        "displayName": "Price Copper",
+        "canonical": "oklch(50.4% 0.116 40.5)",
+        "tonalRamp": [
+          "#1a0400",
+          "#421403",
+          "#722502",
+          "#964729",
+          "#bc684a",
+          "#e28b6c",
+          "#fdb69c",
+          "#ffe9e2"
+        ]
+      },
+      "copper-light": {
+        "role": "tertiary",
+        "displayName": "Copper on Spruce",
+        "canonical": "oklch(77.5% 0.086 50.2)",
+        "tonalRamp": [
+          "#180500",
+          "#3e1902",
+          "#653211",
+          "#885232",
+          "#ac7352",
+          "#d19574",
+          "#f8b997",
+          "#feeadf"
+        ]
+      },
+      "selection": {
+        "role": "neutral",
+        "displayName": "Selection",
+        "canonical": "oklch(88.0% 0.025 165.0)",
+        "tonalRamp": [
+          "#030e0a",
+          "#1b2822",
+          "#37453f",
+          "#56655e",
+          "#77867f",
+          "#99a9a1",
+          "#bccdc5",
+          "#e1f3eb"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Homepage H1 only; second line italic at 420 on its own line."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section heads; an italic phrase may carry emphasis."
+      },
+      "title": {
+        "displayName": "Title (italic)",
+        "purpose": "Sub-heads, table captions, menu group heads. Always italic. The «I dag» head is one step smaller (1.375rem)."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Today's hours as large tabular type."
+      },
+      "figure-small": {
+        "displayName": "Figure small",
+        "purpose": "The phone number beside today's hours, river green, tabular."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Opening paragraphs, max 34em."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, max 68ch; 1.0625rem below 48rem."
+      },
+      "dish": {
+        "displayName": "Dish",
+        "purpose": "Dish names and prices in menu rows, tabular figures."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Small sentence-case labels; never uppercase."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Exponential ease-out for the ridge drawing and arrow nudges."
+      },
+      {
+        "name": "ridge-draw",
+        "value": "1.6s",
+        "purpose": "The skyline draws itself once on entering view; fully drawn without JS, in print and under reduced motion."
+      },
+      {
+        "name": "hover",
+        "value": "0.15s",
+        "purpose": "Colour, rule and arrow-nudge (0.15em) transitions on links, rows and buttons."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "30rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
+      },
+      {
+        "name": "lg",
+        "value": "64rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Square spruce button for the main action in a region; label left, arrow right.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Se hele menyen <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:space-between;gap:1.25rem;min-height:3.25rem;padding:.75rem 1.1rem;background:#1e3a32;color:#f5f6f2;font:640 1.0625rem/1.2 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;text-decoration:none;border-radius:0;transition:background .15s}.ds-btn:hover{background:#18201d}.ds-btn:focus-visible{outline:2px solid #2e6b5e;outline-offset:3px}.ds-btn .ds-arrow{transition:transform .15s cubic-bezier(.16,1,.3,1)}.ds-btn:hover .ds-arrow{transform:translateX(.15em)}"
+    },
+    {
+      "name": "Button on Spruce",
+      "kind": "button",
+      "refersTo": "button-on-spruce",
+      "description": "The inverted button inside a spruce region; hover turns copper-light.",
+      "html": "<div class=\"ds-spruce\"><a class=\"ds-btn-inv\" href=\"#\">Ring 403 17 353 <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></div>",
+      "css": ".ds-spruce{background:#1e3a32;padding:1.5rem}.ds-btn-inv{display:inline-flex;align-items:center;justify-content:space-between;gap:1.25rem;min-height:3.25rem;padding:.75rem 1.1rem;background:#f5f6f2;color:#1e3a32;font:640 1.0625rem/1.2 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;text-decoration:none;border-radius:0;transition:background .15s}.ds-btn-inv:hover{background:#e3a684}.ds-btn-inv:focus-visible{outline:2px solid #e3a684;outline-offset:3px}"
+    },
+    {
+      "name": "Go Link",
+      "kind": "custom",
+      "refersTo": "link",
+      "description": "Lighter call to action: river-green text over a 1px bottom rule; the large version is italic Brygada.",
+      "html": "<p style=\"margin:0 0 1rem\"><a class=\"ds-go\" href=\"#\">Les om rommene <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></p><p style=\"margin:0\"><a class=\"ds-go ds-go-big\" href=\"#\">Hele menyen <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></p>",
+      "css": ".ds-go{display:inline-flex;align-items:center;gap:.5rem;color:#2e6b5e;font:600 1.0625rem/1.3 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:.15rem;transition:border-width .15s}.ds-go:hover{border-bottom-width:2px}.ds-go:focus-visible{outline:2px solid #2e6b5e;outline-offset:3px}.ds-go:hover .ds-arrow{transform:translateX(.15em)}.ds-go .ds-arrow{transition:transform .15s cubic-bezier(.16,1,.3,1)}.ds-go-big{font:italic 460 1.625rem/1.2 'Brygada 1918 Variable','Brygada 1918',Georgia,serif}"
+    },
+    {
+      "name": "Action Rows",
+      "kind": "nav",
+      "refersTo": "row-link",
+      "description": "Full-width links between hairlines with a river-green arrow; a row may split in two. In the homepage «I dag» column they sit two-up (Se menyen | Veibeskrivelse) above the full-width «Rom fra … / Book» split, 3.75rem tall.",
+      "html": "<ul class=\"ds-rows\"><li><a href=\"#\">Se menyen <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></li><li class=\"ds-split\"><a href=\"#\">Rom fra 1 130 kr <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a><a href=\"#\">Book <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></li><li><a href=\"#\">Veibeskrivelse <svg class=\"ds-arrow\" viewBox=\"0 0 20 12\" width=\"18\" height=\"11\" aria-hidden=\"true\"><path d=\"M0 6h18M13 1l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></a></li></ul>",
+      "css": ".ds-rows{list-style:none;margin:0;padding:0;border-top:1px solid #18201d;max-width:22rem;font:600 1.0625rem/1.3 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif}.ds-rows li{border-bottom:1px solid #c3cbc5}.ds-split{display:grid;grid-template-columns:1fr auto}.ds-split a+a{border-left:1px solid #c3cbc5;padding-left:1rem;margin-left:1rem}.ds-rows a{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3rem;padding:.35rem 0;color:#18201d;text-decoration:none;transition:color .15s}.ds-rows .ds-arrow{color:#2e6b5e;transition:transform .15s cubic-bezier(.16,1,.3,1)}.ds-rows a:hover{color:#2e6b5e}.ds-rows a:hover .ds-arrow{transform:translateX(.15em)}.ds-rows a:focus-visible{outline:2px solid #2e6b5e;outline-offset:3px}"
+    },
+    {
+      "name": "Menu Row",
+      "kind": "custom",
+      "refersTo": "price",
+      "description": "Dish name, dot leader and copper price in tabular figures; allergen numbers as soft superscripts, description below.",
+      "html": "<div class=\"ds-menu\"><div class=\"ds-dish\"><span class=\"ds-name\">Dagens middag<sup>1, 7</sup></span><span class=\"ds-lead\" aria-hidden=\"true\"></span><span class=\"ds-price\">— kr</span></div><p class=\"ds-desc\">Eksempelrad. Pris og allergener bekreftes.</p></div>",
+      "css": ".ds-menu{max-width:30rem;border-bottom:1px solid #c3cbc5;padding:.7rem 0;font-family:'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;color:#18201d}.ds-dish{display:flex;align-items:baseline;gap:.5rem;font:620 1.125rem/1.3 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;font-variant-numeric:tabular-nums lining-nums}.ds-name sup{font-size:.62em;font-weight:500;color:#4a5651;margin-left:.15em}.ds-lead{flex:1;min-width:1rem;height:.3em;background:radial-gradient(circle,#4a5651 .9px,transparent 1px) 0 50%/7px 100% repeat-x;opacity:.7}.ds-price{color:#9a4a2c;white-space:nowrap}.ds-desc{margin:.25rem 0 0;color:#4a5651;font-size:1rem;line-height:1.45}"
+    },
+    {
+      "name": "Proof Mark",
+      "kind": "chip",
+      "refersTo": "proof-mark",
+      "description": "«bekreftes»: a small outlined tag after any fact not yet confirmed.",
+      "html": "<p class=\"ds-fact\">Man–fre 10–21 <span class=\"ds-bk\">bekreftes</span></p>",
+      "css": ".ds-fact{margin:0;font:430 1.0625rem/1.5 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;color:#18201d;font-variant-numeric:tabular-nums lining-nums}.ds-bk{display:inline-block;margin-left:.35em;padding:.28em .45em .32em;border:1px solid currentColor;color:#4a5651;font:620 .75rem/1 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;letter-spacing:.04em;vertical-align:.1em;border-radius:0}"
+    },
+    {
+      "name": "Skyline Rule",
+      "kind": "custom",
+      "refersTo": "river",
+      "description": "Signature: the real Korgen skyline as a 1px non-scaling river-green line; draws once on entering view.",
+      "html": "<div class=\"ds-ridge\" aria-hidden=\"true\"><svg viewBox=\"0 0 1000 100\" preserveAspectRatio=\"none\"><path d=\"M0 69.2 L5 69.6 L10 70.2 L15 70.8 L20 71.5 L25 72.2 L30 73.7 L35 78.5 L40 83.5 L45 88.4 L50 93.1 L55 96.8 L60 97 L65 97 L70 97 L75 97 L80.1 97 L85.1 96.8 L90.1 96.5 L95.1 96.1 L100.1 95.5 L105.1 95 L110.1 92.8 L115.1 89.9 L120.1 87.1 L125.1 84.3 L130.1 81.5 L135.1 80.4 L140.1 80.2 L145.7 80 L150.7 80 L155.7 80.2 L160.7 80.6 L165.7 81 L170.7 81.3 L175.7 81.6 L180.7 81.9 L185.7 81.9 L190.7 81.9 L195.7 81.9 L200.8 81.9 L205.8 81.9 L210.8 81.3 L215.8 80.3 L220.8 79.1 L225.8 77.9 L230.8 76.4 L235.8 74.8 L240.8 73.3 L245.8 71.7 L250.8 69.8 L255.8 67.7 L260.8 66 L265.8 64.6 L270.8 63 L275.8 61.5 L280.8 60 L286.4 58.5 L291.4 56.7 L296.4 55.2 L301.4 53.9 L306.4 53 L311.4 52.1 L316.4 51.3 L321.5 50.3 L326.5 49.1 L331.5 47.8 L336.5 46.6 L341.5 45.3 L346.5 44 L351.5 42.6 L356.5 41.1 L361.5 39.5 L366.5 38.2 L371.5 36.5 L376.5 34.7 L381.5 33.2 L386.5 32.1 L391.5 30.9 L396.5 29.1 L401.5 26.7 L406.5 24.2 L411.5 21.6 L416.5 18.9 L421.5 17.6 L426.5 17.1 L432.1 16.6 L437.1 15.9 L442.2 15.2 L447.2 14.5 L452.2 13.9 L457.2 13.6 L462.2 13.5 L467.2 13.5 L472.2 12.9 L477.2 11.6 L482.2 10.2 L487.2 8.7 L492.2 7.2 L497.2 6.3 L502.2 6 L507.2 5.8 L512.2 5.6 L517.2 5.4 L522.2 5 L527.2 4.7 L532.2 4.4 L537.2 4.2 L542.2 4 L547.2 4 L552.2 3.7 L557.2 3.5 L562.2 3.2 L567.2 3 L572.9 3 L577.9 3.3 L582.9 3.6 L587.9 3.8 L592.9 4 L597.9 4 L602.9 4 L607.9 4 L612.9 4 L617.9 4 L622.9 4 L627.9 4 L632.9 4.2 L637.9 4.4 L642.9 4.7 L647.9 5.1 L652.9 5.4 L657.9 5.6 L662.9 5.7 L667.9 5.7 L672.9 5.7 L677.9 5.7 L682.9 5.7 L687.9 5.7 L692.9 5.7 L697.9 5.7 L702.9 5.9 L707.9 6.1 L712.9 6.4 L718.6 6.9 L723.6 7.4 L728.6 7.9 L733.6 8.6 L738.6 9.2 L743.6 9.8 L748.6 10.5 L753.6 11.3 L758.6 12.1 L763.6 13 L768.6 13.9 L773.6 14.7 L778.6 15.4 L783.6 16.1 L788.6 16.6 L793.6 17.7 L798.6 18.6 L803.6 19.5 L808.6 20.2 L813.6 20.8 L818.6 20.9 L823.6 21.3 L828.6 22 L833.6 22.7 L838.6 23.4 L843.7 24.1 L848.7 24.9 L853.7 25.5 L859.3 26 L864.3 26.5 L869.3 27 L874.3 27 L879.3 27.2 L884.3 27.8 L889.3 29 L894.3 30.8 L899.3 33.5 L904.3 36.5 L909.3 39.4 L914.3 42.4 L919.3 45.3 L924.3 47.4 L929.3 49.4 L934.3 51.1 L939.3 52.4 L944.3 53.5 L949.3 54.5 L954.3 55.3 L959.3 56.2 L964.4 57.1 L969.4 57.8 L974.4 58.3 L979.4 58.7 L984.4 58.9 L989.4 58.9 L994.4 58.9 L1000 58.9\"/></svg></div>",
+      "css": ".ds-ridge{height:64px;width:100%}.ds-ridge svg{display:block;width:100%;height:100%;overflow:visible}.ds-ridge path{fill:none;stroke:#2e6b5e;stroke-width:1.25;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:ds-draw 1.6s cubic-bezier(.16,1,.3,1) both}@keyframes ds-draw{from{stroke-dashoffset:1}}@media (prefers-reduced-motion:reduce){.ds-ridge path{animation:none}}"
+    },
+    {
+      "name": "Masthead Dateline",
+      "kind": "custom",
+      "refersTo": "ink",
+      "description": "Place, coordinates and live open status between two ink rules, like a newspaper dateline.",
+      "html": "<div class=\"ds-dl\"><span>Korgen · Hemnes · ved E6</span><span class=\"ds-num\">66,0808° N, 13,8257° Ø</span><span class=\"ds-st\"><svg viewBox=\"0 0 10 10\" width=\"9\" height=\"9\" aria-hidden=\"true\"><circle cx=\"5\" cy=\"5\" r=\"4\" fill=\"#2e6b5e\" stroke=\"#2e6b5e\"/></svg>Åpent nå · til 21</span></div>",
+      "css": ".ds-dl{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:space-between;padding:.6rem 0;border-top:1px solid #18201d;border-bottom:1px solid #18201d;font:500 .9375rem/1.3 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;color:#4a5651}.ds-num{font-variant-numeric:tabular-nums lining-nums}.ds-st{display:inline-flex;align-items:center;gap:.45rem;color:#18201d;font-weight:600}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "link",
+      "description": "Wordmark with a hairline-separated sub, four nav items; the current item underlined in copper.",
+      "html": "<header class=\"ds-top\"><a class=\"ds-mark\" href=\"#\">Huset<span>Café &amp; Motell</span></a><nav><a href=\"#\" aria-current=\"page\">Mat</a><a href=\"#\">Rom</a><a href=\"#\">Selskap</a><a href=\"#\">Finn fram</a></nav></header>",
+      "css": ".ds-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.75rem 2rem;padding:1rem 0;color:#18201d}.ds-mark{display:inline-flex;align-items:baseline;gap:.7rem;font:560 1.875rem/1 'Brygada 1918 Variable','Brygada 1918',Georgia,serif;color:#18201d;text-decoration:none;letter-spacing:-.01em}.ds-mark span{font:500 .875rem/1 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;color:#4a5651;border-left:1px solid #c3cbc5;padding-left:.7rem;letter-spacing:.01em}.ds-top nav{display:flex;gap:1.5rem;font:600 1rem/1 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif}.ds-top nav a{color:#18201d;text-decoration:none;padding:.5rem 0;border-bottom:1px solid transparent;transition:border-color .15s}.ds-top nav a:hover{border-bottom-color:#18201d}.ds-top nav a[aria-current]{border-bottom-color:#9a4a2c}.ds-top a:focus-visible{outline:2px solid #2e6b5e;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The white house under the ridge",
+    "overview": "Two things carry the whole system: a plain white building beside the E6 and the mountain line above Korgen. The page is the house: whitewashed, light, square-cornered, honest about what it is. The ridge is the only ornament: a single hairline traced from the real skyline above Korgen, which opens the page and returns between sections. Everything else is the language of a well-set printed page: hairline rules, dot leaders, tabular figures and a serif with a warm italic.\n\nThe system is calm, not sparse. Practical answers (open now, today's hours, the phone number, the menu, a room, the way there) sit in the first view, set as editorial type rather than as app widgets. Dark spruce takes over whole regions when the page goes indoors (the menu spread, finding the way, the footer), never as a card. Photography is real and of the place, with its credit printed along the edge like a press photo.\n\nStatus: provisional. This file is derived from concept A («Huset i Korgen», `/concepts/a`), which the team has chosen to develop. Concepts B («Neste stopp: Huset») and C («Ly mot fjellan») stay published as references, and anything adopted from them is recorded here when it lands.",
+    "keyCharacteristics": [
+      "Light whitewash ground, ink type, spruce regions; no gradients, no radius, no shadows.",
+      "The Korgen skyline as a river-green hairline: the system's one ornament and its signature.",
+      "Brygada 1918 for display, with italic for emphasis; Ysabeau Office for text.",
+      "Structure by 1px rules and proximity, never by cards.",
+      "Copper only where money or the current state is shown.",
+      "Real photographs of Huset and Korgen, credited on the image edge; marked placeholders where a photo is missing."
+    ],
+    "rules": [
+      {
+        "name": "The Copper Means Money Rule",
+        "body": "Copper marks a price or the current state, and nothing else on the web. Never a heading, a button fill or a background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Spruce Region Rule",
+        "body": "Spruce changes the room: it fills a full-width region or a button, never a box floating on whitewash.",
+        "section": "colors"
+      },
+      {
+        "name": "The Italic Voice Rule",
+        "body": "Italic Brygada is the house's speaking voice: emphasis, captions, the second half of a heading. Upright text carries facts.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Every time, price, phone number and allergen number uses tabular lining figures, so columns of numbers line up like a printed price list.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Paper Rule",
+        "body": "If something needs to stand out, give it a rule, a ground or a size, never a shadow or a lift on hover.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** build structure from 1px rules and proximity: an ink rule to open a group, hairlines between rows.",
+      "**Do** keep the skyline as the only ornament, drawn from the real traced line.",
+      "**Do** set times, prices and phone numbers in tabular lining figures, and big when they answer the visitor's question.",
+      "**Do** give spruce whole regions and set whitewash, lichen and copper-light on it.",
+      "**Do** print every photo credit on the image edge or directly under it.",
+      "**Do** mark unconfirmed facts with the «bekreftes» proof mark and missing photos with a crop-marked placeholder.",
+      "**Do** keep the practical first view (status, hours, phone, and a way to the menu, rooms and directions) on desktop and mobile."
+    ],
+    "donts": [
+      "**Don't** use rounded corners, shadows, gradients or glass.",
+      "**Don't** use cards or card grids, on any surface.",
+      "**Don't** use copper for anything but prices and the current state (headings on the menu board excepted).",
+      "**Don't** set labels in uppercase or put an eyebrow above a heading.",
+      "**Don't** use stock or AI-generated or retouched imagery of the house or the landscape; use a placeholder instead.",
+      "**Don't** turn the skyline into a pattern, a wave, a filled mountain or a logo."
+    ]
+  }
+}

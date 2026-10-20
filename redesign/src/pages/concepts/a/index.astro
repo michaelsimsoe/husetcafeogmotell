@@ -25,63 +25,62 @@ const ox = site.landscape.oksskolten;
 
 <Layout title="Huset Café & Motell – mat og husrom ved E6 i Korgen (konsept A)">
   <!-- Masthead -->
-  <section class="hero wrap g12" aria-labelledby="tittel">
-    <div class="dateline">
-      <p class="dl-place">Korgen<span class="dl-long"> · Hemnes</span> · ved E6</p>
-      <p class="dl-coords num">{coords}</p>
-      <p class="dl-status" data-hours="state">
-        <span data-a-live hidden>
-          <svg class="mark" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4"></circle></svg>
-          <span class="dl-day"><span data-a-day></span> ·</span>
-        </span>
-        <span data-hours="text">{groupsLine}</span>
-      </p>
+  <section class="hero" aria-labelledby="tittel">
+    <div class="wrap">
+      <div class="dateline">
+        <p class="dl-place">Korgen<span class="dl-long"> · Hemnes</span> · ved E6</p>
+        <p class="dl-coords num">{coords}</p>
+        <p class="dl-status" data-hours="state">
+          <span data-a-live hidden>
+            <svg class="mark" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4"></circle></svg>
+            <span class="dl-day"><span data-a-day></span> ·</span>
+          </span>
+          <span data-hours="text">{groupsLine}</span>
+        </p>
+      </div>
     </div>
 
-    <h1 id="tittel" class="display hero-h1 lg:col-[1/10]">    Mat og husrom <em>midt i Korgen</em></h1>
-    <p class="hero-stand lg:col-[10/13]">
+    <Ridge height="clamp(32px, 3.4vw, 48px)" class="hero-ridge" />
+    <Photo id="huset-facade-white" class="hero-ph" pos="50% 56%" priority sizes="100vw" />
+
+    <div class="wrap g12 hero-body">
+      <div class="hero-head">
+        <h1 id="tittel" class="display hero-h1">Mat og husrom <em>midt i Korgen</em></h1>
+        <p class="hero-stand">
           Familiedrevet kafé og motell ved E6. Her spiser bygdefolk middag, familier tar en pizza, og reisende får mat og
-      en seng for natten.
-    </p>
-
-    <Ridge bleed height="clamp(44px, 4.6vw, 68px)" class="hero-ridge" />
-
-    <Photo
-      id="huset-facade-white"
-      class="hero-ph lg:col-[4/13] lg:row-[4]"
-      ratio="5 / 2"
-      pos="50% 80%"
-      priority
-      sizes="(min-width: 84rem) 63rem, (min-width: 64rem) 72vw, 100vw"
-    />
-
-    <aside class="today lg:col-[1/4] lg:row-[4]" aria-labelledby="idag">
-      <h2 id="idag" class="today-h">I dag</h2>
-      <p class="today-time num" data-hours="today" data-a-live hidden></p>
-      <p class="today-week num">
-        {groupsLine.split(' · ').map((g, i) => (
-          <>
-            {i > 0 && ' · '}
-            <span class="whitespace-nowrap">{g}</span>
-          </>
-        ))}{' '}<Confirm />
-      </p>
-      <a class="today-phone" href={site.contact.phoneHref}>
-        <span class="label">Ring oss</span>
-        <span class="num">{site.contact.phone}</span>
-      </a>
-      <ul class="rows">
-        <li><a href={`${base}/meny`}>Se menyen <Arrow /></a></li>
-        <li class="rows-split">
-          <a href="#rom">
-            <span>Rom fra <span class="price num">{krText(r.priceFrom)}</span>{' '}<Confirm /></span>
-            <Arrow />
+          en seng for natten.
+        </p>
+      </div>
+      <aside class="today" aria-labelledby="idag">
+        <h2 id="idag" class="today-h">I dag</h2>
+        <div class="today-top">
+          <p class="today-time num" data-hours="today" data-a-live hidden></p>
+          <a class="today-phone" href={site.contact.phoneHref}>
+            <span class="label">Ring oss</span>
+            <span class="num">{site.contact.phone}</span>
           </a>
-          <a href={site.links.booking}><span>Book<span class="sr-only"> rom på Booking.com</span></span><Arrow /></a>
-        </li>
-        <li><a href={site.links.directions}>Veibeskrivelse <Arrow /></a></li>
-      </ul>
-    </aside>
+        </div>
+        <p class="today-week num">
+          {groupsLine.split(' · ').map((g, i) => (
+            <>
+              {i > 0 && ' · '}
+              <span class="whitespace-nowrap">{g}</span>
+            </>
+          ))}{' '}<Confirm />
+        </p>
+        <ul class="rows today-rows">
+          <li><a href={`${base}/meny`}>Se menyen <Arrow /></a></li>
+          <li><a href={site.links.directions}>Veibeskrivelse <Arrow /></a></li>
+          <li class="rows-split">
+            <a href="#rom">
+              <span>Rom fra <span class="price num">{krText(r.priceFrom)}</span>{' '}<Confirm /></span>
+              <Arrow />
+            </a>
+            <a href={site.links.booking}><span>Book<span class="sr-only"> rom på Booking.com</span></span><Arrow /></a>
+          </li>
+        </ul>
+      </aside>
+    </div>
   </section>
 
   <!-- Restaurant -->
