@@ -170,7 +170,7 @@ const list: Photo[] = [
   },
   {
     id: 'korgen-1950s-a', w: 3612, h: 2350, widths: [2400, 1600, 800],
-    alt: 'Svart-hvitt-fotografi av Korgen og dalen, med gårder, jorder og elva i bunnen av dalen.',
+    alt: 'Svart-hvitt-fotografi av Korgen, med gårder og jorder ned mot elva.',
     caption: 'Korgen før 1955',
     credit: 'Ukjent fotograf, Nasjonalbiblioteket', license: 'Fri (public domain)',
     sourceUrl: C + 'Korgen_-_no-nb_digifoto_20150203_00005_NB_MIT_FNR_15581_A.jpg', status: 'fri',
@@ -199,7 +199,7 @@ const list: Photo[] = [
   },
   {
     id: 'korgfjellet-roadside', w: 2592, h: 1944, widths: [2400, 1600, 800],
-    alt: 'Grusskulder ved veien over Korgfjellet, med utsikt over dalen, et vann og blå fjell i kveldssol.',
+    alt: 'Grusskulder ved veien over Korgfjellet, med utsikt over et vann og blå fjell i kveldssol.',
     caption: 'Ved veien over Korgfjellet, juni 2009',
     credit: 'Ranværing', license: 'CC BY-SA 4.0', licenseUrl: BY_SA_4,
     sourceUrl: C + 'Korgfjellet_20090624_DSCN5428.jpg', status: 'lisensiert',

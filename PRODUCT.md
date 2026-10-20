@@ -24,7 +24,7 @@ Huset Café & Motell is a family-owned roadside restaurant and motel in Korgen, 
 
 ## Positioning
 
-A real, approachable place in a white building beside the E6, where locals eat, families visit, motorists stop and travellers sleep. Its setting is remarkable (Okstindan, Korgfjellet, Røssåga and the Korgen valley); its hospitality is everyday and human. The site celebrates that contrast. It is not a luxury resort, a mountain lodge or a generic Scandinavian boutique hotel.
+A real, approachable place in a white building beside the E6, where locals eat, families visit, motorists stop and travellers sleep. Its setting is remarkable (Okstindan, Korgfjellet, Røssåga and Korgen itself); its hospitality is everyday and human. The site celebrates that contrast. It is not a luxury resort, a mountain lodge or a generic Scandinavian boutique hotel.
 
 ## Operating Context
 
@@ -36,6 +36,7 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 ## Capabilities and Constraints
 
 - Primary language: Norwegian Bokmål. English is secondary.
+- Call the place **Korgen**. Nobody there calls it «dalen», so copy never says «i dalen», «Dalen» or «the valley».
 - Facts from the live site, to be shown **marked as unverified ("bekreftes")** until the owners confirm them:
   - Opening hours: Mon–Fri 10–21, Sat 11–21, Sun 13–19.
   - 8 rooms, breakfast included, from NOK 1 130 (English copy says 1 139; discrepancy unresolved).
@@ -66,7 +67,7 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 
 1. **Practical first.** Open now?, menu, directions and rooms are always one tap away.
 2. **Real place, real people.** Show the actual building, rooms and food; label anything that is not.
-3. **The landscape is context, not costume.** Okstindan and the valley frame the everyday; they never turn Huset into a lodge.
+3. **The landscape is context, not costume.** Okstindan, Korgfjellet and Røssåga frame the everyday; they never turn Huset into a lodge.
 4. **One menu, everywhere.** The website and the in-restaurant screens read from the same structured data.
 5. **Honest facts.** Unverified facts are marked until the owners confirm them.
 
