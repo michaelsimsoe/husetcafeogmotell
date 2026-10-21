@@ -65,7 +65,6 @@ export const site = {
     /** Universal fallback; the browser upgrades it to the visitor's own map app. */
     directions: googleDirections(location.arrival),
     map: googleMapLink(location.addressPoint),
-    booking: contact.booking,
   },
   hours: {
     confirmed: hours.confirmed,

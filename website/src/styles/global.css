@@ -445,15 +445,12 @@
   .rows a:hover { color: var(--color-river); border-bottom-color: currentColor; }
   .rows .arr { color: var(--color-river); }
   .rows .price { font-weight: 640; }
-  .rows-split { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
-  .rows-split > a:first-child { padding-right: 0.9rem; }
-  .rows-split > a + a { gap: 0.5rem; padding-left: 0.9rem; border-left: 1px solid var(--color-hair); }
-  /* «I dag» rows: menu | directions side by side, then the full-width room/booking split. */
+  /* «I dag» rows: menu | directions side by side, then rooms across the full width. */
   .today-rows { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-top: 1.125rem; }
   .today-rows a { min-height: 3.75rem; }
   .today-rows > li:first-child > a { padding-right: 0.9rem; }
   .today-rows > li:nth-child(2) > a { padding-left: 0.9rem; border-left: 1px solid var(--color-hair); }
-  .today-rows > .rows-split { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .today-rows > .rows-wide { grid-column: 1 / -1; }
 
   /* ——— Home: «Her ligger Korgen» – Norway, the road north, and the stretch through Korgen as a height profile ——— */
   .loc { position: relative; --land: color-mix(in srgb, var(--color-lichen) 62%, var(--color-whitewash)); }

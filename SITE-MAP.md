@@ -110,7 +110,7 @@ Concert and pub sections send visitors to Facebook for upcoming events. There is
 | Footer navigation | The four main-navigation pages, plus Kontakt oss |
 | Footer supporting links | Credits, Facebook, Visit Okstindan, Visit Helgeland, Simsø Web |
 | Shared area above footer | Google Maps and Facebook feed |
-| Book a room | [Booking.com](https://www.booking.com/hotel/no/huset-cafe-amp-motell-as.en-gb.html); no on-site booking flow |
+| Book a room | [Booking.com](https://www.booking.com/hotel/no/huset-cafe-amp-motell-as.en-gb.html); no on-site booking flow. *Since retired: the motel no longer uses Booking.com, and the new site books by phone or message.* |
 | Call | `tel:+4740317353` |
 | Email | `mailto:kontakt@husetmotell.no` |
 | Send an enquiry | Netlify Forms submission from `/kontakt`; no on-site account or inbox |

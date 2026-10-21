@@ -30,7 +30,7 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 
 - The restaurant shows its menu on three 16:9 digital screens. The website and those screens will eventually share one structured menu dataset (name, description, price, allergens, category).
 - Allergen key used on the screens: 1 = Gluten, 2 = Laktose, 3 = Egg, 4 = Sennep, 5 = Nøtter.
-- Rooms are booked via Booking.com or by phone/e-mail; payment on arrival unless otherwise agreed.
+- Rooms are booked by phone or message (Booking.com is no longer used); payment on arrival unless otherwise agreed.
 - Content is maintained by the family through Pages CMS: opening hours, rooms, venues, meeting rooms, nearby places and the whole menu. Photos are still managed in code.
 
 ## Capabilities and Constraints

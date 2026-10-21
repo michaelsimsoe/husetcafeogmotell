@@ -45,7 +45,6 @@ export const contactSchema = z.object({
   phone: z.string().regex(/^\+?[\d ]{8,16}$/, 'Telefonnummeret kan bare ha siffer og mellomrom'),
   email: z.email(),
   facebook: z.url(),
-  booking: z.url(),
 });
 
 /** «Åpningstider» — hours.json */
@@ -219,7 +218,6 @@ const fieldLabels: Record<string, string> = {
   phone: 'Telefon',
   email: 'E-post',
   facebook: 'Facebook-side',
-  booking: 'Booking.com-side',
 };
 
 /**

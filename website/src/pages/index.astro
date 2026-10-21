@@ -13,7 +13,7 @@ import { addressLine, location } from '@data/location';
 import { allergens, featured, krText, menuMeta, sectionById } from '@data/menu';
 import { src } from '@data/credits';
 import { withBase } from '@lib/base';
-import { coords, directionsAttrs, groupsLine, kl, listJoin, ridgeOnPhoto } from '@lib/format';
+import { coords, groupsLine, kl, listJoin, ridgeOnPhoto } from '@lib/format';
 import { span } from '@lib/hours';
 
 const picks = featured.slice(0, 2);
@@ -111,13 +111,12 @@ const jsonLd = {
         </p>
         <ul class="rows today-rows">
           <li><a href={withBase('/meny')}>Se menyen <Arrow /></a></li>
-          <li><a href={site.links.directions} {...directionsAttrs}>Veibeskrivelse <Arrow /></a></li>
-          <li class="rows-split">
+          <li><a href="#finn-fram">Veibeskrivelse <Arrow /></a></li>
+          <li class="rows-wide">
             <a href="#rom">
               <span>Rom fra <span class="price num">{krText(r.priceFrom)}</span>{' '}<Confirm confirmed={r.confirmed} /></span>
               <Arrow />
             </a>
-            <a href={site.links.booking}><span>Book<span class="sr-only"> rom på Booking.com</span></span><Arrow /></a>
           </li>
         </ul>
       </aside>
@@ -199,8 +198,10 @@ const jsonLd = {
         </dl>
         <p class="mt-3"><Confirm confirmed={r.confirmed} note="Den engelske versjonen av den gamle nettsiden oppga 1 139 kr." /></p>
         <div class="stack mt-6">
-          <a class="btn" href={site.links.booking}>Book på Booking.com <Arrow /></a>
-          <a class="go" href={site.contact.phoneHref}>Ring {site.contact.phone}</a>
+          <a class="btn" href={site.contact.phoneHref}>
+            <span>Ring <span class="num">{site.contact.phone}</span><span class="sr-only"> for å bestille rom</span></span>
+            <Arrow />
+          </a>
           <a class="go" href={kontakt}>Send oss en melding</a>
         </div>
       </div>
@@ -211,7 +212,10 @@ const jsonLd = {
           dobbeltrommene kan også leies som enkeltrom.{' '}<Confirm confirmed={r.confirmed} />
         </p>
         <p>Rommene har TV og rene bad. Frokosten er en tradisjonell norsk frokost, selvbetjent i eget frokostrom.</p>
-        <p>Kommer du sent, kan ankomst avtales. Betaling skjer ved ankomst, om ikke annet er avtalt.</p>
+        <p>
+          Rom bestilles på telefon eller med en melding. Kommer du sent, kan ankomst avtales. Betaling skjer ved ankomst, om ikke
+          annet er avtalt.
+        </p>
         <p>Er det fullt, hjelper vi deg å finne et annet sted i nærheten.</p>
       </div>
 

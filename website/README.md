@@ -46,7 +46,7 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 | Beskjed på nettsiden | `src/content/notice.json` | A short message at the top of every page, with an optional last day |
 | Rom og priser | `src/content/rooms.json` | Number of rooms, price from, check-in and check-out |
 | Selskap og møterom | `src/content/venues.json` | Guests, cakes, extras, meeting rooms |
-| Kontakt og lenker | `src/content/contact.json` | Phone, e-mail, Facebook and Booking.com |
+| Kontakt og lenker | `src/content/contact.json` | Phone, e-mail and Facebook |
 
 - Pages CMS reads [`../.pages.yml`](../.pages.yml) at the repository root. Sign in at [app.pagescms.org](https://app.pagescms.org) with a GitHub account that has access to the repository, then pick the branch the site deploys from. Until launch that is `michaelsimsoe-huset-site-remake`; the default branch has no `.pages.yml`, so don't let Pages CMS create one there. Each save is a commit, which `dev.yml` checks, builds and uploads in a couple of minutes.
 - People without GitHub can be invited by e-mail under the repository's collaborators in Pages CMS. They can edit content but not the configuration. Their saves are committed by the Pages CMS app unless `settings.commit.identity: user` is set.

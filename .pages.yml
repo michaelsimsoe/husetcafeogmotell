@@ -194,10 +194,6 @@ content:
         label: Facebook-side
         type: string
         required: true
-      - name: booking
-        label: Booking.com-side
-        type: string
-        required: true
 
 components:
   day:

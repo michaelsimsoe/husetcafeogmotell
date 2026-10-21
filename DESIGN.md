@@ -266,7 +266,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 
 ### «I dag» column
 - An italic title (1.375rem) over an ink rule. Today's hours (figure) and the phone number (figure small, river green with a soft underline, «Ring oss» label above) share one line, hours left and phone right. The week's hours follow in soft ink with a proof mark.
-- Action rows in two columns: «Se menyen» | «Veibeskrivelse», then the «Rom fra … / Book» split row across the full width. Rows here are 3.75rem tall.
+- Action rows in two columns: «Se menyen» | «Veibeskrivelse», then «Rom fra …» across the full width. Rows here are 3.75rem tall. «Veibeskrivelse» jumps to «Finn fram» on the same page, where visitors pick their map app; elsewhere it opens the app directly.
 
 ### Locator («Her ligger Korgen»)
 - **What:** the section directly under the masthead. It has a headline and a lede, then three parts:
@@ -282,7 +282,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 - **Rule:** the profile's fill is measured terrain, not the skyline, and it does not appear anywhere else as a decorative mountain.
 
 ### Action rows
-- **Style:** full-width links between hairlines, 3rem tall, ink text at 600 weight, with a river-green arrow on the right. A row can split in two with a hairline between, as with «Rom fra … / Book».
+- **Style:** full-width links between hairlines, 3rem tall, ink text at 600 weight, with a river-green arrow on the right.
 - **Hover / Focus:** text turns river green and the bottom rule darkens; the arrow nudges 0.15em right. Focus is a 2px river outline with a 3px offset.
 
 ### Buttons
