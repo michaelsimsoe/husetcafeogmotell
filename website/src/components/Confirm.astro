@@ -1,0 +1,15 @@
+---
+/**
+ * «bekreftes» mark for facts the owners have not confirmed yet.
+ * Renders nothing once the matching `confirmed` flag is ticked in the CMS.
+ */
+interface Props {
+  confirmed: boolean;
+  /** Optional longer note shown after the mark. */
+  note?: string;
+  class?: string;
+}
+const { confirmed, note, class: cls } = Astro.props;
+---
+
+{!confirmed && <><span class:list={['bk', cls]}>bekreftes</span>{note && <span class="bk-note"> {note}</span>}</>}

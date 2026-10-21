@@ -1,0 +1,23 @@
+---
+// Shown by Netlify after a form post when JavaScript is off (the form's `action`).
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Arrow from '@components/Arrow.astro';
+import { site } from '@data/site';
+import { withBase } from '@lib/base';
+---
+
+<Layout title="Takk for meldingen – Huset Café & Motell" description="Meldingen din er sendt til Huset Café & Motell." current="kontakt" noindex>
+  <div class="wrap g12 pg-head pg-end">
+    <h1 class="display lg:col-[1/10]">Takk <em>for meldingen!</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">Vi svarer deg så snart vi bare kan!</p>
+    <p class="mt-3 lg:col-[1/8]">
+      Haster det? Ring oss på <a href={site.contact.phoneHref}>{site.contact.phone}</a>.
+    </p>
+    <Ridge from={0.4} to={0.95} start={0} end={0.6} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+    <ul class="rows mt-8 lg:col-[1/6]">
+      <li><a href={withBase('/')}>Til forsiden <Arrow /></a></li>
+      <li><a href={withBase('/meny')}>Se menyen <Arrow /></a></li>
+    </ul>
+  </div>
+</Layout>

@@ -1,0 +1,27 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Arrow from '@components/Arrow.astro';
+import { site } from '@data/site';
+import { withBase } from '@lib/base';
+---
+
+<Layout title="Fant ikke siden – Huset Café & Motell" description="Siden finnes ikke." noindex>
+  <div class="wrap g12 pg-head pg-end">
+    <h1 class="display lg:col-[1/10]">Her var det <em>ingenting</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">
+      Siden finnes ikke, eller den har flyttet. Overnatting, selskap og arrangementer har ikke lenger egne sider – alt står samlet på
+      forsiden.
+    </p>
+    <Ridge from={0.55} to={1} start={0} end={0.5} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+    <ul class="rows mt-8 lg:col-[1/6]">
+      <li><a href={withBase('/')}>Forsiden <Arrow /></a></li>
+      <li><a href={withBase('/meny')}>Menyen <Arrow /></a></li>
+      <li><a href={`${withBase('/')}#rom`}>Rom og overnatting <Arrow /></a></li>
+      <li><a href={withBase('/kontakt')}>Kontakt oss <Arrow /></a></li>
+    </ul>
+    <p class="soft mt-6 lg:col-[1/8]">
+      Eller ring oss på <a href={site.contact.phoneHref}>{site.contact.phone}</a>.
+    </p>
+  </div>
+</Layout>

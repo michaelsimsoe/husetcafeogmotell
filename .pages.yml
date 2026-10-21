@@ -1,0 +1,226 @@
+# Pages CMS (https://pagescms.org): the editing screens for the new website in website/.
+# Each field here matches website/src/data/schema.ts. The build checks every save, so a broken value
+# stops the deploy with a Norwegian error message instead of reaching the live site.
+
+settings:
+  content:
+    # Keep keys this file doesn't describe instead of dropping them on save.
+    merge: true
+  commit:
+    templates:
+      update: "Innhold: oppdaterte {filename} (via Pages CMS)"
+
+content:
+  - name: site
+    label: Åpningstider, kontakt og fakta
+    type: file
+    path: website/src/content/site.json
+    format: json
+    fields:
+      - name: contact
+        label: Kontakt
+        type: object
+        fields:
+          - name: phone
+            label: Telefon
+            type: string
+            required: true
+            description: Skriv nummeret slik det skal vises, for eksempel 403 17 353.
+            pattern:
+              regex: "^\\+?[\\d ]{8,16}$"
+              message: Telefonnummeret kan bare ha siffer og mellomrom.
+          - name: email
+            label: E-post
+            type: string
+            required: true
+          - name: facebook
+            label: Facebook-side
+            type: string
+            required: true
+          - name: booking
+            label: Booking.com-side
+            type: string
+            required: true
+
+      - name: hours
+        label: Åpningstider
+        type: object
+        description: Klokkeslett skrives TT:MM, for eksempel 09:30. Like dager slås sammen automatisk på nettsiden.
+        fields:
+          - { name: confirmed, label: Tidene er bekreftet, type: boolean, description: "Når denne er av, viser nettsiden at tidene skal bekreftes." }
+          - { name: monday, label: Mandag, component: day }
+          - { name: tuesday, label: Tirsdag, component: day }
+          - { name: wednesday, label: Onsdag, component: day }
+          - { name: thursday, label: Torsdag, component: day }
+          - { name: friday, label: Fredag, component: day }
+          - { name: saturday, label: Lørdag, component: day }
+          - { name: sunday, label: Søndag, component: day }
+
+      - name: rooms
+        label: Rom og overnatting
+        type: object
+        fields:
+          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
+          - { name: count, label: Antall rom, type: number, required: true, options: { min: 1 } }
+          - { name: priceFrom, label: "Pris fra (kr per natt)", type: number, required: true, options: { min: 0 } }
+          - { name: checkIn, label: Innsjekk fra, component: time }
+          - { name: checkOut, label: Utsjekk innen, component: time }
+
+      - name: venues
+        label: Selskap og arrangementer
+        type: object
+        fields:
+          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
+          - { name: capacity, label: Antall gjester (inntil), type: number, required: true, options: { min: 1 } }
+          - name: occasions
+            label: Anledninger
+            description: Skrives med liten forbokstav, for eksempel «bryllup».
+            type: string
+            list: { min: 1 }
+          - name: catering
+            label: Mat til selskap
+            type: string
+            list: { min: 1 }
+          - { name: cakes, label: Kaker, type: string, description: "La stå tom hvis dere ikke tar imot kakebestillinger." }
+          - name: extras
+            label: Annet dere tilbyr
+            type: string
+            list: true
+
+      - name: meetingRooms
+        label: Møterom
+        type: object
+        fields:
+          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
+          - name: rooms
+            label: Rom
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{name}" }
+            fields:
+              - { name: name, label: Navn, type: string, required: true }
+              - { name: equipment, label: Utstyr, type: string }
+              - { name: price, label: "Pris (kr)", type: number, options: { min: 0 } }
+
+      - name: nearby
+        label: I nærheten
+        type: object
+        fields:
+          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
+          - name: places
+            label: Steder
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{name}" }
+            fields:
+              - { name: name, label: Navn, type: string, required: true }
+              - { name: what, label: Hva finnes der, type: string, required: true }
+              - { name: where, label: Hvor, type: string, required: true, description: "For eksempel «Over veien»." }
+
+      - name: directions
+        label: Veibeskrivelse
+        type: object
+        fields:
+          - name: confirmed
+            label: Ankomstpunktet er bekreftet
+            type: boolean
+            description: Slå på når dere har sjekket at kartlenkene leder til innkjørselen.
+
+  - name: menu
+    label: Menyen
+    type: file
+    path: website/src/content/menu.json
+    format: json
+    fields:
+      - name: confirmed
+        label: Menyen er bekreftet
+        type: boolean
+        description: Når denne er av, viser nettsiden at priser og allergener skal bekreftes.
+      - { name: note, label: Merknad øverst, type: text }
+      - { name: allergenNote, label: Merknad om allergener, type: text }
+      - name: allergens
+        label: Allergener
+        description: Nummeret brukes i rettene under. Ikke endre et nummer som er i bruk. Rettene kan velge allergen 1–5; trengs flere, må nettsiden oppdateres.
+        type: object
+        list:
+          min: 1
+          collapsible: { collapsed: true, summary: "{code} {name}" }
+        fields:
+          - { name: code, label: Nummer, type: string, required: true, pattern: { regex: "^\\d+$", message: Allergenkoden må være et tall. } }
+          - { name: name, label: Navn, type: string, required: true }
+      - name: sections
+        label: Deler av menyen
+        type: object
+        list:
+          min: 1
+          collapsible: { collapsed: true, summary: "{title}" }
+        fields:
+          - { name: title, label: Overskrift, type: string, required: true }
+          - name: id
+            label: Lenkenavn
+            type: string
+            required: true
+            description: Brukes i lenken til denne delen, for eksempel /meny#pizza. Bare små bokstaver a–z, tall og bindestrek.
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: Bare små bokstaver a–z, tall og bindestrek.
+          - { name: note, label: Merknad, type: text }
+          - name: dishes
+            label: Retter
+            type: object
+            list:
+              min: 1
+              collapsible: { collapsed: true, summary: "{name}" }
+            fields:
+              - { name: name, label: Navn, type: string, required: true }
+              - { name: description, label: Beskrivelse, type: string }
+              - name: price
+                label: "Pris (kr)"
+                type: number
+                description: La stå tom hvis retten har varianter med egen pris.
+                options: { min: 0 }
+              - name: variants
+                label: Varianter
+                description: For eksempel størrelser. Hver variant har sin egen pris.
+                type: object
+                list: true
+                fields:
+                  - { name: label, label: Variant, type: string, required: true }
+                  - { name: price, label: "Pris (kr)", type: number, required: true, options: { min: 0 } }
+              - name: allergens
+                label: Allergener
+                type: select
+                options:
+                  multiple: true
+                  values:
+                    - { name: "1", label: "1 Gluten" }
+                    - { name: "2", label: "2 Laktose" }
+                    - { name: "3", label: "3 Egg" }
+                    - { name: "4", label: "4 Sennep" }
+                    - { name: "5", label: "5 Nøtter" }
+              - name: featured
+                label: Vis på forsiden
+                type: boolean
+                description: Forsiden viser de fremhevede rettene fra de to første delene av menyen som har noen.
+
+components:
+  day:
+    type: object
+    fields:
+      - { name: closed, label: Stengt, type: boolean }
+      - name: open
+        label: Åpner
+        type: string
+        required: true
+        pattern: { regex: "^([01]\\d|2[0-3]):[0-5]\\d$", message: "Bruk formatet TT:MM, for eksempel 09:30." }
+      - name: close
+        label: Stenger
+        type: string
+        required: true
+        pattern: { regex: "^([01]\\d|2[0-3]):[0-5]\\d$", message: "Bruk formatet TT:MM, for eksempel 09:30." }
+  time:
+    type: string
+    required: true
+    pattern:
+      regex: "^([01]\\d|2[0-3]):[0-5]\\d$"
+      message: Bruk formatet TT:MM, for eksempel 09:30.

@@ -1,0 +1,400 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Photo from '@components/Photo.astro';
+import Dish from '@components/Dish.astro';
+import Confirm from '@components/Confirm.astro';
+import Arrow from '@components/Arrow.astro';
+import Locator from '@components/Locator.astro';
+import Directions from '@components/Directions.astro';
+import { site } from '@data/site';
+import { location } from '@data/location';
+import { allergens, featured, krText, menuMeta, sectionById } from '@data/menu';
+import { src } from '@data/credits';
+import { withBase } from '@lib/base';
+import { coords, directionsAttrs, groupsLine, kl, listJoin, pairSentence, ridgeOnPhoto } from '@lib/format';
+import { span } from '@lib/hours';
+
+const picks = featured.slice(0, 2);
+const kids = sectionById('barn');
+const r = site.rooms;
+const v = site.venues;
+const overlay = ridgeOnPhoto(1000, 0.012);
+const ox = site.landscape.oksskolten;
+const tunnel = site.landscape.korgfjelltunnelen;
+const meetingRooms = site.meetingRooms.rooms;
+const kontakt = withBase('/kontakt');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Restaurant', 'Motel'],
+  name: site.name,
+  url: new URL(withBase('/'), Astro.site).href,
+  image: new URL(src('huset-facade-sun', 1536), Astro.site).href,
+  telephone: site.contact.phoneIntl,
+  email: site.contact.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: location.address.street,
+    postalCode: location.address.postcode,
+    addressLocality: location.address.postalPlace,
+    addressRegion: location.address.county,
+    addressCountry: 'NO',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: location.addressPoint.lat, longitude: location.addressPoint.lon },
+  hasMenu: new URL(withBase('/meny'), Astro.site).href,
+  sameAs: [site.contact.facebook],
+  ...(site.hours.confirmed && {
+    openingHoursSpecification: site.hours.days
+      .filter((d) => !d.closed)
+      .map((d) => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: `https://schema.org/${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][d.day]}`,
+        opens: d.open,
+        closes: d.close,
+      })),
+  }),
+  ...(r.confirmed && { numberOfRooms: r.count, checkinTime: r.checkIn, checkoutTime: r.checkOut }),
+};
+---
+
+<Layout
+  title="Huset Café & Motell – mat og overnatting ved E6 i Korgen"
+  description={`Familiedrevet kafé og motell ved E6 i Korgen, Hemnes. Grill, pizza og kaffe, ${r.count} rom med frokost, selskap og møterom. Ring ${site.contact.phone}.`}
+  current="home"
+  jsonLd={jsonLd}
+>
+  <!-- Masthead -->
+  <section class="hero" aria-labelledby="tittel">
+    <div class="wrap">
+      <div class="dateline">
+        <p class="dl-place">Korgen<span class="dl-long"> · Hemnes</span> · ved E6</p>
+        <p class="dl-coords num">{coords}</p>
+        <p class="dl-status" data-hours="state">
+          <span data-a-live hidden>
+            <svg class="mark" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4"></circle></svg>
+            <span class="dl-day"><span data-a-day></span> ·</span>
+          </span>
+          <span data-hours="text">{groupsLine}</span>
+        </p>
+      </div>
+    </div>
+
+    <Ridge height="clamp(32px, 3.4vw, 48px)" class="hero-ridge" />
+    <Photo id="huset-facade-sun" class="hero-ph" pos="50% 56%" priority sizes="100vw" />
+
+    <div class="wrap g12 hero-body">
+      <div class="hero-head">
+        <h1 id="tittel" class="display hero-h1">Mat og husrom <em>midt i Korgen</em></h1>
+        <p class="hero-stand">
+          Familiedrevet kafé og motell ved E6. Her spiser bygdefolk middag, familier tar en pizza, og reisende får mat og
+          en seng for natten.
+        </p>
+      </div>
+      <aside class="today" aria-labelledby="idag">
+        <h2 id="idag" class="today-h">I dag</h2>
+        <div class="today-top">
+          <p class="today-time num" data-hours="today" data-a-live hidden></p>
+          <a class="today-phone" href={site.contact.phoneHref}>
+            <span class="label">Ring oss</span>
+            <span class="num">{site.contact.phone}</span>
+          </a>
+        </div>
+        <p class="today-week num">
+          {site.hours.groups.map((g, i) => (
+            <>
+              {i > 0 && ' · '}
+              <span class="whitespace-nowrap">{g.short} {g.time}</span>
+            </>
+          ))}{' '}<Confirm confirmed={site.hours.confirmed} />
+        </p>
+        <ul class="rows today-rows">
+          <li><a href={withBase('/meny')}>Se menyen <Arrow /></a></li>
+          <li><a href={site.links.directions} {...directionsAttrs}>Veibeskrivelse <Arrow /></a></li>
+          <li class="rows-split">
+            <a href="#rom">
+              <span>Rom fra <span class="price num">{krText(r.priceFrom)}</span>{' '}<Confirm confirmed={r.confirmed} /></span>
+              <Arrow />
+            </a>
+            <a href={site.links.booking}><span>Book<span class="sr-only"> rom på Booking.com</span></span><Arrow /></a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Where: Norway, the road north, the stretch through Korgen -->
+  <Locator />
+
+  <!-- Restaurant -->
+  <section id="mat" class="on-spruce sec" aria-labelledby="mat-h">
+    <div class="wrap g12">
+      <div class="mat-ph lg:col-[1/5]">
+        <Photo id="restaurant-family-pizza" ratio="4 / 5" pos="58% 50%" caption sizes="(min-width: 64rem) 30vw, 100vw" />
+      </div>
+      <div class="lg:col-[6/13] mt-10 lg:mt-0">
+        <h2 id="mat-h" class="h2">Grill, pizza og <em>en kopp kaffe</em></h2>
+        <p class="lede mt-5">
+          Middag, en pizza å dele eller bare kaffe på veien videre. Her er et utvalg fra menyen – hele menyen med alle retter og
+          allergener har sin egen side.
+        </p>
+        <div class="mat-cols">
+          {
+            picks.map((s) => (
+              <section aria-labelledby={`mat-${s.id}`}>
+                <h3 id={`mat-${s.id}`} class="h3">
+                  {s.title}
+                </h3>
+                <ul class="dishes">
+                  {s.dishes.map((d) => (
+                    <Dish dish={d} />
+                  ))}
+                </ul>
+              </section>
+            ))
+          }
+        </div>
+        <div class="mat-foot">
+          <a class="go go-big" href={withBase('/meny')}>Se hele menyen <Arrow /></a>
+          <ul>
+            {
+              !menuMeta.confirmed && (
+                <li>
+                  <Confirm confirmed={menuMeta.confirmed} /> {menuMeta.note}
+                </li>
+              )
+            }
+            <li class="num">Allergener: {allergens.map((a) => `${a.code} ${a.name}`).join(' · ')}</li>
+            {kids && <li>{kids.title}{kids.note ? `. ${kids.note}` : ''}</li>}
+            {
+              v.extras.length > 0 && (
+                <li>
+                  {listJoin(v.extras.map((x, i) => (i === 0 ? x : x.toLowerCase())))} <Confirm confirmed={v.confirmed} />
+                </li>
+              )
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms -->
+  <section id="rom" class="sec" aria-labelledby="rom-h">
+    <div class="wrap g12">
+      <Ridge from={0.13} to={1} start={0.42} end={1} height="clamp(40px, 5vw, 72px)" class="sec-ridge" />
+      <h2 id="rom-h" class="h2 lg:col-[1/10]">Et rom for natten, <em>frokost om morgenen</em></h2>
+      <Photo id="room-wide" class="mt-8 lg:mt-10" ratio="12 / 5" pos="50% 55%" sizes="(min-width: 84rem) 84rem, 92vw" />
+
+      <div class="lg:col-[1/5] mt-10">
+        <dl class="facts num">
+          <div><dt>Rom</dt><dd>{r.count}</dd></div>
+          <div><dt>Frokost</dt><dd>Inkludert</dd></div>
+          <div><dt>Innsjekk</dt><dd>fra {kl(r.checkIn)}</dd></div>
+          <div><dt>Utsjekk</dt><dd>{kl(r.checkOut)}</dd></div>
+          <div class="facts-price">
+            <dt>Per natt</dt><dd class="price">fra {krText(r.priceFrom)}</dd>
+          </div>
+        </dl>
+        <p class="mt-3"><Confirm confirmed={r.confirmed} note="Den engelske versjonen av den gamle nettsiden oppga 1 139 kr." /></p>
+        <div class="stack mt-6">
+          <a class="btn" href={site.links.booking}>Book på Booking.com <Arrow /></a>
+          <a class="go" href={site.contact.phoneHref}>Ring {site.contact.phone}</a>
+          <a class="go" href={kontakt}>Send oss en melding</a>
+        </div>
+      </div>
+
+      <div class="prose lg:col-[6/10] mt-10">
+        <p class="lede">
+          Motellet har {r.count} rom: dobbeltrom med to senger som kan stå hver for seg eller skyves sammen, og to enkeltrom. Alle
+          dobbeltrommene kan også leies som enkeltrom.{' '}<Confirm confirmed={r.confirmed} />
+        </p>
+        <p>Rommene har TV og rene bad. Frokosten er en tradisjonell norsk frokost, selvbetjent i eget frokostrom.</p>
+        <p>Kommer du sent, kan ankomst avtales. Betaling skjer ved ankomst, om ikke annet er avtalt.</p>
+        <p>Er det fullt, hjelper vi deg å finne et annet sted i nærheten.</p>
+      </div>
+
+      <Photo id="rooms-pair" class="lg:col-[10/13] mt-10" caption sizes="(min-width: 64rem) 22vw, 100vw" />
+    </div>
+  </section>
+
+  <!-- Gatherings -->
+  <section id="selskap" class="on-fog sec" aria-labelledby="selskap-h">
+    <div class="wrap g12">
+      <Ridge from={0.2} to={1} start={0} end={0.55} mirror height="clamp(36px, 4vw, 56px)" class="sec-ridge" />
+      <h2 id="selskap-h" class="h2 lg:col-[1/9]">Når det er noe <em>å samles om</em></h2>
+      <p class="occasions mt-6 lg:col-[1/11]">{pairSentence(v.occasions)}</p>
+
+      <Photo
+        id="party-long-table"
+        class="lg:col-[1/7] mt-10 lg:mt-14"
+        creditSide="left"
+        ratio="1 / 1"
+        caption
+        sizes="(min-width: 64rem) 45vw, 100vw"
+      />
+
+      <div class="lg:col-[8/13] mt-10 lg:mt-14">
+        <div class="prose">
+          <p class="lede">
+            Det er plass til {v.capacity} gjester i spisesalen. Vi lager mat til selskapet – {listJoin(v.catering)}{
+              v.cakes && <> – og {v.cakes.toLowerCase()}</>
+            }.
+          </p>
+          <p><Confirm confirmed={v.confirmed} note="Kapasitet, mat til selskap og kaker er hentet fra den gamle nettsiden." /></p>
+        </div>
+
+        {
+          meetingRooms.length > 0 && (
+            <>
+              <table class="rooms-table num mt-10">
+                <caption>Møterom</caption>
+                <tbody>
+                  {meetingRooms.map((m) => (
+                    <tr>
+                      <th scope="row">{m.name}</th>
+                      <td>{m.equipment}</td>
+                      <td class="price">{m.price !== undefined && krText(m.price)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p class="mt-3">
+                <Confirm confirmed={site.meetingRooms.confirmed} note="Pris og om den gjelder per time eller per dag." />
+              </p>
+            </>
+          )
+        }
+
+        <Photo id="huset-meeting-room" class="mt-8" caption sizes="(min-width: 64rem) 38vw, 100vw" />
+
+        <p class="mt-8">
+          <a class="go go-big" href={site.contact.phoneHref}>Ring {site.contact.phone}</a><br />
+          <a class="go" href={kontakt}>eller send oss en melding</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Korgen, then and now -->
+  <section id="korgen" class="sec" aria-labelledby="korgen-h">
+    <div class="wrap g12">
+      <Ridge height="clamp(28px, 3vw, 40px)" class="sec-ridge" />
+      <h2 id="korgen-h" class="h2 lg:col-[1/8]">Korgen, <em>før og nå</em></h2>
+
+      <div class="lg:col-[1/8] mt-8 lg:mt-10">
+        <Photo
+          id="korgen-1950s-c"
+          creditSide="left"
+          caption="Korgen og Røssåga"
+          date="1947–49"
+          sizes="(min-width: 64rem) 55vw, 100vw"
+        />
+        <div class="prose korgen-text mt-10 lg:pr-[8%]">
+          <p>
+            Røssåga renner gjennom Korgen. Elva er 50 kilometer lang og går fra Røssvatnet nordover til Sørfjorden
+            ved Bjerka.
+          </p>
+          <p>
+            E6 går gjennom Korgfjellet i {tunnel.name}, som er om lag 8,5 kilometer lang og ble åpnet i {tunnel.opened}. Fjellet
+            ligger i snitt rundt 600 meter over havet.
+          </p>
+          <p>
+            Om lag {ox.kmFromHuset} kilometer {ox.bearing} for Huset ligger Okstindan, med {ox.name} – 1&nbsp;916 meter over havet og
+            Nord-Norges høyeste fjell.
+          </p>
+        </div>
+      </div>
+
+      <div class="korgen-now lg:col-[8/13]">
+        <Photo id="korgen-village-2008b" caption="Korgen sentrum fra Røssåga" date="mai 2008" sizes="(min-width: 64rem) 38vw, 100vw">
+          <div class="ridge ph-ridge" data-ridge aria-hidden="true">
+            <svg viewBox={overlay.viewBox} preserveAspectRatio="none" focusable="false"><path d={overlay.d}></path></svg>
+          </div>
+        </Photo>
+        <p class="soft korgen-note mt-4">
+          Den grønne streken er fjellet over Korgen, tegnet etter dette bildet. Den samme linja går igjen gjennom hele siden.
+        </p>
+        <Photo id="okstinden-peaks" class="peaks" caption date="mai 2009" ratio="3 / 2" sizes="(min-width: 64rem) 38vw, 100vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Around -->
+  <section id="rundt" class="sec" aria-labelledby="rundt-h" style="padding-top: 0">
+    <div class="wrap g12">
+      <Ridge from={0.35} to={0.85} start={0.62} end={0.92} height="28px" class="sec-ridge" />
+      <div class="lg:col-[1/5]">
+        <h2 id="rundt-h" class="h2">Rundt <em>Huset</em></h2>
+        <p class="lede mt-5">Butikk, apotek og drivstoff ligger et steinkast unna.</p>
+        <Photo id="huset-parking-mountain" class="mt-8" caption sizes="(min-width: 64rem) 26vw, 100vw" style="max-width: 368px" />
+      </div>
+      <div class="lg:col-[6/13] mt-10 lg:mt-2">
+        <dl class="near">
+          {
+            site.nearby.places.map((n) => (
+              <div>
+                <dt>
+                  {n.name}
+                  <span>{n.where}</span>
+                </dt>
+                <dd>{n.what}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="mt-3"><Confirm confirmed={site.nearby.confirmed} /></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find us: the address leads, directions sit right under it -->
+  <section id="finn-fram" class="on-spruce sec" aria-labelledby="finn-h">
+    <div class="wrap g12">
+      <h2 id="finn-h" class="h2 lg:col-[1/8]">Finn <em>fram</em></h2>
+
+      <div class="lg:col-[1/6] mt-10">
+        <p class="label">Adresse</p>
+        <p class="find-addr">
+          <span>{location.address.street}</span>{' '}<span class="num">{location.address.postcode} {location.address.postalPlace}</span>
+        </p>
+        <p class="find-where">
+          {location.address.area}, {location.address.municipality}<span aria-hidden="true"> · </span><span class="num whitespace-nowrap">{coords}</span>
+        </p>
+        <Directions point={location.arrival} label={location.name} class="mt-8" />
+        <p class="mt-4"><Confirm confirmed={site.directions.confirmed} note="Veibeskrivelsen ender på parkeringen mellom huset og E6." /></p>
+      </div>
+
+      <div class="lg:col-[7/13] mt-14 lg:mt-10">
+        <table class="week num">
+          <caption class="h3">Åpningstider</caption>
+          <tbody>
+            {
+              site.hours.days.map((d) => (
+                <tr data-hours-day={d.day}>
+                  <th scope="row">
+                    {d.label}
+                    <span class="week-today">i dag</span>
+                  </th>
+                  <td>{span(d)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="mt-3"><Confirm confirmed={site.hours.confirmed} note="Åpningstidene er hentet fra den gamle nettsiden." /></p>
+      </div>
+
+      <div class="lg:col-[1/6] mt-14 lg:mt-16">
+        <p class="label">Telefon</p>
+        <a class="find-phone num" href={site.contact.phoneHref}>{site.contact.phone}</a>
+      </div>
+      <ul class="find-list lg:col-[7/13] mt-8 lg:mt-16">
+        <li><a href={kontakt}>Send oss en melding <Arrow /></a></li>
+        <li><a href={site.contact.emailHref}>{site.contact.email} <Arrow /></a></li>
+        <li><a href={site.contact.facebook}>Facebook <Arrow /></a></li>
+        <li><a href={site.links.map}>Se kartet <Arrow /></a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>

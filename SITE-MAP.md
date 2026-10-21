@@ -130,6 +130,21 @@ The following homepage links reach `/meny`, but the requested section IDs do not
 | Les mer om cateringmulighetene | `/meny#catering` | No matching catering section |
 | Se alle arrangementer og tjenester | `/meny#kaker` | Points to the menu's missing cake section, not the events/services page |
 
+## On the new site
+
+The replacement in `website/` (see [its README](website/README.md)) keeps every route above working:
+
+| Old route | New site |
+|---|---|
+| `/` | Homepage, now holding the room, gathering and meeting-room content as sections |
+| `/overnatting` | Forwards to `/#rom` |
+| `/arrangementer`, `/tjenester` | Forward to `/#selskap` |
+| `/meny` | The menu page. Section anchors are `#grill`, `#pizza`, `#fisk`, `#smaretter`, `#salat`, `#pita`, `#omelett`, `#barn`, `#ekstra` and `#drikke`; the old `#kaker`, `#kake-bestilling` and `#catering` links land at the top of the page. |
+| `/kontakt` | Contact page with the same Netlify form; `/kontakt/takk` is new |
+| `/anerkjennelse`, `/privacy` | Same paths |
+
+Unknown paths get a real 404 page instead of the homepage.
+
 ## Sources
 
 - Live homepage and the accommodation, menu, events, and contact pages, inspected on 20 October 2026.

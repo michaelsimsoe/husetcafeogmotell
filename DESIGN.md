@@ -64,6 +64,27 @@ typography:
     fontWeight: 620
     lineHeight: 1.3
     fontFeature: "'tnum' 1, 'lnum' 1"
+  title-small:
+    fontFamily: "Brygada 1918 Variable, Brygada 1918, Georgia, serif"
+    fontSize: "1.375rem"
+    fontWeight: 460
+    lineHeight: 1.2
+    letterSpacing: "-0.01em"
+  small:
+    fontFamily: "Ysabeau Office Variable, Ysabeau Office, Segoe UI, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 430
+    lineHeight: 1.5
+  note:
+    fontFamily: "Ysabeau Office Variable, Ysabeau Office, Segoe UI, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 430
+    lineHeight: 1.45
+  fine:
+    fontFamily: "Ysabeau Office Variable, Ysabeau Office, Segoe UI, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 430
+    lineHeight: 1.4
   label:
     fontFamily: "Ysabeau Office Variable, Ysabeau Office, Segoe UI, sans-serif"
     fontSize: "0.8125rem"
@@ -137,7 +158,7 @@ Two things carry the whole system: a plain white building beside the E6 and the 
 
 The system is calm, not sparse. Practical answers (open now, today's hours, the phone number, the menu, a room, the way there) sit in the first view, set as editorial type rather than as app widgets. Dark spruce takes over whole regions when the page goes indoors (the menu spread, finding the way, the footer), never as a card. Photography is real and of the place. Photos from outside sources carry their credit printed along the edge like a press photo; Huset's own photos run without one.
 
-Status: provisional. This file is derived from concept A («Huset i Korgen», `/concepts/a`), which the team has chosen to develop. Concepts B («Neste stopp: Huset») and C («Ly mot fjellan») stay published as references, and anything adopted from them is recorded here when it lands.
+Status: in production build. The system comes from concept A («Huset i Korgen», `/concepts/a`), which the team chose, and now lives in the production app in `website/` (`website/src/styles/global.css`). The concepts in `redesign/` are an archive: B («Neste stopp: Huset») and C («Ly mot fjellan») stay published as references, and anything adopted from them is recorded here when it lands.
 
 **Key Characteristics:**
 - Light whitewash ground, ink type, spruce regions; no gradients, no radius, no shadows.
@@ -188,13 +209,19 @@ A cool, near-white paper with dark green-black ink, one deep forest region colou
 ### Hierarchy
 - **Display** (480, clamp 2.75–5.5rem, 0.98): the homepage H1 only. Its second line is italic at 420 and set on its own line.
 - **Headline** (470, clamp 2.125–3.75rem, 1.02): section heads. An italic phrase may carry the emphasis.
-- **Title** (italic 460, clamp 1.5–1.875rem, 1.1): sub-heads, table captions, menu group heads. The «I dag» head uses the same style one step smaller (1.375rem) to keep that column compact.
+- **Title** (italic 460, clamp 1.5–1.875rem, 1.1): sub-heads, table captions, menu group heads.
+- **Title small** (italic 460, 1.375rem, 1.2): the same voice one step down where a column must stay compact: the «I dag» head, the menu page's note, the form's fieldset legend and third-level heads in legal text.
 - **Figure** (450, clamp 2.375–3.25rem, 1; tabular lining figures): today's hours, set as large type you can read across a room.
 - **Figure small** (500, clamp 1.75–2.25rem, 1.05; tabular lining figures): the phone number beside today's hours, in river green.
 - **Lede** (430, 1.1875rem, 1.5): opening paragraphs, max 34em.
 - **Body** (430, 1.125rem; 1.0625rem below 48rem; 1.55): running text, max 68ch.
 - **Dish** (620, 1.125rem, 1.3; tabular figures): dish names and prices in menu rows.
+- **Small** (430, 1rem, 1.5): the top navigation, photo captions, dish descriptions, the footer and the form's failure message.
+- **Note** (430, 0.9375rem, 1.45): secondary facts beside the main ones: the dateline, the week's hours under today's, fact terms, the menu index and legend, directions notes, credits, form hints and field errors.
+- **Fine** (430, 0.875rem, 1.4): the note after a proof mark, photo credits from 48rem, caption dates and the credits table's header.
 - **Label** (600, 0.8125rem, +0.04em, sentence case): small labels such as «Ring oss» and «Åpningstider». Never uppercase.
+
+The text steps are fixed, not fluid: 1.1875 (lede), 1.125 (body, dish), 1.0625 (body on phones, inputs), 1, 0.9375, 0.875, 0.8125 and 0.75rem (proof mark only). Use one of them; do not add a step between.
 
 ### Named Rules
 **The Italic Voice Rule.** Italic Brygada is the house's speaking voice: emphasis, captions, the second half of a heading. Upright text carries facts.
@@ -288,13 +315,23 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 ### Address («Finn fram»)
 - The address leads the section, because it is what a driver needs: «Meieriveien 7» and «8646 Korgen» on two lines in Brygada 500 at display size (2.25–3.25rem), then one soft line with the area, the municipality and the coordinates («Olderneset, Hemnes · 66,0809° N, 13,8260° Ø»). The directions follow directly under it, the hours table sits to the right, and phone, e-mail, Facebook and the map link close the section in a band below.
 - The postal place is Korgen (Posten's place for 8646). Olderneset is the built-up area and is only shown as such. The footer repeats the address in an `<address>` element.
-- **Data:** `redesign/src/data/location.ts` is the single source for the address (Kartverket), the address point the map uses, and the arrival point the directions end on. Every page and link reads from it.
+- **Data:** `website/src/data/location.ts` is the single source for the address (Kartverket), the address point the map uses, and the arrival point the directions end on. Every page and link reads from it.
 
 ### Directions («Veibeskrivelse»)
 - **What:** one obvious way to get there, and a quiet way to choose the app. A slab button carries «Veibeskrivelse» in 680 weight with «Åpnes i Google Maps» (or the app in use) under it in a smaller line, and the arrow on the right. It uses the button colours: spruce on light ground, whitewash on spruce, at least 4.25rem tall. Under it, a native `<details>` with the underlined summary «Velg kartapp» and a small chevron opens a list of apps as action rows between hairlines. The list holds the phone's own map app (on Android only), Google Maps, Apple Maps (on Apple devices) and Waze. Four equal buttons are never shown.
 - **Remembered choice:** choosing an app in the list opens it and saves the choice on the device. The row is then marked like today's row in the hours table: a copper rule under it and an italic «ditt valg». The button names that app, the hero and footer links follow it, and a plain «Glem valget» link appears under the list. A short note above the list says what happens: that the choice is remembered, that a saved app cannot open in this browser and where the link goes instead, or that the browser does not let the page remember.
 - **Routing:** with no saved choice, Android opens the phone's own map app (`geo:`), iPhone, iPad and Mac open Apple Maps (the new URL format from iOS 18.4, the old one before that and on Mac), and everything else, including in-app browsers, opens Google Maps. The server renders the Google link, so the button works without JavaScript; the script only swaps the link once the page has loaded, without changing the layout. The page never asks for the visitor's location and never tries to detect installed apps.
-- **Code:** the URL builders, platform rules and storage are plain modules in `redesign/src/lib/directions/` with unit tests in `redesign/tests/directions.test.ts`. Any link with `data-directions` follows the same choice.
+- **Code:** the URL builders, platform rules and storage are plain modules in `website/src/lib/directions/` with unit tests in `website/tests/directions.test.ts`. Any link with `data-directions` follows the same choice.
+
+### Plain pages (menu, contact, credits, privacy, 404)
+- **Head:** the page title in headline type with an italic phrase, a lede under it, and nothing above it: no eyebrow, no photo. Short pages that end after the head (the thank-you page and 404) close with extra space at the bottom rather than an empty section.
+- **Lists:** a stack of entries under an ink rule with hairlines between them, each opening with an italic Brygada name at 1.25rem. On 404 the way on is action rows (Forsiden, Menyen, Rom og overnatting, Kontakt oss), then the phone number.
+- **Legal text:** one 68ch column. Second-level heads are titles over an ink rule; third-level heads use title small; fourth-level heads are bold text type. Lists use plain discs in soft ink.
+
+### Contact form
+- **Shape:** fields stacked under an ink rule, labels above in bold text type, square 1px soft-ink inputs at least 3rem tall with 1.0625rem text, so phones do not zoom. E-mail and phone sit side by side from 40rem inside a fieldset whose title-small legend asks how to answer.
+- **States:** hover darkens the border to ink. Focus turns it river green and doubles it with an inset ring, plus the standard focus outline. A field in error turns copper with a copper note under it. A failed send keeps what was written and shows a copper-framed message with the phone number and e-mail. The sent state replaces the form with «Takk, …» in italic headline type and a plain link to write a new message.
+- **Behaviour:** field names match the old site's Netlify form, so submissions keep landing in the same place. Without JavaScript the browser posts the form and lands on `/kontakt/takk`.
 
 ### Menu board (16:9)
 - The same world on a 1920×1080 screen: a whitewash board with a spruce panel on the right for drinks, the live clock and the phone number. Section heads are copper italic Brygada; dishes use the menu-row grammar scaled for reading at 3–5 m. It is drawn from the same menu data as the website.
@@ -313,7 +350,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 ### Don't:
 - **Don't** use rounded corners, shadows, gradients or glass.
 - **Don't** use cards or card grids, on any surface.
-- **Don't** use copper for anything but prices, the current state and the here-mark (headings on the menu board excepted).
+- **Don't** use copper for anything but prices, the current state (a field in error included) and the here-mark (headings on the menu board excepted).
 - **Don't** set labels in uppercase or put an eyebrow above a heading.
 - **Don't** use stock or AI-generated imagery of the house or the landscape; use a placeholder instead. The one exception is a real photo that the owner has retouched (clutter removed, colour lifted), such as the masthead photo, and the credits page must say it is AI-retouched («KI-retusjert»).
 - **Don't** turn the skyline into a pattern, a wave, a filled mountain or a logo.

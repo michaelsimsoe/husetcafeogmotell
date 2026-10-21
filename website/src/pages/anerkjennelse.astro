@@ -1,0 +1,110 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import { photos, src } from '@data/credits';
+import { site } from '@data/site';
+import { withBase } from '@lib/base';
+
+const BY_4 = 'https://creativecommons.org/licenses/by/4.0/deed.no';
+const OSM = 'https://www.openstreetmap.org/copyright';
+const own = photos.filter((p) => p.status === 'egen');
+const outside = photos.filter((p) => p.status !== 'egen');
+const rows = [...outside, ...own];
+---
+
+<Layout
+  title="Bilder og kilder – Huset Café & Motell"
+  description="Hvem som har tatt bildene på nettsiden til Huset Café & Motell, lisensene, og hvor kart og andre data kommer fra."
+  current="anerkjennelse"
+>
+  <div class="wrap g12 pg-head">
+    <h1 class="display lg:col-[1/10]">Bilder <em>og kilder</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">
+      Hvem som har tatt bildene, og hvor kartene og tallene kommer fra. Husets egne bilder står uten navn på sidene. Bilder fra
+      andre er kreditert ved bildet og her.
+    </p>
+    <Ridge from={0} to={1} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+  </div>
+
+  <section class="wrap pg-sec" aria-labelledby="bilder">
+    <div class="g12">
+      <h2 id="bilder" class="pg-h lg:col-[1/4]">Bilder</h2>
+      <p class="mt-4 lg:mt-0 lg:col-[5/12]">
+        {outside.length} av bildene er tatt av andre og brukes etter lisensen som står ved hvert av dem. De er beskåret for å passe på
+        sidene. Resten er Husets egne.
+      </p>
+    </div>
+    <div class="mt-8 overflow-x-auto">
+      <table class="credits">
+        <caption class="sr-only">Bilder, fotografer og lisenser</caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Bilde</span></th>
+            <th scope="col">Bildetekst</th>
+            <th scope="col">Fotograf</th>
+            <th scope="col">Lisens</th>
+            <th scope="col">Kilde</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((p) => (
+              <tr>
+                <td>
+                  <img class="thumb" src={src(p.id, 800)} width="72" height="52" alt="" loading="lazy" decoding="async" />
+                </td>
+                <th scope="row" data-label="Bildetekst:">
+                  <span class="font-normal">{p.caption}</span>
+                  {p.note && <span class="credits-note">{p.note}</span>}
+                </th>
+                <td data-label="Fotograf:">{p.credit}</td>
+                <td data-label="Lisens:">
+                  {p.licenseUrl ? <a href={p.licenseUrl}>{p.license}</a> : (p.license ?? 'Husets eget bilde')}
+                </td>
+                <td data-label="Kilde:">{p.sourceUrl ? <a href={p.sourceUrl}>Wikimedia Commons</a> : 'Huset'}</td>
+              </tr>
+            ))
+          }
+          <tr>
+            <td>
+              <img class="thumb thumb-logo" src={withBase('/img/huset-logo-mask.png')} width="72" height="52" alt="" loading="lazy" decoding="async" />
+            </td>
+            <th scope="row" data-label="Bildetekst:"><span class="font-normal">Husets logo, nederst på hver side</span></th>
+            <td data-label="Fotograf:">{site.name}</td>
+            <td data-label="Lisens:">Husets eget merke</td>
+            <td data-label="Kilde:">Huset</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap g12 pg-sec pb-[clamp(4rem,8vw,7rem)]" aria-labelledby="kilder">
+    <h2 id="kilder" class="pg-h lg:col-[1/4]">Kart <em>og andre kilder</em></h2>
+    <ul class="plain list-disc mt-4 lg:mt-0 lg:col-[5/12]">
+      <li>
+        Fjellinja som går igjen på sidene er tegnet etter fotografiet «Korgen sentrum fra Røssåga» av Magne Tor Ingvald Aga
+        (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.no">CC BY-SA 4.0</a>).
+      </li>
+      <li>
+        Adressen og kartpunktet, Meieriveien 7, 8646 Korgen: Kartverkets adresseregister (Matrikkelen, <a href={BY_4}>CC BY 4.0</a>).
+        Olderneset er tettstedet adressen ligger i.
+      </li>
+      <li>
+        Veibeskrivelsen ender på parkeringen mellom huset og E6. Punktet er hentet fra OpenStreetMap (©{' '}
+        <a href={OSM}>OpenStreetMap-bidragsytere</a>, ODbL){site.directions.confirmed ? '.' : ' og skal bekreftes av Huset.'} Knappen
+        åpner Google Maps, Apple Maps, Waze eller telefonens egen kartapp. Siden henter ingen kart og ber ikke om posisjonen din.
+      </li>
+      <li>
+        Kartet i «Her ligger Korgen»: kystlinje og grenser fra <a href="https://www.naturalearthdata.com/">Natural Earth</a> (fri bruk).
+        Veien, avstandene og kjøretidene er beregnet med OSRM på OpenStreetMap-data (© <a href={OSM}>OpenStreetMap-bidragsytere</a>,
+        ODbL) og avrundet. Høydeprofilen bygger på høydedata fra Kartverket (<a href={BY_4}>CC BY 4.0</a>); tunnelene er stiplet mellom
+        tunnelåpningene.
+      </li>
+      <li>
+        Skrifter: <a href="https://fontsource.org/fonts/brygada-1918">Brygada 1918</a> og{' '}
+        <a href="https://fontsource.org/fonts/ysabeau-office">Ysabeau Office</a>, begge under SIL Open Font License.
+      </li>
+    </ul>
+  </section>
+</Layout>

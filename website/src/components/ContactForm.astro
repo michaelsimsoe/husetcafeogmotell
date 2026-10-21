@@ -1,0 +1,95 @@
+---
+/**
+ * The Netlify contact form. Name and field names match the old site exactly
+ * (`contact`, `contactName`, `contactEmail`, `contactPhone`, `contactMessage`),
+ * so submissions keep landing in the same form with the same columns.
+ *
+ * Without JavaScript it posts normally and Netlify shows /kontakt/takk.
+ * With JavaScript (scripts/contact-form.ts) it validates in Norwegian, posts
+ * in the background and thanks the sender by name in place.
+ */
+import Arrow from '@components/Arrow.astro';
+import { site } from '@data/site';
+import { withBase } from '@lib/base';
+---
+
+<div class="cf" data-cf>
+  <form
+    class="cf-form"
+    name="contact"
+    method="POST"
+    action={withBase('/kontakt/takk')}
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    data-cf-form
+    data-endpoint={withBase('/')}
+  >
+    <input type="hidden" name="form-name" value="contact" />
+    <p class="sr-only" aria-hidden="true">
+      <label>Ikke fyll ut dette feltet: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    <div class="cf-field">
+      <label class="cf-label" for="cf-name">Navn</label>
+      <input class="cf-input" id="cf-name" name="contactName" type="text" autocomplete="name" required />
+      <p class="cf-err" id="cf-name-err" hidden></p>
+    </div>
+
+    <fieldset class="cf-set">
+      <legend class="cf-legend">Hvordan skal vi komme tilbake til deg?</legend>
+      <p class="cf-hint" id="cf-back-hint">Legg igjen e-post eller telefonnummer, så vi kan svare deg.</p>
+      <div class="cf-pair">
+        <div class="cf-field">
+          <label class="cf-label" for="cf-email">E-post</label>
+          <input
+            class="cf-input"
+            id="cf-email"
+            name="contactEmail"
+            type="email"
+            autocomplete="email"
+            spellcheck="false"
+            aria-describedby="cf-back-hint"
+          />
+          <p class="cf-err" id="cf-email-err" hidden></p>
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cf-phone">Telefonnummer</label>
+          <input class="cf-input num" id="cf-phone" name="contactPhone" type="tel" autocomplete="tel" aria-describedby="cf-back-hint" />
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="cf-field">
+      <label class="cf-label" for="cf-message">Melding</label>
+      <textarea class="cf-input cf-area" id="cf-message" name="contactMessage" rows="6" required minlength="3"></textarea>
+      <p class="cf-err" id="cf-message-err" hidden></p>
+    </div>
+
+    <div class="cf-fail" role="alert" data-cf-fail hidden>
+      <p>
+        <strong>Meldingen kom ikke fram.</strong> Det du skrev ligger fortsatt i skjemaet, så du kan prøve igjen. Du kan også
+        ringe oss på <a href={site.contact.phoneHref}>{site.contact.phone}</a> eller sende e-post til{' '}
+        <a href={site.contact.emailHref}>{site.contact.email}</a>.
+      </p>
+    </div>
+
+    <div class="cf-send">
+      <button class="btn cf-btn" type="submit" data-cf-submit>
+        <span data-cf-label>Send meldingen</span>
+        <Arrow />
+      </button>
+      <a class="cf-privacy" href={withBase('/privacy')}>Om personvern</a>
+    </div>
+  </form>
+
+  <section class="cf-thanks" aria-labelledby="cf-thanks-h" data-cf-thanks hidden>
+    <h2 class="cf-thanks-h" id="cf-thanks-h" tabindex="-1">Takk<span data-cf-who></span>!</h2>
+    <p>Vi svarer deg så snart vi bare kan!</p>
+    <p class="cf-again"><button class="go" type="button" data-cf-again>Skriv en ny melding</button></p>
+  </section>
+</div>
+
+<script>
+  import { mountContactForm } from '../scripts/contact-form';
+  document.querySelectorAll<HTMLElement>('[data-cf]').forEach(mountContactForm);
+</script>

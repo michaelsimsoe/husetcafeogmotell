@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Astro, Tailwind CSS v4, TypeScript, Netlify, Pages CMS (user-specified for the replacement site). The legacy Create React App in the repository root remains the production site until a replacement is approved; design prototypes live in an isolated `redesign/` app and are never deployed in the exploration phase.
+Astro, Tailwind CSS v4, TypeScript, Netlify, Pages CMS (user-specified for the replacement site). The legacy Create React App in the repository root remains the production site until the replacement is approved. The replacement is `website/`: a static Astro build ported from concept A, with content in `website/src/content/*.json` edited through Pages CMS (`.pages.yml` at the repository root) and the old site's Netlify contact form kept intact. The three design concepts live in `redesign/` as an archive and are published only to the separate GitHub Pages preview.
 
 ## Users
 
@@ -31,7 +31,7 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 - The restaurant shows its menu on three 16:9 digital screens. The website and those screens will eventually share one structured menu dataset (name, description, price, allergens, category).
 - Allergen key used on the screens: 1 = Gluten, 2 = Laktose, 3 = Egg, 4 = Sennep, 5 = Nøtter.
 - Rooms are booked via Booking.com or by phone/e-mail; payment on arrival unless otherwise agreed.
-- Content will be maintained by the family through Pages CMS (not integrated during design exploration).
+- Content is maintained by the family through Pages CMS: opening hours, rooms, venues, meeting rooms, nearby places and the whole menu. Photos are still managed in code.
 
 ## Capabilities and Constraints
 

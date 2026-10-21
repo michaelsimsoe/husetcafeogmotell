@@ -1,0 +1,736 @@
+{
+  "confirmed": false,
+  "note": "Priser og allergener som på dagens menyskjermer.",
+  "allergenNote": "Spør personalet om allergener. Merkingen er overført fra skjermene og må kontrolleres.",
+  "allergens": [
+    {
+      "code": "1",
+      "name": "Gluten"
+    },
+    {
+      "code": "2",
+      "name": "Laktose"
+    },
+    {
+      "code": "3",
+      "name": "Egg"
+    },
+    {
+      "code": "4",
+      "name": "Sennep"
+    },
+    {
+      "code": "5",
+      "name": "Nøtter"
+    }
+  ],
+  "sections": [
+    {
+      "id": "grill",
+      "title": "Fra grillen",
+      "dishes": [
+        {
+          "name": "Biffburger",
+          "description": "med salat og chips",
+          "price": 235,
+          "allergens": [
+            "1",
+            "2",
+            "4"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Husets chilliburger",
+          "description": "med cheddar, løkringer og bacon",
+          "price": 310,
+          "allergens": [
+            "1",
+            "2",
+            "4"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Husets kebabburger",
+          "description": "kyllingkebab med chips og dressing",
+          "price": 245,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Vertshusburger",
+          "description": "med bacon, nachos, salat og chips",
+          "price": 269,
+          "allergens": [
+            "1",
+            "2",
+            "4"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Rullekebab",
+          "description": "med salat, jalapeño og chips",
+          "price": 245,
+          "allergens": [
+            "1",
+            "2",
+            "3"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Kebabtallerken",
+          "description": "med salat og chips",
+          "price": 260,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Biffsnadder",
+          "description": "med salat og chips",
+          "price": 245,
+          "allergens": [
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Kyllingsnadder",
+          "description": "med salat og chips",
+          "price": 245,
+          "allergens": [
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Husets biff",
+          "description": "med sopp, løk, stekt tomat og salat",
+          "price": 329,
+          "allergens": [
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Løvsteik",
+          "description": "med salat og chips",
+          "price": 235,
+          "allergens": [
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Ostesnitzel av kalkun",
+          "description": "med salat og chips",
+          "price": 245,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "pizza",
+      "title": "Pizza",
+      "dishes": [
+        {
+          "name": "Biffpizza",
+          "description": "med biffkjøtt, løk og bacon",
+          "price": 290,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Pepperoni",
+          "description": "med pepperoni, kjøttdeig og løk",
+          "price": 270,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Kjøttdeig",
+          "description": "med kjøttdeig og bacon",
+          "price": 270,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Jambon",
+          "description": "med skinke",
+          "price": 230,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Hawaii",
+          "description": "med skinke og ananas",
+          "price": 250,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Vegetar",
+          "description": "med et utvalg av grønnsaker",
+          "price": 250,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Fredagspizza",
+          "description": "med ekstra alt!",
+          "price": 315,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": true
+        },
+        {
+          "name": "La Kebab",
+          "description": "husets kebabpizza",
+          "price": 290,
+          "allergens": [
+            "1",
+            "2",
+            "3"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Alabama",
+          "description": "med kylling og løk",
+          "price": 290,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Margherita",
+          "description": "med tomat, ost og basilikum",
+          "price": 215,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": true
+        },
+        {
+          "name": "Monaco",
+          "description": "med biff, sopp og løk",
+          "price": 290,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Hot Hot",
+          "description": "med chillisaus og kjøttdeig",
+          "price": 290,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Mix",
+          "description": "velg opptil fem ingredienser",
+          "price": 340,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "fisk",
+      "title": "Fisk",
+      "dishes": [
+        {
+          "name": "Ovnsbakt laksefilet",
+          "description": "med salat og rømme",
+          "price": 250,
+          "allergens": [
+            "2"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Steinbitkarbonader",
+          "description": "med salat, rømme og potet",
+          "price": 260,
+          "allergens": [
+            "2"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "smaretter",
+      "title": "Småretter",
+      "dishes": [
+        {
+          "name": "Husets nachos",
+          "price": 205,
+          "allergens": [
+            "2",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Egg og bacon",
+          "price": 165,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Taco wraps",
+          "price": 165,
+          "allergens": [
+            "1",
+            "2",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Sandwich",
+          "description": "med ost og skinke",
+          "price": 175,
+          "allergens": [
+            "1",
+            "2",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Karbonadesmørbrød",
+          "description": "med speilegg",
+          "price": 175,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Dobbel karbonadesmørbrød",
+          "description": "med speilegg",
+          "price": 210,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "salat",
+      "title": "Husets salat",
+      "dishes": [
+        {
+          "name": "Skinke",
+          "price": 195,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Kylling og bacon",
+          "price": 210,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Reker",
+          "price": 215,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Vegetar",
+          "price": 205,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "pita",
+      "title": "Pitabrød",
+      "dishes": [
+        {
+          "name": "Kjøttdeig",
+          "price": 205,
+          "allergens": [
+            "1",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Kylling og bacon",
+          "price": 210,
+          "allergens": [
+            "1",
+            "4"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "omelett",
+      "title": "Omeletter",
+      "dishes": [
+        {
+          "name": "Skinke",
+          "price": 195,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Kjøttdeig",
+          "price": 195,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Reker",
+          "price": 210,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Bacon",
+          "price": 205,
+          "allergens": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "barn",
+      "title": "Barnemeny",
+      "note": "Barneporsjon av dagens meny: 30 % rabatt.",
+      "dishes": [
+        {
+          "name": "Kyllinglår",
+          "description": "med chips",
+          "price": 150,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Fiskepinner",
+          "description": "med chips",
+          "price": 145,
+          "allergens": [
+            "1",
+            "3"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Barneburger 100 g",
+          "description": "med chips",
+          "price": 155,
+          "allergens": [
+            "1"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Kyllingnuggets",
+          "description": "med chips",
+          "price": 145,
+          "allergens": [
+            "1"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Barnebiff",
+          "description": "med salat og chips",
+          "price": 195,
+          "allergens": [
+            "2",
+            "3",
+            "4"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Pølse og chips",
+          "variants": [
+            {
+              "label": "Enkel",
+              "price": 135
+            },
+            {
+              "label": "Dobbel",
+              "price": 165
+            }
+          ],
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Pølse og potetmos",
+          "variants": [
+            {
+              "label": "Enkel",
+              "price": 145
+            },
+            {
+              "label": "Dobbel",
+              "price": 175
+            }
+          ],
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Pannekake",
+          "description": "med blåbærsyltetøy",
+          "price": 65,
+          "allergens": [
+            "1",
+            "2",
+            "3"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Chips",
+          "price": 80,
+          "allergens": [],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "ekstra",
+      "title": "Ekstra",
+      "dishes": [
+        {
+          "name": "Ost",
+          "price": 17,
+          "allergens": [
+            "3"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Bacon",
+          "price": 22,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "3 løkringer",
+          "price": 33,
+          "allergens": [
+            "1"
+          ],
+          "featured": false
+        },
+        {
+          "name": "3 mozzarellasticks",
+          "price": 33,
+          "allergens": [
+            "1",
+            "2"
+          ],
+          "featured": false
+        }
+      ]
+    },
+    {
+      "id": "drikke",
+      "title": "Drikke",
+      "note": "Fatøl i tre størrelser – prisen står ved hver størrelse.",
+      "dishes": [
+        {
+          "name": "Brus",
+          "price": 50,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Juice",
+          "price": 45,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Kaffe",
+          "price": 40,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Te",
+          "price": 40,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Kakao",
+          "price": 45,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Fatøl",
+          "variants": [
+            {
+              "label": "0,4 l",
+              "price": 110
+            },
+            {
+              "label": "0,5 l",
+              "price": 125
+            },
+            {
+              "label": "0,6 l",
+              "price": 145
+            }
+          ],
+          "allergens": [
+            "1"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Spesialøl",
+          "price": 150,
+          "allergens": [
+            "1"
+          ],
+          "featured": false
+        },
+        {
+          "name": "Rusbrus",
+          "price": 125,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Rødvin",
+          "price": 125,
+          "allergens": [],
+          "featured": false
+        },
+        {
+          "name": "Hvitvin",
+          "price": 125,
+          "allergens": [],
+          "featured": false
+        }
+      ]
+    }
+  ]
+}

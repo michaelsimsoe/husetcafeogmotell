@@ -1,0 +1,50 @@
+---
+import { creditShort, needsCredit, photo, src, srcset } from '@data/credits';
+
+interface Props {
+  id: string;
+  sizes: string;
+  /** CSS aspect-ratio for the crop, e.g. "2 / 1". Omit for the natural ratio. */
+  ratio?: string;
+  /** object-position for the crop. */
+  pos?: string;
+  priority?: boolean;
+  caption?: boolean | string;
+  /** Visible date or place after the caption. */
+  date?: string;
+  creditSide?: 'right' | 'left';
+  class?: string;
+  style?: string;
+}
+
+const { id, sizes, ratio, pos, priority = false, caption = false, date, creditSide = 'right', class: cls, style } = Astro.props;
+const p = photo(id);
+const cap = typeof caption === 'string' ? caption : caption ? p.caption : null;
+const vars = [`--ratio:${ratio ?? `${p.w} / ${p.h}`}`, pos ? `--pos:${pos}` : '', style ?? ''].filter(Boolean).join(';');
+---
+
+<figure class:list={['ph', { 'ph--credit-left': creditSide === 'left' }, cls]} style={vars || undefined}>
+  <div class="ph-frame">
+    <img
+      src={src(id, 1600)}
+      srcset={srcset(id)}
+      sizes={sizes}
+      width={p.w}
+      height={p.h}
+      alt={p.alt}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : undefined}
+      decoding={priority ? 'sync' : 'async'}
+    />
+    <slot />
+    {needsCredit(id) && <small class="ph-credit">{creditShort(id)}</small>}
+  </div>
+  {
+    cap && (
+      <figcaption class="ph-cap">
+        {cap}
+        {date && <span class="ph-date">{date}</span>}
+      </figcaption>
+    )
+  }
+</figure>

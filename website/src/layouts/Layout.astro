@@ -1,0 +1,151 @@
+---
+import '../styles/global.css';
+import Ridge from '@components/Ridge.astro';
+import Confirm from '@components/Confirm.astro';
+import { site } from '@data/site';
+import { location } from '@data/location';
+import { src } from '@data/credits';
+import { withBase } from '@lib/base';
+import { indexable } from '@lib/env';
+import { directionsAttrs } from '@lib/format';
+
+interface Props {
+  title: string;
+  description: string;
+  current?: 'home' | 'meny' | 'kontakt' | 'anerkjennelse' | 'privacy' | 'none';
+  /** Keep this page out of search results regardless of environment. */
+  noindex?: boolean;
+  /** Social preview image, root-relative. */
+  image?: string;
+  /** Structured data for this page. */
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, current = 'none', noindex = false, image = src('huset-facade-sun', 1536), jsonLd } = Astro.props;
+const home = current === 'home';
+const hash = (id: string) => (home ? `#${id}` : `${withBase('/')}#${id}`);
+const nav = [
+  { href: withBase('/meny'), label: 'Mat', current: current === 'meny' },
+  { href: hash('rom'), label: 'Rom', current: false },
+  { href: hash('selskap'), label: 'Selskap', current: false },
+  { href: hash('finn-fram'), label: 'Finn fram', current: false },
+  { href: withBase('/kontakt'), label: 'Kontakt', current: current === 'kontakt' },
+];
+
+// With build.format 'file' the build-time pathname ends in `.html`; canonical URLs have no suffix or trailing slash.
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1');
+const canonical = new URL(path, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+const robots = indexable && !noindex ? undefined : 'noindex';
+// `<` is escaped so the JSON can never close its own <script>.
+const json = (v: unknown) => JSON.stringify(v).replace(/</g, '\\u003c');
+const hoursJson = json(site.hours.days.map(({ day, label, short, open, close, closed }) => ({ day, label, short, open, close, closed })));
+---
+
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#f5f6f2" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nb_NO" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={json(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip" href="#innhold">Hopp til innholdet</a>
+    <header class="tb">
+      <div class="wrap tb-row">
+        <a class="wm" href={withBase('/')} aria-label={`${site.name}, til forsiden`}>
+          <span class="wm-name">Huset</span>
+          <span class="wm-sub">Café &amp; Motell</span>
+        </a>
+        <nav class="tb-nav" aria-label="Hovednavigasjon">
+          <ul>
+            {
+              nav.map((n) => (
+                <li>
+                  <a href={n.href} aria-current={n.current ? 'page' : undefined}>
+                    {n.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <a class="tb-phone" href={site.contact.phoneHref}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a1.8 1.8 0 0 1-1.9 1.8A16.6 16.6 0 0 1 4.8 5.4a1.8 1.8 0 0 1 1.8-1.9Z"></path>
+          </svg>
+          <span><span class="sr-only">Ring </span>{site.contact.phone}</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="innhold" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="on-spruce">
+      <Ridge from={0} to={1} mirror bleed height="clamp(36px, 5vw, 64px)" class="ft-ridge" />
+      <div class="wrap ft g12">
+        <div class="md:col-[1/5]">
+          <img class="ft-logo" src={withBase('/img/huset-logo-mask.png')} width="267" height="160" alt="" />
+          <h2>{site.name}</h2>
+          <address class="soft not-italic">
+            {location.address.street}, {location.address.postcode} {location.address.postalPlace}<br />
+            {location.address.municipality} · ved {site.place.road}
+          </address>
+        </div>
+        <div class="md:col-[5/9] mt-6 md:mt-0">
+          <ul class="ft-list">
+            <li><a href={site.contact.phoneHref}>Ring {site.contact.phone}</a></li>
+            <li><a href={site.contact.emailHref}>{site.contact.email}</a></li>
+            <li><a href={withBase('/kontakt')}>Send oss en melding</a></li>
+            <li><a href={site.contact.facebook}>Facebook</a></li>
+            <li><a href={site.links.directions} {...directionsAttrs}>Veibeskrivelse</a></li>
+          </ul>
+        </div>
+        <div class="md:col-[9/13] mt-6 md:mt-0">
+          <p class="label">Åpningstider</p>
+          <ul class="ft-list num mt-2">
+            {
+              site.hours.groups.map((g) => (
+                <li>
+                  {g.label} {g.time}
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mt-2"><Confirm confirmed={site.hours.confirmed} /></p>
+        </div>
+        <p class="ft-meta">
+          <a href={withBase('/anerkjennelse')} aria-current={current === 'anerkjennelse' ? 'page' : undefined}>Bilder og kilder</a>
+          <a href={withBase('/privacy')} aria-current={current === 'privacy' ? 'page' : undefined}>Personvern</a>
+        </p>
+      </div>
+    </footer>
+
+    <script type="application/json" id="opening-hours" set:html={hoursJson} />
+    <script>
+      import { mountSite } from '../scripts/site';
+      mountSite();
+    </script>
+  </body>
+</html>
+
+<style>
+  main:focus { outline: none; }
+  .ft-ridge { padding-top: clamp(2rem, 4vw, 3.5rem); }
+</style>

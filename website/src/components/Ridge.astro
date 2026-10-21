@@ -1,0 +1,22 @@
+---
+import { ridgePath } from '@lib/format';
+
+interface Props {
+  from?: number;
+  to?: number;
+  start?: number;
+  end?: number;
+  mirror?: boolean;
+  /** CSS height of the band. */
+  height?: string;
+  class?: string;
+  bleed?: boolean;
+}
+
+const { from = 0, to = 1, start = 0, end = 1, mirror = false, height = '72px', class: cls, bleed = false } = Astro.props;
+const d = ridgePath({ from, to, start, end, mirror });
+---
+
+<div class:list={['ridge', { bleed }, cls]} data-ridge aria-hidden="true" style={`--rh:${height}`}>
+  <svg viewBox="0 0 1000 100" preserveAspectRatio="none" focusable="false"><path d={d}></path></svg>
+</div>

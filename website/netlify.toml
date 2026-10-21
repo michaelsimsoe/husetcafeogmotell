@@ -1,0 +1,9 @@
+# Build settings for a Netlify site connected to Git with base directory `website`.
+# Uploads with `netlify deploy --dir=website/dist` (GitHub Actions) skip this file;
+# headers therefore live in public/_headers, which ships inside dist either way.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
