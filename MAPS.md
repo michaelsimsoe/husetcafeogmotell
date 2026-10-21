@@ -5,7 +5,7 @@ How the Huset site shows where the house is, using only free map sources: no API
 - **Playground:** `/dev/maps` (noindex). Compares four implementations side by side, with switchable styles, layout treatments, gesture modes and a simulated failure.
 - **Component demo:** `/dev/maps-komponent` (noindex). The extracted production component on its own.
 
-The concept app (`redesign/`) does not use the component on any live or concept page. The production site (`website/`) carries a MapLibre-only port with two tones (light, and a dark `huset-style-spruce.json` generated from the light style) and a one-time glide in, shown as a map band on `/dev/kart-lys` and `/dev/kart-mork`. See «Map band» in `website/README.md`.
+The concept app (`redesign/`) does not use the component on any live or concept page. The production site (`website/`) carries a MapLibre-only port with two tones (light, and a dark `huset-style-spruce.json` generated from the light style) and a one-time glide in. Its homepage ends with the map in the dark tone. See «Map band» in `website/README.md`.
 
 ## The four options
 

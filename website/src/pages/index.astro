@@ -16,17 +16,6 @@ import { withBase } from '@lib/base';
 import { coords, directionsAttrs, groupsLine, kl, listJoin, pairSentence, ridgeOnPhoto } from '@lib/format';
 import { span } from '@lib/hours';
 
-interface Props {
-  /**
-   * The map band between «Finn fram» and the footer. `none` on the live
-   * homepage until a tone is chosen; /dev/kart-lys and /dev/kart-mork render
-   * this page with each tone for comparison.
-   */
-  mapTone?: 'none' | 'light' | 'spruce';
-}
-const { mapTone = 'none' } = Astro.props;
-const withMap = mapTone !== 'none';
-
 const picks = featured.slice(0, 2);
 const kids = sectionById('barn');
 const r = site.rooms;
@@ -75,7 +64,6 @@ const jsonLd = {
   description={`Familiedrevet kafé og motell ved E6 i Korgen, Hemnes. Grill, pizza og kaffe, ${r.count} rom med frokost, selskap og møterom. Ring ${site.contact.phone}.`}
   current="home"
   jsonLd={jsonLd}
-  noindex={withMap}
 >
   <!-- Masthead -->
   <section class="hero" aria-labelledby="tittel">
@@ -406,25 +394,20 @@ const jsonLd = {
         <li><a href={kontakt}>Send oss en melding <Arrow /></a></li>
         <li><a href={site.contact.emailHref}>{site.contact.email} <Arrow /></a></li>
         <li><a href={site.contact.facebook}>Facebook <Arrow /></a></li>
-        {!withMap && <li><a href={site.links.map}>Se kartet <Arrow /></a></li>}
       </ul>
     </div>
   </section>
 
-  {
-    withMap && (
-      <section id="kart" class:list={['map-band', mapTone === 'spruce' && 'map-band--spruce on-spruce']} aria-label="Kart">
-        <HusetMap
-          name={location.name}
-          addressLine={addressLine}
-          marker={location.addressPoint}
-          destination={location.arrival}
-          label="Huset"
-          tone={mapTone === 'spruce' ? 'spruce' : 'light'}
-          intro="glide"
-          height="clamp(24rem, 62vh, 36rem)"
-        />
-      </section>
-    )
-  }
+  <section id="kart" class="map-band map-band--spruce on-spruce" aria-label="Kart">
+    <HusetMap
+      name={location.name}
+      addressLine={addressLine}
+      marker={location.addressPoint}
+      destination={location.arrival}
+      label="Huset"
+      tone="spruce"
+      intro="glide"
+      height="clamp(24rem, 62vh, 36rem)"
+    />
+  </section>
 </Layout>

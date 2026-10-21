@@ -22,14 +22,13 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 
 | Path | Page |
 | --- | --- |
-| `/` | Homepage: today's hours and status, «Her ligger Korgen», food (`#mat`), rooms (`#rom`), gatherings and meeting rooms (`#selskap`), «Korgen, før og nå» (`#korgen`), surroundings (`#rundt`), address and directions (`#finn-fram`) |
+| `/` | Homepage: today's hours and status, «Her ligger Korgen», food (`#mat`), rooms (`#rom`), gatherings and meeting rooms (`#selskap`), «Korgen, før og nå» (`#korgen`), surroundings (`#rundt`), address and directions (`#finn-fram`), street map (`#kart`) |
 | `/meny` | The full menu with allergens |
 | `/kontakt` | Contact details and the contact form |
 | `/kontakt/takk` | Thank-you page for the form without JavaScript (noindex) |
 | `/anerkjennelse` | Photo credits, map data and sources |
 | `/privacy` | Privacy policy (still the old site's English text, see the launch checklist) |
 | `/sitemap.xml`, `/robots.txt` | Generated at build time |
-| `/dev/kart-lys`, `/dev/kart-mork` | The homepage with the map band in the light or the dark tone, for comparison (noindex, not in the sitemap). Delete both once a tone is chosen. |
 
 The old site's `/overnatting`, `/arrangementer` and `/tjenester` became homepage sections. Each still exists as a small noindex page that forwards to `/#rom` or `/#selskap`.
 
@@ -58,12 +57,11 @@ Managed in code, not in the CMS:
 
 ## Map band
 
-`index.astro` takes `mapTone` (`none`, `light` or `spruce`). With a tone, a full-bleed street map sits between «Finn fram» and the footer, and «Se kartet» leaves the link list above it. The live homepage uses `none` until a tone is chosen; `/dev/kart-lys` and `/dev/kart-mork` show each one.
+A full-bleed street map in the dark (spruce) tone closes the homepage, between «Finn fram» and the footer (`#kart`). `HusetMap` also has a light tone; to switch, change `tone` and drop `map-band--spruce on-spruce` from the section in `index.astro`.
 
 - The map opens wider, with Korgen, the river and the E6 in view, and eases in to the house once, when half of it is on screen. With reduced motion it opens at the house and does not move.
 - MapLibre (about 300 kB gzip, 1.1 MB raw) loads only when the band is close to the viewport. Without WebGL2, if the tiles fail or after 15 seconds, the band shows the address and the directions links instead.
-- Tiles and fonts come from OpenFreeMap: free, no key, no SLA. Visitors' browsers fetch them directly, so OpenFreeMap sees their IP addresses.
-- To ship: set the default tone in `index.astro`, delete `src/pages/dev/`, and add the map credits (OpenFreeMap, OpenMapTiles, OpenStreetMap, and the Positron style the Huset style derives from) to `/anerkjennelse`.
+- Tiles and fonts come from OpenFreeMap: free, no key, no SLA. Visitors' browsers fetch them directly, so OpenFreeMap sees their IP addresses. The map credits are on `/anerkjennelse`.
 
 ## Contact form
 
@@ -122,8 +120,7 @@ Photos (missing ones are shown as marked placeholders):
 
 Other:
 
-- [ ] Rewrite the privacy policy in Norwegian for what the new site actually does: Netlify stores what is sent through the contact form; the directions keep the chosen map app in the browser's local storage; fonts are self-hosted; there is no analytics, and Facebook is only a link. If the map band ships, say that the map loads from OpenFreeMap, which receives the visitor's IP address.
-- [ ] Choose the map band's tone (or none), then follow «To ship» under [Map band](#map-band).
+- [ ] Rewrite the privacy policy in Norwegian for what the new site actually does: Netlify stores what is sent through the contact form; the directions keep the chosen map app in the browser's local storage; fonts are self-hosted; there is no analytics, and Facebook is only a link. The map at the bottom of the homepage loads from OpenFreeMap, which receives the visitor's IP address.
 - [ ] Test the directions on a real iPhone and a real Android phone.
 - [ ] On the test site (deployed by `dev.yml`), send a test message and check that it arrives in Netlify and as an e-mail. Form detection must be on for that site.
 - [ ] Switch `prod.yml`, deploy, then submit `https://www.husetmotell.no/sitemap.xml` in Google Search Console.
