@@ -41,7 +41,8 @@ Pages build as `meny.html` rather than `meny/index.html` (`build.format: 'file'`
 | `src/content/site.json` | Phone, e-mail, Facebook, Booking.com link, opening hours, rooms, venues, meeting rooms, nearby places and whether the directions are confirmed |
 | `src/content/menu.json` | Menu sections, dishes, prices, variants, allergens, and which dishes are featured on the homepage |
 
-- Pages CMS reads [`../.pages.yml`](../.pages.yml) at the repository root. Sign in at [app.pagescms.org](https://app.pagescms.org) with a GitHub account that has access to the repository, then pick the branch the site deploys from. Each save is a commit, and Netlify rebuilds.
+- Pages CMS reads [`../.pages.yml`](../.pages.yml) at the repository root. Sign in at [app.pagescms.org](https://app.pagescms.org) with a GitHub account that has access to the repository, then pick the branch the site deploys from. Until launch that is `michaelsimsoe-huset-site-remake`; the default branch has no `.pages.yml`, so don't let Pages CMS create one there. Each save is a commit, and Netlify rebuilds.
+- People without GitHub can be invited by e-mail under the repository's collaborators in Pages CMS. They can edit content but not the configuration. Their saves are committed by the Pages CMS app unless `settings.commit.identity: user` is set.
 - `settings.content.merge: true` keeps any keys the CMS form does not show, so a save never drops data.
 - Every build validates both files against `src/data/schema.ts`. A bad edit (for example closing before opening, an unknown allergen or a duplicate section id) fails the build with the field named, and Netlify keeps serving the previous deploy.
 - Each group has a `confirmed` switch. While it is off, the site shows the «bekreftes» mark next to those facts. Turn it on once the owners have checked them.
@@ -122,8 +123,8 @@ Other:
 
 - [x] Privacy policy in Norwegian (`/privacy`), written for what the site does. Update it and its date whenever the site starts sending data somewhere new.
 - [ ] Owners: confirm the promise on `/privacy` to delete messages, in Netlify and in the mailbox, once the matter is closed, and then remove its «bekreftes» mark. Optionally add the company's legal name and organisation number.
-- [ ] Test the directions on a real iPhone and a real Android phone.
-- [ ] On the test site (deployed by `dev.yml`), send a test message and check that it arrives in Netlify and as an e-mail. Form detection must be on for that site.
+- [ ] Test the directions and the map on a real iPhone and a real Android phone. Emulated iPhone 15 and Pixel 7 pass: Apple Maps on iPhone, `geo:` on Android, the saved choice and «Glem valget», one-finger scroll over the map, the marker popup, no sideways scrolling.
+- [ ] Contact form: a test message sent on the test site on 21 October 2026 was accepted («Takk, Test fra ny nettside!»). Check that it shows in Netlify → Forms → `contact` (or its spam list) and arrived as an e-mail.
 - [ ] Switch `prod.yml`, deploy, then submit `https://www.husetmotell.no/sitemap.xml` in Google Search Console.
 
 ## Structure
