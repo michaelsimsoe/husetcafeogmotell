@@ -27,7 +27,7 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | `/kontakt` | Contact details and the contact form |
 | `/kontakt/takk` | Thank-you page for the form without JavaScript (noindex) |
 | `/anerkjennelse` | Photo credits, map data and sources |
-| `/privacy` | Privacy policy (still the old site's English text, see the launch checklist) |
+| `/privacy` | Privacy policy in Norwegian: the contact form (Netlify), hosting, the map (OpenFreeMap), the saved map-app choice, and visitors' rights |
 | `/sitemap.xml`, `/robots.txt` | Generated at build time |
 
 The old site's `/overnatting`, `/arrangementer` and `/tjenester` became homepage sections. Each still exists as a small noindex page that forwards to `/#rom` or `/#selskap`.
@@ -120,7 +120,8 @@ Photos (missing ones are shown as marked placeholders):
 
 Other:
 
-- [ ] Rewrite the privacy policy in Norwegian for what the new site actually does: Netlify stores what is sent through the contact form; the directions keep the chosen map app in the browser's local storage; fonts are self-hosted; there is no analytics, and Facebook is only a link. The map at the bottom of the homepage loads from OpenFreeMap, which receives the visitor's IP address.
+- [x] Privacy policy in Norwegian (`/privacy`), written for what the site does. Update it and its date whenever the site starts sending data somewhere new.
+- [ ] Owners: confirm the promise on `/privacy` to delete messages, in Netlify and in the mailbox, once the matter is closed, and then remove its «bekreftes» mark. Optionally add the company's legal name and organisation number.
 - [ ] Test the directions on a real iPhone and a real Android phone.
 - [ ] On the test site (deployed by `dev.yml`), send a test message and check that it arrives in Netlify and as an e-mail. Form detection must be on for that site.
 - [ ] Switch `prod.yml`, deploy, then submit `https://www.husetmotell.no/sitemap.xml` in Google Search Console.
