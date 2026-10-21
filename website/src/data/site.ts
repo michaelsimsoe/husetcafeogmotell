@@ -1,15 +1,24 @@
 /**
- * Everything the pages say about Huset. Editable facts come from
- * src/content/site.json (Pages CMS); fixed facts about the place live here.
+ * Everything the pages say about Huset. Editable facts come from the files in
+ * src/content/ (one per Pages CMS screen); fixed facts about the place live here.
  * Anything with `confirmed: false` is shown with a «bekreftes» mark.
  */
-import raw from '../content/site.json';
-import { parseContent, siteSchema, weekdays } from './schema.ts';
+import contactRaw from '../content/contact.json';
+import hoursRaw from '../content/hours.json';
+import roomsRaw from '../content/rooms.json';
+import venuesRaw from '../content/venues.json';
+import noticeRaw from '../content/notice.json';
+import { contactSchema, hoursSchema, noticeSchema, parseContent, roomsSchema, venuesSchema, weekdays } from './schema.ts';
 import { addressLine, location } from './location.ts';
 import { googleDirections, googleMapLink } from '../lib/directions/links.ts';
 import { groupDays, type OpeningDay } from '../lib/hours.ts';
+import { activeNotice } from '../lib/notice.ts';
 
-const data = parseContent(siteSchema, raw, 'src/content/site.json');
+const contact = parseContent(contactSchema, contactRaw, 'src/content/contact.json');
+const hours = parseContent(hoursSchema, hoursRaw, 'src/content/hours.json');
+const rooms = parseContent(roomsSchema, roomsRaw, 'src/content/rooms.json');
+const { meetingRooms, ...venues } = parseContent(venuesSchema, venuesRaw, 'src/content/venues.json');
+const notice = parseContent(noticeSchema, noticeRaw, 'src/content/notice.json');
 
 const dayNames: Record<(typeof weekdays)[number], [string, string]> = {
   monday: ['Mandag', 'Man'],
@@ -23,10 +32,10 @@ const dayNames: Record<(typeof weekdays)[number], [string, string]> = {
 
 const days: OpeningDay[] = weekdays.map((key, day) => {
   const [label, short] = dayNames[key];
-  return { day, label, short, ...data.hours[key] };
+  return { day, label, short, ...hours[key] };
 });
 
-const phone = data.contact.phone.trim();
+const phone = contact.phone.trim();
 const hasCountry = phone.startsWith('+');
 const digits = phone.replace(/\D/g, '');
 
@@ -48,26 +57,37 @@ export const site = {
     phone,
     phoneIntl: hasCountry ? phone : `+47 ${phone}`,
     phoneHref: `tel:+${hasCountry ? digits : `47${digits}`}`,
-    email: data.contact.email,
-    emailHref: `mailto:${data.contact.email}`,
-    facebook: data.contact.facebook,
+    email: contact.email,
+    emailHref: `mailto:${contact.email}`,
+    facebook: contact.facebook,
   },
   links: {
     /** Universal fallback; the browser upgrades it to the visitor's own map app. */
     directions: googleDirections(location.arrival),
     map: googleMapLink(location.addressPoint),
-    booking: data.contact.booking,
+    booking: contact.booking,
   },
   hours: {
-    confirmed: data.hours.confirmed,
+    confirmed: hours.confirmed,
     days,
     groups: groupDays(days),
   },
-  rooms: data.rooms,
-  venues: data.venues,
-  meetingRooms: data.meetingRooms,
-  nearby: data.nearby,
-  directions: data.directions,
+  rooms,
+  venues,
+  meetingRooms,
+  /** The owners' short message at the top of every page, if one is showing. */
+  notice: activeNotice(notice),
+  /** Fixed facts, kept in code. Articles about the area will say more. */
+  nearby: {
+    confirmed: false,
+    places: [
+      { name: 'Korgensenteret', what: 'Dagligvare, apotek, Vinmonopolet og frisør', where: 'Rett ved siden av' },
+      { name: 'Circle K', what: 'Bensinstasjon', where: 'Over veien' },
+      { name: 'Okstindan natur- og kulturpark', what: 'Topper, bre og stier', where: 'Øst for Korgen' },
+    ],
+  },
+  /** Set to true once Huset has checked that the map links end at the driveway (`location.arrival`). */
+  directions: { confirmed: false },
   /** Checked against public sources. Not owner-edited. */
   landscape: {
     oksskolten: { name: 'Oksskolten', moh: 1916, kmFromHuset: 24, bearing: 'øst-sørøst' },

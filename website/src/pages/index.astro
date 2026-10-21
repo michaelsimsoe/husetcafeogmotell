@@ -13,7 +13,7 @@ import { addressLine, location } from '@data/location';
 import { allergens, featured, krText, menuMeta, sectionById } from '@data/menu';
 import { src } from '@data/credits';
 import { withBase } from '@lib/base';
-import { coords, directionsAttrs, groupsLine, kl, listJoin, pairSentence, ridgeOnPhoto } from '@lib/format';
+import { coords, directionsAttrs, groupsLine, kl, listJoin, ridgeOnPhoto } from '@lib/format';
 import { span } from '@lib/hours';
 
 const picks = featured.slice(0, 2);
@@ -224,7 +224,7 @@ const jsonLd = {
     <div class="wrap g12">
       <Ridge from={0.2} to={1} start={0} end={0.55} mirror height="clamp(36px, 4vw, 56px)" class="sec-ridge" />
       <h2 id="selskap-h" class="h2 lg:col-[1/9]">Når det er noe <em>å samles om</em></h2>
-      <p class="occasions mt-6 lg:col-[1/11]">{pairSentence(v.occasions)}</p>
+      <p class="occasions mt-6 lg:col-[1/11]">Bryllup og julebord, konfirmasjon og dåp, minnestund og klassefest.</p>
 
       <Photo
         id="party-long-table"
@@ -238,7 +238,7 @@ const jsonLd = {
       <div class="lg:col-[8/13] mt-10 lg:mt-14">
         <div class="prose">
           <p class="lede">
-            Det er plass til {v.capacity} gjester i spisesalen. Vi lager mat til selskapet – {listJoin(v.catering)}{
+            Det er plass til {v.capacity} gjester i spisesalen. Vi lager mat til selskapet – koldtbord, varmmat og snitter{
               v.cakes && <> – og {v.cakes.toLowerCase()}</>
             }.
           </p>

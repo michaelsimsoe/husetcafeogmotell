@@ -30,7 +30,7 @@ export const location = {
   /**
    * Where a driver should end up: the front car park between the building and
    * E6, on the service road off the E6 (OpenStreetMap way 490490957, centroid).
-   * Derived from map data. The owners confirm it with `directions.confirmed` in site.json.
+   * Derived from map data. Huset confirms it with `site.directions.confirmed` in src/data/site.ts.
    */
   arrival: { lat: 66.081075, lon: 13.825683 } satisfies LatLon,
   sources: {

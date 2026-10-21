@@ -1,0 +1,13 @@
+{
+  "confirmed": false,
+  "capacity": 80,
+  "cakes": "Kaker på bestilling",
+  "extras": ["Uteservering", "Søndagsmiddag"],
+  "meetingRooms": {
+    "confirmed": false,
+    "rooms": [
+      { "name": "Stort møterom", "equipment": "Prosjektor og lyd/bilde", "price": 400 },
+      { "name": "Lite møterom", "equipment": "Uten utstyr", "price": 200 }
+    ]
+  }
+}

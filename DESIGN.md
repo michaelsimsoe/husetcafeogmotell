@@ -309,6 +309,9 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 ### Navigation
 - The wordmark «Huset» in Brygada 560 with «Café & Motell» behind a hairline, then the nav (Mat, Rom, Selskap, Finn fram) and the phone number with a stroked river-green icon. The current item is underlined in copper, and hover uses an ink underline. On phones the nav drops to its own row below the wordmark.
 
+### Notice («Beskjed på nettsiden»)
+- When the owners switch a notice on in the CMS, a full-bleed spruce band sits above the top bar on every page: one line of whitewash text in the small step, aligned to the page grid, with no icon, label or close button. It is gone the day after its optional last day, even before the next build.
+
 ### Opening-hours table
 - Days and hours between hairlines inside spruce; today's row is bolder, with a copper-light rule and an italic «i dag».
 

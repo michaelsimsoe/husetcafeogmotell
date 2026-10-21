@@ -9,7 +9,10 @@ export type { Dish, MenuSection } from './schema.ts';
 
 const data = parseContent(menuSchema, raw, 'src/content/menu.json');
 
-export const menu = data.sections;
+/** What guests can order now: dishes switched to «Ikke tilgjengelig nå» are left out, and so is a section left empty. */
+export const menu = data.sections
+  .map((s) => ({ ...s, dishes: s.dishes.filter((d) => !d.unavailable) }))
+  .filter((s) => s.dishes.length > 0);
 
 export const menuMeta = {
   confirmed: data.confirmed,

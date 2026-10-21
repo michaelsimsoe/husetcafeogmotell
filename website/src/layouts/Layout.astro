@@ -65,6 +65,25 @@ const hoursJson = json(site.hours.days.map(({ day, label, short, open, close, cl
   </head>
   <body>
     <a class="skip" href="#innhold">Hopp til innholdet</a>
+    {
+      site.notice && (
+        <aside class="notice on-spruce" aria-label="Beskjed fra Huset" data-until={site.notice.until}>
+          <p class="wrap">{site.notice.text}</p>
+        </aside>
+      )
+    }
+    {/* Removes the notice after its last day, between builds. Same rule as activeNotice() in lib/notice.ts. */}
+    {
+      site.notice?.until && (
+        <script is:inline>
+          (function () {
+            var n = document.currentScript.previousElementSibling;
+            var today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+            if (n && n.dataset.until < today) n.remove();
+          })();
+        </script>
+      )
+    }
     <header class="tb">
       <div class="wrap tb-row">
         <a class="wm" href={withBase('/')} aria-label={`${site.name}, til forsiden`}>
@@ -147,5 +166,6 @@ const hoursJson = json(site.hours.days.map(({ day, label, short, open, close, cl
 
 <style>
   main:focus { outline: none; }
+  .notice p { padding-block: 0.625rem; font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
   .ft-ridge { padding-top: clamp(2rem, 4vw, 3.5rem); }
 </style>

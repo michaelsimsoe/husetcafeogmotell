@@ -1,6 +1,8 @@
 # Pages CMS (https://pagescms.org): the editing screens for the new website in website/.
-# Each field here matches website/src/data/schema.ts. The build checks every save, so a broken value
-# stops the deploy with a Norwegian error message instead of reaching the live site.
+# One screen per job the owners do, most frequent first. Each screen edits one file in
+# website/src/content/, and each field here matches website/src/data/schema.ts. The build checks
+# every save, so a broken value stops the deploy with a Norwegian error message instead of reaching
+# the live site, and GitHub Actions opens an issue quoting it (.github/workflows/dev.yml).
 
 settings:
   content:
@@ -11,121 +13,6 @@ settings:
       update: "Innhold: oppdaterte {filename} (via Pages CMS)"
 
 content:
-  - name: site
-    label: Åpningstider, kontakt og fakta
-    type: file
-    path: website/src/content/site.json
-    format: json
-    fields:
-      - name: contact
-        label: Kontakt
-        type: object
-        fields:
-          - name: phone
-            label: Telefon
-            type: string
-            required: true
-            description: Skriv nummeret slik det skal vises, for eksempel 403 17 353.
-            pattern:
-              regex: "^\\+?[\\d ]{8,16}$"
-              message: Telefonnummeret kan bare ha siffer og mellomrom.
-          - name: email
-            label: E-post
-            type: string
-            required: true
-          - name: facebook
-            label: Facebook-side
-            type: string
-            required: true
-          - name: booking
-            label: Booking.com-side
-            type: string
-            required: true
-
-      - name: hours
-        label: Åpningstider
-        type: object
-        description: Klokkeslett skrives TT:MM, for eksempel 09:30. Like dager slås sammen automatisk på nettsiden.
-        fields:
-          - { name: confirmed, label: Tidene er bekreftet, type: boolean, description: "Når denne er av, viser nettsiden at tidene skal bekreftes." }
-          - { name: monday, label: Mandag, component: day }
-          - { name: tuesday, label: Tirsdag, component: day }
-          - { name: wednesday, label: Onsdag, component: day }
-          - { name: thursday, label: Torsdag, component: day }
-          - { name: friday, label: Fredag, component: day }
-          - { name: saturday, label: Lørdag, component: day }
-          - { name: sunday, label: Søndag, component: day }
-
-      - name: rooms
-        label: Rom og overnatting
-        type: object
-        fields:
-          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
-          - { name: count, label: Antall rom, type: number, required: true, options: { min: 1 } }
-          - { name: priceFrom, label: "Pris fra (kr per natt)", type: number, required: true, options: { min: 0 } }
-          - { name: checkIn, label: Innsjekk fra, component: time }
-          - { name: checkOut, label: Utsjekk innen, component: time }
-
-      - name: venues
-        label: Selskap og arrangementer
-        type: object
-        fields:
-          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
-          - { name: capacity, label: Antall gjester (inntil), type: number, required: true, options: { min: 1 } }
-          - name: occasions
-            label: Anledninger
-            description: Skrives med liten forbokstav, for eksempel «bryllup».
-            type: string
-            list: { min: 1 }
-          - name: catering
-            label: Mat til selskap
-            type: string
-            list: { min: 1 }
-          - { name: cakes, label: Kaker, type: string, description: "La stå tom hvis dere ikke tar imot kakebestillinger." }
-          - name: extras
-            label: Annet dere tilbyr
-            type: string
-            list: true
-
-      - name: meetingRooms
-        label: Møterom
-        type: object
-        fields:
-          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
-          - name: rooms
-            label: Rom
-            type: object
-            list:
-              collapsible: { collapsed: true, summary: "{name}" }
-            fields:
-              - { name: name, label: Navn, type: string, required: true }
-              - { name: equipment, label: Utstyr, type: string }
-              - { name: price, label: "Pris (kr)", type: number, options: { min: 0 } }
-
-      - name: nearby
-        label: I nærheten
-        type: object
-        fields:
-          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
-          - name: places
-            label: Steder
-            type: object
-            list:
-              collapsible: { collapsed: true, summary: "{name}" }
-            fields:
-              - { name: name, label: Navn, type: string, required: true }
-              - { name: what, label: Hva finnes der, type: string, required: true }
-              - { name: where, label: Hvor, type: string, required: true, description: "For eksempel «Over veien»." }
-
-      - name: directions
-        label: Veibeskrivelse
-        type: object
-        fields:
-          - name: confirmed
-            label: Ankomstpunktet er bekreftet
-            type: boolean
-            description: Slå på når dere har sjekket at kartlenkene leder til innkjørselen.
-
   - name: menu
     label: Menyen
     type: file
@@ -202,6 +89,115 @@ content:
                 label: Vis på forsiden
                 type: boolean
                 description: Forsiden viser de fremhevede rettene fra de to første delene av menyen som har noen.
+              - name: unavailable
+                label: Ikke tilgjengelig nå
+                type: boolean
+                description: Skjuler retten på nettsiden til du slår av bryteren igjen. Er alle rettene i en del skjult, forsvinner hele delen.
+
+  - name: hours
+    label: Åpningstider
+    type: file
+    path: website/src/content/hours.json
+    format: json
+    fields:
+      - { name: confirmed, label: Tidene er bekreftet, type: boolean, description: "Når denne er av, viser nettsiden at tidene skal bekreftes." }
+      - { name: monday, label: Mandag, component: day, description: "Skriv klokkeslett som TT:MM, for eksempel 09:30. Dager med like tider slås sammen på nettsiden." }
+      - { name: tuesday, label: Tirsdag, component: day }
+      - { name: wednesday, label: Onsdag, component: day }
+      - { name: thursday, label: Torsdag, component: day }
+      - { name: friday, label: Fredag, component: day }
+      - { name: saturday, label: Lørdag, component: day }
+      - { name: sunday, label: Søndag, component: day, description: "Endrer dere tidene, husk å endre dem på Google og Facebook også." }
+
+  - name: notice
+    label: Beskjed på nettsiden
+    type: file
+    path: website/src/content/notice.json
+    format: json
+    fields:
+      - name: show
+        label: Vis beskjeden
+        type: boolean
+        description: Beskjeden vises øverst på alle sidene, for eksempel når kjøkkenet stenger tidligere en dag.
+      - name: text
+        label: Beskjed
+        type: string
+        description: Én eller to korte setninger, under 200 tegn.
+        options: { maxlength: 200 }
+      - name: until
+        label: Vis til og med
+        type: date
+        default: ""
+        description: Siste dag beskjeden vises. Dagen etter forsvinner den av seg selv. La stå tom for å vise den til du slår den av.
+        options: { format: yyyy-MM-dd }
+
+  - name: rooms
+    label: Rom og priser
+    type: file
+    path: website/src/content/rooms.json
+    format: json
+    fields:
+      - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
+      - { name: count, label: Antall rom, type: number, required: true, options: { min: 1 } }
+      - { name: priceFrom, label: "Pris fra (kr per natt)", type: number, required: true, options: { min: 0 } }
+      - { name: checkIn, label: Innsjekk fra, component: time }
+      - { name: checkOut, label: Utsjekk innen, component: time }
+
+  - name: venues
+    label: Selskap og møterom
+    type: file
+    path: website/src/content/venues.json
+    format: json
+    fields:
+      - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
+      - { name: capacity, label: Antall gjester (inntil), type: number, required: true, options: { min: 1 } }
+      - { name: cakes, label: Kaker, type: string, description: "La stå tom hvis dere ikke tar imot kakebestillinger." }
+      - name: extras
+        label: Annet dere tilbyr
+        description: Vises under menyutdraget på forsiden, for eksempel «Uteservering».
+        type: string
+        list: true
+      - name: meetingRooms
+        label: Møterom
+        type: object
+        fields:
+          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
+          - name: rooms
+            label: Rom
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{name}" }
+            fields:
+              - { name: name, label: Navn, type: string, required: true }
+              - { name: equipment, label: Utstyr, type: string }
+              - { name: price, label: "Pris (kr)", type: number, options: { min: 0 } }
+
+  - name: contact
+    label: Kontakt og lenker
+    type: file
+    path: website/src/content/contact.json
+    format: json
+    fields:
+      - name: phone
+        label: Telefon
+        type: string
+        required: true
+        description: Skriv nummeret slik det skal vises, for eksempel 403 17 353.
+        pattern:
+          regex: "^\\+?[\\d ]{8,16}$"
+          message: Telefonnummeret kan bare ha siffer og mellomrom.
+      - name: email
+        label: E-post
+        type: string
+        required: true
+      - name: facebook
+        label: Facebook-side
+        type: string
+        required: true
+      - name: booking
+        label: Booking.com-side
+        type: string
+        required: true
 
 components:
   day:

@@ -61,14 +61,6 @@ export const kl = (hhmm: string) => `kl. ${hhmm.replace(':', '.')}`;
 export const listJoin = (items: readonly string[]) =>
   items.length < 2 ? (items[0] ?? '') : `${items.slice(0, -1).join(', ')} og ${items[items.length - 1]}`;
 
-/** «Bryllup og julebord, konfirmasjon og dåp, minnestund og klassefest.» */
-export function pairSentence(items: readonly string[]) {
-  const pairs: string[] = [];
-  for (let i = 0; i < items.length; i += 2) pairs.push(items.slice(i, i + 2).join(' og '));
-  const s = pairs.join(', ');
-  return s ? `${s[0].toUpperCase()}${s.slice(1)}.` : '';
-}
-
 const deg = (n: number) => n.toFixed(4).replace('.', ',');
 /** The address point, written the Norwegian way: 66,0809° N, 13,8260° Ø */
 export const coords = `${deg(site.place.geo.lat)}° N, ${deg(site.place.geo.lon)}° Ø`;
