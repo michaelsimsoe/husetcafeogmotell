@@ -7,13 +7,25 @@ import Confirm from '@components/Confirm.astro';
 import Arrow from '@components/Arrow.astro';
 import Locator from '@components/Locator.astro';
 import Directions from '@components/Directions.astro';
+import HusetMap from '@components/maps/HusetMap.astro';
 import { site } from '@data/site';
-import { location } from '@data/location';
+import { addressLine, location } from '@data/location';
 import { allergens, featured, krText, menuMeta, sectionById } from '@data/menu';
 import { src } from '@data/credits';
 import { withBase } from '@lib/base';
 import { coords, directionsAttrs, groupsLine, kl, listJoin, pairSentence, ridgeOnPhoto } from '@lib/format';
 import { span } from '@lib/hours';
+
+interface Props {
+  /**
+   * The map band between «Finn fram» and the footer. `none` on the live
+   * homepage until a tone is chosen; /dev/kart-lys and /dev/kart-mork render
+   * this page with each tone for comparison.
+   */
+  mapTone?: 'none' | 'light' | 'spruce';
+}
+const { mapTone = 'none' } = Astro.props;
+const withMap = mapTone !== 'none';
 
 const picks = featured.slice(0, 2);
 const kids = sectionById('barn');
@@ -63,6 +75,7 @@ const jsonLd = {
   description={`Familiedrevet kafé og motell ved E6 i Korgen, Hemnes. Grill, pizza og kaffe, ${r.count} rom med frokost, selskap og møterom. Ring ${site.contact.phone}.`}
   current="home"
   jsonLd={jsonLd}
+  noindex={withMap}
 >
   <!-- Masthead -->
   <section class="hero" aria-labelledby="tittel">
@@ -393,8 +406,25 @@ const jsonLd = {
         <li><a href={kontakt}>Send oss en melding <Arrow /></a></li>
         <li><a href={site.contact.emailHref}>{site.contact.email} <Arrow /></a></li>
         <li><a href={site.contact.facebook}>Facebook <Arrow /></a></li>
-        <li><a href={site.links.map}>Se kartet <Arrow /></a></li>
+        {!withMap && <li><a href={site.links.map}>Se kartet <Arrow /></a></li>}
       </ul>
     </div>
   </section>
+
+  {
+    withMap && (
+      <section id="kart" class:list={['map-band', mapTone === 'spruce' && 'map-band--spruce on-spruce']} aria-label="Kart">
+        <HusetMap
+          name={location.name}
+          addressLine={addressLine}
+          marker={location.addressPoint}
+          destination={location.arrival}
+          label="Huset"
+          tone={mapTone === 'spruce' ? 'spruce' : 'light'}
+          intro="glide"
+          height="clamp(24rem, 62vh, 36rem)"
+        />
+      </section>
+    )
+  }
 </Layout>

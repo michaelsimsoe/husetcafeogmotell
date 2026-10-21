@@ -5,7 +5,7 @@ How the Huset site shows where the house is, using only free map sources: no API
 - **Playground:** `/dev/maps` (noindex). Compares four implementations side by side, with switchable styles, layout treatments, gesture modes and a simulated failure.
 - **Component demo:** `/dev/maps-komponent` (noindex). The extracted production component on its own.
 
-The component is **not** used on any live or concept page yet.
+The concept app (`redesign/`) does not use the component on any live or concept page. The production site (`website/`) carries a MapLibre-only port with two tones (light, and a dark `huset-style-spruce.json` generated from the light style) and a one-time glide in, shown as a map band on `/dev/kart-lys` and `/dev/kart-mork`. See «Map band» in `website/README.md`.
 
 ## The four options
 
@@ -103,6 +103,20 @@ Where to change things:
 - **Sources:** all tile, style, glyph and embed URLs are in `src/lib/maps/config.ts`. Change them there and both the playground and the component follow. Internal URLs go through `withBase()` so they work on the GitHub Pages sub-path.
 - **Style:** `public/maps/huset-style.json`, with `huset-sprite*.json/png` beside it. Its source and glyph URLs point at OpenFreeMap; edit those to self-host.
 - **Map UI CSS:** marker, popup, controls, hints and fallback live in `src/lib/maps/map-ui.css`. It uses `--hm-*` variables that fall back to concept A's values.
+
+## The production port (`website/`)
+
+`website/src/components/maps/` and `website/src/lib/maps/` are a copy of the component with only the MapLibre adapter (no Leaflet, no embed, no playground). Differences from `redesign/`:
+
+| Prop | Type | Default | Notes |
+|---|---|---|---|
+| `tone` | `'light' \| 'spruce'` | `'light'` | Picks the style (`HUSET_STYLES` in `config.ts`) and the matching UI colours (`.hm-frame--spruce` in `map-ui.css`) |
+| `intro` | `'none' \| 'glide'` | `'none'` | `glide` opens 2.75 zoom levels out and eases in to `zoom` over 2.6 s, once, when half the frame is on screen. A drag, zoom or reset cancels it; reduced motion skips it |
+
+- **Dark style:** `public/maps/huset-style-spruce.json` is generated, not hand-edited. Edit the light style, then run `npm run maps:spruce`. `scripts/map-style-spruce.mjs` maps every light colour to a spruce one and throws on any colour it does not know, and `tests/maps.test.ts` fails if the committed file drifts from the generator or the layers differ.
+- **Edge alignment:** the controls and the fallback read `--hm-edge` and `--hm-fallback-pad` from an ancestor, so a full-bleed band can line them up with the page grid (`.map-band` in `global.css`).
+- **Escape:** closes the popup from anywhere on the page while focus is in the map or on the page body. MapLibre drops focus on mouse-down, so after a mouse click focus is on `<body>`, and a listener on the frame never heard the key. Focus returns to the marker only if it was inside the map.
+- **Cost:** the MapLibre chunk is about 300 kB gzip (1.1 MB raw), loaded only near the band.
 
 ## Files
 

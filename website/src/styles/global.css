@@ -663,6 +663,14 @@
   .find-where { margin-top: 0.6rem; font-size: 0.9375rem; color: var(--color-ink-soft); }
   .on-spruce .find-where { color: var(--color-lichen); }
 
+  /* ——— Home: map band between «Finn fram» and the footer ———
+     Full bleed; the map controls and the fallback line up with the page grid. */
+  .map-band {
+    --hm-edge: max(var(--pad), calc((100% - 84rem) / 2));
+    --hm-fallback-pad: clamp(2.5rem, 6vw, 4.5rem) var(--hm-edge);
+  }
+  .map-band--spruce { border-block: 1px solid var(--color-hair-dark); }
+
   /* ——— Directions: one slab, a quiet chooser under it ——— */
   .dir { max-width: 30rem; }
   .dir-go {

@@ -1,0 +1,91 @@
+---
+/**
+ * HusetMap: MapLibre GL JS with OpenFreeMap vector tiles and a self-hosted
+ * Huset style, a branded marker with a directions popup, cooperative
+ * gestures and a static fallback.
+ *
+ * Nothing is hard-coded: pass the place in. With `@data/location`:
+ *
+ *   <HusetMap
+ *     name={location.name}
+ *     addressLine={addressLine}
+ *     marker={location.addressPoint}
+ *     destination={location.arrival}
+ *     label="Huset"
+ *   />
+ *
+ * The server renders the fallback (address and directions links), so the
+ * map works before and without JavaScript. MapLibre (~450 kB gzip) is only
+ * downloaded once the map is about to scroll into view.
+ */
+import MapFallback from './MapFallback.astro';
+import { HUSET_STYLES, type MapTone } from '@lib/maps/config';
+import type { GestureMode, LatLon, Place } from '@lib/maps/types';
+import '@lib/maps/map-ui.css';
+
+interface Props {
+  /** Shown in the popup, the fallback and the map's accessible name. */
+  name: string;
+  /** One line, e.g. «Meieriveien 7, 8646 Korgen». */
+  addressLine: string;
+  /** Marker position and map centre. */
+  marker: LatLon;
+  /** Where directions links lead. Defaults to `marker`. */
+  destination?: LatLon;
+  /** Short text on the marker plate. Defaults to `name`. */
+  label?: string;
+  /** `light` (whitewash and fog) or `spruce` (dark, for spruce sections). Picks the style and the chrome. */
+  tone?: MapTone;
+  /** MapLibre style JSON. Defaults to the Huset style for `tone`. */
+  styleUrl?: string;
+  /** MapLibre zoom (512 px tiles). 15 equals zoom 16 in Leaflet/OSM terms. */
+  zoom?: number;
+  /** Map height, any CSS length. */
+  height?: string;
+  /** `cooperative`: two fingers / Ctrl + scroll. `tap`: tap once to unlock the map. */
+  gestures?: GestureMode;
+  /** `glide`: open wider and ease in to the marker once, when half the map is on screen. Off under reduced motion. */
+  intro?: 'none' | 'glide';
+  /** Accessible name for the map region. */
+  title?: string;
+  class?: string;
+}
+
+const {
+  name,
+  addressLine,
+  marker,
+  destination = marker,
+  label = name,
+  tone = 'light',
+  styleUrl = HUSET_STYLES[tone],
+  zoom = 15,
+  height = 'clamp(22rem, 60vh, 34rem)',
+  gestures = 'cooperative',
+  intro = 'none',
+  title,
+  class: className,
+} = Astro.props;
+
+const place: Place = { name, addressLine, marker, destination, label };
+---
+
+<div
+  class:list={['hm-frame', `hm-frame--${tone}`, className]}
+  style={{ '--hm-h': height }}
+  data-huset-map
+  data-place={JSON.stringify(place)}
+  data-style={styleUrl}
+  data-zoom={zoom}
+  data-gestures={gestures}
+  data-intro={intro}
+  data-title={title}
+>
+  <MapFallback place={place} />
+</div>
+
+<script>
+  import { initHusetMaps } from './huset-map';
+  initHusetMaps();
+  document.addEventListener('astro:page-load', () => initHusetMaps());
+</script>
