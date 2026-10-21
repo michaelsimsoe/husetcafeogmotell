@@ -1,0 +1,38 @@
+---
+/**
+ * A link to another page on the site, in the current language when the page
+ * exists in it. Otherwise it links to the Norwegian page and says so: the link
+ * gets `hreflang="nb"` and a quiet «(in Norwegian)» after its text.
+ * Put a trailing arrow in the `end` slot so the mark stays with the words. The mark starts with a
+ * no-break space: flex containers (the footer links) would drop an ordinary one.
+ */
+import { withBase } from '@lib/base';
+import { toLocale } from '@i18n/locales';
+import { linkTo, type PageKey } from '@i18n/routes';
+import { ui } from '@i18n/ui';
+
+interface Props {
+  page: PageKey;
+  /** Fragment without the `#`. */
+  hash?: string;
+  current?: boolean;
+  class?: string;
+}
+
+const { page, hash, current = false, class: cls } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+const link = linkTo(page, locale);
+const href = withBase(link.path) + (hash ? `#${hash}` : '');
+---
+
+{
+  Astro.slots.has('end') ? (
+    <a href={href} hreflang={link.hreflang} aria-current={current ? 'page' : undefined} class={cls}
+      ><span><slot />{link.fallback && <span class="lang-mark">&nbsp;({ui(locale).inNorwegian})</span>}</span> <slot name="end" /></a
+    >
+  ) : (
+    <a href={href} hreflang={link.hreflang} aria-current={current ? 'page' : undefined} class={cls}
+      ><slot />{link.fallback && <span class="lang-mark">&nbsp;({ui(locale).inNorwegian})</span>}</a
+    >
+  )
+}

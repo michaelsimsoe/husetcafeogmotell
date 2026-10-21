@@ -1,4 +1,5 @@
 import type { LatLon } from '@lib/directions/links';
+import type { MapText } from './text';
 
 export type { LatLon };
 
@@ -44,6 +45,8 @@ export interface AdapterContext {
   intro: boolean;
   /** Accessible name for the map region. */
   title: string;
+  /** Everything the map says, in the page language. */
+  text: MapText;
   /** The branded marker button, built by the frame. Adapters position it. */
   marker: HTMLButtonElement;
   /** The map has drawn (call again after a style swap). The frame owns the load timeout. */

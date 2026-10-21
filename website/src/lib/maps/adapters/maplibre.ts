@@ -85,12 +85,12 @@ export async function mount(ctx: AdapterContext): Promise<AdapterHandle> {
       locale: {
         'Map.Title': ctx.title,
         'Marker.Title': ctx.place.name,
-        'Popup.Close': 'Lukk',
-        'AttributionControl.ToggleAttribution': 'Vis eller skjul kreditering',
-        'AttributionControl.MapFeedback': 'Meld fra om feil i kartet',
-        'CooperativeGesturesHandler.WindowsHelpText': 'Hold Ctrl og rull for å zoome',
-        'CooperativeGesturesHandler.MacHelpText': 'Hold ⌘ og rull for å zoome',
-        'CooperativeGesturesHandler.MobileHelpText': 'Bruk to fingre for å flytte kartet',
+        'Popup.Close': ctx.text.close,
+        'AttributionControl.ToggleAttribution': ctx.text.toggleAttribution,
+        'AttributionControl.MapFeedback': ctx.text.mapFeedback,
+        'CooperativeGesturesHandler.WindowsHelpText': ctx.text.wheel(false),
+        'CooperativeGesturesHandler.MacHelpText': ctx.text.wheel(true),
+        'CooperativeGesturesHandler.MobileHelpText': ctx.text.touch,
       },
     });
   } catch (err) {

@@ -1,6 +1,7 @@
 import ridges from '../data/ridges.json';
-import { site } from '../data/site.ts';
+import { hoursIn, site } from '../data/site.ts';
 import { location } from '../data/location.ts';
+import type { Locale } from '../i18n/locales.ts';
 
 type Pt = [number, number];
 const dome = ridges['korgen-dome'];
@@ -51,19 +52,24 @@ export function ridgeOnPhoto(w = 1000, lift = 0) {
   };
 }
 
-/** «Man–fre 10–21 · Lør 11–21 · Søn 13–19» */
-export const groupsLine = site.hours.groups.map((g) => `${g.short} ${g.time}`).join(' · ');
+/** «Man–fre 10–21 · Lør 11–21 · Søn 13–19» / «Mon–Fri 10:00–21:00 · …» */
+export const groupsLine = (locale: Locale = 'nb') =>
+  hoursIn(locale).groups.map((g) => `${g.short} ${g.time}`).join(' · ');
 
-/** «14:00» → «kl. 14.00» */
-export const kl = (hhmm: string) => `kl. ${hhmm.replace(':', '.')}`;
+/** «14:00» → «kl. 14.00», or «14:00» in English. */
+export const kl = (hhmm: string, locale: Locale = 'nb') => (locale === 'en' ? hhmm : `kl. ${hhmm.replace(':', '.')}`);
 
-/** «a», «a og b», «a, b og c» */
-export const listJoin = (items: readonly string[]) =>
-  items.length < 2 ? (items[0] ?? '') : `${items.slice(0, -1).join(', ')} og ${items[items.length - 1]}`;
+/** «a», «a og b», «a, b og c» / «a, b and c» */
+export const listJoin = (items: readonly string[], locale: Locale = 'nb') =>
+  items.length < 2
+    ? (items[0] ?? '')
+    : `${items.slice(0, -1).join(', ')} ${locale === 'en' ? 'and' : 'og'} ${items[items.length - 1]}`;
 
-const deg = (n: number) => n.toFixed(4).replace('.', ',');
-/** The address point, written the Norwegian way: 66,0809° N, 13,8260° Ø */
-export const coords = `${deg(site.place.geo.lat)}° N, ${deg(site.place.geo.lon)}° Ø`;
+/** The address point: 66,0809° N, 13,8260° Ø in Norwegian, 66.0809° N, 13.8260° E in English. */
+export const coords = (locale: Locale = 'nb') => {
+  const deg = (n: number) => (locale === 'en' ? n.toFixed(4) : n.toFixed(4).replace('.', ','));
+  return `${deg(site.place.geo.lat)}° N, ${deg(site.place.geo.lon)}° ${locale === 'en' ? 'E' : 'Ø'}`;
+};
 
 /** Spread onto a plain «Veibeskrivelse» link so the client can point it at the visitor's map app. */
 export const directionsAttrs = {

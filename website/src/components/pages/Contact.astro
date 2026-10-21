@@ -1,0 +1,98 @@
+---
+/**
+ * The contact page, in the language of the route that renders it
+ * (pages/kontakt/index.astro, pages/en/contact/index.astro).
+ */
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Confirm from '@components/Confirm.astro';
+import ContactForm from '@components/ContactForm.astro';
+import Arrow from '@components/Arrow.astro';
+import { hoursIn, site } from '@data/site';
+import { location } from '@data/location';
+import { directionsAttrs, groupsLine } from '@lib/format';
+import { toLocale, type Locale } from '@i18n/locales';
+import { ui } from '@i18n/ui';
+
+const words = {
+  nb: {
+    title: 'Kontakt oss – Huset Café & Motell i Korgen',
+    description: `Spørsmål om rom, selskap eller maten? Skriv til oss, ring ${site.contact.phone} eller send e-post til ${site.contact.email}.`,
+    h1: ['La oss ta ', 'en prat'],
+    lede: 'Lurer du på noe om overnattingen? Tenker du at du skal ha en fest eller ordne en bedre middag? Eller vil du kanskje bare ha kanelbolleoppskriften vår?',
+    write: { id: 'skriv', h: 'Skriv til oss' },
+    direct: { id: 'direkte', h: 'Eller ta kontakt direkte' },
+    callUs: 'Ring oss',
+    open: (hours: string) => `Åpent ${hours.toLowerCase()}`,
+    email: 'E-post',
+    facebook: 'Huset Café & Motell på Facebook',
+    visit: 'Kom innom',
+  },
+  en: {
+    title: 'Contact us – Huset Café & Motell in Korgen',
+    description: `Questions about the rooms, a party or the food? Write to us, call ${site.contact.phone} or email ${site.contact.email}.`,
+    h1: ['Let’s have ', 'a chat'],
+    lede: 'Wondering about the rooms? Thinking of throwing a party or arranging a proper dinner? Or perhaps you just want our cinnamon bun recipe?',
+    write: { id: 'write', h: 'Write to us' },
+    direct: { id: 'direct', h: 'Or get in touch directly' },
+    callUs: 'Call us',
+    open: (hours: string) => `Open ${hours}`,
+    email: 'Email',
+    facebook: 'Huset Café & Motell on Facebook',
+    visit: 'Drop by',
+  },
+} satisfies Record<Locale, unknown>;
+
+const locale = toLocale(Astro.currentLocale);
+const w = words[locale];
+const t = ui(locale);
+---
+
+<Layout title={w.title} description={w.description} page="contact">
+  <div class="wrap g12 pg-head">
+    <h1 class="display lg:col-[1/10]">{w.h1[0]}<em>{w.h1[1]}</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">{w.lede}</p>
+    <Ridge from={0.4} to={0.95} start={0} end={0.6} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+  </div>
+
+  <div class="wrap g12 kt">
+    <section class="lg:col-[1/8]" aria-labelledby={w.write.id}>
+      <h2 id={w.write.id} class="h3 kt-h">{w.write.h}</h2>
+      <ContactForm />
+    </section>
+
+    <aside class="lg:col-[9/13]" aria-labelledby={w.direct.id}>
+      <h2 id={w.direct.id} class="h3 kt-h">{w.direct.h}</h2>
+      <dl class="kt-ways">
+        <div>
+          <dt class="label">{w.callUs}</dt>
+          <dd>
+            <a class="kt-phone num" href={site.contact.phoneHref}>{site.contact.phone}</a>
+            <p class="soft num mt-1">
+              <span data-hours="text">{w.open(groupsLine(locale))}</span>{' '}
+              <Confirm confirmed={hoursIn(locale).confirmed} />
+            </p>
+          </dd>
+        </div>
+        <div>
+          <dt class="label">{w.email}</dt>
+          <dd><a href={site.contact.emailHref}>{site.contact.email}</a></dd>
+        </div>
+        <div>
+          <dt class="label">Facebook</dt>
+          <dd><a href={site.contact.facebook}>{w.facebook}</a></dd>
+        </div>
+        <div>
+          <dt class="label">{w.visit}</dt>
+          <dd>
+            <address>
+              {location.address.street}<br />
+              {location.address.postcode} {location.address.postalPlace}, {t.byRoad(site.place.road)}
+            </address>
+            <a class="go" href={site.links.directions} {...directionsAttrs}>{t.directions} <Arrow /></a>
+          </dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</Layout>

@@ -14,6 +14,8 @@ import { createFallback, createMarker, createPopupContent, icon, isMac } from '.
 import { placeLinks } from './place';
 import { isCoarsePointer, prefersReducedMotion } from './view';
 import { DEFAULT_RASTER_ZOOM, LOAD_TIMEOUT_MS } from './config';
+import { mapText, type MapText } from './text';
+import { toLocale, type Locale } from '../../i18n/locales';
 import type { AdapterContext, AdapterHandle, AdapterLoader, GestureMode, HintKind, MapStatus, Place } from './types';
 
 export interface FrameOptions {
@@ -28,6 +30,8 @@ export interface FrameOptions {
   timeoutMs?: number;
   /** Accessible name for the map. */
   title?: string;
+  /** Language of the controls and hints. Defaults to the language of the page around `root`. */
+  locale?: Locale;
   onStatus?(status: MapStatus): void;
   onView?(rasterZoom: number, lat: number): void;
 }
@@ -41,11 +45,11 @@ export interface FrameController {
 /** A beat between the map arriving on screen and the glide starting, so the wide view registers. */
 const GLIDE_DELAY_MS = 350;
 
-const HINTS: Record<HintKind, () => string> = {
-  wheel: () => (isMac() ? 'Hold ⌘ og rull for å zoome' : 'Hold Ctrl og rull for å zoome'),
-  touch: () => 'Bruk to fingre for å flytte kartet',
-  activate: () => (isCoarsePointer() ? 'Trykk på kartet for å bruke det' : 'Klikk på kartet for å bruke det'),
-};
+const hints = (t: MapText): Record<HintKind, () => string> => ({
+  wheel: () => t.wheel(isMac()),
+  touch: () => t.touch,
+  activate: () => t.tap(isCoarsePointer()),
+});
 
 function button(cls: string, label: string, iconName: Parameters<typeof icon>[0], text?: string): HTMLButtonElement {
   const b = document.createElement('button');
@@ -66,14 +70,16 @@ export function mountMapFrame(root: HTMLElement, opts: FrameOptions): FrameContr
   const place = opts.place;
   const links = placeLinks(place);
   const timeoutMs = opts.timeoutMs ?? LOAD_TIMEOUT_MS;
-  const title = opts.title ?? `Kart som viser ${place.name}`;
+  const t = mapText[opts.locale ?? toLocale(root.closest('[lang]')?.getAttribute('lang'))];
+  const HINTS = hints(t);
+  const title = opts.title ?? t.region(place.name);
   const events = new AbortController();
   const on = { signal: events.signal };
 
   root.classList.add('hm-frame');
   let fallback = root.querySelector<HTMLElement>('[data-hm-fallback]');
   if (!fallback) {
-    fallback = createFallback(place, links);
+    fallback = createFallback(place, links, t);
     root.append(fallback);
   }
   const fallbackTitle = fallback.querySelector<HTMLElement>('[data-hm-fallback-title]');
@@ -85,13 +91,13 @@ export function mountMapFrame(root: HTMLElement, opts: FrameOptions): FrameContr
   const controls = document.createElement('div');
   controls.className = 'hm-ctl';
   controls.setAttribute('role', 'group');
-  controls.setAttribute('aria-label', 'Kartvisning');
-  const zoomIn = button('hm-btn', 'Zoom inn', 'plus');
-  const zoomOut = button('hm-btn', 'Zoom ut', 'minus');
-  const resetBtn = button('hm-btn', 'Tilbakestill visning', 'reset');
+  controls.setAttribute('aria-label', t.controls);
+  const zoomIn = button('hm-btn', t.zoomIn, 'plus');
+  const zoomOut = button('hm-btn', t.zoomOut, 'minus');
+  const resetBtn = button('hm-btn', t.reset, 'reset');
   controls.append(zoomIn, zoomOut, resetBtn);
 
-  const activateBtn = button('hm-activate', '', 'hand', 'Aktiver kart');
+  const activateBtn = button('hm-activate', '', 'hand', t.activate);
   activateBtn.hidden = true;
   const activateText = activateBtn.querySelector('span')!;
 
@@ -103,9 +109,9 @@ export function mountMapFrame(root: HTMLElement, opts: FrameOptions): FrameContr
 
   const loading = document.createElement('p');
   loading.className = 'hm-loading';
-  loading.textContent = 'Laster kart …';
+  loading.textContent = t.loading;
 
-  const marker = createMarker(place);
+  const marker = createMarker(place, t);
   const chrome = [activateBtn, host, controls, hint, loading];
   root.append(...chrome);
 
@@ -175,7 +181,7 @@ export function mountMapFrame(root: HTMLElement, opts: FrameOptions): FrameContr
 
   const openPopup = (fromKeyboard: boolean) => {
     if (!handle?.supportsMarker) return;
-    popup = createPopupContent(place, links, () => closePopup(true));
+    popup = createPopupContent(place, links, () => closePopup(true), t);
     handle.showPopup(popup);
     marker.setAttribute('aria-expanded', 'true');
     if (fromKeyboard) popup.querySelector<HTMLElement>('a')?.focus({ preventScroll: true });
@@ -185,7 +191,7 @@ export function mountMapFrame(root: HTMLElement, opts: FrameOptions): FrameContr
     if (!tapMode) return;
     active = on;
     root.dataset.active = String(on);
-    activateText.textContent = on ? 'Lås kartet' : 'Aktiver kart';
+    activateText.textContent = on ? t.lock : t.activate;
     activateBtn.replaceChild(icon(on ? 'lock' : 'hand'), activateBtn.firstChild!);
     handle?.setInteractive(on);
     if (!on) hint.classList.remove('is-on');
@@ -212,6 +218,7 @@ export function mountMapFrame(root: HTMLElement, opts: FrameOptions): FrameContr
     gestures: opts.gestures ?? 'cooperative',
     intro,
     title,
+    text: t,
     marker,
     ready() {
       if (destroyed || status !== 'loading') return;

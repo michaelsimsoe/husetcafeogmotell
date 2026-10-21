@@ -1,0 +1,93 @@
+---
+import Home from '@components/pages/Home.astro';
+import Confirm from '@components/Confirm.astro';
+import type { HomeCopy } from '@components/pages/home';
+import { site } from '@data/site';
+
+const r = site.rooms;
+const v = site.venues;
+const ox = site.landscape.oksskolten;
+const tunnel = site.landscape.korgfjelltunnelen;
+
+const copy: HomeCopy = {
+  title: 'Huset Café & Motell – food and rooms on the E6 in Korgen, Norway',
+  description: `Family-run café and motel on the E6 in Korgen, Hemnes. Grill, pizza and coffee, ${r.count} rooms with breakfast, parties and meeting rooms. Call ${site.contact.phoneIntl}.`,
+  hero: {
+    h1: ['Food and lodging ', 'in the heart of Korgen'],
+    stand: 'A family-run café and motel on the E6. Locals come for dinner, families share a pizza, and travellers get a meal and a bed for the night.',
+  },
+  today: { h: 'Today', callUs: 'Call us', food: 'See the food', roomsFrom: 'Rooms from' },
+  food: {
+    h: ['Grill, pizza and ', 'a cup of coffee'],
+    lede: 'Dinner, a pizza to share, or just a coffee before you drive on. Here is a selection from the menu. The dishes are written in Norwegian for now; the full menu, with every dish and allergen, has its own page.',
+    all: 'See the full menu',
+    allergens: 'Allergens',
+  },
+  rooms: {
+    h: ['A room for the night, ', 'breakfast in the morning'],
+    facts: { rooms: 'Rooms', breakfast: 'Breakfast', included: 'Included', checkIn: 'Check-in', checkOut: 'Check-out', perNight: 'Per night', from: 'from' },
+    priceNote: 'The English version of the old website said NOK 1,139.',
+    toBook: 'to book a room',
+  },
+  gatherings: {
+    h: ['When there’s a reason ', 'to come together'],
+    occasions: 'Weddings and Christmas parties, confirmations and christenings, memorial gatherings and class reunions.',
+    note: 'The capacity, the party food and the cakes are taken from the old website.',
+    meetingRooms: 'Meeting rooms',
+    meetingNote: 'The price, and whether it is per hour or per day.',
+    orMessage: 'or send us a message',
+  },
+  korgen: {
+    h: ['Korgen, ', 'then and now'],
+    then: { caption: 'Korgen and the Røssåga river', date: '1947–49' },
+    now: { caption: 'Korgen village from the Røssåga', date: 'May 2008' },
+    peaksDate: 'May 2009',
+    ridgeNote: 'The green line is the mountain above Korgen, traced from this photo. The same line runs through the whole page.',
+  },
+  around: { h: ['Around ', 'Huset'], lede: 'A shop, a pharmacy and fuel are a stone’s throw away.' },
+  findUs: {
+    h: ['Find ', 'us'],
+    address: 'Address',
+    directionsNote: 'The directions end at the car park between the house and the E6.',
+    today: 'today',
+    hoursNote: 'The opening hours are taken from the old website.',
+    phone: 'Phone',
+  },
+  map: 'Map',
+};
+---
+
+<Home copy={copy}>
+  <Fragment slot="rooms">
+    <p class="lede">
+      The motel has {r.count} rooms: double rooms with two beds that can stand apart or be pushed together, and two single
+      rooms. All the double rooms can also be booked as single rooms.{' '}<Confirm confirmed={r.confirmed} />
+    </p>
+    <p>The rooms have a TV and clean bathrooms. Breakfast is a traditional Norwegian breakfast, self-service in its own breakfast room.</p>
+    <p>
+      Book a room by phone or with a message. If you’re arriving late, we can agree on a time. You pay when you arrive, unless
+      we’ve agreed otherwise.
+    </p>
+    <p>If we’re full, we’ll help you find somewhere else nearby.</p>
+  </Fragment>
+
+  <p class="lede" slot="gatherings">
+    There is room for {v.capacity} guests in the dining room. We make the food for your party – a cold buffet, hot dishes and
+    open sandwiches{v.cakes && <> – and <span lang="nb">{v.cakes.toLowerCase()}</span></>}.
+  </p>
+
+  <Fragment slot="korgen">
+    <p>
+      The Røssåga river runs through Korgen. It is 50 kilometres long and flows north from the lake Røssvatnet to Sørfjorden
+      at Bjerka.
+    </p>
+    <p>
+      The E6 runs through Korgfjellet in the Korgfjell Tunnel (<span lang="nb">{tunnel.name}</span>), which is about 8.5
+      kilometres long and opened in {tunnel.opened}. The mountain lies at around 600 metres above sea level on average.
+    </p>
+    <p>
+      About {ox.kmFromHuset} kilometres {ox.bearing.en} of Huset are the Okstindan mountains, with {ox.name} – 1,916 metres above
+      sea level and the highest mountain in Northern Norway.
+    </p>
+  </Fragment>
+</Home>

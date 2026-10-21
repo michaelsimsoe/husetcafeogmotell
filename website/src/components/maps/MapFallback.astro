@@ -6,7 +6,9 @@
  */
 import { ICONS, linkItems } from '@lib/maps/dom';
 import { placeLinks } from '@lib/maps/place';
+import { mapText } from '@lib/maps/text';
 import type { Place } from '@lib/maps/types';
+import { toLocale } from '@i18n/locales';
 import '@lib/maps/map-ui.css';
 
 interface Props {
@@ -14,11 +16,12 @@ interface Props {
 }
 
 const { place } = Astro.props;
-const items = linkItems(placeLinks(place));
+const t = mapText[toLocale(Astro.currentLocale)];
+const items = linkItems(placeLinks(place), t);
 ---
 
 <div class="hm-fallback" data-hm-fallback>
-  <p class="hm-fallback__title" data-hm-fallback-title hidden>Kartet kunne ikke lastes</p>
+  <p class="hm-fallback__title" data-hm-fallback-title hidden>{t.failed}</p>
   <p class="hm-fallback__name">{place.name}</p>
   <p class="hm-fallback__addr">{place.addressLine}</p>
   <ul class="hm-links">

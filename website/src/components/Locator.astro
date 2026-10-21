@@ -1,25 +1,53 @@
 ---
 import { norway as m, profile as p, distances, stretchKm } from '@lib/locator';
-import { withBase } from '@lib/base';
+import PageLink from './PageLink.astro';
+import { toLocale } from '@i18n/locales';
+import { ui } from '@i18n/ui';
+
+const locale = toLocale(Astro.currentLocale);
+const id = ui(locale).sections.where;
+const t = {
+  nb: {
+    h: ['Her ligger ', 'Korgen', ''],
+    lede: 'Korgen ligger i Hemnes på Helgeland, ved E6 mellom Mosjøen og Mo i Rana. Huset står ved veien, ca.\u00a02\u00a0km nord for Korgfjelltunnelen.',
+    map: 'Kart over Norge. Veien går fra Trondheim nordover til Bodø, og Korgen ligger mellom Mosjøen og Mo i Rana.',
+    profile: `Høydeprofil langs E6 fra Mosjøen til Mo i Rana, ${stretchKm} km. Veien går i tunnel gjennom Korgfjellet, og Huset ligger like nord for tunnelen.`,
+    masl: 'moh.',
+    distances: 'Kjøreavstand til Huset',
+    about: 'ca.',
+    note: 'Avstander og kjøretider er omtrentlige. Høydene er overdrevet, og veien i tunnelene er stiplet.',
+    roads: 'Veidata fra',
+    sources: 'Kilder og lisenser',
+  },
+  en: {
+    h: ['Where ', 'Korgen', ' is'],
+    lede: 'Korgen is in Hemnes, in Helgeland, on the E6 between Mosjøen and Mo i Rana. Huset stands by the road, about\u00a02\u00a0km north of the Korgfjell Tunnel.',
+    map: 'Map of Norway. The road runs north from Trondheim to Bodø, and Korgen lies between Mosjøen and Mo i Rana.',
+    profile: `Elevation profile along the E6 from Mosjøen to Mo i Rana, ${stretchKm} km. The road runs in a tunnel through Korgfjellet, and Huset is just north of the tunnel.`,
+    masl: 'm a.s.l.',
+    distances: 'Driving distances to Huset',
+    about: 'about',
+    note: 'Distances and driving times are approximate. Heights are exaggerated, and the road is dashed where it runs in a tunnel.',
+    roads: 'Road data from',
+    sources: 'Sources and licences',
+  },
+}[locale];
 
 const side: Record<string, 'l' | 'r' | 'b'> = { trondheim: 'b', mosjoen: 'l', korgen: 'r', moirana: 'l', bodo: 'l' };
 const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
 ---
 
-<section id="her" class="sec loc" aria-labelledby="her-h" data-loc>
+<section id={id} class="sec loc" aria-labelledby={`${id}-h`} data-loc>
   <div class="wrap g12 loc-grid">
     <div class="loc-head">
-      <h2 id="her-h" class="h2">Her ligger <em>Korgen</em></h2>
-      <p class="lede mt-5">
-        Korgen ligger i Hemnes på Helgeland, ved E6 mellom Mosjøen og Mo i Rana. Huset står ved veien, ca.&nbsp;2&nbsp;km nord
-        for Korgfjelltunnelen.
-      </p>
+      <h2 id={`${id}-h`} class="h2">{t.h[0]}<em>{t.h[1]}</em>{t.h[2]}</h2>
+      <p class="lede mt-5">{t.lede}</p>
     </div>
 
     <figure
       class="loc-map"
       role="img"
-      aria-label="Kart over Norge. Veien går fra Trondheim nordover til Bodø, og Korgen ligger mellom Mosjøen og Mo i Rana."
+      aria-label={t.map}
     >
       <div class="loc-map-box" style={`aspect-ratio: ${m.aspect}`}>
         <svg
@@ -62,7 +90,7 @@ const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
     <figure
       class="loc-prof"
       role="img"
-      aria-label={`Høydeprofil langs E6 fra Mosjøen til Mo i Rana, ${stretchKm} km. Veien går i tunnel gjennom Korgfjellet, og Huset ligger like nord for tunnelen.`}
+      aria-label={t.profile}
     >
       <div class="loc-prof-box">
         <svg class="loc-prof-svg" viewBox={p.viewBox} preserveAspectRatio="none" data-loc-profile aria-hidden="true" focusable="false">
@@ -71,7 +99,7 @@ const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
           <path class="loc-open" d={p.open}></path>
           <path class="loc-tunnel" d={p.tunnel}></path>
         </svg>
-        <span class="loc-pl loc-pl--600" style={`top:${((p.y600 / 660) * 100).toFixed(1)}%`} aria-hidden="true">600 moh.</span>
+        <span class="loc-pl loc-pl--600" style={`top:${((p.y600 / 660) * 100).toFixed(1)}%`} aria-hidden="true">600 {t.masl}</span>
         <span class="loc-pl loc-pl--peak" style={`left:${p.peak.x}%;top:${p.peak.y}%`} aria-hidden="true">Korgfjellet</span>
         <span class="loc-pl loc-pl--tunnel" style={`left:${p.tunnelAt.x}%;top:${p.tunnelAt.y}%`} aria-hidden="true">Korgfjelltunnelen</span>
         <span class="loc-huset" style={`left:${p.huset.x}%;top:${p.huset.y}%`} aria-hidden="true">
@@ -86,7 +114,7 @@ const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
     </figure>
 
     <div class="loc-dist">
-      <h3 class="h3 loc-dist-h">Kjøreavstand til Huset</h3>
+      <h3 class="h3 loc-dist-h">{t.distances}</h3>
       <dl class="num">
         {
           distances.map((d) => (
@@ -94,17 +122,18 @@ const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
               <dt>{d.from}</dt>
               <dd>
                 <span class="loc-km">
-                  <small>ca.</small> {d.km} km
+                  <small>{t.about}</small> {d.km} km
                 </span>
-                {d.min && <span class="loc-min">ca. {d.min} min</span>}
+                {d.min && <span class="loc-min">{t.about} {d.min} min</span>}
               </dd>
             </div>
           ))
         }
       </dl>
       <p class="loc-note">
-        Avstander og kjøretider er omtrentlige. Høydene er overdrevet, og veien i tunnelene er stiplet.
-        Veidata fra <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>. <a href={withBase('/anerkjennelse#kilder')}>Kilder og lisenser</a>.
+        {t.note}{' '}
+        {t.roads} <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>.{' '}
+        <PageLink page="credits" hash="kilder">{t.sources}</PageLink>.
       </p>
     </div>
   </div>

@@ -1,0 +1,57 @@
+---
+/**
+ * Shown by Netlify after a contact form post when JavaScript is off (the form's `action`),
+ * in the language of the route that renders it.
+ */
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Arrow from '@components/Arrow.astro';
+import { site } from '@data/site';
+import { withBase } from '@lib/base';
+import { toLocale, type Locale } from '@i18n/locales';
+import { pathOf } from '@i18n/routes';
+import { ui } from '@i18n/ui';
+
+const words = {
+  nb: {
+    title: 'Takk for meldingen – Huset Café & Motell',
+    description: 'Meldingen din er sendt til Huset Café & Motell.',
+    h1: ['Takk ', 'for meldingen!'],
+    lede: 'Vi svarer deg så snart vi bare kan!',
+    hurry: 'Haster det? Ring oss på',
+    home: 'Til forsiden',
+    food: 'Se menyen',
+  },
+  en: {
+    title: 'Thank you for your message – Huset Café & Motell',
+    description: 'Your message has been sent to Huset Café & Motell.',
+    h1: ['Thank you ', 'for your message!'],
+    lede: 'We’ll reply as soon as we possibly can!',
+    hurry: 'In a hurry? Call us on',
+    home: 'To the home page',
+    food: 'See what we serve',
+  },
+} satisfies Record<Locale, unknown>;
+
+const locale = toLocale(Astro.currentLocale);
+const w = words[locale];
+const home = withBase(pathOf('home', locale)!);
+const menu = pathOf('menu', locale);
+// Until the menu is translated, the dishes on the home page stand in for it.
+const food = menu ? withBase(menu) : `${home}#${ui(locale).sections.food}`;
+---
+
+<Layout title={w.title} description={w.description} page="thanks">
+  <div class="wrap g12 pg-head pg-end">
+    <h1 class="display lg:col-[1/10]">{w.h1[0]}<em>{w.h1[1]}</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">{w.lede}</p>
+    <p class="mt-3 lg:col-[1/8]">
+      {w.hurry} <a href={site.contact.phoneHref}>{site.contact.phone}</a>.
+    </p>
+    <Ridge from={0.4} to={0.95} start={0} end={0.6} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+    <ul class="rows mt-8 lg:col-[1/6]">
+      <li><a href={home}>{w.home} <Arrow /></a></li>
+      <li><a href={food}>{w.food} <Arrow /></a></li>
+    </ul>
+  </div>
+</Layout>

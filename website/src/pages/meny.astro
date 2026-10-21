@@ -19,7 +19,7 @@ const codeRange = codes.length > 1 ? `${codes[0]}–${codes[codes.length - 1]}` 
 <Layout
   title="Menyen – Huset Café & Motell i Korgen"
   description="Hele menyen på Huset i Korgen: grill, pizza, fisk, småretter, barnemeny og drikke, med priser og allergener."
-  current="meny"
+  page="menu"
 >
   <div class="wrap g12 mn-head">
     <h1 class="display lg:col-[1/9]">Menyen <em>på Huset</em></h1>
@@ -28,7 +28,7 @@ const codeRange = codes.length > 1 ? `${codes[0]}–${codes[codes.length - 1]}` 
       nederst på siden.
     </p>
     <p class="bk-note mt-5 lg:col-[9/13] lg:self-end lg:mt-0">
-      {!menuMeta.confirmed && <><Confirm confirmed={false} />{' '}{menuMeta.note}{' '}</>}Åpent {groupsLine.toLowerCase()}.
+      {!menuMeta.confirmed && <><Confirm confirmed={false} />{' '}{menuMeta.note}{' '}</>}Åpent {groupsLine().toLowerCase()}.
     </p>
     <Ridge from={0.13} to={1} start={0} end={0.7} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
   </div>

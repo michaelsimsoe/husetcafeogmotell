@@ -1,0 +1,409 @@
+---
+/**
+ * The home page, in the language of the route that renders it. The route
+ * passes its words as `copy` and its longer prose as named slots; everything
+ * here is structure and data. Free text from the CMS is Norwegian, so on other
+ * languages it is marked `lang="nb"` rather than passed off as translated.
+ */
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Photo from '@components/Photo.astro';
+import Dish from '@components/Dish.astro';
+import Confirm from '@components/Confirm.astro';
+import Arrow from '@components/Arrow.astro';
+import Locator from '@components/Locator.astro';
+import Directions from '@components/Directions.astro';
+import PageLink from '@components/PageLink.astro';
+import Nb from '@components/Nb.astro';
+import HusetMap from '@components/maps/HusetMap.astro';
+import { hoursIn, nearbyIn, site } from '@data/site';
+import { addressLine, location } from '@data/location';
+import { allergens, featured, krText, menuMeta, sectionById } from '@data/menu';
+import { src } from '@data/credits';
+import { withBase } from '@lib/base';
+import { coords, groupsLine, kl, listJoin, ridgeOnPhoto } from '@lib/format';
+import { span } from '@lib/hours';
+import { toLocale } from '@i18n/locales';
+import { pathOf } from '@i18n/routes';
+import { ui } from '@i18n/ui';
+import type { HomeCopy } from './home';
+
+interface Props {
+  copy: HomeCopy;
+}
+
+const { copy: c } = Astro.props;
+for (const slot of ['rooms', 'gatherings', 'korgen']) {
+  if (!Astro.slots.has(slot)) throw new Error(`Home: ${Astro.url.pathname} is missing the «${slot}» slot.`);
+}
+
+const locale = toLocale(Astro.currentLocale);
+const t = ui(locale);
+const id = t.sections;
+/** Spread on elements holding Norwegian free text from the CMS when the page is in another language. */
+const nb = locale === 'nb' ? {} : { lang: 'nb' };
+
+const hours = hoursIn(locale);
+const picks = featured.slice(0, 2);
+const kids = sectionById('barn');
+const r = site.rooms;
+const v = site.venues;
+const overlay = ridgeOnPhoto(1000, 0.012);
+const meetingRooms = site.meetingRooms.rooms;
+const kontakt = withBase(pathOf('contact', locale)!);
+const menu = pathOf('menu', locale);
+const food = menu ? withBase(menu) : `#${id.food}`;
+const homeUrl = new URL(withBase(pathOf('home', locale)!), Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Restaurant', 'Motel'],
+  name: site.name,
+  url: homeUrl,
+  image: new URL(src('huset-facade-sun', 1536), Astro.site).href,
+  telephone: site.contact.phoneIntl,
+  email: site.contact.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: location.address.street,
+    postalCode: location.address.postcode,
+    addressLocality: location.address.postalPlace,
+    addressRegion: location.address.county,
+    addressCountry: 'NO',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: location.addressPoint.lat, longitude: location.addressPoint.lon },
+  hasMenu: new URL(withBase(pathOf('menu', locale) ?? pathOf('menu', 'nb')!), Astro.site).href,
+  sameAs: [site.contact.facebook],
+  ...(hours.confirmed && {
+    openingHoursSpecification: hours.days
+      .filter((d) => !d.closed)
+      .map((d) => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: `https://schema.org/${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][d.day]}`,
+        opens: d.open,
+        closes: d.close,
+      })),
+  }),
+  ...(r.confirmed && { numberOfRooms: r.count, checkinTime: r.checkIn, checkoutTime: r.checkOut }),
+};
+---
+
+<Layout title={c.title} description={c.description} page="home" jsonLd={jsonLd}>
+  <!-- Masthead -->
+  <section class="hero" aria-labelledby="tittel">
+    <div class="wrap">
+      <div class="dateline">
+        <p class="dl-place">Korgen<span class="dl-long"> · Hemnes</span> · {t.byRoad(site.place.road)}</p>
+        <p class="dl-coords num">{coords(locale)}</p>
+        <p class="dl-status" data-hours="state">
+          <span data-a-live hidden>
+            <svg class="mark" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4"></circle></svg>
+            <span class="dl-day"><span data-a-day></span> ·</span>
+          </span>
+          <span data-hours="text">{groupsLine(locale)}</span>
+        </p>
+      </div>
+    </div>
+
+    <Ridge height="clamp(32px, 3.4vw, 48px)" class="hero-ridge" />
+    <Photo id="huset-facade-sun" class="hero-ph" pos="50% 56%" priority sizes="100vw" />
+
+    <div class="wrap g12 hero-body">
+      <div class="hero-head">
+        <h1 id="tittel" class="display hero-h1">{c.hero.h1[0]}<em>{c.hero.h1[1]}</em></h1>
+        <p class="hero-stand">{c.hero.stand}</p>
+      </div>
+      <aside class="today" aria-labelledby="idag">
+        <h2 id="idag" class="today-h">{c.today.h}</h2>
+        <div class="today-top">
+          <p class="today-time num" data-hours="today" data-a-live hidden></p>
+          <a class="today-phone" href={site.contact.phoneHref}>
+            <span class="label">{c.today.callUs}</span>
+            <span class="num">{site.contact.phone}</span>
+          </a>
+        </div>
+        <p class="today-week num">
+          {hours.groups.map((g, i) => (
+            <>
+              {i > 0 && ' · '}
+              <span class="whitespace-nowrap">{g.short} {g.time}</span>
+            </>
+          ))}{' '}<Confirm confirmed={hours.confirmed} />
+        </p>
+        <ul class="rows today-rows">
+          <li><a href={food}>{c.today.food} <Arrow /></a></li>
+          <li><a href={`#${id.findUs}`}>{t.directions} <Arrow /></a></li>
+          <li class="rows-wide">
+            <a href={`#${id.rooms}`}>
+              <span>{c.today.roomsFrom} <span class="price num">{krText(r.priceFrom, locale)}</span>{' '}<Confirm confirmed={r.confirmed} /></span>
+              <Arrow />
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Where: Norway, the road north, the stretch through Korgen -->
+  <Locator />
+
+  <!-- Restaurant -->
+  <section id={id.food} class="on-spruce sec" aria-labelledby={`${id.food}-h`}>
+    <div class="wrap g12">
+      <div class="mat-ph lg:col-[1/5]">
+        <Photo id="restaurant-family-pizza" ratio="4 / 5" pos="58% 50%" caption sizes="(min-width: 64rem) 30vw, 100vw" />
+      </div>
+      <div class="lg:col-[6/13] mt-10 lg:mt-0">
+        <h2 id={`${id.food}-h`} class="h2">{c.food.h[0]}<em>{c.food.h[1]}</em></h2>
+        <p class="lede mt-5">{c.food.lede}</p>
+        <div class="mat-cols">
+          {
+            picks.map((s) => (
+              <section aria-labelledby={`${id.food}-${s.id}`}>
+                <h3 id={`${id.food}-${s.id}`} class="h3" {...nb}>
+                  {s.title}
+                </h3>
+                <ul class="dishes">
+                  {s.dishes.map((d) => (
+                    <Dish dish={d} />
+                  ))}
+                </ul>
+              </section>
+            ))
+          }
+        </div>
+        <div class="mat-foot">
+          <PageLink page="menu" class="go go-big">{c.food.all}<Arrow slot="end" /></PageLink>
+          <ul>
+            {
+              !menuMeta.confirmed && (
+                <li>
+                  <Confirm confirmed={menuMeta.confirmed} /> <Nb>{menuMeta.note}</Nb>
+                </li>
+              )
+            }
+            <li class="num">{c.food.allergens}: <Nb>{allergens.map((a) => `${a.code} ${a.name}`).join(' · ')}</Nb></li>
+            {kids && <li {...nb}>{kids.title}{kids.note ? `. ${kids.note}` : ''}</li>}
+            {
+              v.extras.length > 0 && (
+                <li>
+                  <Nb>{listJoin(v.extras.map((x, i) => (i === 0 ? x : x.toLowerCase())))}</Nb> <Confirm confirmed={v.confirmed} />
+                </li>
+              )
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms -->
+  <section id={id.rooms} class="sec" aria-labelledby={`${id.rooms}-h`}>
+    <div class="wrap g12">
+      <Ridge from={0.13} to={1} start={0.42} end={1} height="clamp(40px, 5vw, 72px)" class="sec-ridge" />
+      <h2 id={`${id.rooms}-h`} class="h2 lg:col-[1/10]">{c.rooms.h[0]}<em>{c.rooms.h[1]}</em></h2>
+      <Photo id="room-wide" class="mt-8 lg:mt-10" ratio="12 / 5" pos="50% 55%" sizes="(min-width: 84rem) 84rem, 92vw" />
+
+      <div class="lg:col-[1/5] mt-10">
+        <dl class="facts num">
+          <div><dt>{c.rooms.facts.rooms}</dt><dd>{r.count}</dd></div>
+          <div><dt>{c.rooms.facts.breakfast}</dt><dd>{c.rooms.facts.included}</dd></div>
+          <div><dt>{c.rooms.facts.checkIn}</dt><dd>{c.rooms.facts.from} {kl(r.checkIn, locale)}</dd></div>
+          <div><dt>{c.rooms.facts.checkOut}</dt><dd>{kl(r.checkOut, locale)}</dd></div>
+          <div class="facts-price">
+            <dt>{c.rooms.facts.perNight}</dt><dd class="price">{c.rooms.facts.from} {krText(r.priceFrom, locale)}</dd>
+          </div>
+        </dl>
+        <p class="mt-3"><Confirm confirmed={r.confirmed} note={c.rooms.priceNote} /></p>
+        <div class="stack mt-6">
+          <a class="btn" href={site.contact.phoneHref}>
+            <span>{t.call} <span class="num">{site.contact.phone}</span><span class="sr-only"> {c.rooms.toBook}</span></span>
+            <Arrow />
+          </a>
+          <a class="go" href={kontakt}>{t.message}</a>
+        </div>
+      </div>
+
+      <div class="prose lg:col-[6/10] mt-10">
+        <slot name="rooms" />
+      </div>
+
+      <Photo id="rooms-pair" class="lg:col-[10/13] mt-10" caption sizes="(min-width: 64rem) 22vw, 100vw" />
+    </div>
+  </section>
+
+  <!-- Gatherings -->
+  <section id={id.gatherings} class="on-fog sec" aria-labelledby={`${id.gatherings}-h`}>
+    <div class="wrap g12">
+      <Ridge from={0.2} to={1} start={0} end={0.55} mirror height="clamp(36px, 4vw, 56px)" class="sec-ridge" />
+      <h2 id={`${id.gatherings}-h`} class="h2 lg:col-[1/9]">{c.gatherings.h[0]}<em>{c.gatherings.h[1]}</em></h2>
+      <p class="occasions mt-6 lg:col-[1/11]">{c.gatherings.occasions}</p>
+
+      <Photo
+        id="party-long-table"
+        class="lg:col-[1/7] mt-10 lg:mt-14"
+        creditSide="left"
+        ratio="1 / 1"
+        caption
+        sizes="(min-width: 64rem) 45vw, 100vw"
+      />
+
+      <div class="lg:col-[8/13] mt-10 lg:mt-14">
+        <div class="prose">
+          <slot name="gatherings" />
+          <p><Confirm confirmed={v.confirmed} note={c.gatherings.note} /></p>
+        </div>
+
+        {
+          meetingRooms.length > 0 && (
+            <>
+              <table class="rooms-table num mt-10">
+                <caption>{c.gatherings.meetingRooms}</caption>
+                <tbody>
+                  {meetingRooms.map((m) => (
+                    <tr>
+                      <th scope="row" {...nb}>{m.name}</th>
+                      <td {...nb}>{m.equipment}</td>
+                      <td class="price">{m.price !== undefined && krText(m.price, locale)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p class="mt-3">
+                <Confirm confirmed={site.meetingRooms.confirmed} note={c.gatherings.meetingNote} />
+              </p>
+            </>
+          )
+        }
+
+        <Photo id="huset-meeting-room" class="mt-8" caption sizes="(min-width: 64rem) 38vw, 100vw" />
+
+        <p class="mt-8">
+          <a class="go go-big" href={site.contact.phoneHref}>{t.call} {site.contact.phone}</a><br />
+          <a class="go" href={kontakt}>{c.gatherings.orMessage}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Korgen, then and now -->
+  <section id={id.korgen} class="sec" aria-labelledby={`${id.korgen}-h`}>
+    <div class="wrap g12">
+      <Ridge height="clamp(28px, 3vw, 40px)" class="sec-ridge" />
+      <h2 id={`${id.korgen}-h`} class="h2 lg:col-[1/8]">{c.korgen.h[0]}<em>{c.korgen.h[1]}</em></h2>
+
+      <div class="lg:col-[1/8] mt-8 lg:mt-10">
+        <Photo
+          id="korgen-1950s-c"
+          creditSide="left"
+          caption={c.korgen.then.caption}
+          date={c.korgen.then.date}
+          sizes="(min-width: 64rem) 55vw, 100vw"
+        />
+        <div class="prose korgen-text mt-10 lg:pr-[8%]">
+          <slot name="korgen" />
+        </div>
+      </div>
+
+      <div class="korgen-now lg:col-[8/13]">
+        <Photo id="korgen-village-2008b" caption={c.korgen.now.caption} date={c.korgen.now.date} sizes="(min-width: 64rem) 38vw, 100vw">
+          <div class="ridge ph-ridge" data-ridge aria-hidden="true">
+            <svg viewBox={overlay.viewBox} preserveAspectRatio="none" focusable="false"><path d={overlay.d}></path></svg>
+          </div>
+        </Photo>
+        <p class="soft korgen-note mt-4">{c.korgen.ridgeNote}</p>
+        <Photo id="okstinden-peaks" class="peaks" caption date={c.korgen.peaksDate} ratio="3 / 2" sizes="(min-width: 64rem) 38vw, 100vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Around -->
+  <section id={id.around} class="sec" aria-labelledby={`${id.around}-h`} style="padding-top: 0">
+    <div class="wrap g12">
+      <Ridge from={0.35} to={0.85} start={0.62} end={0.92} height="28px" class="sec-ridge" />
+      <div class="lg:col-[1/5]">
+        <h2 id={`${id.around}-h`} class="h2">{c.around.h[0]}<em>{c.around.h[1]}</em></h2>
+        <p class="lede mt-5">{c.around.lede}</p>
+        <Photo id="huset-parking-mountain" class="mt-8" caption sizes="(min-width: 64rem) 26vw, 100vw" style="max-width: 368px" />
+      </div>
+      <div class="lg:col-[6/13] mt-10 lg:mt-2">
+        <dl class="near">
+          {
+            nearbyIn(locale).map((n) => (
+              <div>
+                <dt>
+                  {n.name}
+                  <span>{n.where}</span>
+                </dt>
+                <dd>{n.what}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="mt-3"><Confirm confirmed={site.nearby.confirmed} /></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find us: the address leads, directions sit right under it -->
+  <section id={id.findUs} class="on-spruce sec" aria-labelledby={`${id.findUs}-h`}>
+    <div class="wrap g12">
+      <h2 id={`${id.findUs}-h`} class="h2 lg:col-[1/8]">{c.findUs.h[0]}<em>{c.findUs.h[1]}</em></h2>
+
+      <div class="lg:col-[1/6] mt-10">
+        <p class="label">{c.findUs.address}</p>
+        <p class="find-addr">
+          <span>{location.address.street}</span>{' '}<span class="num">{location.address.postcode} {location.address.postalPlace}</span>
+        </p>
+        <p class="find-where">
+          {location.address.area}, {location.address.municipality}<span aria-hidden="true"> · </span><span class="num whitespace-nowrap">{coords(locale)}</span>
+        </p>
+        <Directions point={location.arrival} label={location.name} class="mt-8" />
+        <p class="mt-4"><Confirm confirmed={site.directions.confirmed} note={c.findUs.directionsNote} /></p>
+      </div>
+
+      <div class="lg:col-[7/13] mt-14 lg:mt-10">
+        <table class="week num">
+          <caption class="h3">{t.hours}</caption>
+          <tbody>
+            {
+              hours.days.map((d) => (
+                <tr data-hours-day={d.day}>
+                  <th scope="row">
+                    {d.label}
+                    <span class="week-today">{c.findUs.today}</span>
+                  </th>
+                  <td>{span(d, locale)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="mt-3"><Confirm confirmed={hours.confirmed} note={c.findUs.hoursNote} /></p>
+      </div>
+
+      <div class="lg:col-[1/6] mt-14 lg:mt-16">
+        <p class="label">{c.findUs.phone}</p>
+        <a class="find-phone num" href={site.contact.phoneHref}>{site.contact.phone}</a>
+      </div>
+      <ul class="find-list lg:col-[7/13] mt-8 lg:mt-16">
+        <li><a href={kontakt}>{t.message} <Arrow /></a></li>
+        <li><a href={site.contact.emailHref}>{site.contact.email} <Arrow /></a></li>
+        <li><a href={site.contact.facebook}>Facebook <Arrow /></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id={id.map} class="map-band map-band--spruce on-spruce" aria-label={c.map}>
+    <HusetMap
+      name={location.name}
+      addressLine={addressLine}
+      marker={location.addressPoint}
+      destination={location.arrival}
+      label="Huset"
+      tone="spruce"
+      intro="glide"
+      height="clamp(24rem, 62vh, 36rem)"
+    />
+  </section>
+</Layout>

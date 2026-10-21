@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit --ignoreDeprecations 6.0",
     "test": "node --test \"tests/**/*.test.ts\"",
     "content": "node scripts/check-content.ts",
+    "verify": "node scripts/check-site.ts",
     "maps:spruce": "node scripts/map-style-spruce.mjs"
   },
   "dependencies": {

@@ -35,7 +35,7 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 
 ## Capabilities and Constraints
 
-- Primary language: Norwegian Bokmål. English is secondary.
+- Primary language: Norwegian Bokmål. English is secondary, with its own pages under `/en` as they are translated; untranslated pages stay Norwegian and are marked as such, never passed off as English.
 - Call the place **Korgen**. Nobody there calls it «dalen», so copy never says «i dalen», «Dalen» or «the valley».
 - Facts from the live site, to be shown **marked as unverified ("bekreftes")** until the owners confirm them:
   - Opening hours: Mon–Fri 10–21, Sat 11–21, Sun 13–19.

@@ -14,7 +14,8 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | `npm run build` | Static build to `dist/`. Fails if the content JSON is invalid. |
 | `npm run preview` | Serves `dist/` on port 4322 |
 | `npm run content` | Checks every Pages CMS file and lists problems in Norwegian, by CMS screen and field |
-| `npm test` | Unit tests (`node --test`): content schemas and error messages, notice, opening hours, directions, map styles |
+| `npm test` | Unit tests (`node --test`): content schemas and error messages, notice, opening hours in both languages, page registry, directions, map styles |
+| `npm run verify` | After a build: checks `dist/` against the page registry (see [Languages](#languages)) |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run check` | `astro check` (types in `.astro` files) |
 | `npm run maps:spruce` | Rebuilds the dark map style from the light one (run after editing `public/maps/huset-style.json`) |
@@ -29,11 +30,30 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | `/kontakt/takk` | Thank-you page for the form without JavaScript (noindex) |
 | `/anerkjennelse` | Photo credits, map data and sources |
 | `/privacy` | Privacy policy in Norwegian: the contact form (Netlify), hosting, the map (OpenFreeMap), the saved map-app choice, and visitors' rights |
-| `/sitemap.xml`, `/robots.txt` | Generated at build time |
+| `/en` | English homepage, with English section ids: `#food`, `#rooms`, `#gatherings`, `#korgen`, `#around`, `#find-us`, `#map` |
+| `/en/contact`, `/en/contact/thanks` | Contact page and thank-you page in English (same Netlify form) |
+| `/sitemap.xml`, `/robots.txt` | Generated at build time from the page registry |
 
 The old site's `/overnatting`, `/arrangementer` and `/tjenester` became homepage sections. Each still exists as a small noindex page that forwards to `/#rom` or `/#selskap`.
 
 Pages build as `meny.html` rather than `meny/index.html` (`build.format: 'file'`), so Netlify serves `/meny` without redirecting to `/meny/`.
+
+## Languages
+
+Norwegian (`nb`) stays at the root with its existing URLs; English lives under `/en/` with English slugs. Astro's `i18n` routing is on, and the code is in `src/i18n/`:
+
+- `routes.ts` is the page registry: every page and its path in each language it is written in. Canonicals, hreflang, the language switcher, the sitemap and cross-page links all read from it, and `Layout` refuses to build a page whose `page` prop has no path in that language.
+- `ui.ts` holds the strings in the shared chrome (nav, footer, section ids); `locales.ts` the languages themselves.
+- Page templates in `src/components/pages/` take their words from thin route files: `src/pages/index.astro` and `src/pages/en/index.astro` hold the homepage copy, `kontakt/` and `en/contact/` just render the shared `Contact` and `Thanks` templates.
+
+A page that isn't translated yet has no path in that language, and nothing pretends it does:
+
+- Links to it go to the Norwegian page, with `hreflang="nb"` and a quiet «(in Norwegian)» (`PageLink.astro`).
+- The language switcher on it offers the other language's homepage, labelled as such («English home page»), never a page that doesn't exist.
+- hreflang and the sitemap only pair pages that exist in both languages; the thank-you pages are left out.
+- Norwegian text from the CMS (dish names, the menu note, allergens, venue extras) is shown as it is on English pages and marked `lang="nb"` (`Nb.astro`), and the English homepage says the dishes are in Norwegian for now.
+
+To translate a page: add its path to `routes.ts`, add the route file under `src/pages/en/`, then run `npm run build && npm run verify`. `verify` (also run in `dev.yml`) fails if a registry page wasn't built or a built page isn't in the registry, if `<html lang>`, a canonical or an hreflang set is wrong or not reciprocal, if a link inside the site leads nowhere or to a missing `#id`, or if a link marked with `hreflang` lands on a page in another language.
 
 ## Content and Pages CMS
 
@@ -57,12 +77,12 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 - `featured` on a dish puts it in the homepage menu excerpt. `unavailable` («Ikke tilgjengelig nå») hides it everywhere until switched off, and a section with every dish hidden disappears.
 - The notice (`notice.json`) shows while «Vis beskjeden» is on. With a last day set, the build leaves it out after that day, and a small inline script removes it from pages built earlier, so it disappears at midnight Oslo time without a rebuild. There are no separate holiday hours: the owners change the weekly hours and use the notice for the exceptions.
 - Allergens use the numbers from the menu screens (1 Gluten, 2 Laktose, 3 Egg, 4 Sennep, 5 Nøtter). Adding a sixth means adding it to the `allergens` list in `menu.json` and to the select options in `.pages.yml`.
-- Menu translations are planned for when the site gets more languages: the owners keep editing Norwegian, and a step in GitHub Actions writes the translations.
+- The owners edit the menu in Norwegian only. English dish names are planned as a translation file kept in code next to the menu, matched to the Norwegian text, with no translation service at build time. Until then the English pages show the dishes in Norwegian and say so.
 
 Managed in code, not in the CMS:
 
-- Page text, including the occasions and catering lines under «Selskap» (`src/pages/index.astro`).
-- Nearby places and whether the directions are confirmed: `src/data/site.ts`.
+- Page text, including the occasions and catering lines under «Selskap»: `src/pages/index.astro` (Norwegian) and `src/pages/en/index.astro` (English).
+- Nearby places, in both languages, and whether the directions are confirmed: `src/data/site.ts`.
 - Photos: files in `public/img/`, with credit and rights status in `src/data/credits.ts`. Huset's own photos (`egen`) show no credit on the page; outside photos print theirs on the image. All of them are listed on `/anerkjennelse`.
 - Location: `src/data/location.ts` holds the address (Kartverket), the map point and the arrival point the directions end on.
 - Map, route and skyline lines: `src/data/norway-map.json`, `route-e6.json` and `ridges.json`.
@@ -146,12 +166,14 @@ src/
   content/      menu, hours, notice, rooms, venues, contact (.json, one per Pages CMS screen)
   data/         schemas and Norwegian error messages, data loaders, credits, location, map and skyline data
   lib/          hours, notice, formatting, locator geometry, directions (URL builders, platform, saved choice), maps (MapLibre frame and adapter)
-  components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, Ridge, Confirm, Arrow, maps/HusetMap
-  layouts/      Layout.astro (head, SEO, notice, top bar, footer)
-  pages/        routes
+  i18n/         languages, the page registry (routes.ts) and the shared chrome strings (ui.ts)
+  components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, PageLink, Nb, Ridge, Confirm, Arrow, maps/HusetMap
+                pages/: the Home, Contact and Thanks templates shared by both languages
+  layouts/      Layout.astro (head, SEO, hreflang, notice, top bar with the language switcher, footer)
+  pages/        routes; en/ holds the English ones
   scripts/      browser scripts: open status, skyline and map motion, photo credits, directions, contact form
   styles/       global.css (tokens, type roles, components)
 public/maps/    the light and dark map styles and the E-road shield sprite
-scripts/        build-time tools: check-content.ts, map-style-spruce.mjs
+scripts/        build-time tools: check-content.ts, check-site.ts (npm run verify), map-style-spruce.mjs
 tests/          node --test suites
 ```

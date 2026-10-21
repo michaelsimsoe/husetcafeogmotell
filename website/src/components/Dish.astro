@@ -1,5 +1,7 @@
 ---
 import { allergenText, kr, krText, type Dish } from '@data/menu';
+import { toLocale } from '@i18n/locales';
+import Nb from './Nb.astro';
 
 interface Props {
   dish: Dish;
@@ -7,6 +9,10 @@ interface Props {
 }
 
 const { dish, desc = true } = Astro.props;
+// Dishes come from the CMS in Norwegian. On other pages they are marked as Norwegian; the prices and the labels around them are not.
+const locale = toLocale(Astro.currentLocale);
+const nb = locale === 'nb' ? undefined : 'nb';
+const allergensLabel = locale === 'en' ? 'allergens' : 'allergener';
 const variants = dish.variants ?? [];
 const price = variants.length === 0 ? dish.price : undefined;
 ---
@@ -14,10 +20,10 @@ const price = variants.length === 0 ? dish.price : undefined;
 <li class="dish">
   <div class="dish-line">
     <span class="dish-name"
-      >{dish.name}{
+      ><Nb>{dish.name}</Nb>{
         dish.allergens.length > 0 && (
           <>
-            <span class="sr-only">, allergener: {allergenText(dish.allergens)}</span>
+            <span class="sr-only">, {allergensLabel}: <Nb>{allergenText(dish.allergens)}</Nb></span>
             <sup aria-hidden="true">{dish.allergens.join(',')}</sup>
           </>
         )
@@ -28,24 +34,24 @@ const price = variants.length === 0 ? dish.price : undefined;
         <>
           <span class="dish-lead" aria-hidden="true" />
           <span class="dish-price price">
-            <span aria-hidden="true">{kr(price)}</span>
-            <span class="sr-only">{krText(price)}</span>
+            <span aria-hidden="true">{kr(price, locale)}</span>
+            <span class="sr-only">{krText(price, locale)}</span>
           </span>
         </>
       )
     }
   </div>
-  {desc && dish.description && <p class="dish-desc">{dish.description}</p>}
+  {desc && dish.description && <p class="dish-desc" lang={nb}>{dish.description}</p>}
   {
     variants.length > 0 && (
       <ul class="dish-variants">
         {variants.map((v) => (
           <li class="dish-line">
-            <span class="dish-name">{v.label}</span>
+            <span class="dish-name" lang={nb}>{v.label}</span>
             <span class="dish-lead" aria-hidden="true" />
             <span class="dish-price price">
-              <span aria-hidden="true">{kr(v.price)}</span>
-              <span class="sr-only">{krText(v.price)}</span>
+              <span aria-hidden="true">{kr(v.price, locale)}</span>
+              <span class="sr-only">{krText(v.price, locale)}</span>
             </span>
           </li>
         ))}

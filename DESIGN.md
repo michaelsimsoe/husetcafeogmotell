@@ -308,6 +308,8 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 
 ### Navigation
 - The wordmark «Huset» in Brygada 560 with «Café & Motell» behind a hairline, then the nav (Mat, Rom, Selskap, Finn fram) and the phone number with a stroked river-green icon. The current item is underlined in copper, and hover uses an ink underline. On phones the nav drops to its own row below the wordmark.
+- **Language switcher:** the other language's name, written in that language («English», «Norsk»), in ink-soft at 560 weight with an ink underline on hover. From 64rem it sits in the top bar after the nav, behind a hairline like the wordmark's, at nav size. Below that it is a quiet 0.875rem line above the wordmark, right-aligned, so the nav and the phone number keep their row. On a page that isn't translated it reads «English home page» and goes there; it never links to a page that doesn't exist. The footer repeats it at the right end of the bottom line.
+- **«(in Norwegian)»:** links from an English page to a page that only exists in Norwegian carry a quiet mark after their text, at 400 weight and 0.875em, kept on the same line as the last word.
 
 ### Notice («Beskjed på nettsiden»)
 - When the owners switch a notice on in the CMS, a full-bleed spruce band sits above the top bar on every page: one line of whitewash text in the small step, aligned to the page grid, with no icon, label or close button. It is gone the day after its optional last day, even before the next build.

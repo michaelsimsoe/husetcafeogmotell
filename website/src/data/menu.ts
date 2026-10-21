@@ -4,6 +4,7 @@
  */
 import raw from '../content/menu.json';
 import { menuSchema, parseContent } from './schema.ts';
+import type { Locale } from '../i18n/locales.ts';
 
 export type { Dish, MenuSection } from './schema.ts';
 
@@ -32,8 +33,10 @@ export const featured = menu
 
 export const sectionById = (id: string) => menu.find((s) => s.id === id);
 
-/** «290,-» — the house style on the screens. */
-export const kr = (n: number) => `${n.toLocaleString('nb-NO')},-`;
+/** «290,-» — the house style on the screens. «NOK 290» in English. */
+export const kr = (n: number, locale: Locale = 'nb') =>
+  locale === 'en' ? `NOK ${n.toLocaleString('en-GB')}` : `${n.toLocaleString('nb-NO')},-`;
 
-/** «290 kr» — for running text. */
-export const krText = (n: number) => `${n.toLocaleString('nb-NO')} kr`;
+/** «290 kr» — for running text. «NOK 1,130» in English. */
+export const krText = (n: number, locale: Locale = 'nb') =>
+  locale === 'en' ? `NOK ${n.toLocaleString('en-GB')}` : `${n.toLocaleString('nb-NO')} kr`;

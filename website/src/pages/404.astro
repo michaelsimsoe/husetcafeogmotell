@@ -4,6 +4,11 @@ import Ridge from '@components/Ridge.astro';
 import Arrow from '@components/Arrow.astro';
 import { site } from '@data/site';
 import { withBase } from '@lib/base';
+import { pathOf } from '@i18n/routes';
+import { ui } from '@i18n/ui';
+
+// Netlify serves this page for every missing path, English ones included, so it says so in English too.
+const home = withBase(pathOf('home', 'nb')!);
 ---
 
 <Layout title="Fant ikke siden – Huset Café & Motell" description="Siden finnes ikke." noindex>
@@ -15,13 +20,16 @@ import { withBase } from '@lib/base';
     </p>
     <Ridge from={0.55} to={1} start={0} end={0.5} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
     <ul class="rows mt-8 lg:col-[1/6]">
-      <li><a href={withBase('/')}>Forsiden <Arrow /></a></li>
-      <li><a href={withBase('/meny')}>Menyen <Arrow /></a></li>
-      <li><a href={`${withBase('/')}#rom`}>Rom og overnatting <Arrow /></a></li>
-      <li><a href={withBase('/kontakt')}>Kontakt oss <Arrow /></a></li>
+      <li><a href={home}>Forsiden <Arrow /></a></li>
+      <li><a href={withBase(pathOf('menu', 'nb')!)}>Menyen <Arrow /></a></li>
+      <li><a href={`${home}#${ui('nb').sections.rooms}`}>Rom og overnatting <Arrow /></a></li>
+      <li><a href={withBase(pathOf('contact', 'nb')!)}>Kontakt oss <Arrow /></a></li>
     </ul>
     <p class="soft mt-6 lg:col-[1/8]">
       Eller ring oss på <a href={site.contact.phoneHref}>{site.contact.phone}</a>.
+    </p>
+    <p class="mt-6 lg:col-[1/8]" lang="en">
+      This page doesn’t exist, or it has moved. Try the <a href={withBase(pathOf('home', 'en')!)}>{ui('en').homeInThisLanguage}</a>.
     </p>
   </div>
 </Layout>

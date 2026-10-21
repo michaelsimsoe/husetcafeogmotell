@@ -1,5 +1,6 @@
 ---
-import { creditShort, needsCredit, photo, src, srcset } from '@data/credits';
+import { altOf, captionOf, creditShort, needsCredit, photo, src, srcset } from '@data/credits';
+import { toLocale } from '@i18n/locales';
 
 interface Props {
   id: string;
@@ -19,7 +20,8 @@ interface Props {
 
 const { id, sizes, ratio, pos, priority = false, caption = false, date, creditSide = 'right', class: cls, style } = Astro.props;
 const p = photo(id);
-const cap = typeof caption === 'string' ? caption : caption ? p.caption : null;
+const locale = toLocale(Astro.currentLocale);
+const cap = typeof caption === 'string' ? caption : caption ? captionOf(id, locale) : null;
 const vars = [`--ratio:${ratio ?? `${p.w} / ${p.h}`}`, pos ? `--pos:${pos}` : '', style ?? ''].filter(Boolean).join(';');
 ---
 
@@ -31,13 +33,13 @@ const vars = [`--ratio:${ratio ?? `${p.w} / ${p.h}`}`, pos ? `--pos:${pos}` : ''
       sizes={sizes}
       width={p.w}
       height={p.h}
-      alt={p.alt}
+      alt={altOf(id, locale)}
       loading={priority ? 'eager' : 'lazy'}
       fetchpriority={priority ? 'high' : undefined}
       decoding={priority ? 'sync' : 'async'}
     />
     <slot />
-    {needsCredit(id) && <small class="ph-credit">{creditShort(id)}</small>}
+    {needsCredit(id) && <small class="ph-credit">{creditShort(id, locale)}</small>}
   </div>
   {
     cap && (

@@ -13,6 +13,7 @@ import { addressLine, location } from './location.ts';
 import { googleDirections, googleMapLink } from '../lib/directions/links.ts';
 import { groupDays, type OpeningDay } from '../lib/hours.ts';
 import { activeNotice } from '../lib/notice.ts';
+import type { Locale } from '../i18n/locales.ts';
 
 const contact = parseContent(contactSchema, contactRaw, 'src/content/contact.json');
 const hours = parseContent(hoursSchema, hoursRaw, 'src/content/hours.json');
@@ -20,20 +21,35 @@ const rooms = parseContent(roomsSchema, roomsRaw, 'src/content/rooms.json');
 const { meetingRooms, ...venues } = parseContent(venuesSchema, venuesRaw, 'src/content/venues.json');
 const notice = parseContent(noticeSchema, noticeRaw, 'src/content/notice.json');
 
-const dayNames: Record<(typeof weekdays)[number], [string, string]> = {
-  monday: ['Mandag', 'Man'],
-  tuesday: ['Tirsdag', 'Tir'],
-  wednesday: ['Onsdag', 'Ons'],
-  thursday: ['Torsdag', 'Tor'],
-  friday: ['Fredag', 'Fre'],
-  saturday: ['Lørdag', 'Lør'],
-  sunday: ['Søndag', 'Søn'],
+const dayNames: Record<Locale, Record<(typeof weekdays)[number], [string, string]>> = {
+  nb: {
+    monday: ['Mandag', 'Man'],
+    tuesday: ['Tirsdag', 'Tir'],
+    wednesday: ['Onsdag', 'Ons'],
+    thursday: ['Torsdag', 'Tor'],
+    friday: ['Fredag', 'Fre'],
+    saturday: ['Lørdag', 'Lør'],
+    sunday: ['Søndag', 'Søn'],
+  },
+  en: {
+    monday: ['Monday', 'Mon'],
+    tuesday: ['Tuesday', 'Tue'],
+    wednesday: ['Wednesday', 'Wed'],
+    thursday: ['Thursday', 'Thu'],
+    friday: ['Friday', 'Fri'],
+    saturday: ['Saturday', 'Sat'],
+    sunday: ['Sunday', 'Sun'],
+  },
 };
 
-const days: OpeningDay[] = weekdays.map((key, day) => {
-  const [label, short] = dayNames[key];
-  return { day, label, short, ...hours[key] };
-});
+/** The opening hours with day names and times written for `locale`. */
+export function hoursIn(locale: Locale) {
+  const days: OpeningDay[] = weekdays.map((key, day) => {
+    const [label, short] = dayNames[locale][key];
+    return { day, label, short, ...hours[key] };
+  });
+  return { confirmed: hours.confirmed, days, groups: groupDays(days, locale) };
+}
 
 const phone = contact.phone.trim();
 const hasCountry = phone.startsWith('+');
@@ -66,11 +82,8 @@ export const site = {
     directions: googleDirections(location.arrival),
     map: googleMapLink(location.addressPoint),
   },
-  hours: {
-    confirmed: hours.confirmed,
-    days,
-    groups: groupDays(days),
-  },
+  /** In Norwegian; other languages use `hoursIn(locale)`. */
+  hours: hoursIn('nb'),
   rooms,
   venues,
   meetingRooms,
@@ -80,16 +93,26 @@ export const site = {
   nearby: {
     confirmed: false,
     places: [
-      { name: 'Korgensenteret', what: 'Dagligvare, apotek, Vinmonopolet og frisør', where: 'Rett ved siden av' },
-      { name: 'Circle K', what: 'Bensinstasjon', where: 'Over veien' },
-      { name: 'Okstindan natur- og kulturpark', what: 'Topper, bre og stier', where: 'Øst for Korgen' },
+      {
+        name: 'Korgensenteret',
+        what: 'Dagligvare, apotek, Vinmonopolet og frisør',
+        where: 'Rett ved siden av',
+        en: { what: 'Groceries, a pharmacy, Vinmonopolet (wine and spirits) and a hairdresser', where: 'Right next door' },
+      },
+      { name: 'Circle K', what: 'Bensinstasjon', where: 'Over veien', en: { what: 'Petrol station', where: 'Across the road' } },
+      {
+        name: 'Okstindan natur- og kulturpark',
+        what: 'Topper, bre og stier',
+        where: 'Øst for Korgen',
+        en: { what: 'Peaks, a glacier and trails', where: 'East of Korgen' },
+      },
     ],
   },
   /** Set to true once Huset has checked that the map links end at the driveway (`location.arrival`). */
   directions: { confirmed: false },
   /** Checked against public sources. Not owner-edited. */
   landscape: {
-    oksskolten: { name: 'Oksskolten', moh: 1916, kmFromHuset: 24, bearing: 'øst-sørøst' },
+    oksskolten: { name: 'Oksskolten', moh: 1916, kmFromHuset: 24, bearing: { nb: 'øst-sørøst', en: 'east-south-east' } },
     korgfjelltunnelen: { name: 'Korgfjelltunnelen', lengthM: 8533, opened: 2005 },
     river: 'Røssåga',
     mountain: 'Korgfjellet',
@@ -97,3 +120,7 @@ export const site = {
 } as const;
 
 export type Site = typeof site;
+
+/** The places near Huset, described in `locale`. Names are names and stay as they are. */
+export const nearbyIn = (locale: Locale) =>
+  site.nearby.places.map(({ name, what, where, en }) => (locale === 'en' ? { name, ...en } : { name, what, where }));

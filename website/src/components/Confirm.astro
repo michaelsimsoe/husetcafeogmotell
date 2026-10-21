@@ -9,7 +9,10 @@ interface Props {
   note?: string;
   class?: string;
 }
+import { toLocale } from '@i18n/locales';
+
 const { confirmed, note, class: cls } = Astro.props;
+const mark = toLocale(Astro.currentLocale) === 'en' ? 'to be confirmed' : 'bekreftes';
 ---
 
-{!confirmed && <><span class:list={['bk', cls]}>bekreftes</span>{note && <span class="bk-note"> {note}</span>}</>}
+{!confirmed && <><span class:list={['bk', cls]}>{mark}</span>{note && <span class="bk-note"> {note}</span>}</>}

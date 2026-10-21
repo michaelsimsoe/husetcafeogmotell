@@ -4,13 +4,59 @@
  * (`contact`, `contactName`, `contactEmail`, `contactPhone`, `contactMessage`),
  * so submissions keep landing in the same form with the same columns.
  *
- * Without JavaScript it posts normally and Netlify shows /kontakt/takk.
- * With JavaScript (scripts/contact-form.ts) it validates in Norwegian, posts
- * in the background and thanks the sender by name in place.
+ * Every language posts to the same form; only the thank-you page differs.
+ *
+ * Without JavaScript it posts normally and Netlify shows the thanks page
+ * (/kontakt/takk, /en/contact/thanks). With JavaScript (scripts/contact-form.ts)
+ * it validates in the page's language, posts in the background and thanks the
+ * sender by name in place.
  */
 import Arrow from '@components/Arrow.astro';
+import PageLink from '@components/PageLink.astro';
 import { site } from '@data/site';
 import { withBase } from '@lib/base';
+import { toLocale, type Locale } from '@i18n/locales';
+import { pathOf } from '@i18n/routes';
+
+const words = {
+  nb: {
+    honeypot: 'Ikke fyll ut dette feltet:',
+    name: 'Navn',
+    back: 'Hvordan skal vi komme tilbake til deg?',
+    backHint: 'Legg igjen e-post eller telefonnummer, så vi kan svare deg.',
+    email: 'E-post',
+    phone: 'Telefonnummer',
+    message: 'Melding',
+    failed: 'Meldingen kom ikke fram.',
+    failedRest: 'Det du skrev ligger fortsatt i skjemaet, så du kan prøve igjen. Du kan også ringe oss på',
+    orEmail: 'eller sende e-post til',
+    send: 'Send meldingen',
+    privacy: 'Om personvern',
+    thanks: 'Takk',
+    reply: 'Vi svarer deg så snart vi bare kan!',
+    again: 'Skriv en ny melding',
+  },
+  en: {
+    honeypot: 'Don’t fill in this field:',
+    name: 'Name',
+    back: 'How should we get back to you?',
+    backHint: 'Leave an email address or a phone number so we can reply.',
+    email: 'Email',
+    phone: 'Phone number',
+    message: 'Message',
+    failed: 'The message didn’t get through.',
+    failedRest: 'What you wrote is still in the form, so you can try again. You can also call us on',
+    orEmail: 'or email',
+    send: 'Send the message',
+    privacy: 'About privacy',
+    thanks: 'Thank you',
+    reply: 'We’ll reply as soon as we possibly can!',
+    again: 'Write another message',
+  },
+} satisfies Record<Locale, unknown>;
+
+const locale = toLocale(Astro.currentLocale);
+const w = words[locale];
 ---
 
 <div class="cf" data-cf>
@@ -18,7 +64,7 @@ import { withBase } from '@lib/base';
     class="cf-form"
     name="contact"
     method="POST"
-    action={withBase('/kontakt/takk')}
+    action={withBase(pathOf('thanks', locale)!)}
     data-netlify="true"
     netlify-honeypot="bot-field"
     data-cf-form
@@ -26,21 +72,21 @@ import { withBase } from '@lib/base';
   >
     <input type="hidden" name="form-name" value="contact" />
     <p class="sr-only" aria-hidden="true">
-      <label>Ikke fyll ut dette feltet: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      <label>{w.honeypot} <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
     </p>
 
     <div class="cf-field">
-      <label class="cf-label" for="cf-name">Navn</label>
+      <label class="cf-label" for="cf-name">{w.name}</label>
       <input class="cf-input" id="cf-name" name="contactName" type="text" autocomplete="name" required />
       <p class="cf-err" id="cf-name-err" hidden></p>
     </div>
 
     <fieldset class="cf-set">
-      <legend class="cf-legend">Hvordan skal vi komme tilbake til deg?</legend>
-      <p class="cf-hint" id="cf-back-hint">Legg igjen e-post eller telefonnummer, så vi kan svare deg.</p>
+      <legend class="cf-legend">{w.back}</legend>
+      <p class="cf-hint" id="cf-back-hint">{w.backHint}</p>
       <div class="cf-pair">
         <div class="cf-field">
-          <label class="cf-label" for="cf-email">E-post</label>
+          <label class="cf-label" for="cf-email">{w.email}</label>
           <input
             class="cf-input"
             id="cf-email"
@@ -53,39 +99,39 @@ import { withBase } from '@lib/base';
           <p class="cf-err" id="cf-email-err" hidden></p>
         </div>
         <div class="cf-field">
-          <label class="cf-label" for="cf-phone">Telefonnummer</label>
+          <label class="cf-label" for="cf-phone">{w.phone}</label>
           <input class="cf-input num" id="cf-phone" name="contactPhone" type="tel" autocomplete="tel" aria-describedby="cf-back-hint" />
         </div>
       </div>
     </fieldset>
 
     <div class="cf-field">
-      <label class="cf-label" for="cf-message">Melding</label>
+      <label class="cf-label" for="cf-message">{w.message}</label>
       <textarea class="cf-input cf-area" id="cf-message" name="contactMessage" rows="6" required minlength="3"></textarea>
       <p class="cf-err" id="cf-message-err" hidden></p>
     </div>
 
     <div class="cf-fail" role="alert" data-cf-fail hidden>
       <p>
-        <strong>Meldingen kom ikke fram.</strong> Det du skrev ligger fortsatt i skjemaet, så du kan prøve igjen. Du kan også
-        ringe oss på <a href={site.contact.phoneHref}>{site.contact.phone}</a> eller sende e-post til{' '}
-        <a href={site.contact.emailHref}>{site.contact.email}</a>.
+        <strong>{w.failed}</strong>{' '}{w.failedRest}{' '}<a href={site.contact.phoneHref}>{site.contact.phone}</a>{' '}{w.orEmail}{' '}<a
+          href={site.contact.emailHref}>{site.contact.email}</a
+        >.
       </p>
     </div>
 
     <div class="cf-send">
       <button class="btn cf-btn" type="submit" data-cf-submit>
-        <span data-cf-label>Send meldingen</span>
+        <span data-cf-label>{w.send}</span>
         <Arrow />
       </button>
-      <a class="cf-privacy" href={withBase('/privacy#kontaktskjema')}>Om personvern</a>
+      <PageLink page="privacy" hash="kontaktskjema" class="cf-privacy">{w.privacy}</PageLink>
     </div>
   </form>
 
   <section class="cf-thanks" aria-labelledby="cf-thanks-h" data-cf-thanks hidden>
-    <h2 class="cf-thanks-h" id="cf-thanks-h" tabindex="-1">Takk<span data-cf-who></span>!</h2>
-    <p>Vi svarer deg så snart vi bare kan!</p>
-    <p class="cf-again"><button class="go" type="button" data-cf-again>Skriv en ny melding</button></p>
+    <h2 class="cf-thanks-h" id="cf-thanks-h" tabindex="-1">{w.thanks}<span data-cf-who></span>!</h2>
+    <p>{w.reply}</p>
+    <p class="cf-again"><button class="go" type="button" data-cf-again>{w.again}</button></p>
   </section>
 </div>
 

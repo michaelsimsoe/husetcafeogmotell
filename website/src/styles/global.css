@@ -169,10 +169,10 @@
   .tb-row {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    grid-template-areas: "wm . phone" "nav nav nav";
+    grid-template-areas: "lang lang lang" "wm . phone" "nav nav nav";
     align-items: center;
     column-gap: var(--gap);
-    padding-top: 0.75rem;
+    padding-top: 0.25rem;
   }
   .wm { grid-area: wm; display: inline-flex; align-items: baseline; gap: 0.6rem; text-decoration: none; color: var(--color-ink); min-height: 44px; padding-block: 0.25rem; }
   .wm:hover { color: var(--color-ink); }
@@ -193,15 +193,39 @@
   }
   .tb-phone svg { width: 1.125rem; height: 1.125rem; color: var(--color-river); }
   .tb-phone:hover { color: var(--color-river); }
+  /* The language switcher: a quiet line above the wordmark on phones and tablets, a hairline after the nav on wider screens. */
+  .tb-lang { grid-area: lang; justify-self: end; display: flex; align-items: center; }
+  .tb-lang ul { display: flex; gap: 1.25rem; }
+  .tb-lang a {
+    display: inline-flex; align-items: center; min-height: 1.75rem;
+    color: var(--color-ink-soft); text-decoration: none; font-weight: 560; font-size: 0.875rem;
+    border-bottom: 1px solid transparent;
+  }
+  .tb-lang a:hover { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+  /* «(in Norwegian)» after a link to a page that has no translation yet. */
+  .lang-mark { font-weight: 400; font-size: 0.875em; }
   /* No room for the wordmark's second half next to the phone number; the link's label still says it. */
   @media (max-width: 22.49rem) {
     .wm-sub { display: none; }
   }
   @media (min-width: 48rem) {
-    .tb-row { grid-template-areas: "wm nav phone"; grid-template-columns: auto 1fr auto; padding-block: 0.875rem; }
+    .tb-row { grid-template-areas: "lang lang lang" "wm nav phone"; padding-bottom: 0.875rem; }
     .tb-nav { justify-self: end; margin-right: clamp(1rem, 3vw, 2.5rem); }
     .tb-nav ul { gap: clamp(1rem, 2.4vw, 2.25rem); }
     .wm-name { font-size: 1.875rem; }
+  }
+  /* English labels are longer; at the narrow end of the range the nav closes up so «Gatherings» and «Find us» stay on one line. */
+  @media (min-width: 48rem) and (max-width: 55.99rem) {
+    .tb-nav { margin-right: 1rem; }
+    .tb-nav ul { gap: 0.75rem; }
+  }
+  /* Room for it in the row only once the nav, «English home page» and the phone number all fit on one line. */
+  @media (min-width: 64rem) {
+    .tb-row { grid-template-areas: "wm nav lang phone"; grid-template-columns: auto 1fr auto auto; padding-block: 0.875rem; }
+    .tb-nav { margin-right: 0; }
+    .tb-lang { gap: clamp(1rem, 2.4vw, 2.25rem); margin-inline: clamp(1rem, 2.4vw, 2.25rem) clamp(1rem, 3vw, 2.5rem); }
+    .tb-lang::before { content: ''; width: 1px; height: 1.1em; background: var(--color-hair); }
+    .tb-lang a { min-height: 44px; font-size: 1rem; }
   }
 
   /* ——— Masthead dateline ——— */
@@ -368,6 +392,7 @@
   .ft-meta { margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: 0.75rem; border-top: 1px solid var(--color-hair-dark); font-size: 0.9375rem; color: var(--color-lichen); display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
   .ft-meta a { color: var(--color-lichen); display: inline-flex; align-items: center; min-height: 44px; }
   .ft-meta a:hover { color: var(--color-copper-light); }
+  .ft-meta .ft-lang { margin-left: auto; }
 
   [id] { scroll-margin-top: 1.5rem; }
   .arr { display: inline-block; flex: none; width: 0.9em; height: 0.9em; vertical-align: -0.1em; transition: transform 0.15s ease; }

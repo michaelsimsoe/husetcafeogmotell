@@ -14,10 +14,12 @@
  * it and then lets the browser follow the link as normal.
  */
 
-import { isLatLon, PROVIDER_IN_SENTENCE, PROVIDER_NAMES } from './links.ts';
+import { toLocale } from '../../i18n/locales.ts';
+import { isLatLon } from './links.ts';
 import { availableProviders, DEFAULT_CAPABILITIES, detectPlatform, type Capabilities } from './platform.ts';
 import { clearPreference, getStorage, isProvider, PREFERENCE_KEY, readPreference, savePreference } from './preferences.ts';
 import { hrefFor, resolveDirections, type Destination } from './resolve.ts';
+import { directionsText } from './text.ts';
 
 function destinationOf(el: HTMLElement): Destination | null {
   const { lat, lon, label = '' } = el.dataset;
@@ -38,6 +40,8 @@ export function mountDirections(root: ParentNode = document, caps: Capabilities 
   const renderWidget = (w: HTMLElement) => {
     const dest = destinationOf(w);
     if (!dest) return;
+    // The widget speaks the language of the page (or of the block it sits in).
+    const t = directionsText[toLocale(w.closest('[lang]')?.getAttribute('lang'))];
     const saved = readPreference(storage);
     const r = resolveDirections(dest, saved, platform, caps);
     const available = availableProviders(platform, caps);
@@ -45,7 +49,7 @@ export function mountDirections(root: ParentNode = document, caps: Capabilities 
     const primary = w.querySelector<HTMLAnchorElement>('a[data-dir-primary]');
     if (primary) primary.href = r.href;
     const app = w.querySelector('[data-dir-app]');
-    if (app) app.textContent = PROVIDER_IN_SENTENCE[r.provider];
+    if (app) app.textContent = t.inSentence[r.provider];
     w.dataset.reason = r.reason;
 
     for (const item of w.querySelectorAll<HTMLElement>('[data-dir-item]')) {
@@ -64,12 +68,12 @@ export function mountDirections(root: ParentNode = document, caps: Capabilities 
     const note = w.querySelector('[data-dir-note]');
     if (note) {
       note.textContent = !canRemember
-        ? 'Åpne veibeskrivelsen i en annen app. Nettleseren lar ikke siden huske valget.'
+        ? t.noMemory
         : r.reason === 'fallback' && saved
-          ? `${PROVIDER_NAMES[saved]} kan ikke åpnes i denne nettleseren, så lenken går til ${PROVIDER_NAMES[r.provider]}.`
+          ? t.unavailable(t.names[saved], t.names[r.provider])
           : r.reason === 'saved'
-            ? 'Valget ditt huskes på denne enheten.'
-            : 'Appen du velger, huskes på denne enheten.';
+            ? t.remembered
+            : t.willRemember;
     }
     const forget = w.querySelector<HTMLButtonElement>('button[data-dir-forget]');
     if (forget) forget.hidden = !saved;

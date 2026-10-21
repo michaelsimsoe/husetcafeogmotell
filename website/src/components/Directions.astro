@@ -6,8 +6,10 @@
  * native <details> and every option is a plain link.
  */
 import Arrow from './Arrow.astro';
-import { PROVIDER_IN_SENTENCE, PROVIDER_NAMES, PROVIDERS, type LatLon } from '@lib/directions/links';
+import { PROVIDERS, type LatLon } from '@lib/directions/links';
 import { hrefFor, initialDirections } from '@lib/directions/resolve';
+import { directionsText } from '@lib/directions/text';
+import { toLocale } from '@i18n/locales';
 
 interface Props {
   /** Where the route ends. */
@@ -20,29 +22,30 @@ interface Props {
 const { point, label, class: cls } = Astro.props;
 const dest = { point, label };
 const first = initialDirections(dest);
+const t = directionsText[toLocale(Astro.currentLocale)];
 ---
 
 <div class:list={['dir', cls]} data-directions-widget data-lat={point.lat} data-lon={point.lon} data-label={label}>
   <a class="dir-go" href={first.href} data-dir-primary>
     <span>
-      <span class="dir-go-title">Veibeskrivelse</span>{' '}<span class="dir-go-app">Åpnes i <span data-dir-app>{PROVIDER_IN_SENTENCE[first.provider]}</span></span>
+      <span class="dir-go-title">{t.go}</span>{' '}<span class="dir-go-app">{t.opensIn} <span data-dir-app>{t.inSentence[first.provider]}</span></span>
     </span>
     <Arrow />
   </a>
   <details class="dir-pick">
     <summary>
-      Velg kartapp
+      {t.pick}
       <svg class="dir-chev" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3.5 6 4.5 4.5L12.5 6"></path></svg>
     </summary>
     <div class="dir-panel">
-      <p class="dir-note" data-dir-note>Åpne veibeskrivelsen i en annen app.</p>
+      <p class="dir-note" data-dir-note>{t.note}</p>
       <ul class="dir-list">
         {
           PROVIDERS.map((p) => (
             <li data-dir-item={p} hidden={p === 'system'}>
               <a href={hrefFor(p, dest)} data-dir-option={p}>
                 <span>
-                  {PROVIDER_NAMES[p]}{' '}<span class="dir-mark" data-dir-mark hidden>ditt valg</span>
+                  {t.names[p]}{' '}<span class="dir-mark" data-dir-mark hidden>{t.yours}</span>
                 </span>
                 <Arrow />
               </a>
@@ -50,7 +53,7 @@ const first = initialDirections(dest);
           ))
         }
       </ul>
-      <button type="button" class="dir-forget" data-dir-forget hidden>Glem valget</button>
+      <button type="button" class="dir-forget" data-dir-forget hidden>{t.forget}</button>
     </div>
   </details>
 </div>

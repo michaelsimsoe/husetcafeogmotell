@@ -55,6 +55,9 @@ jobs:
       - run: npm test
       - run: npm run build
 
+      # Every page built, in the right language, with working links, canonicals and hreflang.
+      - run: npm run verify
+
       # The CLI builds before deploying unless told not to; the build above is the one to ship.
       - name: Deploy to Netlify
         run: npx --yes netlify-cli@27 deploy --dir=dist --no-build --prod --message "test ${{ github.ref_name }} ${{ github.sha }}"

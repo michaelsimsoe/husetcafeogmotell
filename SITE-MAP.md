@@ -143,6 +143,8 @@ The replacement in `website/` (see [its README](website/README.md)) keeps every 
 | `/kontakt` | Contact page with the same Netlify form; `/kontakt/takk` is new |
 | `/anerkjennelse`, `/privacy` | Same paths |
 
+The old site switched language in place on the same URLs. The new site gives English its own pages under `/en`: so far `/en` (homepage) and `/en/contact` (with `/en/contact/thanks`). Pages not yet translated stay Norwegian, and links to them say so.
+
 Unknown paths get a real 404 page instead of the homepage.
 
 ## Sources

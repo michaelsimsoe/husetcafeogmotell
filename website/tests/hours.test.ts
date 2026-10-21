@@ -115,3 +115,47 @@ describe('formatting', () => {
     );
   });
 });
+
+describe('in English', () => {
+  const en: OpeningDay[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((label, day) => ({
+    ...week[day],
+    label,
+    short: label.slice(0, 3),
+  }));
+
+  it('keeps 24-hour times with minutes', () => {
+    assert.equal(clock('21:00', 'en'), '21:00');
+    assert.equal(span(en[0], 'en'), '10:00–21:00');
+    assert.equal(span(en[6], 'en'), 'closed');
+  });
+
+  it('says when it closes', () => {
+    const s = hoursStatus(en, summer(0, '12:00'), 'en');
+    assert.equal(s.text, 'Open now · closes at 21:00');
+    assert.equal(s.short, 'Open until 21:00');
+  });
+
+  it('counts down the last hour', () => {
+    assert.equal(hoursStatus(en, summer(0, '20:15'), 'en').text, 'Open now · closes in 45 min');
+  });
+
+  it('says when it opens later today, tomorrow, or on a named day', () => {
+    assert.equal(hoursStatus(en, summer(0, '08:00'), 'en').text, 'Closed now · opens at 10:00 today');
+    assert.equal(hoursStatus(en, summer(0, '22:00'), 'en').text, 'Closed for the day · opens at 10:00 tomorrow');
+    const sunday = hoursStatus(en, summer(6, '12:00'), 'en');
+    assert.equal(sunday.text, 'Closed today · opens at 10:00 tomorrow');
+  });
+
+  it('names the day, capitalised, when the next opening is more than a day away', () => {
+    const closedMonday = en.map((d) => (d.day === 0 ? { ...d, closed: true } : d));
+    assert.equal(hoursStatus(closedMonday, summer(6, '12:00'), 'en').text, 'Closed today · opens at 10:00 on Tuesday');
+  });
+
+  it('groups days with English names and times', () => {
+    assert.deepEqual(groupDays(en, 'en'), [
+      { label: 'Monday–Friday', short: 'Mon–Fri', time: '10:00–21:00' },
+      { label: 'Saturday', short: 'Sat', time: '11:00–21:00' },
+      { label: 'Sunday', short: 'Sun', time: 'closed' },
+    ]);
+  });
+});

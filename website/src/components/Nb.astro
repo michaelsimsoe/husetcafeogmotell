@@ -1,0 +1,8 @@
+---
+import { defaultLocale, toLocale } from '@i18n/locales';
+
+// Norwegian text from the CMS. On pages in another language it is marked lang="nb"; on Norwegian pages it is left bare.
+const bare = toLocale(Astro.currentLocale) === defaultLocale;
+---
+
+{bare ? <slot /> : <span lang="nb"><slot /></span>}

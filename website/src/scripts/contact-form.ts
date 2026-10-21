@@ -1,21 +1,34 @@
 /**
  * Progressive enhancement for components/ContactForm.astro.
- * The form works without this file (plain POST → /kontakt/takk); with it,
- * errors are in Norwegian, nothing reloads, and the sender is thanked by name.
+ * The form works without this file (plain POST → the thanks page); with it,
+ * errors are in the page's language, nothing reloads, and the sender is thanked by name.
  */
+import { toLocale, type Locale } from '../i18n/locales';
 
 type Field = HTMLInputElement | HTMLTextAreaElement;
 
-const NAME_MISSING = 'Vi vil veldig gjerne ha navnet ditt.';
-const MESSAGE_MISSING = 'Meldingen må inneholde noe. I det minste ett «Hei!».';
-const EMAIL_INVALID = 'Sjekk e-postadressen. Den skal se omtrent slik ut: navn@eksempel.no';
+const say = {
+  nb: {
+    nameMissing: 'Vi vil veldig gjerne ha navnet ditt.',
+    messageMissing: 'Meldingen må inneholde noe. I det minste ett «Hei!».',
+    emailInvalid: 'Sjekk e-postadressen. Den skal se omtrent slik ut: navn@eksempel.no',
+    sending: 'Sender …',
+  },
+  en: {
+    nameMissing: 'We’d really like to have your name.',
+    messageMissing: 'The message needs to say something. A “Hi!” at the very least.',
+    emailInvalid: 'Check the email address. It should look roughly like this: name@example.com',
+    sending: 'Sending …',
+  },
+} satisfies Record<Locale, unknown>;
+type Say = (typeof say)[Locale];
 const TIMEOUT_MS = 20_000;
 
-function errorFor(field: Field): string {
+function errorFor(field: Field, t: Say): string {
   const value = field.value.trim();
-  if (field.name === 'contactName' && !value) return NAME_MISSING;
-  if (field.name === 'contactMessage' && value.length < 3) return MESSAGE_MISSING;
-  if (field.name === 'contactEmail' && value && field.validity.typeMismatch) return EMAIL_INVALID;
+  if (field.name === 'contactName' && !value) return t.nameMissing;
+  if (field.name === 'contactMessage' && value.length < 3) return t.messageMissing;
+  if (field.name === 'contactEmail' && value && field.validity.typeMismatch) return t.emailInvalid;
   return '';
 }
 
@@ -44,6 +57,7 @@ export function mountContactForm(root: HTMLElement) {
   const submit = root.querySelector<HTMLButtonElement>('[data-cf-submit]');
   const label = root.querySelector<HTMLElement>('[data-cf-label]');
   if (!form || !thanks || !fail || !submit || !label) return;
+  const t = say[toLocale(root.closest('[lang]')?.getAttribute('lang'))];
 
   const fields = [...form.querySelectorAll<Field>('.cf-input')];
   const idle = label.textContent ?? '';
@@ -54,14 +68,14 @@ export function mountContactForm(root: HTMLElement) {
   for (const field of fields) {
     // Once a field has been flagged, re-check it as the visitor types so the error leaves as soon as it is fixed.
     field.addEventListener('input', () => {
-      if (field.hasAttribute('aria-invalid')) show(field, errorFor(field));
+      if (field.hasAttribute('aria-invalid')) show(field, errorFor(field, t));
     });
-    if (field.name === 'contactEmail') field.addEventListener('blur', () => show(field, errorFor(field)));
+    if (field.name === 'contactEmail') field.addEventListener('blur', () => show(field, errorFor(field, t)));
   }
 
   const setBusy = (on: boolean) => {
     busy = on;
-    label.textContent = on ? 'Sender …' : idle;
+    label.textContent = on ? t.sending : idle;
     submit.toggleAttribute('aria-disabled', on);
     if (on) form.setAttribute('aria-busy', 'true');
     else form.removeAttribute('aria-busy');
@@ -73,7 +87,7 @@ export function mountContactForm(root: HTMLElement) {
 
     let first: Field | undefined;
     for (const field of fields) {
-      const message = errorFor(field);
+      const message = errorFor(field, t);
       show(field, message);
       if (message && !first) first = field;
     }

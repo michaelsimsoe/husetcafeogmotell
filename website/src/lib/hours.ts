@@ -1,7 +1,8 @@
 /**
- * Opening hours: live «open now» status and compact groupings.
+ * Opening hours: live «open now» status and compact groupings, in Norwegian or English.
  * Pure functions, no site data, so the browser bundle stays small and the tests can load it directly.
  */
+import type { Locale } from '../i18n/locales.ts';
 
 export interface OpeningDay {
   /** 0 = Monday. */
@@ -20,9 +21,9 @@ export interface HoursStatus {
   minutesLeft?: number;
   /** Next opening when closed. */
   next?: { day: OpeningDay; when: string };
-  /** Short sentence in Bokmål, e.g. «Åpent nå · stenger 21». */
+  /** Short sentence, e.g. «Åpent nå · stenger 21» / «Open now · closes at 21:00». */
   text: string;
-  /** Even shorter, e.g. «Åpent til 21» / «Åpner 10». */
+  /** Even shorter, e.g. «Åpent til 21» / «Open until 21:00». */
   short: string;
 }
 
@@ -46,16 +47,50 @@ const toMin = (hhmm: string) => {
   return h * 60 + m;
 };
 
-/** «21» for 21:00, «21.30» for 21:30 — Norwegian clock style. */
-export const clock = (hhmm: string) => {
+/** «21» for 21:00, «21.30» for 21:30 — Norwegian clock style. English keeps the 24-hour «21:00». */
+export const clock = (hhmm: string, locale: Locale = 'nb') => {
+  if (locale === 'en') return hhmm;
   const [h, m] = hhmm.split(':');
   return m === '00' ? String(Number(h)) : `${Number(h)}.${m}`;
 };
 
 /** «10–21», or «stengt». */
-export const span = (d: OpeningDay) => (d.closed ? 'stengt' : `${clock(d.open)}–${clock(d.close)}`);
+export const span = (d: OpeningDay, locale: Locale = 'nb') =>
+  d.closed ? (locale === 'en' ? 'closed' : 'stengt') : `${clock(d.open, locale)}–${clock(d.close, locale)}`;
 
-export function hoursStatus(days: readonly OpeningDay[], date = new Date()): HoursStatus {
+/** The status sentences, per language. */
+const say = {
+  nb: {
+    open: (left: number, close: string) => (left <= 60 ? `Åpent nå · stenger om ${left} min` : `Åpent nå · stenger ${close}`),
+    openShort: (close: string) => `Åpent til ${close}`,
+    today: 'i dag',
+    tomorrow: 'i morgen',
+    on: (day: OpeningDay) => `på ${day.label.toLowerCase()}`,
+    later: (open: string) => `Stengt nå · åpner ${open} i dag`,
+    opens: (open: string, when?: string) => `Åpner ${open}${when ? ` ${when}` : ''}`,
+    next: (closedToday: boolean, open: string, when: string) =>
+      `${closedToday ? 'Stengt i dag' : 'Stengt for i dag'} · åpner ${open} ${when}`,
+    closed: 'Stengt',
+    closedToday: 'Stengt i dag',
+  },
+  en: {
+    open: (left: number, close: string) => (left <= 60 ? `Open now · closes in ${left} min` : `Open now · closes at ${close}`),
+    openShort: (close: string) => `Open until ${close}`,
+    today: 'today',
+    tomorrow: 'tomorrow',
+    on: (day: OpeningDay) => `on ${day.label}`,
+    later: (open: string) => `Closed now · opens at ${open} today`,
+    opens: (open: string, when?: string) => `Opens at ${open}${when ? ` ${when}` : ''}`,
+    next: (closedToday: boolean, open: string, when: string) =>
+      `${closedToday ? 'Closed today' : 'Closed for the day'} · opens at ${open} ${when}`,
+    closed: 'Closed',
+    closedToday: 'Closed today',
+  },
+} satisfies Record<Locale, unknown>;
+
+export function hoursStatus(days: readonly OpeningDay[], date = new Date(), locale: Locale = 'nb'): HoursStatus {
+  const t = say[locale];
+  const c = (hhmm: string) => clock(hhmm, locale);
   const { weekday, minutes } = osloNow(date);
   const today = days[weekday];
 
@@ -68,17 +103,17 @@ export function hoursStatus(days: readonly OpeningDay[], date = new Date()): Hou
         isOpen: true,
         today,
         minutesLeft: left,
-        text: left <= 60 ? `Åpent nå · stenger om ${left} min` : `Åpent nå · stenger ${clock(today.close)}`,
-        short: `Åpent til ${clock(today.close)}`,
+        text: t.open(left, c(today.close)),
+        short: t.openShort(c(today.close)),
       };
     }
     if (minutes < open) {
       return {
         isOpen: false,
         today,
-        next: { day: today, when: 'i dag' },
-        text: `Stengt nå · åpner ${clock(today.open)} i dag`,
-        short: `Åpner ${clock(today.open)}`,
+        next: { day: today, when: t.today },
+        text: t.later(c(today.open)),
+        short: t.opens(c(today.open)),
       };
     }
   }
@@ -86,16 +121,16 @@ export function hoursStatus(days: readonly OpeningDay[], date = new Date()): Hou
   for (let i = 1; i <= 7; i++) {
     const d = days[(weekday + i) % 7];
     if (d.closed) continue;
-    const when = i === 1 ? 'i morgen' : `på ${d.label.toLowerCase()}`;
+    const when = i === 1 ? t.tomorrow : t.on(d);
     return {
       isOpen: false,
       today,
       next: { day: d, when },
-      text: `${today.closed ? 'Stengt i dag' : 'Stengt for i dag'} · åpner ${clock(d.open)} ${when}`,
-      short: `Åpner ${clock(d.open)} ${when}`,
+      text: t.next(today.closed, c(d.open), when),
+      short: t.opens(c(d.open), when),
     };
   }
-  return { isOpen: false, today, text: 'Stengt', short: 'Stengt' };
+  return { isOpen: false, today, text: t.closed, short: t.closed };
 }
 
 export interface DayGroup {
@@ -105,22 +140,24 @@ export interface DayGroup {
   time: string;
 }
 
-/** Runs of days with the same hours: «Mandag–fredag 10–21», «Lørdag 11–21», … */
-export function groupDays(days: readonly OpeningDay[]): DayGroup[] {
+/** Runs of days with the same hours: «Mandag–fredag 10–21», «Lørdag 11–21», … / «Monday–Friday 10:00–21:00» */
+export function groupDays(days: readonly OpeningDay[], locale: Locale = 'nb'): DayGroup[] {
   const groups: OpeningDay[][] = [];
   for (const d of days) {
     const last = groups.at(-1);
     if (last && span(last[0]) === span(d)) last.push(d);
     else groups.push([d]);
   }
+  // Norwegian writes weekday names in lower case mid-phrase; English capitalises them.
+  const second = (name: string) => (locale === 'nb' ? name.toLowerCase() : name);
   return groups.map((g) => {
     const a = g[0];
     const b = g[g.length - 1];
     const one = g.length === 1;
     return {
-      label: one ? a.label : `${a.label}–${b.label.toLowerCase()}`,
-      short: one ? a.short : `${a.short}–${b.short.toLowerCase()}`,
-      time: span(a),
+      label: one ? a.label : `${a.label}–${second(b.label)}`,
+      short: one ? a.short : `${a.short}–${second(b.short)}`,
+      time: span(a, locale),
     };
   });
 }
@@ -129,15 +166,15 @@ export function groupDays(days: readonly OpeningDay[]): DayGroup[] {
  * Fill every element carrying `data-hours="text|short|today|state"` with live
  * status. Call from a client <script>. Re-runs every minute.
  */
-export function mountHours(days: readonly OpeningDay[], root: ParentNode = document) {
+export function mountHours(days: readonly OpeningDay[], root: ParentNode = document, locale: Locale = 'nb') {
   if (days.length !== 7) return;
   const run = () => {
-    const s = hoursStatus(days);
+    const s = hoursStatus(days, new Date(), locale);
     root.querySelectorAll<HTMLElement>('[data-hours]').forEach((el) => {
       const kind = el.dataset.hours;
       if (kind === 'text') el.textContent = s.text;
       else if (kind === 'short') el.textContent = s.short;
-      else if (kind === 'today') el.textContent = s.today.closed ? 'Stengt i dag' : span(s.today);
+      else if (kind === 'today') el.textContent = s.today.closed ? say[locale].closedToday : span(s.today, locale);
       else if (kind === 'state') el.dataset.state = s.isOpen ? 'open' : 'closed';
     });
     root.querySelectorAll<HTMLElement>('[data-hours-day]').forEach((el) => {

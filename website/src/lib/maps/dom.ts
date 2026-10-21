@@ -3,6 +3,7 @@
  * popup body, the static fallback and the control icons. Built once here so
  * MapLibre and Leaflet show exactly the same thing.
  */
+import { mapText, type MapText } from './text';
 import type { Place, PlaceLinks } from './types';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -51,10 +52,10 @@ function el<K extends keyof HTMLElementTagNameMap>(tag: K, cls: string, text?: s
  * stem and the place's short name in italic on a whitewash plate. The 44 px
  * button is centred on the coordinate; the plate sits above-right of it.
  */
-export function createMarker(place: Place): HTMLButtonElement {
+export function createMarker(place: Place, t: MapText = mapText.nb): HTMLButtonElement {
   const button = el('button', 'hm-marker');
   button.type = 'button';
-  button.setAttribute('aria-label', `${place.name}. Vis adresse og veibeskrivelse`);
+  button.setAttribute('aria-label', t.marker(place.name));
   button.setAttribute('aria-expanded', 'false');
   const stem = el('span', 'hm-marker__stem');
   const plate = el('span', 'hm-marker__plate', place.label);
@@ -65,17 +66,17 @@ export function createMarker(place: Place): HTMLButtonElement {
 }
 
 /** The three onward links, in order. Shared with `MapFallback.astro`. */
-export function linkItems(links: PlaceLinks): [text: string, href: string][] {
+export function linkItems(links: PlaceLinks, t: MapText = mapText.nb): [text: string, href: string][] {
   return [
-    ['Veibeskrivelse i Google Maps', links.google],
-    ['Veibeskrivelse i Apple Maps', links.apple],
-    ['Se stedet på OpenStreetMap', links.osm],
+    [t.google, links.google],
+    [t.apple, links.apple],
+    [t.osm, links.osm],
   ];
 }
 
-function linkRows(links: PlaceLinks, cls: string): HTMLUListElement {
+function linkRows(links: PlaceLinks, cls: string, t: MapText): HTMLUListElement {
   const list = el('ul', cls);
-  for (const [text, href] of linkItems(links)) {
+  for (const [text, href] of linkItems(links, t)) {
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = href;
@@ -87,14 +88,14 @@ function linkRows(links: PlaceLinks, cls: string): HTMLUListElement {
 }
 
 /** Popup body: name, address, three links and a close button (last in DOM so focus lands on the first link). */
-export function createPopupContent(place: Place, links: PlaceLinks, onClose: () => void): HTMLElement {
+export function createPopupContent(place: Place, links: PlaceLinks, onClose: () => void, t: MapText = mapText.nb): HTMLElement {
   const box = el('div', 'hm-pop');
   box.setAttribute('role', 'dialog');
   box.setAttribute('aria-label', place.name);
-  box.append(el('p', 'hm-pop__name', place.name), el('p', 'hm-pop__addr', place.addressLine), linkRows(links, 'hm-links'));
+  box.append(el('p', 'hm-pop__name', place.name), el('p', 'hm-pop__addr', place.addressLine), linkRows(links, 'hm-links', t));
   const close = el('button', 'hm-pop__close');
   close.type = 'button';
-  close.setAttribute('aria-label', 'Lukk');
+  close.setAttribute('aria-label', t.close);
   close.append(icon('close'));
   close.addEventListener('click', onClose);
   box.append(close);
@@ -102,13 +103,13 @@ export function createPopupContent(place: Place, links: PlaceLinks, onClose: () 
 }
 
 /** Same content as `MapFallback.astro`, for frames that were not server-rendered with one. */
-export function createFallback(place: Place, links: PlaceLinks): HTMLElement {
+export function createFallback(place: Place, links: PlaceLinks, t: MapText = mapText.nb): HTMLElement {
   const box = el('div', 'hm-fallback');
   box.dataset.hmFallback = '';
-  const title = el('p', 'hm-fallback__title', 'Kartet kunne ikke lastes');
+  const title = el('p', 'hm-fallback__title', t.failed);
   title.dataset.hmFallbackTitle = '';
   title.hidden = true;
-  box.append(title, el('p', 'hm-fallback__name', place.name), el('p', 'hm-fallback__addr', place.addressLine), linkRows(links, 'hm-links'));
+  box.append(title, el('p', 'hm-fallback__name', place.name), el('p', 'hm-fallback__addr', place.addressLine), linkRows(links, 'hm-links', t));
   return box;
 }
 

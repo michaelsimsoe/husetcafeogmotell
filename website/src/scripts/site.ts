@@ -1,5 +1,6 @@
 import { mountHours, hoursStatus, type OpeningDay } from '@lib/hours';
 import { mountDirections } from '@lib/directions/enhance';
+import { docLocale, type Locale } from '@i18n/locales';
 
 /** The layout prints the opening hours into the page as JSON, so the content schema never ships to the browser. */
 function readDays(): OpeningDay[] {
@@ -12,10 +13,10 @@ function readDays(): OpeningDay[] {
 }
 
 /** Weekday name for the masthead, plus un-hiding the bits that only make sense with live data. */
-function mountDay(days: OpeningDay[]) {
+function mountDay(days: OpeningDay[], locale: Locale) {
   if (days.length !== 7) return;
   const run = () => {
-    const s = hoursStatus(days);
+    const s = hoursStatus(days, new Date(), locale);
     document.querySelectorAll<HTMLElement>('[data-a-day]').forEach((el) => {
       el.textContent = s.today.label;
     });
@@ -280,8 +281,9 @@ function mountLocator() {
 
 export function mountSite() {
   const days = readDays();
-  mountHours(days);
-  mountDay(days);
+  const locale = docLocale();
+  mountHours(days, document, locale);
+  mountDay(days, locale);
   mountRidges();
   mountLocator();
   mountCredits();
