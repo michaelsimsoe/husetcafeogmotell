@@ -63,26 +63,20 @@ The form works only on Netlify. On the dev server, in a local preview or on GitH
 
 Netlify Forms are stored per site. To keep the existing form, its submissions and its e-mail notifications, deploy this app to the **same Netlify site** as the old one, and run it on the test site first.
 
-The old site is built in GitHub Actions and uploaded with `netlify deploy --prod` (`.github/workflows/prod.yml` for `master`, `dev.yml` for `test`). To switch a workflow to this app, replace the build and deploy steps with:
+The old site is built in GitHub Actions and uploaded to Netlify (`.github/workflows/prod.yml` for `master`). `.github/workflows/dev.yml` already builds this app and uploads it to the test site on every push to `test` or `michaelsimsoe-huset-site-remake`, with every page `noindex`. To launch, copy its job into `prod.yml` with two changes: production secrets, and `FORCE_INDEX` on the build:
 
 ```yaml
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-      - run: npm ci
-        working-directory: website
       - run: npm run build
-        working-directory: website
         env:
-          FORCE_INDEX: 'true'   # prod.yml only; leave it out of dev.yml
-      - name: Deploy to netlify
-        uses: netlify/actions/cli@master
+          FORCE_INDEX: 'true'
+      - name: Deploy to Netlify
+        run: npx --yes netlify-cli@27 deploy --dir=dist --no-build --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        with:
-          args: deploy --dir=website/dist --prod
 ```
+
+Keep `--no-build`: current versions of the Netlify CLI build the project before deploying unless told not to.
 
 Search engines see the site only when the build is marked as production. Otherwise every page is `noindex`, `robots.txt` says `Disallow: /` and the sitemap is empty. A build counts as production when:
 
@@ -118,7 +112,7 @@ Other:
 
 - [ ] Rewrite the privacy policy in Norwegian for what the new site actually does: Netlify stores what is sent through the contact form; the directions keep the chosen map app in the browser's local storage; fonts are self-hosted; there is no analytics, and Facebook is only a link.
 - [ ] Test the directions on a real iPhone and a real Android phone.
-- [ ] Deploy to the test site, send a test message, and check that it arrives in Netlify and as an e-mail.
+- [ ] On the test site (deployed by `dev.yml`), send a test message and check that it arrives in Netlify and as an e-mail. Form detection must be on for that site.
 - [ ] Switch `prod.yml`, deploy, then submit `https://www.husetmotell.no/sitemap.xml` in Google Search Console.
 
 ## Structure

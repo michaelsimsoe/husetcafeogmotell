@@ -1,33 +1,38 @@
 name: Deploy to Test
 
+# Builds the new site in website/ and uploads it to the test site on Netlify.
+# The build is not marked as production, so every page stays noindex there.
 on:
   push:
     branches:
       - test
+      - michaelsimsoe-huset-site-remake
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
         with:
-          node-version: 12.x
-      - run: npm install
-      - run: yarn build --if-present
-        env:
-          REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY}}
-      - run: sed -i -e 's/Disallow:/Disallow:\ \//g' build/robots.txt
+          node-version: 24
+          cache: npm
+          cache-dependency-path: website/package-lock.json
 
-      - name: Deploy to netlify
-        uses: netlify/actions/cli@master
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+      # The CLI builds before deploying unless told not to; the build above is the one to ship.
+      - name: Deploy to Netlify
+        run: npx --yes netlify-cli@27 deploy --dir=dist --no-build --prod --message "test ${{ github.ref_name }} ${{ github.sha }}"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
-        with:
-          args: deploy --dir=build --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "DEV_NETLIFY_SITE_ID"]'
