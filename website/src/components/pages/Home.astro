@@ -9,7 +9,6 @@ import Layout from '@layouts/Layout.astro';
 import Ridge from '@components/Ridge.astro';
 import Photo from '@components/Photo.astro';
 import Dish from '@components/Dish.astro';
-import Confirm from '@components/Confirm.astro';
 import Arrow from '@components/Arrow.astro';
 import Locator from '@components/Locator.astro';
 import Directions from '@components/Directions.astro';
@@ -18,7 +17,7 @@ import Nb from '@components/Nb.astro';
 import HusetMap from '@components/maps/HusetMap.astro';
 import { hoursIn, nearbyIn, phoneIn, site } from '@data/site';
 import { addressLine, location } from '@data/location';
-import { allergens, featured, krText, menuMeta, sectionById } from '@data/menu';
+import { allergens, featured, krText, sectionById } from '@data/menu';
 import { src } from '@data/credits';
 import { withBase } from '@lib/base';
 import { coords, groupsLine, kl, listJoin, ridgeOnPhoto } from '@lib/format';
@@ -74,17 +73,17 @@ const jsonLd = {
   geo: { '@type': 'GeoCoordinates', latitude: location.addressPoint.lat, longitude: location.addressPoint.lon },
   hasMenu: new URL(withBase(pathOf('menu', locale) ?? pathOf('menu', 'nb')!), Astro.site).href,
   sameAs: [site.contact.facebook],
-  ...(hours.confirmed && {
-    openingHoursSpecification: hours.days
-      .filter((d) => !d.closed)
-      .map((d) => ({
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: `https://schema.org/${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][d.day]}`,
-        opens: d.open,
-        closes: d.close,
-      })),
-  }),
-  ...(r.confirmed && { numberOfRooms: r.count, checkinTime: r.checkIn, checkoutTime: r.checkOut }),
+  openingHoursSpecification: hours.days
+    .filter((d) => !d.closed)
+    .map((d) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: `https://schema.org/${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][d.day]}`,
+      opens: d.open,
+      closes: d.close,
+    })),
+  numberOfRooms: r.count,
+  checkinTime: r.checkIn,
+  checkoutTime: r.checkOut,
 };
 ---
 
@@ -128,14 +127,14 @@ const jsonLd = {
               {i > 0 && ' · '}
               <span class="whitespace-nowrap">{g.short} {g.time}</span>
             </>
-          ))}{' '}<Confirm confirmed={hours.confirmed} />
+          ))}
         </p>
         <ul class="rows today-rows">
           <li><a href={food}>{c.today.food} <Arrow /></a></li>
           <li><a href={`#${id.findUs}`}>{t.directions} <Arrow /></a></li>
           <li class="rows-wide">
             <a href={`#${id.rooms}`}>
-              <span>{c.today.roomsFrom} <span class="price num">{krText(r.priceFrom, locale)}</span>{' '}<Confirm confirmed={r.confirmed} /></span>
+              <span>{c.today.roomsFrom} <span class="price num">{krText(r.priceFrom, locale)}</span></span>
               <Arrow />
             </a>
           </li>
@@ -175,19 +174,12 @@ const jsonLd = {
         <div class="mat-foot">
           <PageLink page="menu" class="go go-big">{c.food.all}<Arrow slot="end" /></PageLink>
           <ul>
-            {
-              !menuMeta.confirmed && (
-                <li>
-                  <Confirm confirmed={menuMeta.confirmed} /> <Nb>{menuMeta.note}</Nb>
-                </li>
-              )
-            }
             <li class="num">{c.food.allergens}: <Nb>{allergens.map((a) => `${a.code} ${a.name}`).join(' · ')}</Nb></li>
             {kids && <li {...nb}>{kids.title}{kids.note ? `. ${kids.note}` : ''}</li>}
             {
               v.extras.length > 0 && (
                 <li>
-                  <Nb>{listJoin(v.extras.map((x, i) => (i === 0 ? x : x.toLowerCase())))}</Nb> <Confirm confirmed={v.confirmed} />
+                  <Nb>{listJoin(v.extras.map((x, i) => (i === 0 ? x : x.toLowerCase())))}</Nb>
                 </li>
               )
             }
@@ -214,7 +206,6 @@ const jsonLd = {
             <dt>{c.rooms.facts.perNight}</dt><dd class="price">{c.rooms.facts.from} {krText(r.priceFrom, locale)}</dd>
           </div>
         </dl>
-        <p class="mt-3"><Confirm confirmed={r.confirmed} note={c.rooms.priceNote} /></p>
         <div class="stack mt-6">
           <a class="btn" href={site.contact.phoneHref}>
             <span>{t.call} <span class="num">{phoneIn(locale)}</span><span class="sr-only"> {c.rooms.toBook}</span></span>
@@ -251,7 +242,6 @@ const jsonLd = {
       <div class="lg:col-[8/13] mt-10 lg:mt-14">
         <div class="prose">
           <slot name="gatherings" />
-          <p><Confirm confirmed={v.confirmed} note={c.gatherings.note} /></p>
         </div>
 
         {
@@ -269,9 +259,6 @@ const jsonLd = {
                   ))}
                 </tbody>
               </table>
-              <p class="mt-3">
-                <Confirm confirmed={site.meetingRooms.confirmed} note={c.gatherings.meetingNote} />
-              </p>
             </>
           )
         }
@@ -340,7 +327,6 @@ const jsonLd = {
             ))
           }
         </dl>
-        <p class="mt-3"><Confirm confirmed={site.nearby.confirmed} /></p>
       </div>
     </div>
   </section>
@@ -359,7 +345,7 @@ const jsonLd = {
           {location.address.area}, {location.address.municipality}<span aria-hidden="true"> · </span><span class="num whitespace-nowrap">{coords(locale)}</span>
         </p>
         <Directions point={location.arrival} label={location.name} class="mt-8" />
-        <p class="mt-4"><Confirm confirmed={site.directions.confirmed} note={c.findUs.directionsNote} /></p>
+        <p class="fine mt-4">{c.findUs.directionsNote}</p>
       </div>
 
       <div class="lg:col-[7/13] mt-14 lg:mt-10">
@@ -379,7 +365,6 @@ const jsonLd = {
             }
           </tbody>
         </table>
-        <p class="mt-3"><Confirm confirmed={hours.confirmed} note={c.findUs.hoursNote} /></p>
       </div>
 
       <div class="lg:col-[1/6] mt-14 lg:mt-16">

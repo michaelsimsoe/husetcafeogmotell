@@ -145,24 +145,8 @@
   .price { color: var(--color-copper); }
   .on-spruce .price { color: var(--color-copper-light); }
 
-  /* «bekreftes» – a proof mark */
-  .bk {
-    display: inline-block;
-    font-family: var(--font-text);
-    font-style: normal;
-    font-size: 0.75rem;
-    line-height: 1;
-    font-weight: 620;
-    letter-spacing: 0.05em;
-    padding: 0.28em 0.45em 0.32em;
-    border: 1px solid currentColor;
-    color: var(--color-ink-soft);
-    vertical-align: 0.2em;
-    white-space: nowrap;
-  }
-  .on-spruce .bk { color: var(--color-lichen); }
-  .bk-note { font-size: 0.875rem; line-height: 1.45; color: var(--color-ink-soft); }
-  .on-spruce .bk-note { color: var(--color-lichen); }
+  .fine { font-size: 0.875rem; line-height: 1.45; color: var(--color-ink-soft); }
+  .on-spruce .fine { color: var(--color-lichen); }
 
   /* ——— Top bar ——— */
   .tb { position: relative; z-index: 5; }

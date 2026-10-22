@@ -19,11 +19,6 @@ content:
     path: website/src/content/menu.json
     format: json
     fields:
-      - name: confirmed
-        label: Menyen er bekreftet
-        type: boolean
-        description: Når denne er av, viser nettsiden at priser og allergener skal bekreftes.
-      - { name: note, label: Merknad øverst, type: text }
       - { name: allergenNote, label: Merknad om allergener, type: text }
       - name: allergens
         label: Allergener
@@ -100,7 +95,6 @@ content:
     path: website/src/content/hours.json
     format: json
     fields:
-      - { name: confirmed, label: Tidene er bekreftet, type: boolean, description: "Når denne er av, viser nettsiden at tidene skal bekreftes." }
       - { name: monday, label: Mandag, component: day, description: "Skriv klokkeslett som TT:MM, for eksempel 09:30. Dager med like tider slås sammen på nettsiden." }
       - { name: tuesday, label: Tirsdag, component: day }
       - { name: wednesday, label: Onsdag, component: day }
@@ -142,7 +136,6 @@ content:
     path: website/src/content/rooms.json
     format: json
     fields:
-      - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
       - { name: count, label: Antall rom, type: number, required: true, options: { min: 1 } }
       - { name: priceFrom, label: "Pris fra (kr per natt)", type: number, required: true, options: { min: 0 } }
       - { name: checkIn, label: Innsjekk fra, component: time }
@@ -154,7 +147,6 @@ content:
     path: website/src/content/venues.json
     format: json
     fields:
-      - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
       - { name: capacity, label: Antall gjester (inntil), type: number, required: true, options: { min: 1 } }
       - { name: cakes, label: Kaker, type: string, description: "La stå tom hvis dere ikke tar imot kakebestillinger." }
       - name: extras
@@ -166,7 +158,6 @@ content:
         label: Møterom
         type: object
         fields:
-          - { name: confirmed, label: Opplysningene er bekreftet, type: boolean }
           - name: rooms
             label: Rom
             type: object

@@ -1,6 +1,5 @@
 ---
 import Home from '@components/pages/Home.astro';
-import Confirm from '@components/Confirm.astro';
 import type { HomeCopy } from '@components/pages/home';
 import { site } from '@data/site';
 
@@ -26,15 +25,12 @@ const copy: HomeCopy = {
   rooms: {
     h: ['Et rom for natten, ', 'frokost om morgenen'],
     facts: { rooms: 'Rom', breakfast: 'Frokost', included: 'Inkludert', checkIn: 'Innsjekk', checkOut: 'Utsjekk', perNight: 'Per natt', from: 'fra' },
-    priceNote: 'Den engelske versjonen av den gamle nettsiden oppga 1 139 kr.',
     toBook: 'for å bestille rom',
   },
   gatherings: {
     h: ['Når det er noe ', 'å samles om'],
     occasions: 'Bryllup og julebord, konfirmasjon og dåp, minnestund og klassefest.',
-    note: 'Kapasitet, mat til selskap og kaker er hentet fra den gamle nettsiden.',
     meetingRooms: 'Møterom',
-    meetingNote: 'Pris og om den gjelder per time eller per dag.',
     orMessage: 'eller send oss en melding',
   },
   korgen: {
@@ -50,7 +46,6 @@ const copy: HomeCopy = {
     address: 'Adresse',
     directionsNote: 'Veibeskrivelsen ender på parkeringen mellom huset og E6.',
     today: 'i dag',
-    hoursNote: 'Åpningstidene er hentet fra den gamle nettsiden.',
     phone: 'Telefon',
   },
   map: 'Kart',
@@ -61,7 +56,7 @@ const copy: HomeCopy = {
   <Fragment slot="rooms">
     <p class="lede">
       Motellet har {r.count} rom: dobbeltrom med to senger som kan stå hver for seg eller skyves sammen, og to enkeltrom. Alle
-      dobbeltrommene kan også leies som enkeltrom.{' '}<Confirm confirmed={r.confirmed} />
+      dobbeltrommene kan også leies som enkeltrom.
     </p>
     <p>Rommene har TV og rene bad. Frokosten er en tradisjonell norsk frokost, selvbetjent i eget frokostrom.</p>
     <p>

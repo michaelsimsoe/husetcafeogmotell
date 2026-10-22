@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import Ridge from '@components/Ridge.astro';
-import Confirm from '@components/Confirm.astro';
 import PageLink from '@components/PageLink.astro';
 import { hoursIn, phoneIn, site } from '@data/site';
 import { location } from '@data/location';
@@ -187,7 +186,6 @@ const hoursJson = json(hours.days.map(({ day, label, short, open, close, closed 
               ))
             }
           </ul>
-          <p class="mt-2"><Confirm confirmed={hours.confirmed} /></p>
         </div>
         <p class="ft-meta">
           <PageLink page="credits" current={page === 'credits'}>{t.credits}</PageLink>

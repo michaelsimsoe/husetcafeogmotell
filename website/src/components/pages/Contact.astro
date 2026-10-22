@@ -5,10 +5,9 @@
  */
 import Layout from '@layouts/Layout.astro';
 import Ridge from '@components/Ridge.astro';
-import Confirm from '@components/Confirm.astro';
 import ContactForm from '@components/ContactForm.astro';
 import Arrow from '@components/Arrow.astro';
-import { hoursIn, phoneIn, site } from '@data/site';
+import { phoneIn, site } from '@data/site';
 import { location } from '@data/location';
 import { directionsAttrs, groupsLine } from '@lib/format';
 import { toLocale, type Locale } from '@i18n/locales';
@@ -69,8 +68,7 @@ const t = ui(locale);
           <dd>
             <a class="kt-phone num" href={site.contact.phoneHref}>{phoneIn(locale)}</a>
             <p class="soft num mt-1">
-              <span data-hours="text">{w.open(groupsLine(locale))}</span>{' '}
-              <Confirm confirmed={hoursIn(locale).confirmed} />
+              <span data-hours="text">{w.open(groupsLine(locale))}</span>
             </p>
           </dd>
         </div>

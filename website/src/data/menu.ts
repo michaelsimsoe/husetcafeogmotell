@@ -16,8 +16,6 @@ export const menu = data.sections
   .filter((s) => s.dishes.length > 0);
 
 export const menuMeta = {
-  confirmed: data.confirmed,
-  note: data.note,
   allergenNote: data.allergenNote,
 };
 

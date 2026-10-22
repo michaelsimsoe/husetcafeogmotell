@@ -1,6 +1,5 @@
 ---
 import Home from '@components/pages/Home.astro';
-import Confirm from '@components/Confirm.astro';
 import type { HomeCopy } from '@components/pages/home';
 import { site } from '@data/site';
 
@@ -26,15 +25,12 @@ const copy: HomeCopy = {
   rooms: {
     h: ['A room for the night, ', 'breakfast in the morning'],
     facts: { rooms: 'Rooms', breakfast: 'Breakfast', included: 'Included', checkIn: 'Check-in', checkOut: 'Check-out', perNight: 'Per night', from: 'from' },
-    priceNote: 'The English version of the old website said NOK 1,139.',
     toBook: 'to book a room',
   },
   gatherings: {
     h: ['When there’s a reason ', 'to come together'],
     occasions: 'Weddings and Christmas parties, confirmations and christenings, memorial gatherings and class reunions.',
-    note: 'The capacity, the party food and the cakes are taken from the old website.',
     meetingRooms: 'Meeting rooms',
-    meetingNote: 'The price, and whether it is per hour or per day.',
     orMessage: 'or send us a message',
   },
   korgen: {
@@ -50,7 +46,6 @@ const copy: HomeCopy = {
     address: 'Address',
     directionsNote: 'The directions end at the car park between the house and the E6.',
     today: 'today',
-    hoursNote: 'The opening hours are taken from the old website.',
     phone: 'Phone',
   },
   map: 'Map',
@@ -61,7 +56,7 @@ const copy: HomeCopy = {
   <Fragment slot="rooms">
     <p class="lede">
       The motel has {r.count} rooms: double rooms with two beds that can stand apart or be pushed together, and two single
-      rooms. All the double rooms can also be booked as single rooms.{' '}<Confirm confirmed={r.confirmed} />
+      rooms. All the double rooms can also be booked as single rooms.
     </p>
     <p>The rooms have a TV and clean bathrooms. Breakfast is a traditional Norwegian breakfast, self-service in its own breakfast room.</p>
     <p>

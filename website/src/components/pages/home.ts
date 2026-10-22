@@ -28,16 +28,13 @@ export interface HomeCopy {
   rooms: {
     h: Em;
     facts: { rooms: string; breakfast: string; included: string; checkIn: string; checkOut: string; perNight: string; from: string };
-    priceNote: string;
     /** Read by screen readers after «Ring 403 17 353». */
     toBook: string;
   };
   gatherings: {
     h: Em;
     occasions: string;
-    note: string;
     meetingRooms: string;
-    meetingNote: string;
     orMessage: string;
   };
   korgen: {
@@ -53,7 +50,6 @@ export interface HomeCopy {
     address: string;
     directionsNote: string;
     today: string;
-    hoursNote: string;
     phone: string;
   };
   map: string;

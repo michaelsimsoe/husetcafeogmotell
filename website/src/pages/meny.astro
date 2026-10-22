@@ -3,7 +3,6 @@ import Layout from '@layouts/Layout.astro';
 import Ridge from '@components/Ridge.astro';
 import Photo from '@components/Photo.astro';
 import Dish from '@components/Dish.astro';
-import Confirm from '@components/Confirm.astro';
 import Placeholder from '@components/Placeholder.astro';
 import { allergens, menu, menuMeta } from '@data/menu';
 import { site } from '@data/site';
@@ -27,9 +26,7 @@ const codeRange = codes.length > 1 ? `${codes[0]}–${codes[codes.length - 1]}` 
       Fra grillen, pizza, fisk, småretter og barnemeny. Tallene etter en rett viser allergener – forklaringen står i margen og
       nederst på siden.
     </p>
-    <p class="bk-note mt-5 lg:col-[9/13] lg:self-end lg:mt-0">
-      {!menuMeta.confirmed && <><Confirm confirmed={false} />{' '}{menuMeta.note}{' '}</>}Åpent {groupsLine().toLowerCase()}.
-    </p>
+    <p class="fine mt-5 lg:col-[9/13] lg:self-end lg:mt-0">Åpent {groupsLine().toLowerCase()}.</p>
     <Ridge from={0.13} to={1} start={0} end={0.7} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
   </div>
 
@@ -112,13 +109,10 @@ const codeRange = codes.length > 1 ? `${codes[0]}–${codes[codes.length - 1]}` 
             </span>
           </li>
           {
-            (!menuMeta.confirmed || menuMeta.allergenNote) && (
+            menuMeta.allergenNote && (
               <li class="fn">
                 <span class="fn-m" aria-hidden="true">*</span>
-                <span>
-                  {!menuMeta.confirmed && <><Confirm confirmed={false} /> {menuMeta.note} </>}
-                  {menuMeta.allergenNote}
-                </span>
+                <span>{menuMeta.allergenNote}</span>
               </li>
             )
           }

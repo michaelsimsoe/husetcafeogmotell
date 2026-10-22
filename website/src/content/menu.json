@@ -1,7 +1,5 @@
 {
-  "confirmed": false,
-  "note": "Priser og allergener som på dagens menyskjermer.",
-  "allergenNote": "Spør personalet om allergener. Merkingen er overført fra skjermene og må kontrolleres.",
+  "allergenNote": "Spør personalet om allergener.",
   "allergens": [
     {
       "code": "1",

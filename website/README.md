@@ -73,7 +73,6 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 - `settings.content.merge: true` keeps any keys the CMS form does not show, so a save never drops data.
 - Every build validates the files against `src/data/schema.ts` (`contentFiles`), and a test fails if a JSON file in `src/content/` has no schema. A bad edit (closing before opening, a missing price, an unknown allergen, a broken link) stops the deploy, and the previous version stays live. Errors are in Norwegian and point to the field as the CMS shows it, for example `«Fra grillen» → «Husets chilliburger»: Retten trenger en pris, eller varianter med pris`.
 - A failed deploy opens a GitHub issue labelled `byggfeil`, assigned to the repository owner. When the content was the problem, the issue quotes the errors for the owners. Nobody would otherwise hear of it, because the CMS app, not a person, pushed the commit. Further failures comment on the open issue, and the next successful deploy closes it.
-- Most screens have a `confirmed` switch. While it is off, the site shows the «bekreftes» mark next to those facts. Turn it on once the owners have checked them.
 - `featured` on a dish puts it in the homepage menu excerpt. `unavailable` («Ikke tilgjengelig nå») hides it everywhere until switched off, and a section with every dish hidden disappears.
 - The notice (`notice.json`) shows while «Vis beskjeden» is on. With a last day set, the build leaves it out after that day, and a small inline script removes it from pages built earlier, so it disappears at midnight Oslo time without a rebuild. There are no separate holiday hours: the owners change the weekly hours and use the notice for the exceptions. English pages show «Beskjed på engelsk» when the owners fill it in, and otherwise the Norwegian text, marked `lang="nb"`.
 - Allergens use the numbers from the menu screens (1 Gluten, 2 Laktose, 3 Egg, 4 Sennep, 5 Nøtter). Adding a sixth means adding it to the `allergens` list in `menu.json` and to the select options in `.pages.yml`.
@@ -82,7 +81,7 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 Managed in code, not in the CMS:
 
 - Page text, including the occasions and catering lines under «Selskap»: `src/pages/index.astro` (Norwegian) and `src/pages/en/index.astro` (English).
-- Nearby places, in both languages, and whether the directions are confirmed: `src/data/site.ts`.
+- Nearby places, in both languages: `src/data/site.ts`.
 - Photos: files in `public/img/`, with credit and rights status in `src/data/credits.ts`. Huset's own photos (`egen`) show no credit on the page; outside photos print theirs on the image. All of them are listed on `/anerkjennelse`.
 - Location: `src/data/location.ts` holds the address (Kartverket), the map point and the arrival point the directions end on.
 - Map, route and skyline lines: `src/data/norway-map.json`, `route-e6.json` and `ridges.json`.
@@ -132,16 +131,7 @@ Other environment variables: `SITE_URL` (canonical origin, default `https://www.
 
 ## Before launch
 
-Facts (turn on `confirmed` in the CMS as each is checked, or in `src/data/site.ts` where noted):
-
-- [ ] Opening hours
-- [ ] Rooms: 8 rooms, from 1 130 kr (the old English page said 1 139 kr), check-in 14:00, check-out 12:00
-- [ ] Venues: up to 80 guests, cakes, outdoor seating, Sunday dinner; and the occasions and catering lines in `index.astro`
-- [ ] Meeting rooms: prices, and whether they are per hour or per day
-- [ ] Nearby places (`nearby.confirmed` in `site.ts`)
-- [ ] The whole menu: dishes, prices and allergens
-- [ ] The arrival point: the directions end in the car park between the house and the E6 (`directions.confirmed` in `site.ts`)
-- [ ] Distances and drive times in «Her ligger Korgen» (calculated and rounded)
+Facts: the hours, rooms, venues and meeting rooms are carried over from the old site, and the menu from the three menu screens. They show as they stand, with no marks; change them in the CMS when something is wrong. The distances and drive times in «Her ligger Korgen» are calculated and rounded.
 
 Photos (missing ones are shown as marked placeholders):
 
@@ -154,8 +144,8 @@ Photos (missing ones are shown as marked placeholders):
 Other:
 
 - [x] Privacy policy in Norwegian (`/privacy`), written for what the site does. Update it and its date whenever the site starts sending data somewhere new.
-- [ ] Owners: confirm the promise on `/privacy` to delete messages, in Netlify and in the mailbox, once the matter is closed, and then remove its «bekreftes» mark. Optionally add the company's legal name and organisation number.
-- [ ] Test the directions and the map on a real iPhone and a real Android phone. Emulated iPhone 15 and Pixel 7 pass: Apple Maps on iPhone, `geo:` on Android, the saved choice and «Glem valget», one-finger scroll over the map, the marker popup, no sideways scrolling.
+- [ ] Optional: `/privacy` promises to delete messages, in Netlify and in the mailbox, once the matter is closed. Keep that promise or change the page. The company's legal name and organisation number can be added too.
+- [ ] Test the directions and the map on a real iPhone and a real Android phone, and check that the directions end in the car park between the house and the E6. Emulated iPhone 15 and Pixel 7 pass: Apple Maps on iPhone, `geo:` on Android, the saved choice and «Glem valget», one-finger scroll over the map, the marker popup, no sideways scrolling.
 - [ ] Contact form: a test message sent on the test site on 21 October 2026 was accepted («Takk, Test fra ny nettside!»). Check that it shows in Netlify → Forms → `contact` (or its spam list) and arrived as an e-mail.
 - [ ] Switch `prod.yml`, deploy, then submit `https://www.husetmotell.no/sitemap.xml` in Google Search Console.
 
@@ -167,7 +157,7 @@ src/
   data/         schemas and Norwegian error messages, data loaders, credits, location, map and skyline data
   lib/          hours, notice, formatting, locator geometry, directions (URL builders, platform, saved choice), maps (MapLibre frame and adapter)
   i18n/         languages, the page registry (routes.ts) and the shared chrome strings (ui.ts)
-  components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, PageLink, Nb, Ridge, Confirm, Arrow, maps/HusetMap
+  components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, PageLink, Nb, Ridge, Arrow, maps/HusetMap
                 pages/: the Home, Contact and Thanks templates shared by both languages
   layouts/      Layout.astro (head, SEO, hreflang, notice, top bar with the language switcher, footer)
   pages/        routes; en/ holds the English ones

@@ -136,11 +136,6 @@ components:
     typography: "{typography.dish}"
   price-on-spruce:
     textColor: "{colors.copper-light}"
-  proof-mark:
-    textColor: "{colors.ink-soft}"
-    rounded: "{rounded.none}"
-    padding: "0.28em 0.45em 0.32em"
-    typography: "{typography.label}"
   photo-placeholder:
     backgroundColor: "{colors.fog}"
     textColor: "{colors.ink-soft}"
@@ -187,7 +182,7 @@ A cool, near-white paper with dark green-black ink, one deep forest region colou
 - **Whitewash** (whitewash): the page ground and the white house. Also the theme colour.
 - **Fog** (fog): the secondary ground, placeholder fields and the image background while photos load.
 - **Ink** (ink): body text, headings, and the 1px rule that opens a group.
-- **Soft Ink** (ink-soft): secondary text, captions, credits and the proof mark (7:1 on whitewash).
+- **Soft Ink** (ink-soft): secondary text, captions and credits (7:1 on whitewash).
 - **Hairline** (hair): rules between rows on light grounds.
 - **Hairline on Spruce** (hair-dark): rules between rows inside spruce regions.
 - **Lichen** (lichen): secondary text on spruce (7:1).
@@ -218,10 +213,10 @@ A cool, near-white paper with dark green-black ink, one deep forest region colou
 - **Dish** (620, 1.125rem, 1.3; tabular figures): dish names and prices in menu rows.
 - **Small** (430, 1rem, 1.5): the top navigation, photo captions, dish descriptions, the footer and the form's failure message.
 - **Note** (430, 0.9375rem, 1.45): secondary facts beside the main ones: the dateline, the week's hours under today's, fact terms, the menu index and legend, directions notes, credits, form hints and field errors.
-- **Fine** (430, 0.875rem, 1.4): the note after a proof mark, photo credits from 48rem, caption dates and the credits table's header.
+- **Fine** (430, 0.875rem, 1.4): the directions note, the menu page's hours line, photo credits from 48rem, caption dates and the credits table's header.
 - **Label** (600, 0.8125rem, +0.04em, sentence case): small labels such as «Ring oss» and «Åpningstider». Never uppercase.
 
-The text steps are fixed, not fluid: 1.1875 (lede), 1.125 (body, dish), 1.0625 (body on phones, inputs), 1, 0.9375, 0.875, 0.8125 and 0.75rem (proof mark only). Use one of them; do not add a step between.
+The text steps are fixed, not fluid: 1.1875 (lede), 1.125 (body, dish), 1.0625 (body on phones, inputs), 1, 0.9375, 0.875 and 0.8125rem. Use one of them; do not add a step between.
 
 ### Named Rules
 **The Italic Voice Rule.** Italic Brygada is the house's speaking voice: emphasis, captions, the second half of a heading. Upright text carries facts.
@@ -265,7 +260,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 - Place («Korgen · Hemnes · ved E6»), coordinates (from 64rem) and the live open status between two 1px ink rules, like a newspaper's dateline. The status dot is filled river green when open and an outline when closed.
 
 ### «I dag» column
-- An italic title (1.375rem) over an ink rule. Today's hours (figure) and the phone number (figure small, river green with a soft underline, «Ring oss» label above) share one line, hours left and phone right. The week's hours follow in soft ink with a proof mark.
+- An italic title (1.375rem) over an ink rule. Today's hours (figure) and the phone number (figure small, river green with a soft underline, «Ring oss» label above) share one line, hours left and phone right. The week's hours follow in soft ink.
 - Action rows in two columns: «Se menyen» | «Veibeskrivelse», then «Rom fra …» across the full width. Rows here are 3.75rem tall. «Veibeskrivelse» jumps to «Finn fram» on the same page, where visitors pick their map app; elsewhere it opens the app directly.
 
 ### Locator («Her ligger Korgen»)
@@ -302,9 +297,6 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 
 ### Placeholder
 - A fog field at the target aspect ratio with an inset hairline frame and crop marks, an italic title saying what photo belongs there, and a line on what it should show.
-
-### Proof mark («bekreftes»)
-- A small outlined tag (1px current colour, label type at 0.75rem) set after any fact that is not yet confirmed. It is part of the design, not an apology; it stays visible until the fact is confirmed.
 
 ### Navigation
 - The wordmark «Huset» in Brygada 560 with «Café & Motell» behind a hairline, then the nav (Mat, Rom, Selskap, Finn fram) and the phone number with a stroked river-green icon. The current item is underlined in copper, and hover uses an ink underline. On phones the nav drops to its own row below the wordmark. Nav labels never break across lines; under 360px they drop to 0.875rem so the English labels keep clear gaps between them. English pages write the phone number with +47; Norwegian pages leave it off.
@@ -356,7 +348,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 - **Do** set times, prices and phone numbers in tabular lining figures, and big when they answer the visitor's question.
 - **Do** give spruce whole regions and set whitewash, lichen and copper-light on it.
 - **Do** print the credit of every outside photo on the image edge or directly under it. Huset's own photos need none.
-- **Do** mark unconfirmed facts with the «bekreftes» proof mark and missing photos with a crop-marked placeholder.
+- **Do** mark missing photos with a crop-marked placeholder.
 - **Do** keep the practical first view (status, hours, phone, and a way to the menu, rooms and directions) on desktop and mobile.
 
 ### Don't:

@@ -1,7 +1,6 @@
 /**
  * Everything the pages say about Huset. Editable facts come from the files in
  * src/content/ (one per Pages CMS screen); fixed facts about the place live here.
- * Anything with `confirmed: false` is shown with a «bekreftes» mark.
  */
 import contactRaw from '../content/contact.json';
 import hoursRaw from '../content/hours.json';
@@ -48,7 +47,7 @@ export function hoursIn(locale: Locale) {
     const [label, short] = dayNames[locale][key];
     return { day, label, short, ...hours[key] };
   });
-  return { confirmed: hours.confirmed, days, groups: groupDays(days, locale) };
+  return { days, groups: groupDays(days, locale) };
 }
 
 const phone = contact.phone.trim();
@@ -91,7 +90,6 @@ export const site = {
   notice: activeNotice(notice),
   /** Fixed facts, kept in code. Articles about the area will say more. */
   nearby: {
-    confirmed: false,
     places: [
       {
         name: 'Korgensenteret',
@@ -108,8 +106,6 @@ export const site = {
       },
     ],
   },
-  /** Set to true once Huset has checked that the map links end at the driveway (`location.arrival`). */
-  directions: { confirmed: false },
   /** Checked against public sources. Not owner-edited. */
   landscape: {
     oksskolten: { name: 'Oksskolten', moh: 1916, kmFromHuset: 24, bearing: { nb: 'øst-sørøst', en: 'east-south-east' } },

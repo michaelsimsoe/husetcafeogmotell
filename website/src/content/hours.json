@@ -1,5 +1,4 @@
 {
-  "confirmed": false,
   "monday": { "open": "10:00", "close": "21:00", "closed": false },
   "tuesday": { "open": "10:00", "close": "21:00", "closed": false },
   "wednesday": { "open": "10:00", "close": "21:00", "closed": false },

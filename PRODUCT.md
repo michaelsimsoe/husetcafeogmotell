@@ -31,15 +31,15 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 - The restaurant shows its menu on three 16:9 digital screens. The website and those screens will eventually share one structured menu dataset (name, description, price, allergens, category).
 - Allergen key used on the screens: 1 = Gluten, 2 = Laktose, 3 = Egg, 4 = Sennep, 5 = Nøtter.
 - Rooms are booked by phone or message (Booking.com is no longer used); payment on arrival unless otherwise agreed.
-- Content is maintained by the family through Pages CMS: opening hours, rooms, venues, meeting rooms, nearby places and the whole menu. Photos are still managed in code.
+- Content is maintained in Pages CMS: opening hours, rooms, venues, meeting rooms and the whole menu. Michael (the owner's son) does the editing on the family's word; there is no separate sign-off. Photos are still managed in code.
 
 ## Capabilities and Constraints
 
 - Primary language: Norwegian Bokmål. English is secondary, with its own pages under `/en` as they are translated; untranslated pages stay Norwegian and are marked as such, never passed off as English.
 - Call the place **Korgen**. Nobody there calls it «dalen», so copy never says «i dalen», «Dalen» or «the valley».
-- Facts from the live site, to be shown **marked as unverified ("bekreftes")** until the owners confirm them:
+- Facts carried over from the live site and shown as they stand:
   - Opening hours: Mon–Fri 10–21, Sat 11–21, Sun 13–19.
-  - 8 rooms, breakfast included, from NOK 1 130 (English copy says 1 139; discrepancy unresolved).
+  - 8 rooms, breakfast included, from NOK 1 130 for both double and single rooms (the old English copy's 1 139 is not used).
   - Check-in from 14:00, check-out by 12:00.
   - Meeting room, private parties and catering are offered; cakes to order.
 - Confirmed contact: phone +47 403 17 353, e-mail kontakt@husetmotell.no, Facebook facebook.com/Husetcafe. Location approx. 66.0808 N, 13.8257 E, near Korgensenteret.
@@ -69,7 +69,7 @@ A real, approachable place in a white building beside the E6, where locals eat, 
 2. **Real place, real people.** Show the actual building, rooms and food; label anything that is not.
 3. **The landscape is context, not costume.** Okstindan, Korgfjellet and Røssåga frame the everyday; they never turn Huset into a lodge.
 4. **One menu, everywhere.** The website and the in-restaurant screens read from the same structured data.
-5. **Honest facts.** Unverified facts are marked until the owners confirm them.
+5. **Honest facts.** Only facts the family stands behind; nothing invented.
 
 ## Accessibility & Inclusion
 

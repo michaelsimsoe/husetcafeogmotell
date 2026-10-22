@@ -309,16 +309,8 @@
       "kind": "custom",
       "refersTo": "price",
       "description": "Dish name, dot leader and copper price in tabular figures; allergen numbers as soft superscripts, description below.",
-      "html": "<div class=\"ds-menu\"><div class=\"ds-dish\"><span class=\"ds-name\">Dagens middag<sup>1, 7</sup></span><span class=\"ds-lead\" aria-hidden=\"true\"></span><span class=\"ds-price\">— kr</span></div><p class=\"ds-desc\">Eksempelrad. Pris og allergener bekreftes.</p></div>",
+      "html": "<div class=\"ds-menu\"><div class=\"ds-dish\"><span class=\"ds-name\">Dagens middag<sup>1, 7</sup></span><span class=\"ds-lead\" aria-hidden=\"true\"></span><span class=\"ds-price\">— kr</span></div><p class=\"ds-desc\">Eksempelrad med beskrivelse.</p></div>",
       "css": ".ds-menu{max-width:30rem;border-bottom:1px solid #c3cbc5;padding:.7rem 0;font-family:'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;color:#18201d}.ds-dish{display:flex;align-items:baseline;gap:.5rem;font:620 1.125rem/1.3 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;font-variant-numeric:tabular-nums lining-nums}.ds-name sup{font-size:.62em;font-weight:500;color:#4a5651;margin-left:.15em}.ds-lead{flex:1;min-width:1rem;height:.3em;background:radial-gradient(circle,#4a5651 .9px,transparent 1px) 0 50%/7px 100% repeat-x;opacity:.7}.ds-price{color:#9a4a2c;white-space:nowrap}.ds-desc{margin:.25rem 0 0;color:#4a5651;font-size:1rem;line-height:1.45}"
-    },
-    {
-      "name": "Proof Mark",
-      "kind": "chip",
-      "refersTo": "proof-mark",
-      "description": "«bekreftes»: a small outlined tag after any fact not yet confirmed.",
-      "html": "<p class=\"ds-fact\">Man–fre 10–21 <span class=\"ds-bk\">bekreftes</span></p>",
-      "css": ".ds-fact{margin:0;font:430 1.0625rem/1.5 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;color:#18201d;font-variant-numeric:tabular-nums lining-nums}.ds-bk{display:inline-block;margin-left:.35em;padding:.28em .45em .32em;border:1px solid currentColor;color:#4a5651;font:620 .75rem/1 'Ysabeau Office Variable','Ysabeau Office','Segoe UI',sans-serif;letter-spacing:.04em;vertical-align:.1em;border-radius:0}"
     },
     {
       "name": "Skyline Rule",
@@ -397,7 +389,7 @@
       "**Do** set times, prices and phone numbers in tabular lining figures, and big when they answer the visitor's question.",
       "**Do** give spruce whole regions and set whitewash, lichen and copper-light on it.",
       "**Do** print the credit of every outside photo on the image edge or directly under it. Huset's own photos need none.",
-      "**Do** mark unconfirmed facts with the «bekreftes» proof mark and missing photos with a crop-marked placeholder.",
+      "**Do** mark missing photos with a crop-marked placeholder.",
       "**Do** keep the practical first view (status, hours, phone, and a way to the menu, rooms and directions) on desktop and mobile."
     ],
     "donts": [

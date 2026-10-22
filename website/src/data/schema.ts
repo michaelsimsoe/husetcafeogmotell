@@ -16,7 +16,6 @@ const optionalText = z
   .transform((v) => v || undefined);
 const time = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Bruk formatet TT:MM, for eksempel 09:30');
 const price = z.number().int().nonnegative();
-const confirmed = z.boolean();
 /** A toggle the CMS may leave empty; empty means off. */
 const toggle = z
   .boolean()
@@ -49,7 +48,6 @@ export const contactSchema = z.object({
 
 /** «Åpningstider» — hours.json */
 export const hoursSchema = z.object({
-  confirmed,
   monday: day,
   tuesday: day,
   wednesday: day,
@@ -61,7 +59,6 @@ export const hoursSchema = z.object({
 
 /** «Rom og priser» — rooms.json */
 export const roomsSchema = z.object({
-  confirmed,
   count: z.number().int().positive(),
   priceFrom: price,
   checkIn: time,
@@ -70,7 +67,6 @@ export const roomsSchema = z.object({
 
 /** «Selskap og møterom» — venues.json */
 export const venuesSchema = z.object({
-  confirmed,
   capacity: z.number().int().positive(),
   cakes: optionalText,
   extras: z
@@ -78,7 +74,6 @@ export const venuesSchema = z.object({
     .nullish()
     .transform((v) => v ?? []),
   meetingRooms: z.object({
-    confirmed,
     rooms: z.array(
       z.object({
         name: text,
@@ -119,8 +114,6 @@ const dish = z
 
 export const menuSchema = z
   .object({
-    confirmed,
-    note: optionalText,
     allergenNote: optionalText,
     allergens: z.array(z.object({ code: allergenCode, name: text })).min(1),
     sections: z
@@ -177,7 +170,6 @@ export type MenuSection = MenuContent['sections'][number];
 
 /** Field names as the owners see them in .pages.yml. */
 const fieldLabels: Record<string, string> = {
-  confirmed: 'Bekreftet',
   note: 'Merknad',
   allergenNote: 'Merknad om allergener',
   allergens: 'Allergener',
