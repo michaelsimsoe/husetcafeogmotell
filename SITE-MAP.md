@@ -143,9 +143,9 @@ The replacement in `website/` (see [its README](website/README.md)) keeps every 
 | — | `/catering` is new: the catering offer and how to order |
 | `/meny` | The menu page. Section anchors are `#grill`, `#pizza`, `#fisk`, `#smaretter`, `#salat`, `#pita`, `#omelett`, `#barn`, `#ekstra` and `#drikke`; the old `#kaker`, `#kake-bestilling` and `#catering` links land at the top of the page. |
 | `/kontakt` | Contact page with the same Netlify form; `/kontakt/takk` is new |
-| `/anerkjennelse`, `/privacy` | Same paths |
+| `/anerkjennelse`, `/privacy` | Same paths; in English at `/en/credits` and `/en/privacy` |
 
-The old site switched language in place on the same URLs. The new site gives English its own pages under `/en`: so far `/en` (homepage), `/en/menu`, `/en/events`, `/en/catering` and `/en/contact` (with `/en/contact/thanks`). Pages not yet translated stay Norwegian, and links to them say so.
+The old site switched language in place on the same URLs. The new site gives English its own pages under `/en`: `/en` (homepage), `/en/menu`, `/en/events`, `/en/catering`, `/en/contact` (with `/en/contact/thanks`), `/en/credits` and `/en/privacy`. Every page is in both languages; a page added later in Norwegian only stays Norwegian, and links to it say so.
 
 Unknown paths get a real 404 page instead of the homepage.
 

@@ -17,6 +17,7 @@ import { phoneIn, site } from '@data/site';
 import { withBase } from '@lib/base';
 import { toLocale, type Locale } from '@i18n/locales';
 import { pathOf } from '@i18n/routes';
+import { ui } from '@i18n/ui';
 
 const words = {
   nb: {
@@ -124,7 +125,7 @@ const w = words[locale];
         <span data-cf-label>{w.send}</span>
         <Arrow />
       </button>
-      <PageLink page="privacy" hash="kontaktskjema" class="cf-privacy">{w.privacy}</PageLink>
+      <PageLink page="privacy" hash={ui(locale).anchors.privacyForm} class="cf-privacy">{w.privacy}</PageLink>
     </div>
   </form>
 

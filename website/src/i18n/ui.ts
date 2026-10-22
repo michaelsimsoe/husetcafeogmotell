@@ -41,6 +41,12 @@ const nb = {
     map: 'kart',
     where: 'her',
   },
+  /** Fragment ids on the credits and privacy pages that other pages link to. */
+  anchors: {
+    sources: 'kilder',
+    privacyForm: 'kontaktskjema',
+    privacyMap: 'kart',
+  },
 };
 
 export type Ui = typeof nb;
@@ -71,6 +77,11 @@ const en: Ui = {
     findUs: 'find-us',
     map: 'map',
     where: 'where',
+  },
+  anchors: {
+    sources: 'sources',
+    privacyForm: 'contact-form',
+    privacyMap: 'map',
   },
 };
 

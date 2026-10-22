@@ -1,0 +1,95 @@
+---
+/**
+ * The credits page, in the language of the route that renders it: every photo
+ * with its photographer and license, then the map, data and font sources,
+ * which the page passes in as `<li>` items in the default slot.
+ */
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import { captionOf, creditOf, licenseOf, licenseUrlOf, noteOf, photos, src } from '@data/credits';
+import { site } from '@data/site';
+import { withBase } from '@lib/base';
+import { toLocale } from '@i18n/locales';
+import { ui } from '@i18n/ui';
+import type { CreditsCopy } from './credits';
+
+interface Props {
+  copy: CreditsCopy;
+}
+
+const { copy: c } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+const t = ui(locale);
+const own = photos.filter((p) => p.status === 'egen');
+const outside = photos.filter((p) => p.status !== 'egen');
+const rows = [...outside, ...own];
+const col = c.table.cols;
+---
+
+<Layout title={c.title} description={c.description} page="credits">
+  <div class="wrap g12 pg-head">
+    <h1 class="display lg:col-[1/10]">{c.h1[0]}<em>{c.h1[1]}</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">{c.lede}</p>
+    <Ridge from={0} to={1} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+  </div>
+
+  <section class="wrap pg-sec" aria-labelledby={c.photos.id}>
+    <div class="g12">
+      <h2 id={c.photos.id} class="pg-h lg:col-[1/4]">{c.photos.h}</h2>
+      <p class="mt-4 lg:mt-0 lg:col-[5/12]">{c.photos.intro(outside.length)}</p>
+    </div>
+    <div class="mt-8 overflow-x-auto">
+      <table class="credits">
+        <caption class="sr-only">{c.table.caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">{col.photo}</span></th>
+            <th scope="col">{col.caption}</th>
+            <th scope="col">{col.photographer}</th>
+            <th scope="col">{col.license}</th>
+            <th scope="col">{col.source}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((p) => {
+              const note = noteOf(p.id, locale);
+              const url = licenseUrlOf(p.id, locale);
+              const license = licenseOf(p.id, locale);
+              return (
+                <tr>
+                  <td>
+                    <img class="thumb" src={src(p.id, 800)} width="72" height="52" alt="" loading="lazy" decoding="async" />
+                  </td>
+                  <th scope="row" data-label={`${col.caption}:`}>
+                    <span class="font-normal">{captionOf(p.id, locale)}</span>
+                    {note && <span class="credits-note">{note}</span>}
+                  </th>
+                  <td data-label={`${col.photographer}:`}>{creditOf(p.id, locale)}</td>
+                  <td data-label={`${col.license}:`}>{url ? <a href={url}>{license}</a> : (license ?? c.table.own.license)}</td>
+                  <td data-label={`${col.source}:`}>{p.sourceUrl ? <a href={p.sourceUrl}>Wikimedia Commons</a> : c.table.own.source}</td>
+                </tr>
+              );
+            })
+          }
+          <tr>
+            <td>
+              <img class="thumb thumb-logo" src={withBase('/img/huset-logo-mask.png')} width="72" height="52" alt="" loading="lazy" decoding="async" />
+            </td>
+            <th scope="row" data-label={`${col.caption}:`}><span class="font-normal">{c.table.logo.caption}</span></th>
+            <td data-label={`${col.photographer}:`}>{site.name}</td>
+            <td data-label={`${col.license}:`}>{c.table.logo.license}</td>
+            <td data-label={`${col.source}:`}>{c.table.own.source}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap g12 pg-sec pb-[clamp(4rem,8vw,7rem)]" aria-labelledby={t.anchors.sources}>
+    <h2 id={t.anchors.sources} class="pg-h lg:col-[1/4]">{c.sources.h[0]}<em>{c.sources.h[1]}</em></h2>
+    <ul class="plain list-disc mt-4 lg:mt-0 lg:col-[5/12]">
+      <slot />
+    </ul>
+  </section>
+</Layout>

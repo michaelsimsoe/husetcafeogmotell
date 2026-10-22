@@ -1,0 +1,64 @@
+---
+import Credits from '@components/pages/Credits.astro';
+import type { CreditsCopy } from '@components/pages/credits';
+import PageLink from '@components/PageLink.astro';
+import { ui } from '@i18n/ui';
+
+const BY_4 = 'https://creativecommons.org/licenses/by/4.0/deed.en';
+const OSM = 'https://www.openstreetmap.org/copyright';
+const t = ui('en');
+
+const copy: CreditsCopy = {
+  title: 'Photos and sources – Huset Café & Motell',
+  description: 'Who took the photos on the Huset Café & Motell website, their licences, and where the maps and other data come from.',
+  h1: ['Photos ', 'and sources'],
+  lede: 'Who took the photos, and where the maps and figures come from. Huset’s own photos carry no name on the pages. Photos by others are credited beside the photo and here.',
+  photos: {
+    id: 'photos',
+    h: 'Photos',
+    intro: (n) => `Others took ${n} of the photos, which are used under the licence given for each and cropped to fit the pages. The rest are Huset’s own.`,
+  },
+  table: {
+    caption: 'Photos, photographers and licences',
+    cols: { photo: 'Photo', caption: 'Caption', photographer: 'Photographer', license: 'Licence', source: 'Source' },
+    own: { license: 'Huset’s own photo', source: 'Huset' },
+    logo: { caption: 'Huset’s logo, at the foot of every page', license: 'Huset’s own mark' },
+  },
+  sources: { h: ['Maps ', 'and other sources'] },
+};
+---
+
+<Credits copy={copy}>
+  <li>
+    The mountain line that runs through the pages is traced from the photograph “Korgen’s centre from the Røssåga river” by Magne Tor
+    Ingvald Aga (<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>).
+  </li>
+  <li>
+    The address and map point, Meieriveien 7, 8646 Korgen: the Norwegian Mapping Authority’s address register (Matrikkelen,{' '}
+    <a href={BY_4}>CC BY 4.0</a>). Olderneset is the built-up area the address lies in.
+  </li>
+  <li>
+    Directions end at the car park between the building and the E6. The point is taken from OpenStreetMap (©{' '}
+    <a href={OSM}>OpenStreetMap contributors</a>, ODbL). The button opens Google Maps, Apple Maps, Waze or your phone’s own map app.
+    The site never asks for your location.
+  </li>
+  <li>
+    The map at the foot of the home page: map data © <a href={OSM}>OpenStreetMap contributors</a> (ODbL), map tiles from{' '}
+    <a href="https://openfreemap.org/">OpenFreeMap</a> on the <a href="https://openmaptiles.org/">OpenMapTiles</a> schema
+    (<a href={BY_4}>CC BY 4.0</a>). The map style is Huset’s own, adapted from{' '}
+    <a href="https://github.com/openmaptiles/positron-gl-style">Positron</a> (<a href={BY_4}>CC BY 4.0</a>), which builds on CARTO’s
+    basemaps. Place names on the map are set in Noto (SIL Open Font License), and the map is drawn with{' '}
+    <a href="https://maplibre.org/">MapLibre GL JS</a>. When the map loads, your browser fetches it directly from OpenFreeMap (see{' '}
+    <PageLink page="privacy" hash={t.anchors.privacyMap}>privacy</PageLink>).
+  </li>
+  <li>
+    The map in “Where Korgen is”: coastline and borders from <a href="https://www.naturalearthdata.com/">Natural Earth</a> (public
+    domain). The road, distances and driving times are calculated with OSRM on OpenStreetMap data (©{' '}
+    <a href={OSM}>OpenStreetMap contributors</a>, ODbL) and rounded. The height profile is based on elevation data from the Norwegian
+    Mapping Authority (<a href={BY_4}>CC BY 4.0</a>); the tunnels are dashed between their portals.
+  </li>
+  <li>
+    Fonts: <a href="https://fontsource.org/fonts/brygada-1918">Brygada 1918</a> and{' '}
+    <a href="https://fontsource.org/fonts/ysabeau-office">Ysabeau Office</a>, both under the SIL Open Font License.
+  </li>
+</Credits>

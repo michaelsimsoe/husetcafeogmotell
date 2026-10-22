@@ -1,0 +1,35 @@
+---
+/**
+ * The privacy page, in the language of the route that renders it. The page
+ * passes its sections in the default slot; the template adds the heading and
+ * the closing «last changed» section, so every language shows the same date.
+ */
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import { toLocale } from '@i18n/locales';
+import { updatedIn, type PrivacyCopy } from './privacy';
+
+interface Props {
+  copy: PrivacyCopy;
+}
+
+const { copy: c } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+---
+
+<Layout title={c.title} description={c.description} page="privacy">
+  <div class="wrap g12 pg-head">
+    <h1 class="display lg:col-[1/10]">{c.h1[0]}<em>{c.h1[1]}</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">{c.lede}</p>
+    <Ridge from={0.2} to={0.8} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+  </div>
+
+  <div class="wrap g12 pg-sec pb-[clamp(4rem,8vw,7rem)]">
+    <div class="legal lg:col-[1/9]">
+      <slot />
+
+      <h2 id={c.changes.id}>{c.changes.h}</h2>
+      <p>{c.changes.text(updatedIn(locale))}</p>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,98 @@
+---
+import Privacy from '@components/pages/Privacy.astro';
+import type { PrivacyCopy } from '@components/pages/privacy';
+import PageLink from '@components/PageLink.astro';
+import { phoneIn, site } from '@data/site';
+import { ui } from '@i18n/ui';
+
+const OFM_PRIVACY = 'https://openfreemap.org/privacy/';
+const t = ui('en');
+const phone = phoneIn('en');
+
+const copy: PrivacyCopy = {
+  title: 'Privacy – Huset Café & Motell',
+  description:
+    'What the Huset Café & Motell website does with information about you: no cookies, no statistics, and messages from the contact form.',
+  h1: ['Privacy ', 'on the website'],
+  lede: 'The website has no cookies, no visitor statistics and no ads. We only learn anything about you if you send us a message.',
+  changes: {
+    id: 'changes',
+    h: 'Changes',
+    text: (date) => `If the website starts doing anything new with information about you, we will update this page. Last changed ${date}.`,
+  },
+};
+---
+
+<Privacy copy={copy}>
+  <h2 id="controller">Who is responsible</h2>
+  <p>
+    {site.name}, {site.place.address}, is responsible for the information processed through the website. You can send questions
+    about privacy to <a href={site.contact.emailHref}>{site.contact.email}</a>, or call us on{' '}
+    <a href={site.contact.phoneHref}>{phone}</a>.
+  </p>
+
+  <h2 id={t.anchors.privacyForm}>When you send us a message</h2>
+  <p>
+    The form on the <PageLink page="contact">contact page</PageLink> sends us your name, the email address or phone number you enter,
+    and your message. We only use them to reply to you and follow up on what you ask about.
+  </p>
+  <ul>
+    <li>
+      The message is received and stored by Netlify, Inc. in the USA, which hosts the website for us. Netlify checks messages for spam
+      automatically and sends us a copy by email. Netlify takes part in the EU–US Data Privacy Framework, which allows the information
+      to be transferred lawfully to the USA.
+    </li>
+    <li>
+      The legal basis is our legitimate interest in answering what you ask (Article 6(1)(f) of the General Data Protection
+      Regulation). If the message is about an order or a booking, the basis is that you are asking us for something before we enter
+      into an agreement (Article 6(1)(b)).
+    </li>
+    <li>We delete the message, both at Netlify and in our email, once the matter is closed.</li>
+  </ul>
+
+  <h2 id="visits">When you visit the website</h2>
+  <p>
+    As with any website, Netlify receives your IP address and which pages your browser asks for, in order to send them and to guard
+    against misuse. We do not use this information for anything.
+  </p>
+  <p>
+    There are no cookies, no visitor statistics, no ads and no tracking from Facebook, Google or anyone else. The fonts are served
+    by the website itself, so they are not fetched from Google.
+  </p>
+  <p>
+    Facebook, Google Maps, Apple Maps and Waze are only links. Nothing is fetched from them until you tap a link, and then their own
+    terms apply.
+  </p>
+
+  <h2 id={t.anchors.privacyMap}>The map on the home page</h2>
+  <p>
+    The map at the foot of the home page only loads when you scroll down towards it. Your browser then fetches the map directly from
+    OpenFreeMap (Hyperknot Software Kft. in Hungary), which therefore receives your IP address. According to{' '}
+    <a href={OFM_PRIVACY}>OpenFreeMap’s privacy policy</a>, IP addresses are not stored in the regular logs, error logs are deleted
+    after seven days, and the service uses no cookies.
+  </p>
+
+  <h2 id="map-app">Directions and your choice of map app</h2>
+  <p>
+    The website never asks for your location. “Directions” opens a map app with the route here, and the app’s own terms apply
+    there.
+  </p>
+  <p>
+    If you pick an app under “Choose map app”, your browser remembers the choice in its own storage on your device, so the button
+    opens the same app next time. The only thing stored is which app you chose, and it is not sent to us. “Forget my choice” deletes
+    it.
+  </p>
+
+  <h2 id="rights">Your rights</h2>
+  <p>
+    You can ask to see what information we hold about you, and have it corrected or deleted. You can also object to our using it,
+    ask us to restrict how we use it, or get a copy in a common file format. Write to{' '}
+    <a href={site.contact.emailHref}>{site.contact.email}</a> or call <a href={site.contact.phoneHref}>{phone}</a>, and we will
+    reply within a month.
+  </p>
+  <p>
+    If you think we are using information about you in breach of the rules, you can complain to the Norwegian Data Protection
+    Authority, <a href="https://www.datatilsynet.no/en/">Datatilsynet</a>. Feel free to contact us first, and we will put it right
+    if we can.
+  </p>
+</Privacy>

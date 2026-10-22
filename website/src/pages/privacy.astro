@@ -1,106 +1,95 @@
 ---
-/**
- * The privacy notice, written for what this site actually does. Update it
- * whenever the site starts sending data somewhere new (analytics, embeds,
- * another form service) and change UPDATED.
- */
-import Layout from '@layouts/Layout.astro';
-import Ridge from '@components/Ridge.astro';
+import Privacy from '@components/pages/Privacy.astro';
+import type { PrivacyCopy } from '@components/pages/privacy';
+import PageLink from '@components/PageLink.astro';
 import { site } from '@data/site';
-import { withBase } from '@lib/base';
+import { ui } from '@i18n/ui';
 
-const UPDATED = '21. oktober 2026';
 const OFM_PRIVACY = 'https://openfreemap.org/privacy/';
+const t = ui('nb');
+
+const copy: PrivacyCopy = {
+  title: 'Personvern – Huset Café & Motell',
+  description:
+    'Hva nettsiden til Huset Café & Motell gjør med opplysninger om deg: ingen informasjonskapsler, ingen statistikk, og meldinger fra kontaktskjemaet.',
+  h1: ['Personvern ', 'på nettsiden'],
+  lede: 'Nettsiden har ingen informasjonskapsler, ingen besøksstatistikk og ingen annonser. Vi får bare vite noe om deg hvis du sender oss en melding.',
+  changes: {
+    id: 'endringer',
+    h: 'Endringer',
+    text: (date) => `Begynner nettsiden å gjøre noe nytt med opplysninger om deg, oppdaterer vi denne siden. Sist endret ${date}.`,
+  },
+};
 ---
 
-<Layout
-  title="Personvern – Huset Café & Motell"
-  description="Hva nettsiden til Huset Café & Motell gjør med opplysninger om deg: ingen informasjonskapsler, ingen statistikk, og meldinger fra kontaktskjemaet."
-  page="privacy"
->
-  <div class="wrap g12 pg-head">
-    <h1 class="display lg:col-[1/10]">Personvern <em>på nettsiden</em></h1>
-    <p class="lede mt-5 lg:col-[1/8]">
-      Nettsiden har ingen informasjonskapsler, ingen besøksstatistikk og ingen annonser. Vi får bare vite noe om deg hvis du sender
-      oss en melding.
-    </p>
-    <Ridge from={0.2} to={0.8} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
-  </div>
+<Privacy copy={copy}>
+  <h2 id="ansvarlig">Hvem som er ansvarlig</h2>
+  <p>
+    {site.name}, {site.place.address}, er ansvarlig for opplysningene som behandles gjennom nettsiden. Spørsmål om personvern
+    kan du sende til <a href={site.contact.emailHref}>{site.contact.email}</a>, eller ringe oss på{' '}
+    <a href={site.contact.phoneHref}>{site.contact.phone}</a>.
+  </p>
 
-  <div class="wrap g12 pg-sec pb-[clamp(4rem,8vw,7rem)]">
-    <div class="legal lg:col-[1/9]">
-      <h2 id="ansvarlig">Hvem som er ansvarlig</h2>
-      <p>
-        {site.name}, {site.place.address}, er ansvarlig for opplysningene som behandles gjennom nettsiden. Spørsmål om personvern
-        kan du sende til <a href={site.contact.emailHref}>{site.contact.email}</a>, eller ringe oss på{' '}
-        <a href={site.contact.phoneHref}>{site.contact.phone}</a>.
-      </p>
+  <h2 id={t.anchors.privacyForm}>Når du sender oss en melding</h2>
+  <p>
+    Skjemaet på <PageLink page="contact">kontaktsiden</PageLink> sender oss navnet ditt, e-postadressen eller telefonnummeret du
+    skriver inn, og meldingen. Vi bruker dem bare til å svare deg og følge opp det du spør om.
+  </p>
+  <ul>
+    <li>
+      Meldingen tas imot og lagres av Netlify, Inc. i USA, som drifter nettsiden for oss. Netlify sjekker meldingene automatisk for
+      spam og sender oss en kopi på e-post. Netlify er med i EU–US Data Privacy Framework, som gjør at opplysningene lovlig kan
+      overføres til USA.
+    </li>
+    <li>
+      Grunnlaget er vår berettigede interesse i å svare på det du spør om (personvernforordningen artikkel 6 nr. 1 bokstav f).
+      Gjelder meldingen en bestilling, er grunnlaget at du ber oss om noe før en avtale (bokstav b).
+    </li>
+    <li>
+      Vi sletter meldingen, både hos Netlify og i e-posten, når saken er avsluttet.
+    </li>
+  </ul>
 
-      <h2 id="kontaktskjema">Når du sender oss en melding</h2>
-      <p>
-        Skjemaet på <a href={withBase('/kontakt')}>kontaktsiden</a> sender oss navnet ditt, e-postadressen eller telefonnummeret du
-        skriver inn, og meldingen. Vi bruker dem bare til å svare deg og følge opp det du spør om.
-      </p>
-      <ul>
-        <li>
-          Meldingen tas imot og lagres av Netlify, Inc. i USA, som drifter nettsiden for oss. Netlify sjekker meldingene automatisk for
-          spam og sender oss en kopi på e-post. Netlify er med i EU–US Data Privacy Framework, som gjør at opplysningene lovlig kan
-          overføres til USA.
-        </li>
-        <li>
-          Grunnlaget er vår berettigede interesse i å svare på det du spør om (personvernforordningen artikkel 6 nr. 1 bokstav f).
-          Gjelder meldingen en bestilling, er grunnlaget at du ber oss om noe før en avtale (bokstav b).
-        </li>
-        <li>
-          Vi sletter meldingen, både hos Netlify og i e-posten, når saken er avsluttet.
-        </li>
-      </ul>
+  <h2 id="besok">Når du besøker nettsiden</h2>
+  <p>
+    Som alle nettsteder mottar Netlify IP-adressen din og hvilke sider nettleseren ber om, for å kunne sende dem og verne mot
+    misbruk. Vi bruker ikke disse opplysningene til noe.
+  </p>
+  <p>
+    Det finnes ingen informasjonskapsler (cookies), ingen besøksstatistikk, ingen annonser og ingen sporing fra Facebook, Google
+    eller andre. Skriftene ligger på nettsiden selv, så de hentes ikke fra Google.
+  </p>
+  <p>
+    Facebook, Google Maps, Apple Maps og Waze er bare lenker. Ingenting hentes fra dem før du trykker på en lenke, og da gjelder
+    deres egne vilkår.
+  </p>
 
-      <h2 id="besok">Når du besøker nettsiden</h2>
-      <p>
-        Som alle nettsteder mottar Netlify IP-adressen din og hvilke sider nettleseren ber om, for å kunne sende dem og verne mot
-        misbruk. Vi bruker ikke disse opplysningene til noe.
-      </p>
-      <p>
-        Det finnes ingen informasjonskapsler (cookies), ingen besøksstatistikk, ingen annonser og ingen sporing fra Facebook, Google
-        eller andre. Skriftene ligger på nettsiden selv, så de hentes ikke fra Google.
-      </p>
-      <p>
-        Facebook, Google Maps, Apple Maps og Waze er bare lenker. Ingenting hentes fra dem før du trykker på en lenke, og da gjelder
-        deres egne vilkår.
-      </p>
+  <h2 id={t.anchors.privacyMap}>Kartet på forsiden</h2>
+  <p>
+    Kartet nederst på forsiden lastes først når du blar ned mot det. Da henter nettleseren kartet direkte fra OpenFreeMap
+    (Hyperknot Software Kft. i Ungarn), som dermed mottar IP-adressen din. Ifølge{' '}
+    <a href={OFM_PRIVACY}>personvernerklæringen til OpenFreeMap</a> lagres ikke IP-adresser i de vanlige loggene, feillogger slettes
+    etter sju dager, og tjenesten bruker ingen informasjonskapsler.
+  </p>
 
-      <h2 id="kart">Kartet på forsiden</h2>
-      <p>
-        Kartet nederst på forsiden lastes først når du blar ned mot det. Da henter nettleseren kartet direkte fra OpenFreeMap
-        (Hyperknot Software Kft. i Ungarn), som dermed mottar IP-adressen din. Ifølge{' '}
-        <a href={OFM_PRIVACY}>personvernerklæringen til OpenFreeMap</a> lagres ikke IP-adresser i de vanlige loggene, feillogger slettes
-        etter sju dager, og tjenesten bruker ingen informasjonskapsler.
-      </p>
+  <h2 id="kartapp">Veibeskrivelse og valg av kartapp</h2>
+  <p>
+    Nettsiden ber aldri om posisjonen din. «Veibeskrivelse» åpner en kartapp med veien hit, og der gjelder appens egne vilkår.
+  </p>
+  <p>
+    Velger du en app under «Velg kartapp», husker nettleseren valget i sin egen lagring på enheten din, slik at knappen åpner
+    samme app neste gang. Det eneste som lagres, er hvilken app du valgte, og det sendes ikke til oss. «Glem valget» sletter det.
+  </p>
 
-      <h2 id="kartapp">Veibeskrivelse og valg av kartapp</h2>
-      <p>
-        Nettsiden ber aldri om posisjonen din. «Veibeskrivelse» åpner en kartapp med veien hit, og der gjelder appens egne vilkår.
-      </p>
-      <p>
-        Velger du en app under «Velg kartapp», husker nettleseren valget i sin egen lagring på enheten din, slik at knappen åpner
-        samme app neste gang. Det eneste som lagres, er hvilken app du valgte, og det sendes ikke til oss. «Glem valget» sletter det.
-      </p>
-
-      <h2 id="rettigheter">Rettighetene dine</h2>
-      <p>
-        Du kan be om å få se hvilke opplysninger vi har om deg, og få dem rettet eller slettet. Du kan også protestere mot at vi
-        bruker dem, be oss begrense bruken, eller få en kopi i et vanlig filformat. Skriv til{' '}
-        <a href={site.contact.emailHref}>{site.contact.email}</a> eller ring <a href={site.contact.phoneHref}>{site.contact.phone}</a>,
-        så svarer vi innen en måned.
-      </p>
-      <p>
-        Mener du at vi bruker opplysninger om deg i strid med reglene, kan du klage til{' '}
-        <a href="https://www.datatilsynet.no/">Datatilsynet</a>. Ta gjerne kontakt med oss først, så ordner vi det om vi kan.
-      </p>
-
-      <h2 id="endringer">Endringer</h2>
-      <p>Begynner nettsiden å gjøre noe nytt med opplysninger om deg, oppdaterer vi denne siden. Sist endret {UPDATED}.</p>
-    </div>
-  </div>
-</Layout>
+  <h2 id="rettigheter">Rettighetene dine</h2>
+  <p>
+    Du kan be om å få se hvilke opplysninger vi har om deg, og få dem rettet eller slettet. Du kan også protestere mot at vi
+    bruker dem, be oss begrense bruken, eller få en kopi i et vanlig filformat. Skriv til{' '}
+    <a href={site.contact.emailHref}>{site.contact.email}</a> eller ring <a href={site.contact.phoneHref}>{site.contact.phone}</a>,
+    så svarer vi innen en måned.
+  </p>
+  <p>
+    Mener du at vi bruker opplysninger om deg i strid med reglene, kan du klage til{' '}
+    <a href="https://www.datatilsynet.no/">Datatilsynet</a>. Ta gjerne kontakt med oss først, så ordner vi det om vi kan.
+  </p>
+</Privacy>

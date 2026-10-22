@@ -3,7 +3,7 @@ import type { Locale } from '../i18n/locales.ts';
 /**
  * Every photograph on the site, with provenance. Huset's own photos (`egen`)
  * carry no credit on the page; everyone else's are credited at the image and
- * all of them are listed on /anerkjennelse.
+ * all of them are listed on the credits page (/anerkjennelse, /en/credits).
  */
 
 export type RightsStatus = 'egen' | 'lisensiert' | 'fri' | 'avklares';
@@ -25,7 +25,7 @@ export interface Photo {
   note?: string;
   status: RightsStatus;
   /** The same words in English. `credit` and `license` only where they are words rather than names. */
-  en: { alt: string; caption: string; credit?: string; license?: string };
+  en: { alt: string; caption: string; credit?: string; license?: string; note?: string };
 }
 
 const BY_SA_4 = 'https://creativecommons.org/licenses/by-sa/4.0/deed.no';
@@ -43,6 +43,7 @@ const list: Photo[] = [
     en: {
       alt: 'Huset Café & Motell in the sun: a long, white building with a dark roof behind a green lawn by the road, with forest and mountains behind.',
       caption: 'Huset by the E6 in Korgen',
+      note: 'AI-retouched: the flagpole and the signs in front of the building have been removed, and the colours have been strengthened.',
     },
     note: 'KI-retusjert: flaggstanga og skiltene foran huset er fjernet, og fargene er forsterket.',
   },
@@ -211,12 +212,25 @@ export const altOf = (id: string, locale: Locale = 'nb') => (locale === 'en' ? p
 /** The photo's caption in `locale`. */
 export const captionOf = (id: string, locale: Locale = 'nb') => (locale === 'en' ? photo(id).en.caption : photo(id).caption);
 
+/** Who took the photo, in `locale`. */
+export const creditOf = (id: string, locale: Locale = 'nb') => (locale === 'en' && photo(id).en.credit) || photo(id).credit;
+
+/** The photo's license in `locale`, undefined for Huset's own. */
+export const licenseOf = (id: string, locale: Locale = 'nb') => (locale === 'en' && photo(id).en.license) || photo(id).license;
+
+/** The license deed in `locale`: Creative Commons serves each deed in both languages. */
+export const licenseUrlOf = (id: string, locale: Locale = 'nb') => {
+  const url = photo(id).licenseUrl;
+  return url && locale === 'en' ? url.replace(/\/deed\.no$/, '/deed.en') : url;
+};
+
+/** The note for the credits page in `locale`. */
+export const noteOf = (id: string, locale: Locale = 'nb') => (locale === 'en' ? photo(id).en.note : photo(id).note);
+
 /** Short visible credit, e.g. «Foto: Chriserikhaugli, CC BY 3.0, Wikimedia Commons» / «Photo: …». */
 export function creditShort(id: string, locale: Locale = 'nb') {
   const p = photo(id);
-  const en = locale === 'en';
-  const credit = (en && p.en.credit) || p.credit;
-  const license = (en && p.en.license) || p.license;
+  const license = licenseOf(id, locale);
   const via = p.sourceUrl?.includes('wikimedia') ? ', Wikimedia Commons' : '';
-  return `${en ? 'Photo' : 'Foto'}: ${credit}${license ? `, ${license}` : ''}${via}`;
+  return `${locale === 'en' ? 'Photo' : 'Foto'}: ${creditOf(id, locale)}${license ? `, ${license}` : ''}${via}`;
 }

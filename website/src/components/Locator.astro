@@ -133,7 +133,7 @@ const kmTicks = p.ticks.filter((t) => t > 0 && t < stretchKm - 4);
       <p class="loc-note">
         {t.note}{' '}
         {t.roads} <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>.{' '}
-        <PageLink page="credits" hash="kilder">{t.sources}</PageLink>.
+        <PageLink page="credits" hash={ui(locale).anchors.sources}>{t.sources}</PageLink>.
       </p>
     </div>
   </div>

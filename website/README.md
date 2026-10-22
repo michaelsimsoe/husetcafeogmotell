@@ -31,13 +31,15 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | `/catering` | Catering: what the kitchen makes and how to order |
 | `/kontakt` | Contact details and the contact form |
 | `/kontakt/takk` | Thank-you page for the form without JavaScript (noindex) |
-| `/anerkjennelse` | Photo credits, map data and sources |
-| `/privacy` | Privacy policy in Norwegian: the contact form (Netlify), hosting, the map (OpenFreeMap), the saved map-app choice, and visitors' rights |
+| `/anerkjennelse` | Photo credits, map data and sources (`#kilder`) |
+| `/privacy` | Privacy policy: the contact form (`#kontaktskjema`, Netlify), hosting, the map (`#kart`, OpenFreeMap), the saved map-app choice, and visitors' rights |
 | `/en` | English homepage, with English section ids: `#food`, `#rooms`, `#gatherings`, `#korgen`, `#around`, `#find-us`, `#map` |
 | `/en/menu` | The menu in English: dishes from the translation memory, same section ids as `/meny` |
 | `/en/events` | Events in English, with ids `#music`, `#theme-nights`, `#parties` |
 | `/en/catering` | Catering in English |
 | `/en/contact`, `/en/contact/thanks` | Contact page and thank-you page in English (same Netlify form) |
+| `/en/credits` | Credits in English; the sources are at `#sources` |
+| `/en/privacy` | Privacy policy in English, with `#contact-form` and `#map` |
 | `/sitemap.xml`, `/robots.txt` | Generated at build time from the page registry |
 
 The old site's `/overnatting` and `/tjenester` became homepage sections. Each still exists as a small noindex page that forwards to `/#rom` or `/#selskap`.
@@ -49,14 +51,16 @@ Pages build as `meny.html` rather than `meny/index.html` (`build.format: 'file'`
 Norwegian (`nb`) stays at the root with its existing URLs; English lives under `/en/` with English slugs. Astro's `i18n` routing is on, and the code is in `src/i18n/`:
 
 - `routes.ts` is the page registry: every page and its path in each language it is written in. Canonicals, hreflang, the language switcher, the sitemap and cross-page links all read from it, and `Layout` refuses to build a page whose `page` prop has no path in that language.
-- `ui.ts` holds the strings in the shared chrome (nav, footer, section ids); `locales.ts` the languages themselves.
-- Page templates in `src/components/pages/` take their words from thin route files: `src/pages/index.astro` and `src/pages/en/index.astro` hold the homepage copy, `meny.astro`/`en/menu.astro`, `arrangementer.astro`/`en/events.astro` and `catering.astro`/`en/catering.astro` the events and catering copy, and `kontakt/` and `en/contact/` just render the shared `Contact` and `Thanks` templates.
+- `ui.ts` holds the strings in the shared chrome (nav, footer, section ids), and the ids on the credits and privacy pages that other pages link to (`anchors`); `locales.ts` the languages themselves.
+- Page templates in `src/components/pages/` take their words from thin route files: `src/pages/index.astro` and `src/pages/en/index.astro` hold the homepage copy, `meny.astro`/`en/menu.astro`, `arrangementer.astro`/`en/events.astro` and `catering.astro`/`en/catering.astro` the events and catering copy, `anerkjennelse.astro`/`en/credits.astro` and `privacy.astro`/`en/privacy.astro` pass their link-heavy prose to the `Credits` and `Privacy` templates as a slot, and `kontakt/` and `en/contact/` just render the shared `Contact` and `Thanks` templates.
 
-A page that isn't translated yet has no path in that language, and nothing pretends it does:
+Every page is in both languages today. A page written in only one, as articles may be, has no path in the other, and nothing pretends it does:
 
 - Links to it go to the Norwegian page, with `hreflang="nb"` and a quiet «(in Norwegian)» (`PageLink.astro`).
 - The language switcher on it offers the other language's homepage, labelled as such («English home page»), never a page that doesn't exist.
 - hreflang and the sitemap only pair pages that exist in both languages; the thank-you pages are left out.
+
+Since the site has no such page now, the tests check these rules on a fixture table with a Norwegian-only article: `registry(table)` in `routes.ts` builds the lookups for any table, and the site's are built from `routes`.
 
 ### Text from the CMS
 
@@ -96,7 +100,7 @@ Managed in code, not in the CMS:
 
 - Page text, including the occasions and catering lines under «Selskap»: `src/pages/index.astro` (Norwegian) and `src/pages/en/index.astro` (English).
 - Nearby places and the links to the area's own websites, in both languages: `src/data/site.ts`.
-- Photos: files in `public/img/`, with credit and rights status in `src/data/credits.ts`. Huset's own photos (`egen`) show no credit on the page; outside photos print theirs on the image. All of them are listed on `/anerkjennelse`.
+- Photos: files in `public/img/`, with credit and rights status in `src/data/credits.ts`. Huset's own photos (`egen`) show no credit on the page; outside photos print theirs on the image. All of them are listed on the credits page (`/anerkjennelse`, `/en/credits`).
 - Location: `src/data/location.ts` holds the address (Kartverket), the map point and the arrival point the directions end on.
 - Map, route and skyline lines: `src/data/norway-map.json`, `route-e6.json` and `ridges.json`.
 - Street map: `src/components/maps/HusetMap.astro` (MapLibre with OpenFreeMap tiles), styled by `public/maps/huset-style.json` (light) and `huset-style-spruce.json` (dark). The dark style is generated by `scripts/map-style-spruce.mjs`, and a test fails if it falls out of step with the light one. See [`../MAPS.md`](../MAPS.md).
@@ -157,7 +161,7 @@ Photos (missing ones are shown as marked placeholders):
 
 Other:
 
-- [x] Privacy policy in Norwegian (`/privacy`), written for what the site does. Update it and its date whenever the site starts sending data somewhere new.
+- [x] Privacy policy in Norwegian and English (`/privacy`, `/en/privacy`), written for what the site does. Update both, and the date in `src/components/pages/privacy.ts`, whenever the site starts sending data somewhere new.
 - [ ] Optional: `/privacy` promises to delete messages, in Netlify and in the mailbox, once the matter is closed. Keep that promise or change the page. The company's legal name and organisation number can be added too.
 - [ ] Test the directions and the map on a real iPhone and a real Android phone, and check that the directions end in the car park between the house and the E6. Emulated iPhone 15 and Pixel 7 pass: Apple Maps on iPhone, `geo:` on Android, the saved choice and «Glem valget», one-finger scroll over the map, the marker popup, no sideways scrolling.
 - [ ] Contact form: a test message sent on the test site on 21 October 2026 was accepted («Takk, Test fra ny nettside!»). Check that it shows in Netlify → Forms → `contact` (or its spam list) and arrived as an e-mail.
@@ -172,7 +176,7 @@ src/
   lib/          hours, notice, formatting, locator geometry, directions (URL builders, platform, saved choice), maps (MapLibre frame and adapter)
   i18n/         languages, the page registry (routes.ts), the shared chrome strings (ui.ts) and the translation memory for CMS text (memory.ts, memory/en.json)
   components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, PageLink, Tr, Ridge, Arrow, maps/HusetMap
-                pages/: the Home, Menu, Events, Catering, Contact and Thanks templates shared by both languages
+                pages/: the Home, Menu, Events, Catering, Contact, Thanks, Credits and Privacy templates shared by both languages
   layouts/      Layout.astro (head, SEO, hreflang, notice, top bar with the language switcher, footer)
   pages/        routes; en/ holds the English ones
   scripts/      browser scripts: open status, skyline and map motion, photo credits, directions, contact form

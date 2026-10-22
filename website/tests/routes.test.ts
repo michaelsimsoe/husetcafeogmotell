@@ -2,7 +2,15 @@ import { strict as assert } from 'node:assert';
 import { describe, it } from 'node:test';
 
 import { defaultLocale, locales, toLocale } from '../src/i18n/locales.ts';
-import { alternates, linkTo, pageAt, pageKeys, pathOf, sitemapEntries, switchTargets } from '../src/i18n/routes.ts';
+import { alternates, linkTo, pageAt, pageKeys, pathOf, registry, sitemapEntries, switchTargets } from '../src/i18n/routes.ts';
+
+/** A site with a page that is only written in Norwegian, as articles may be. */
+const fixture = registry({
+  home: { paths: { nb: '/', en: '/en' } },
+  contact: { paths: { nb: '/kontakt', en: '/en/contact' } },
+  thanks: { paths: { nb: '/kontakt/takk', en: '/en/contact/thanks' }, noindex: true },
+  article: { paths: { nb: '/artikler/korgen' } },
+});
 
 describe('the page registry', () => {
   it('has every page in Norwegian and the home page in every language, so fallbacks always land somewhere', () => {
@@ -18,6 +26,10 @@ describe('the page registry', () => {
     assert.equal(pathOf('thanks', 'nb'), '/kontakt/takk');
     assert.equal(pathOf('credits', 'nb'), '/anerkjennelse');
     assert.equal(pathOf('privacy', 'nb'), '/privacy');
+  });
+
+  it('has every page on the site in English', () => {
+    for (const page of pageKeys) assert.ok(pathOf(page, 'en'), page);
   });
 
   it('never gives two pages the same path', () => {
@@ -39,7 +51,8 @@ describe('linkTo', () => {
   });
 
   it('falls back to the Norwegian page, marked as Norwegian, when it does not', () => {
-    assert.deepEqual(linkTo('credits', 'en'), { path: '/anerkjennelse', hreflang: 'nb', fallback: true });
+    assert.deepEqual(fixture.linkTo('article', 'en'), { path: '/artikler/korgen', hreflang: 'nb', fallback: true });
+    assert.deepEqual(fixture.linkTo('article', 'nb'), { path: '/artikler/korgen', fallback: false });
   });
 });
 
@@ -50,7 +63,7 @@ describe('switchTargets', () => {
   });
 
   it('offers the home page in that language when the page is not translated, never a missing page', () => {
-    assert.deepEqual(switchTargets('credits', 'nb'), [{ locale: 'en', path: '/en', fallback: true }]);
+    assert.deepEqual(fixture.switchTargets('article', 'nb'), [{ locale: 'en', path: '/en', fallback: true }]);
   });
 
   it('never offers the language the page is already in', () => {
@@ -64,7 +77,10 @@ describe('sitemapEntries', () => {
   it('lists every indexable page in every language it exists in', () => {
     assert.deepEqual(
       entries.map((e) => e.path),
-      ['/', '/en', '/meny', '/en/menu', '/arrangementer', '/en/events', '/catering', '/en/catering', '/kontakt', '/en/contact', '/anerkjennelse', '/privacy'],
+      [
+        ...['/', '/en', '/meny', '/en/menu', '/arrangementer', '/en/events', '/catering', '/en/catering'],
+        ...['/kontakt', '/en/contact', '/anerkjennelse', '/en/credits', '/privacy', '/en/privacy'],
+      ],
     );
   });
 
@@ -82,7 +98,20 @@ describe('sitemapEntries', () => {
       { locale: 'nb', path: '/meny' },
       { locale: 'en', path: '/en/menu' },
     ]);
-    assert.deepEqual(entries.find((e) => e.path === '/anerkjennelse')?.alternates, [{ locale: 'nb', path: '/anerkjennelse' }]);
+    assert.deepEqual(entries.find((e) => e.path === '/en/privacy')?.alternates, [
+      { locale: 'nb', path: '/privacy' },
+      { locale: 'en', path: '/en/privacy' },
+    ]);
+    assert.deepEqual(
+      fixture.sitemapEntries().map((e) => [e.path, e.alternates]),
+      [
+        ['/', fixture.alternates('home')],
+        ['/en', fixture.alternates('home')],
+        ['/kontakt', fixture.alternates('contact')],
+        ['/en/contact', fixture.alternates('contact')],
+        ['/artikler/korgen', [{ locale: 'nb', path: '/artikler/korgen' }]],
+      ],
+    );
   });
 });
 
@@ -91,6 +120,7 @@ describe('pageAt', () => {
     assert.deepEqual(pageAt('/'), { page: 'home', locale: 'nb' });
     assert.deepEqual(pageAt('/en/'), { page: 'home', locale: 'en' });
     assert.deepEqual(pageAt('/en/contact/thanks'), { page: 'thanks', locale: 'en' });
+    assert.deepEqual(fixture.pageAt('/artikler/korgen/'), { page: 'article', locale: 'nb' });
   });
 
   it('returns undefined for paths that are not pages', () => {
