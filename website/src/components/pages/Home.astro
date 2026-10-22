@@ -15,7 +15,7 @@ import Directions from '@components/Directions.astro';
 import PageLink from '@components/PageLink.astro';
 import Nb from '@components/Nb.astro';
 import HusetMap from '@components/maps/HusetMap.astro';
-import { hoursIn, nearbyIn, phoneIn, site } from '@data/site';
+import { areaLinksIn, hoursIn, nearbyIn, phoneIn, site } from '@data/site';
 import { addressLine, location } from '@data/location';
 import { allergens, featured, krText, sectionById } from '@data/menu';
 import { src } from '@data/credits';
@@ -327,6 +327,21 @@ const jsonLd = {
             ))
           }
         </dl>
+        <h3 id={`${id.around}-more`} class="near-more">{c.around.more}</h3>
+        <ul class="rows" aria-labelledby={`${id.around}-more`}>
+          {
+            areaLinksIn(locale).map((l) => (
+              <li>
+                <a href={l.href} hreflang={l.norwegianOnly ? 'nb' : undefined}>
+                  <span>
+                    {l.name}{l.norwegianOnly && ' '}{l.norwegianOnly && <span class="lang-mark whitespace-nowrap">({t.inNorwegian})</span>}
+                  </span>{' '}
+                  <Arrow />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </section>

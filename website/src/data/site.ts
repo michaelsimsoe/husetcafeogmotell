@@ -106,6 +106,12 @@ export const site = {
       },
     ],
   },
+  /** The area's own websites, under the nearby places. `en` gives the English version where the site has one. */
+  areaLinks: [
+    { name: 'Visit Okstindan', href: 'https://visitokstindan.com/', en: { href: 'https://visitokstindan.com/en/' } },
+    { name: 'Visit Helgeland', href: 'https://visithelgeland.com/', en: { href: 'https://visithelgeland.com/en/' } },
+    { name: 'Hemnes kommune', href: 'https://www.hemnes.kommune.no/', en: { name: 'Hemnes Municipality' } },
+  ],
   /** Checked against public sources. Not owner-edited. */
   landscape: {
     oksskolten: { name: 'Oksskolten', moh: 1916, kmFromHuset: 24, bearing: { nb: 'øst-sørøst', en: 'east-south-east' } },
@@ -120,6 +126,14 @@ export type Site = typeof site;
 /** The places near Huset, described in `locale`. Names are names and stay as they are. */
 export const nearbyIn = (locale: Locale) =>
   site.nearby.places.map(({ name, what, where, en }) => (locale === 'en' ? { name, ...en } : { name, what, where }));
+
+/** The area links for `locale`. `norwegianOnly` is set when the site has no version in that language. */
+export const areaLinksIn = (locale: Locale) =>
+  site.areaLinks.map((l) => {
+    if (locale === 'nb') return { name: l.name, href: l.href, norwegianOnly: false };
+    const en: { name?: string; href?: string } = l.en;
+    return { name: en.name ?? l.name, href: en.href ?? l.href, norwegianOnly: !en.href };
+  });
 
 /** The phone number as shown to readers of `locale`: the local form in Norwegian, with +47 for everyone else. */
 export const phoneIn = (locale: Locale) => (locale === 'nb' ? site.contact.phone : site.contact.phoneIntl);

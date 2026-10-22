@@ -81,7 +81,7 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 Managed in code, not in the CMS:
 
 - Page text, including the occasions and catering lines under «Selskap»: `src/pages/index.astro` (Norwegian) and `src/pages/en/index.astro` (English).
-- Nearby places, in both languages: `src/data/site.ts`.
+- Nearby places and the links to the area's own websites, in both languages: `src/data/site.ts`.
 - Photos: files in `public/img/`, with credit and rights status in `src/data/credits.ts`. Huset's own photos (`egen`) show no credit on the page; outside photos print theirs on the image. All of them are listed on `/anerkjennelse`.
 - Location: `src/data/location.ts` holds the address (Kartverket), the map point and the arrival point the directions end on.
 - Map, route and skyline lines: `src/data/norway-map.json`, `route-e6.json` and `ridges.json`.

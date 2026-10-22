@@ -147,6 +147,8 @@ The old site switched language in place on the same URLs. The new site gives Eng
 
 Unknown paths get a real 404 page instead of the homepage.
 
+The area links (Visit Okstindan, Visit Helgeland and Hemnes kommune) sit under «Mer om området» in the homepage's «Rundt Huset» section, with the English versions of the sites on `/en`.
+
 ## Sources
 
 - Live homepage and the accommodation, menu, events, and contact pages, inspected on 20 October 2026.

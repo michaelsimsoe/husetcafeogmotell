@@ -44,7 +44,8 @@ export interface HomeCopy {
     peaksDate: string;
     ridgeNote: string;
   };
-  around: { h: Em; lede: string };
+  /** `more` heads the links to the area's own websites. */
+  around: { h: Em; lede: string; more: string };
   findUs: {
     h: Em;
     address: string;
