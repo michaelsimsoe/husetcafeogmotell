@@ -8,7 +8,7 @@ import Ridge from '@components/Ridge.astro';
 import Confirm from '@components/Confirm.astro';
 import ContactForm from '@components/ContactForm.astro';
 import Arrow from '@components/Arrow.astro';
-import { hoursIn, site } from '@data/site';
+import { hoursIn, phoneIn, site } from '@data/site';
 import { location } from '@data/location';
 import { directionsAttrs, groupsLine } from '@lib/format';
 import { toLocale, type Locale } from '@i18n/locales';
@@ -30,7 +30,7 @@ const words = {
   },
   en: {
     title: 'Contact us – Huset Café & Motell in Korgen',
-    description: `Questions about the rooms, a party or the food? Write to us, call ${site.contact.phone} or email ${site.contact.email}.`,
+    description: `Questions about the rooms, a party or the food? Write to us, call ${site.contact.phoneIntl} or email ${site.contact.email}.`,
     h1: ['Let’s have ', 'a chat'],
     lede: 'Wondering about the rooms? Thinking of throwing a party or arranging a proper dinner? Or perhaps you just want our cinnamon bun recipe?',
     write: { id: 'write', h: 'Write to us' },
@@ -67,7 +67,7 @@ const t = ui(locale);
         <div>
           <dt class="label">{w.callUs}</dt>
           <dd>
-            <a class="kt-phone num" href={site.contact.phoneHref}>{site.contact.phone}</a>
+            <a class="kt-phone num" href={site.contact.phoneHref}>{phoneIn(locale)}</a>
             <p class="soft num mt-1">
               <span data-hours="text">{w.open(groupsLine(locale))}</span>{' '}
               <Confirm confirmed={hoursIn(locale).confirmed} />

@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Ridge from '@components/Ridge.astro';
 import Confirm from '@components/Confirm.astro';
 import PageLink from '@components/PageLink.astro';
-import { hoursIn, site } from '@data/site';
+import { hoursIn, phoneIn, site } from '@data/site';
 import { location } from '@data/location';
 import { src } from '@data/credits';
 import { withBase } from '@lib/base';
@@ -145,7 +145,7 @@ const hoursJson = json(hours.days.map(({ day, label, short, open, close, closed 
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6.6 3.5h2.6l1.4 4.1-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4.1 1.4v2.6a1.8 1.8 0 0 1-1.9 1.8A16.6 16.6 0 0 1 4.8 5.4a1.8 1.8 0 0 1 1.8-1.9Z"></path>
           </svg>
-          <span><span class="sr-only">{t.call} </span>{site.contact.phone}</span>
+          <span><span class="sr-only">{t.call} </span>{phoneIn(locale)}</span>
         </a>
       </div>
     </header>
@@ -167,7 +167,7 @@ const hoursJson = json(hours.days.map(({ day, label, short, open, close, closed 
         </div>
         <div class="md:col-[5/9] mt-6 md:mt-0">
           <ul class="ft-list">
-            <li><a href={site.contact.phoneHref}>{t.call} {site.contact.phone}</a></li>
+            <li><a href={site.contact.phoneHref}>{t.call} {phoneIn(locale)}</a></li>
             <li><a href={site.contact.emailHref}>{site.contact.email}</a></li>
             <li><PageLink page="contact">{t.message}</PageLink></li>
             <li><a href={site.contact.facebook}>Facebook</a></li>

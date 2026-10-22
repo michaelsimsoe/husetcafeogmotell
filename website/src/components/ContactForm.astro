@@ -13,7 +13,7 @@
  */
 import Arrow from '@components/Arrow.astro';
 import PageLink from '@components/PageLink.astro';
-import { site } from '@data/site';
+import { phoneIn, site } from '@data/site';
 import { withBase } from '@lib/base';
 import { toLocale, type Locale } from '@i18n/locales';
 import { pathOf } from '@i18n/routes';
@@ -113,7 +113,7 @@ const w = words[locale];
 
     <div class="cf-fail" role="alert" data-cf-fail hidden>
       <p>
-        <strong>{w.failed}</strong>{' '}{w.failedRest}{' '}<a href={site.contact.phoneHref}>{site.contact.phone}</a>{' '}{w.orEmail}{' '}<a
+        <strong>{w.failed}</strong>{' '}{w.failedRest}{' '}<a href={site.contact.phoneHref}>{phoneIn(locale)}</a>{' '}{w.orEmail}{' '}<a
           href={site.contact.emailHref}>{site.contact.email}</a
         >.
       </p>

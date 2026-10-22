@@ -6,7 +6,7 @@
 import Layout from '@layouts/Layout.astro';
 import Ridge from '@components/Ridge.astro';
 import Arrow from '@components/Arrow.astro';
-import { site } from '@data/site';
+import { phoneIn, site } from '@data/site';
 import { withBase } from '@lib/base';
 import { toLocale, type Locale } from '@i18n/locales';
 import { pathOf } from '@i18n/routes';
@@ -46,7 +46,7 @@ const food = menu ? withBase(menu) : `${home}#${ui(locale).sections.food}`;
     <h1 class="display lg:col-[1/10]">{w.h1[0]}<em>{w.h1[1]}</em></h1>
     <p class="lede mt-5 lg:col-[1/8]">{w.lede}</p>
     <p class="mt-3 lg:col-[1/8]">
-      {w.hurry} <a href={site.contact.phoneHref}>{site.contact.phone}</a>.
+      {w.hurry} <a href={site.contact.phoneHref}>{phoneIn(locale)}</a>.
     </p>
     <Ridge from={0.4} to={0.95} start={0} end={0.6} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
     <ul class="rows mt-8 lg:col-[1/6]">

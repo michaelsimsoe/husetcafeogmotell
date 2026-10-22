@@ -124,3 +124,6 @@ export type Site = typeof site;
 /** The places near Huset, described in `locale`. Names are names and stay as they are. */
 export const nearbyIn = (locale: Locale) =>
   site.nearby.places.map(({ name, what, where, en }) => (locale === 'en' ? { name, ...en } : { name, what, where }));
+
+/** The phone number as shown to readers of `locale`: the local form in Norwegian, with +47 for everyone else. */
+export const phoneIn = (locale: Locale) => (locale === 'nb' ? site.contact.phone : site.contact.phoneIntl);

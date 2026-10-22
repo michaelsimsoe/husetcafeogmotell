@@ -182,7 +182,7 @@
   .tb-nav ul { display: flex; justify-content: space-between; }
   .tb-nav a {
     display: inline-flex; align-items: center; min-height: 44px; padding-inline: 0.25rem;
-    color: var(--color-ink); text-decoration: none; font-weight: 560; font-size: 1rem;
+    color: var(--color-ink); text-decoration: none; font-weight: 560; font-size: 1rem; white-space: nowrap;
     border-bottom: 1px solid transparent;
   }
   .tb-nav a:hover { border-bottom-color: var(--color-ink); }
@@ -207,6 +207,8 @@
   /* No room for the wordmark's second half next to the phone number; the link's label still says it. */
   @media (max-width: 22.49rem) {
     .wm-sub { display: none; }
+    /* At full size the English labels fill the row and «Find us Contact» reads as one phrase; this keeps a clear gap between them. */
+    .tb-nav a { font-size: 0.875rem; }
   }
   @media (min-width: 48rem) {
     .tb-row { grid-template-areas: "lang lang lang" "wm nav phone"; padding-bottom: 0.875rem; }
@@ -214,10 +216,11 @@
     .tb-nav ul { gap: clamp(1rem, 2.4vw, 2.25rem); }
     .wm-name { font-size: 1.875rem; }
   }
-  /* English labels are longer; at the narrow end of the range the nav closes up so «Gatherings» and «Find us» stay on one line. */
+  /* English labels and the +47 number are longer; at the narrow end of the range the nav closes up so it stays on one line. */
   @media (min-width: 48rem) and (max-width: 55.99rem) {
     .tb-nav { margin-right: 1rem; }
     .tb-nav ul { gap: 0.75rem; }
+    .tb-nav a { padding-inline: 0.125rem; }
   }
   /* Room for it in the row only once the nav, «English home page» and the phone number all fit on one line. */
   @media (min-width: 64rem) {
