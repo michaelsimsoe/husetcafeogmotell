@@ -26,6 +26,8 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | --- | --- |
 | `/` | Homepage: today's hours and status, «Her ligger Korgen», food (`#mat`), rooms (`#rom`), gatherings and meeting rooms (`#selskap`), «Korgen, før og nå» (`#korgen`), surroundings (`#rundt`), address and directions (`#finn-fram`), street map (`#kart`) |
 | `/meny` | The full menu with allergens |
+| `/arrangementer` | Events: concerts and pub nights (`#musikk`), theme evenings (`#temakvelder`), private parties (`#selskap`). Dates are on Facebook, not here |
+| `/catering` | Catering: what the kitchen makes and how to order |
 | `/kontakt` | Contact details and the contact form |
 | `/kontakt/takk` | Thank-you page for the form without JavaScript (noindex) |
 | `/anerkjennelse` | Photo credits, map data and sources |
@@ -34,7 +36,7 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | `/en/contact`, `/en/contact/thanks` | Contact page and thank-you page in English (same Netlify form) |
 | `/sitemap.xml`, `/robots.txt` | Generated at build time from the page registry |
 
-The old site's `/overnatting`, `/arrangementer` and `/tjenester` became homepage sections. Each still exists as a small noindex page that forwards to `/#rom` or `/#selskap`.
+The old site's `/overnatting` and `/tjenester` became homepage sections. Each still exists as a small noindex page that forwards to `/#rom` or `/#selskap`.
 
 Pages build as `meny.html` rather than `meny/index.html` (`build.format: 'file'`), so Netlify serves `/meny` without redirecting to `/meny/`.
 

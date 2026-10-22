@@ -243,6 +243,10 @@ const jsonLd = {
         <div class="prose">
           <slot name="gatherings" />
         </div>
+        <ul class="rows mt-8">
+          <li><PageLink page="events">{c.gatherings.events}<Arrow slot="end" /></PageLink></li>
+          <li><PageLink page="catering">{c.gatherings.catering}<Arrow slot="end" /></PageLink></li>
+        </ul>
 
         {
           meetingRooms.length > 0 && (

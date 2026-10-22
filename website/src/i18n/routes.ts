@@ -18,6 +18,8 @@ interface Route {
 export const routes = {
   home: { paths: { nb: '/', en: '/en' } },
   menu: { paths: { nb: '/meny' } },
+  events: { paths: { nb: '/arrangementer' } },
+  catering: { paths: { nb: '/catering' } },
   contact: { paths: { nb: '/kontakt', en: '/en/contact' } },
   thanks: { paths: { nb: '/kontakt/takk', en: '/en/contact/thanks' }, noindex: true },
   credits: { paths: { nb: '/anerkjennelse' } },

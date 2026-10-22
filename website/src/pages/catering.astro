@@ -1,0 +1,23 @@
+---
+import Catering from '@components/pages/Catering.astro';
+import type { CateringCopy } from '@components/pages/catering';
+import { site } from '@data/site';
+
+const v = site.venues;
+
+const copy: CateringCopy = {
+  title: 'Catering fra Huset i Korgen – koldtbord, varmmat og snitter',
+  description: `Catering fra Huset Café & Motell i Korgen: koldtbord, varmmat og snitter${v.cakes ? ', og kaker på bestilling' : ''}. Ring ${site.contact.phone} eller send en melding.`,
+  h1: ['Catering ', 'for enhver anledning'],
+  lede: 'Koldtbord, varmmat, snitter eller det du måtte ønske.',
+  offer: { h: 'Dette lager vi', items: ['Koldtbord', 'Varmmat', 'Snitter', ...(v.cakes ? [v.cakes] : [])] },
+  order: { h: 'Slik bestiller du', text: 'Ring oss eller send en melding. Si hva slags mat du ønsker, hvor mange dere blir og når.' },
+  here: {
+    text: `Vil dere heller samles her? Spisesalen har plass til ${v.capacity} gjester, og vi lager maten.`,
+    link: 'Selskapslokale og møterom',
+  },
+  events: 'Arrangementer og temakvelder',
+};
+---
+
+<Catering copy={copy} />

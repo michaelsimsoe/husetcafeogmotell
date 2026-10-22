@@ -1,0 +1,56 @@
+---
+/**
+ * The catering page, in the language of the route that renders it. Says what
+ * the kitchen makes and how to order; makes no promises about delivery.
+ */
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Photo from '@components/Photo.astro';
+import Arrow from '@components/Arrow.astro';
+import PageLink from '@components/PageLink.astro';
+import { phoneIn, site } from '@data/site';
+import { toLocale } from '@i18n/locales';
+import { ui } from '@i18n/ui';
+import type { CateringCopy } from './catering';
+
+interface Props {
+  copy: CateringCopy;
+}
+
+const { copy: c } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+const t = ui(locale);
+---
+
+<Layout title={c.title} description={c.description} page="catering">
+  <div class="wrap g12 sub-head">
+    <h1 class="display lg:col-[1/11]">{c.h1[0]}<em>{c.h1[1]}</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">{c.lede}</p>
+    <Ridge from={0.13} to={1} start={0} end={0.7} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+  </div>
+
+  <section class="sec" aria-labelledby="tilbud-h">
+    <div class="wrap g12">
+      <Photo id="sushi-platter" class="lg:col-[1/6]" creditSide="left" ratio="4 / 5" pos="50% 40%" caption sizes="(min-width: 64rem) 38vw, 100vw" />
+      <div class="lg:col-[7/13] mt-10 lg:mt-0">
+        <h2 id="tilbud-h" class="sr-only">{c.offer.h}</h2>
+        <ul class="offer">
+          {c.offer.items.map((x) => <li>{x}</li>)}
+        </ul>
+
+        <h2 class="h3 mt-12">{c.order.h}</h2>
+        <p class="mt-4 max-w-[34em]">{c.order.text}</p>
+        <div class="stack mt-6">
+          <a class="btn" href={site.contact.phoneHref}><span>{t.call} <span class="num">{phoneIn(locale)}</span></span><Arrow /></a>
+          <PageLink page="contact" class="go">{t.message}</PageLink>
+        </div>
+
+        <p class="fine mt-10 max-w-[34em]">{c.here.text}</p>
+        <ul class="rows mt-3">
+          <li><PageLink page="home" hash={t.sections.gatherings}>{c.here.link}<Arrow slot="end" /></PageLink></li>
+          <li><PageLink page="events">{c.events}<Arrow slot="end" /></PageLink></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>

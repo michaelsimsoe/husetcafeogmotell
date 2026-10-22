@@ -18,10 +18,9 @@ export default defineConfig({
     defaultLocale: 'nb',
     routing: { prefixDefaultLocale: false },
   },
-  // The old site had separate pages for these; they now live as sections on the homepage.
+  // Old pages whose content now lives elsewhere: the rooms on the homepage, the services (premises and meeting rooms) in its gatherings section.
   redirects: {
     '/overnatting': '/#rom',
-    '/arrangementer': '/#selskap',
     '/tjenester': '/#selskap',
   },
   vite: {

@@ -607,8 +607,8 @@
   @media (min-width: 48rem) { .mat-foot { grid-template-columns: auto 1fr; align-items: start; } }
   .mat-foot ul { list-style: none; padding: 0; margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--color-lichen); }
   .mat-foot li + li { margin-top: 0.4rem; }
-  .mat-ph { align-self: start; }
-  @media (min-width: 64rem) { .mat-ph { position: sticky; top: 2rem; } }
+  .mat-ph, .ev-ph { align-self: start; }
+  @media (min-width: 64rem) { .mat-ph, .ev-ph { position: sticky; top: 2rem; } }
 
   /* ——— Home: rooms ——— */
   .facts { margin: 0; border-top: 1px solid var(--color-ink); }
@@ -644,12 +644,13 @@
   .peaks { margin-top: 2.5rem; }
 
   /* ——— Home: around ——— */
-  .near { margin: 0; border-top: 1px solid var(--color-ink); }
-  .near > div { display: grid; gap: 0.25rem 1.5rem; padding-block: 1.1rem 1.2rem; border-bottom: 1px solid var(--color-hair); }
-  @media (min-width: 48rem) { .near > div { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: baseline; } }
-  .near dt { font-family: var(--font-display); font-style: italic; font-weight: 460; font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem); line-height: 1.15; }
+  /* Also the named entries on the events page. */
+  .near, .entries { margin: 0; border-top: 1px solid var(--color-ink); }
+  .near > div, .entries > div { display: grid; gap: 0.25rem 1.5rem; padding-block: 1.1rem 1.2rem; border-bottom: 1px solid var(--color-hair); }
+  @media (min-width: 48rem) { .near > div, .entries > div { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: baseline; } }
+  .near dt, .entries dt { font-family: var(--font-display); font-style: italic; font-weight: 460; font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.875rem); line-height: 1.15; }
   .near dt span { display: block; font-family: var(--font-text); font-style: normal; font-size: 0.9375rem; font-weight: 600; color: var(--color-ink-soft); margin-top: 0.2rem; }
-  .near dd { margin: 0; }
+  .near dd, .entries dd { margin: 0; }
   .near-more {
     margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-bottom: 0.45rem; border-bottom: 1px solid var(--color-ink);
     font-size: 1.375rem; line-height: 1.1; font-style: italic; font-weight: 460;
@@ -735,7 +736,9 @@
   @media (prefers-reduced-motion: reduce) { .dir-chev { transition: none; } }
 
   /* ——— Menu page ——— */
-  .mn-head { padding-top: clamp(1.5rem, 4vw, 3.5rem); }
+  .mn-head, .sub-head { padding-top: clamp(1.5rem, 4vw, 3.5rem); }
+  /* «Arrangementer» is one long word; let it shrink on the narrowest phones instead of overflowing. */
+  .sub-head .display { font-size: clamp(min(2.75rem, 12vw), 1.05rem + 5.25vw, 5.5rem); }
   .mn-index { position: sticky; top: 0; z-index: 4; background: var(--color-whitewash); border-bottom: 1px solid var(--color-hair); margin-inline: calc(-1 * var(--pad)); padding-inline: var(--pad); }
   .mn-index ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 1.1rem; }
   .mn-index a {
@@ -791,6 +794,14 @@
   .notes .fn-m { font-weight: 640; color: var(--color-ink); }
   .notes .keys { display: flex; flex-wrap: wrap; gap: 0.1rem 1.1rem; }
   .notes .keys b { font-weight: 640; color: var(--color-ink); font-variant-numeric: tabular-nums lining-nums; }
+
+  /* ——— Catering page ——— */
+  .offer { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--color-ink); }
+  .offer li {
+    font-family: var(--font-display); font-style: italic; font-weight: 440;
+    font-size: clamp(1.875rem, 1.35rem + 1.7vw, 2.875rem); line-height: 1.1; letter-spacing: -0.012em;
+    padding-block: 0.65rem 0.75rem; border-bottom: 1px solid var(--color-hair);
+  }
 
   /* ——— Plain pages (credits, privacy, contact) ——— */
   .pg-sec { padding-block: clamp(2.5rem, 5vw, 4.5rem) 0; }

@@ -106,6 +106,36 @@ const list: Photo[] = [
       caption: 'Two of the rooms',
     },
   },
+  {
+    id: 'sushi-buffet', w: 3024, h: 4032, widths: [1600, 1200, 800],
+    alt: 'Et langt fat med sushi – ruller, laks og jordbær – og fat med reker og frityr bak, på et bord med hvit duk.',
+    caption: 'Sushibord på Huset',
+    credit: OWN, status: 'egen',
+    en: {
+      alt: 'A long tray of sushi – rolls, salmon and strawberries – with plates of prawns and fried food behind, on a table with a white cloth.',
+      caption: 'A sushi table at Huset',
+    },
+  },
+  {
+    id: 'table-laid', w: 3024, h: 4032, widths: [1600, 1200, 800],
+    alt: 'Et dekket bord med hvit duk: en rød serviett brettet som en vifte, biffkniv, vinglass og røde lys.',
+    caption: 'Dekket til middag',
+    credit: OWN, status: 'egen',
+    en: {
+      alt: 'A table laid with a white cloth: a red napkin folded into a fan, a steak knife, a wine glass and red candles.',
+      caption: 'Laid for dinner',
+    },
+  },
+  {
+    id: 'sushi-platter', w: 3024, h: 4032, widths: [1600, 1200, 800],
+    alt: 'Et fat med sushi: ruller, laks, reker og biter pyntet med jordbær, appelsin og avokado.',
+    caption: 'Sushifat fra kjøkkenet',
+    credit: OWN, status: 'egen',
+    en: {
+      alt: 'A platter of sushi: rolls, salmon, prawns and pieces topped with strawberry, orange and avocado.',
+      caption: 'A sushi platter from the kitchen',
+    },
+  },
   // — Korgen —
   {
     id: 'korgen-village-2008b', w: 2592, h: 1944, widths: [2400, 1600, 800],

@@ -136,9 +136,11 @@ The replacement in `website/` (see [its README](website/README.md)) keeps every 
 
 | Old route | New site |
 |---|---|
-| `/` | Homepage, now holding the room, gathering and meeting-room content as sections |
+| `/` | Homepage, now holding the room, gathering and meeting-room content as sections, with links on to the events and catering pages |
 | `/overnatting` | Forwards to `/#rom` |
-| `/arrangementer`, `/tjenester` | Forward to `/#selskap` |
+| `/arrangementer` | Events page: concerts and pub nights, theme evenings (`#temakvelder`), private parties (`#selskap`) |
+| `/tjenester` | Forwards to `/#selskap` |
+| — | `/catering` is new: the catering offer and how to order |
 | `/meny` | The menu page. Section anchors are `#grill`, `#pizza`, `#fisk`, `#smaretter`, `#salat`, `#pita`, `#omelett`, `#barn`, `#ekstra` and `#drikke`; the old `#kaker`, `#kake-bestilling` and `#catering` links land at the top of the page. |
 | `/kontakt` | Contact page with the same Netlify form; `/kontakt/takk` is new |
 | `/anerkjennelse`, `/privacy` | Same paths |

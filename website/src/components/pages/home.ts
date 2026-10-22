@@ -34,6 +34,9 @@ export interface HomeCopy {
   gatherings: {
     h: Em;
     occasions: string;
+    /** The links on to the events and catering pages. */
+    events: string;
+    catering: string;
     meetingRooms: string;
     orMessage: string;
   };

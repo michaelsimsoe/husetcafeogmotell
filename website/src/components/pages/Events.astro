@@ -1,0 +1,104 @@
+---
+/**
+ * The events page, in the language of the route that renders it: music and pub
+ * nights, theme evenings around the food, and a way on to parties and catering.
+ * Dates are never written here; they go on Facebook.
+ */
+import Layout from '@layouts/Layout.astro';
+import Ridge from '@components/Ridge.astro';
+import Photo from '@components/Photo.astro';
+import Arrow from '@components/Arrow.astro';
+import PageLink from '@components/PageLink.astro';
+import { phoneIn, site } from '@data/site';
+import { toLocale } from '@i18n/locales';
+import { ui } from '@i18n/ui';
+import type { EventsCopy, Entry } from './events';
+
+interface Props {
+  copy: EventsCopy;
+}
+
+const { copy: c } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+const t = ui(locale);
+const fb = site.contact.facebook;
+// The CMS's extras are free Norwegian text; Sunday dinner shows here only while it is listed there.
+const sunday = site.venues.extras.some((x) => /søndagsmiddag/i.test(x));
+const food: Entry[] = sunday ? [...c.food.entries, c.food.sunday] : c.food.entries;
+---
+
+<Layout title={c.title} description={c.description} page="events">
+  <div class="wrap g12 sub-head">
+    <h1 class="display lg:col-[1/10]">{c.h1[0]}<em>{c.h1[1]}</em></h1>
+    <p class="lede mt-5 lg:col-[1/8]">{c.lede}</p>
+    <p class="mt-5 lg:col-[9/13] lg:self-end lg:mt-0"><a class="go" href={fb}>{c.facebook} <Arrow /></a></p>
+    <Ridge from={0.13} to={1} start={0} end={0.7} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
+  </div>
+
+  <!-- Music and pub nights -->
+  <section id={c.ids.music} class="sec" aria-labelledby={`${c.ids.music}-h`}>
+    <div class="wrap g12">
+      <div class="lg:col-[1/5]">
+        <h2 id={`${c.ids.music}-h`} class="h2">{c.music.h[0]}<em>{c.music.h[1]}</em></h2>
+        <p class="lede mt-5">{c.music.lede}</p>
+      </div>
+      <dl class="entries lg:col-[6/13] mt-10 lg:mt-2">
+        {
+          c.music.entries.map((e) => (
+            <div>
+              <dt>{e.name}</dt>
+              <dd>{e.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- Theme evenings around the food -->
+  <section id={c.ids.food} class="on-fog sec" aria-labelledby={`${c.ids.food}-h`}>
+    <div class="wrap g12">
+      <Ridge from={0.2} to={1} start={0} end={0.55} mirror height="clamp(36px, 4vw, 56px)" class="sec-ridge" />
+      <Photo id="sushi-buffet" class="ev-ph lg:col-[1/6]" creditSide="left" ratio="4 / 5" pos="50% 60%" caption sizes="(min-width: 64rem) 38vw, 100vw" />
+      <div class="lg:col-[7/13] mt-10 lg:mt-0">
+        <h2 id={`${c.ids.food}-h`} class="h2">{c.food.h[0]}<em>{c.food.h[1]}</em></h2>
+        <p class="lede mt-5">{c.food.lede}</p>
+        <dl class="entries mt-10">
+          {
+            food.map((e) => (
+              <div>
+                <dt>{e.name}</dt>
+                <dd>{e.text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="mt-8">
+          <a class="go go-big" href={site.contact.phoneHref}>{t.call} {phoneIn(locale)}</a><br />
+          <a class="go" href={fb}>{c.facebook}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Your own party: on to the venue and catering -->
+  <section id={c.ids.party} class="sec" aria-labelledby={`${c.ids.party}-h`}>
+    <div class="wrap g12">
+      <Ridge from={0.35} to={0.85} start={0.62} end={0.92} height="28px" class="sec-ridge" />
+      <div class="lg:col-[1/7]">
+        <h2 id={`${c.ids.party}-h`} class="h2">{c.party.h[0]}<em>{c.party.h[1]}</em></h2>
+        <p class="occasions mt-6">{c.party.occasions}</p>
+        <p class="lede mt-6">{c.party.lede}</p>
+        <ul class="rows mt-8">
+          <li><PageLink page="home" hash={t.sections.gatherings}>{c.party.venue}<Arrow slot="end" /></PageLink></li>
+          <li><PageLink page="catering">{c.party.catering}<Arrow slot="end" /></PageLink></li>
+        </ul>
+        <div class="stack mt-8">
+          <a class="btn" href={site.contact.phoneHref}><span>{t.call} <span class="num">{phoneIn(locale)}</span></span><Arrow /></a>
+          <PageLink page="contact" class="go">{t.message}</PageLink>
+        </div>
+      </div>
+      <Photo id="table-laid" class="lg:col-[8/13] mt-12 lg:mt-0" ratio="4 / 5" pos="50% 45%" caption sizes="(min-width: 64rem) 34vw, 100vw" />
+    </div>
+  </section>
+</Layout>

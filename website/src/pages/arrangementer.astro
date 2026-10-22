@@ -1,0 +1,53 @@
+---
+import Events from '@components/pages/Events.astro';
+import type { EventsCopy } from '@components/pages/events';
+import { site } from '@data/site';
+
+const copy: EventsCopy = {
+  title: 'Arrangementer – konserter, pubkvelder og temakvelder på Huset i Korgen',
+  description: `Konserter, pub- og nattklubbkvelder, sushi-, biff- og viltaften på Huset Café & Motell i Korgen – og plass til selskap for ${site.venues.capacity} gjester.`,
+  h1: ['Arrangementer ', 'på Huset'],
+  lede: 'Fra små, intime konserter til nattklubbkvelder – og temakvelder med sushi, biff eller en hel viltaften.',
+  facebook: 'Følg med på Facebook for datoene',
+  ids: { music: 'musikk', food: 'temakvelder', party: 'selskap' },
+  music: {
+    h: ['Musikk ', 'og pubkvelder'],
+    lede: 'Alle trenger å komme seg ut en tur – treffe folk, høre litt musikk og lette litt på trykket.',
+    entries: [
+      {
+        name: 'Konserter',
+        text: 'Vi setter stor pris på talentene i kommunen og omegn, særlig når de kommer og spiller hos oss. Helst små og intime konserter.',
+      },
+      {
+        name: 'Pub og nattklubb',
+        text: 'Jevnlige pub- og nattklubbkvelder, ofte med en lokal DJ eller en omreisende trubadur.',
+      },
+    ],
+  },
+  food: {
+    h: ['Mat som er ', 'verdt en kveld'],
+    lede: 'Folk blir stadig mer opptatt av mat og opplevelsen rundt den. Det liker vi – derfor holder vi temakvelder nå og da.',
+    entries: [
+      {
+        name: 'Sushiaften',
+        text: 'Sushi er gøy å lage og godt å spise. Vi holder en sushiaften nå og da – spør gjerne om du synes det blir lenge imellom.',
+      },
+      { name: 'Biffaften', text: 'Biff kan man absolutt vie en hel aften til.' },
+      { name: 'Viltaften', text: 'Eksotisk kjøtt fra hele kloden. Smak noe du aldri har smakt før.' },
+    ],
+    sunday: {
+      name: 'Søndagsmiddag',
+      text: 'Etter en lang uke lager vi middagen og tar oppvasken, så du kan bruke dagen til noe annet fint.',
+    },
+  },
+  party: {
+    h: ['Eget ', 'selskap'],
+    occasions: 'Bryllup og julebord, konfirmasjon og dåp, minnestund og klassefest – og mye mer.',
+    lede: `Spisesalen har plass til ${site.venues.capacity} gjester, og vi lager maten til selskapet.${site.meetingRooms.rooms.length > 0 ? ' Møterom kan også leies.' : ''}`,
+    venue: 'Selskapslokale og møterom',
+    catering: 'Catering',
+  },
+};
+---
+
+<Events copy={copy} />

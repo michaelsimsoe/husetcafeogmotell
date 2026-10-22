@@ -13,6 +13,7 @@ describe('the page registry', () => {
   it('keeps the Norwegian URLs the site already has', () => {
     assert.equal(pathOf('home', 'nb'), '/');
     assert.equal(pathOf('menu', 'nb'), '/meny');
+    assert.equal(pathOf('events', 'nb'), '/arrangementer');
     assert.equal(pathOf('contact', 'nb'), '/kontakt');
     assert.equal(pathOf('thanks', 'nb'), '/kontakt/takk');
     assert.equal(pathOf('credits', 'nb'), '/anerkjennelse');
@@ -63,7 +64,7 @@ describe('sitemapEntries', () => {
   it('lists every indexable page in every language it exists in', () => {
     assert.deepEqual(
       entries.map((e) => e.path),
-      ['/', '/en', '/meny', '/kontakt', '/en/contact', '/anerkjennelse', '/privacy'],
+      ['/', '/en', '/meny', '/arrangementer', '/catering', '/kontakt', '/en/contact', '/anerkjennelse', '/privacy'],
     );
   });
 
