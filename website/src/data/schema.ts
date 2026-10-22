@@ -91,9 +91,10 @@ export const venuesSchema = z.object({
 
 /** «Beskjed på nettsiden» — notice.json */
 export const noticeSchema = z
-  .object({ show: toggle, text: optionalText, until: optionalDate })
+  .object({ show: toggle, text: optionalText, textEn: optionalText, until: optionalDate })
   .refine((n) => !n.show || n.text, { message: 'Skriv en beskjed, eller slå av «Vis beskjeden»', path: ['text'] })
-  .refine((n) => !n.text || n.text.length <= 200, { message: 'Beskjeden er for lang. Hold den under 200 tegn.', path: ['text'] });
+  .refine((n) => !n.text || n.text.length <= 200, { message: 'Beskjeden er for lang. Hold den under 200 tegn.', path: ['text'] })
+  .refine((n) => !n.textEn || n.textEn.length <= 200, { message: 'Beskjeden er for lang. Hold den under 200 tegn.', path: ['textEn'] });
 
 const allergenCode = z.coerce.string().regex(/^\d+$/, 'Allergenkoden må være et tall');
 
@@ -204,6 +205,7 @@ const fieldLabels: Record<string, string> = {
   closed: 'Stengt',
   show: 'Vis beskjeden',
   text: 'Beskjed',
+  textEn: 'Beskjed på engelsk',
   until: 'Vis til og med',
   count: 'Antall rom',
   priceFrom: 'Pris fra',

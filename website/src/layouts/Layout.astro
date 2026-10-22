@@ -9,6 +9,7 @@ import { src } from '@data/credits';
 import { withBase } from '@lib/base';
 import { indexable } from '@lib/env';
 import { directionsAttrs } from '@lib/format';
+import { noticeIn } from '@lib/notice';
 import { localeInfo, toLocale } from '@i18n/locales';
 import { alternates, isNoindex, pathOf, switchTargets, type PageKey } from '@i18n/routes';
 import { ui } from '@i18n/ui';
@@ -62,6 +63,7 @@ const robots = indexable && !hidden ? undefined : 'noindex';
 // `<` is escaped so the JSON can never close its own <script>.
 const json = (v: unknown) => JSON.stringify(v).replace(/</g, '\\u003c');
 const hours = hoursIn(locale);
+const notice = site.notice && noticeIn(site.notice, locale);
 const hoursJson = json(hours.days.map(({ day, label, short, open, close, closed }) => ({ day, label, short, open, close, closed })));
 ---
 
@@ -91,9 +93,9 @@ const hoursJson = json(hours.days.map(({ day, label, short, open, close, closed 
   <body>
     <a class="skip" href={`#${t.sections.main}`}>{t.skip}</a>
     {
-      site.notice && (
+      site.notice && notice && (
         <aside class="notice on-spruce" aria-label={t.notice} data-until={site.notice.until}>
-          <p class="wrap" lang={locale === 'nb' ? undefined : 'nb'}>{site.notice.text}</p>
+          <p class="wrap" lang={notice.lang}>{notice.text}</p>
         </aside>
       )
     }

@@ -124,6 +124,11 @@ content:
         type: string
         description: Én eller to korte setninger, under 200 tegn.
         options: { maxlength: 200 }
+      - name: textEn
+        label: Beskjed på engelsk (valgfritt)
+        type: string
+        description: Vises på de engelske sidene. La stå tom, så vises den norske beskjeden der også.
+        options: { maxlength: 200 }
       - name: until
         label: Vis til og med
         type: date

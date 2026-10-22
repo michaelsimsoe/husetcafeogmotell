@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
 import { contentFiles, describePath, hoursSchema, menuSchema, noticeSchema, parseContent, venuesSchema } from '../src/data/schema.ts';
-import { activeNotice, osloToday } from '../src/lib/notice.ts';
+import { activeNotice, noticeIn, osloToday } from '../src/lib/notice.ts';
 
 const read = (file: string) => JSON.parse(readFileSync(new URL(`../src/content/${file}`, import.meta.url), 'utf8'));
 const clone = <T>(v: T): T => structuredClone(v);
@@ -105,8 +105,8 @@ describe('error messages for owners', () => {
 
 describe('notice', () => {
   it('accepts a notice that is switched off and empty, as the CMS saves it', () => {
-    const parsed = parseContent(noticeSchema, { show: false, text: '', until: '' }, 'notice.json');
-    assert.deepEqual(parsed, { show: false, text: undefined, until: undefined });
+    const parsed = parseContent(noticeSchema, { show: false, text: '', textEn: '', until: '' }, 'notice.json');
+    assert.deepEqual(parsed, { show: false, text: undefined, textEn: undefined, until: undefined });
     assert.equal(activeNotice(parsed), undefined);
   });
 
@@ -119,13 +119,28 @@ describe('notice', () => {
     assert.throws(() => parseContent(noticeSchema, { show: true, text: 'Hei', until: '26.12.2026' }, 'notice.json'), /dato/);
   });
 
-  it('rejects a notice over 200 characters', () => {
+  it('rejects a notice over 200 characters, in either language', () => {
     assert.throws(() => parseContent(noticeSchema, { show: true, text: 'a'.repeat(201) }, 'notice.json'), /for lang/);
+    assert.throws(() => parseContent(noticeSchema, { show: true, text: 'Hei', textEn: 'a'.repeat(201) }, 'notice.json'), /Beskjed på engelsk: Beskjeden er for lang/);
+  });
+
+  it('accepts a notice saved before the English field existed', () => {
+    const parsed = parseContent(noticeSchema, { show: true, text: 'Stengt i dag', until: '' }, 'notice.json');
+    assert.equal(parsed.textEn, undefined);
+    assert.ok(activeNotice(parsed));
+  });
+
+  it('shows the English text on English pages, and the Norwegian marked as such when there is none', () => {
+    const both = activeNotice({ show: true, text: 'Stengt i dag', textEn: 'Closed today' }, '2026-12-25')!;
+    assert.deepEqual(noticeIn(both, 'nb'), { text: 'Stengt i dag' });
+    assert.deepEqual(noticeIn(both, 'en'), { text: 'Closed today' });
+    const nbOnly = activeNotice({ show: true, text: 'Stengt i dag', textEn: undefined }, '2026-12-25')!;
+    assert.deepEqual(noticeIn(nbOnly, 'en'), { text: 'Stengt i dag', lang: 'nb' });
   });
 
   it('shows through its last day and drops it the day after', () => {
     const n = { show: true, text: 'Stengt i dag', until: '2026-12-26' };
-    assert.deepEqual(activeNotice(n, '2026-12-25'), { text: 'Stengt i dag', until: '2026-12-26' });
+    assert.deepEqual(activeNotice(n, '2026-12-25'), { text: 'Stengt i dag', textEn: undefined, until: '2026-12-26' });
     assert.ok(activeNotice(n, '2026-12-26'));
     assert.equal(activeNotice(n, '2026-12-27'), undefined);
     assert.ok(activeNotice({ show: true, text: 'Uten sluttdato' }, '2099-01-01'));

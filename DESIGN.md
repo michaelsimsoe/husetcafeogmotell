@@ -312,7 +312,7 @@ Square corners throughout (`rounded.none`). Lines are 1px. Dot leaders (a 1.8px 
 - **«(in Norwegian)»:** links from an English page to a page that only exists in Norwegian carry a quiet mark after their text, at 400 weight and 0.875em, kept on the same line as the last word.
 
 ### Notice («Beskjed på nettsiden»)
-- When the owners switch a notice on in the CMS, a full-bleed spruce band sits above the top bar on every page: one line of whitewash text in the small step, aligned to the page grid, with no icon, label or close button. It is gone the day after its optional last day, even before the next build.
+- When the owners switch a notice on in the CMS, a full-bleed spruce band sits above the top bar on every page: one line of whitewash text in the small step, aligned to the page grid, with no icon, label or close button. It is gone the day after its optional last day, even before the next build. English pages show the owners' English text when they wrote one, otherwise the Norwegian.
 
 ### Opening-hours table
 - Days and hours between hairlines inside spruce; today's row is bolder, with a copper-light rule and an italic «i dag».

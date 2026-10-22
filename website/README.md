@@ -63,7 +63,7 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 | --- | --- | --- |
 | Menyen | `src/content/menu.json` | Sections, dishes, prices, variants, allergens, which dishes are featured on the homepage and which are unavailable |
 | Åpningstider | `src/content/hours.json` | Opening hours per weekday |
-| Beskjed på nettsiden | `src/content/notice.json` | A short message at the top of every page, with an optional last day |
+| Beskjed på nettsiden | `src/content/notice.json` | A short message at the top of every page, with an optional English version and an optional last day |
 | Rom og priser | `src/content/rooms.json` | Number of rooms, price from, check-in and check-out |
 | Selskap og møterom | `src/content/venues.json` | Guests, cakes, extras, meeting rooms |
 | Kontakt og lenker | `src/content/contact.json` | Phone, e-mail and Facebook |
@@ -75,7 +75,7 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 - A failed deploy opens a GitHub issue labelled `byggfeil`, assigned to the repository owner. When the content was the problem, the issue quotes the errors for the owners. Nobody would otherwise hear of it, because the CMS app, not a person, pushed the commit. Further failures comment on the open issue, and the next successful deploy closes it.
 - Most screens have a `confirmed` switch. While it is off, the site shows the «bekreftes» mark next to those facts. Turn it on once the owners have checked them.
 - `featured` on a dish puts it in the homepage menu excerpt. `unavailable` («Ikke tilgjengelig nå») hides it everywhere until switched off, and a section with every dish hidden disappears.
-- The notice (`notice.json`) shows while «Vis beskjeden» is on. With a last day set, the build leaves it out after that day, and a small inline script removes it from pages built earlier, so it disappears at midnight Oslo time without a rebuild. There are no separate holiday hours: the owners change the weekly hours and use the notice for the exceptions.
+- The notice (`notice.json`) shows while «Vis beskjeden» is on. With a last day set, the build leaves it out after that day, and a small inline script removes it from pages built earlier, so it disappears at midnight Oslo time without a rebuild. There are no separate holiday hours: the owners change the weekly hours and use the notice for the exceptions. English pages show «Beskjed på engelsk» when the owners fill it in, and otherwise the Norwegian text, marked `lang="nb"`.
 - Allergens use the numbers from the menu screens (1 Gluten, 2 Laktose, 3 Egg, 4 Sennep, 5 Nøtter). Adding a sixth means adding it to the `allergens` list in `menu.json` and to the select options in `.pages.yml`.
 - The owners edit the menu in Norwegian only. English dish names are planned as a translation file kept in code next to the menu, matched to the Norwegian text, with no translation service at build time. Until then the English pages show the dishes in Norwegian and say so.
 
