@@ -39,7 +39,7 @@ describe('linkTo', () => {
   });
 
   it('falls back to the Norwegian page, marked as Norwegian, when it does not', () => {
-    assert.deepEqual(linkTo('menu', 'en'), { path: '/meny', hreflang: 'nb', fallback: true });
+    assert.deepEqual(linkTo('credits', 'en'), { path: '/anerkjennelse', hreflang: 'nb', fallback: true });
   });
 });
 
@@ -50,7 +50,7 @@ describe('switchTargets', () => {
   });
 
   it('offers the home page in that language when the page is not translated, never a missing page', () => {
-    assert.deepEqual(switchTargets('menu', 'nb'), [{ locale: 'en', path: '/en', fallback: true }]);
+    assert.deepEqual(switchTargets('credits', 'nb'), [{ locale: 'en', path: '/en', fallback: true }]);
   });
 
   it('never offers the language the page is already in', () => {
@@ -64,7 +64,7 @@ describe('sitemapEntries', () => {
   it('lists every indexable page in every language it exists in', () => {
     assert.deepEqual(
       entries.map((e) => e.path),
-      ['/', '/en', '/meny', '/arrangementer', '/en/events', '/catering', '/en/catering', '/kontakt', '/en/contact', '/anerkjennelse', '/privacy'],
+      ['/', '/en', '/meny', '/en/menu', '/arrangementer', '/en/events', '/catering', '/en/catering', '/kontakt', '/en/contact', '/anerkjennelse', '/privacy'],
     );
   });
 
@@ -78,7 +78,11 @@ describe('sitemapEntries', () => {
       { locale: 'nb', path: '/' },
       { locale: 'en', path: '/en' },
     ]);
-    assert.deepEqual(entries.find((e) => e.path === '/meny')?.alternates, [{ locale: 'nb', path: '/meny' }]);
+    assert.deepEqual(entries.find((e) => e.path === '/en/menu')?.alternates, [
+      { locale: 'nb', path: '/meny' },
+      { locale: 'en', path: '/en/menu' },
+    ]);
+    assert.deepEqual(entries.find((e) => e.path === '/anerkjennelse')?.alternates, [{ locale: 'nb', path: '/anerkjennelse' }]);
   });
 });
 

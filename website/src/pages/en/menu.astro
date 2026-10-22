@@ -1,0 +1,24 @@
+---
+import Menu from '@components/pages/Menu.astro';
+import type { MenuCopy } from '@components/pages/menu';
+import { groupsLine } from '@lib/format';
+
+const copy: MenuCopy = {
+  title: 'Menu – Huset Café & Motell in Korgen, Norway',
+  description: 'The full menu at Huset in Korgen, Norway: grill, pizza, fish, light meals, a children’s menu and drinks, with prices and allergens.',
+  h1: ['The menu ', 'at Huset'],
+  lede: 'From the grill, pizza, fish, light meals and a children’s menu. The numbers after a dish are allergens – the key is in the margin and at the foot of the page.',
+  open: `Open ${groupsLine('en')}.`,
+  index: 'Menu sections',
+  allergens: 'Allergens',
+  notes: 'Notes',
+  questions: 'Questions about the food or allergens?',
+  home: 'Home page',
+  placeholder: {
+    need: 'a burger from the kitchen',
+    detail: 'Our own photo of one of the burgers as it is served, taken in daylight at the table.',
+  },
+};
+---
+
+<Menu copy={copy} />

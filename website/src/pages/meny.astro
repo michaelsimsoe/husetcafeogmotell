@@ -1,166 +1,24 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import Ridge from '@components/Ridge.astro';
-import Photo from '@components/Photo.astro';
-import Dish from '@components/Dish.astro';
-import Placeholder from '@components/Placeholder.astro';
-import { allergens, menu, menuMeta } from '@data/menu';
-import { site } from '@data/site';
-import { withBase } from '@lib/base';
+import Menu from '@components/pages/Menu.astro';
+import type { MenuCopy } from '@components/pages/menu';
 import { groupsLine } from '@lib/format';
 
-/** Sections with something in the margin; the rest flow in two columns on wide screens. */
-const margin = (s: (typeof menu)[number]) => s.id === 'grill' || s.id === 'pizza' || !!s.note;
-const codes = allergens.map((a) => a.code);
-const codeRange = codes.length > 1 ? `${codes[0]}–${codes[codes.length - 1]}` : codes[0];
+const copy: MenuCopy = {
+  title: 'Menyen – Huset Café & Motell i Korgen',
+  description: 'Hele menyen på Huset i Korgen: grill, pizza, fisk, småretter, barnemeny og drikke, med priser og allergener.',
+  h1: ['Menyen ', 'på Huset'],
+  lede: 'Fra grillen, pizza, fisk, småretter og barnemeny. Tallene etter en rett viser allergener – forklaringen står i margen og nederst på siden.',
+  open: `Åpent ${groupsLine().toLowerCase()}.`,
+  index: 'Menyens deler',
+  allergens: 'Allergener',
+  notes: 'Merknader',
+  questions: 'Spørsmål om maten eller allergener?',
+  home: 'Til forsiden',
+  placeholder: {
+    need: 'burger fra kjøkkenet',
+    detail: 'Eget bilde av en av burgerne slik den serveres, tatt i dagslys ved bordet.',
+  },
+};
 ---
 
-<Layout
-  title="Menyen – Huset Café & Motell i Korgen"
-  description="Hele menyen på Huset i Korgen: grill, pizza, fisk, småretter, barnemeny og drikke, med priser og allergener."
-  page="menu"
->
-  <div class="wrap g12 mn-head">
-    <h1 class="display lg:col-[1/9]">Menyen <em>på Huset</em></h1>
-    <p class="lede mt-5 lg:col-[1/8]">
-      Fra grillen, pizza, fisk, småretter og barnemeny. Tallene etter en rett viser allergener – forklaringen står i margen og
-      nederst på siden.
-    </p>
-    <p class="fine mt-5 lg:col-[9/13] lg:self-end lg:mt-0">Åpent {groupsLine().toLowerCase()}.</p>
-    <Ridge from={0.13} to={1} start={0} end={0.7} height="clamp(32px, 4vw, 52px)" class="mt-8 lg:mt-10" />
-  </div>
-
-  <div class="wrap g12 mt-2 lg:mt-6">
-    <nav class="mn-index lg:col-[1/4]" aria-label="Menyens deler">
-      <ul>
-        {
-          menu.map((s) => (
-            <li>
-              <a href={`#${s.id}`} data-index={s.id}>
-                {s.title}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="mn-legend">
-        <p class="label">Allergener</p>
-        <dl>
-          {
-            allergens.map((a) => (
-              <>
-                <dt>{a.code}</dt>
-                <dd>{a.name}</dd>
-              </>
-            ))
-          }
-        </dl>
-      </div>
-    </nav>
-
-    <div class="lg:col-[5/13]">
-      {
-        menu.map((s) => (
-          <section id={s.id} class="mn-sec" aria-labelledby={`${s.id}-h`} data-section>
-            <h2 id={`${s.id}-h`} class="mn-h">
-              {s.title}
-            </h2>
-            <div class:list={['mn-grid', { 'mn-grid--flow': !margin(s) }]}>
-              <ul class="dishes">
-                {s.dishes.map((d) => (
-                  <Dish dish={d} />
-                ))}
-              </ul>
-              {margin(s) && (
-                <div class="mn-margin">
-                  {s.id === 'grill' && (
-                    <Placeholder
-                      need="burger fra kjøkkenet"
-                      detail="Eget bilde av en av burgerne slik den serveres, tatt i dagslys ved bordet."
-                      ratio="4 / 5"
-                    />
-                  )}
-                  {s.id === 'pizza' && (
-                    <Photo id="restaurant-family-pizza" ratio="4 / 5" pos="58% 50%" caption sizes="(min-width: 64rem) 16rem, 100vw" />
-                  )}
-                  {s.note && <p class:list={['mn-note', { 'mt-6': s.id === 'grill' || s.id === 'pizza' }]}>{s.note}</p>}
-                </div>
-              )}
-            </div>
-          </section>
-        ))
-      }
-
-      <footer class="notes" aria-labelledby="noter">
-        <h2 id="noter" class="sr-only">Merknader</h2>
-        <ol>
-          <li class="fn">
-            <span class="fn-m" aria-hidden="true">{codeRange}</span>
-            <span>
-              <span class="keys">
-                {
-                  allergens.map((a) => (
-                    <span>
-                      <b>{a.code}</b> {a.name}
-                    </span>
-                  ))
-                }
-              </span>
-            </span>
-          </li>
-          {
-            menuMeta.allergenNote && (
-              <li class="fn">
-                <span class="fn-m" aria-hidden="true">*</span>
-                <span>{menuMeta.allergenNote}</span>
-              </li>
-            )
-          }
-          <li class="fn">
-            <span class="fn-m" aria-hidden="true">*</span>
-            <span>
-              Spørsmål om maten eller allergener? Ring <a href={site.contact.phoneHref}>{site.contact.phone}</a>.{' '}
-              <a href={withBase('/')}>Til forsiden</a>.
-            </span>
-          </li>
-        </ol>
-      </footer>
-    </div>
-  </div>
-  <div class="mn-end"></div>
-</Layout>
-
-<script>
-  const links = new Map<string, HTMLAnchorElement>();
-  document.querySelectorAll<HTMLAnchorElement>('[data-index]').forEach((a) => links.set(a.dataset.index!, a));
-  let current = '';
-  const setCurrent = (id: string) => {
-    if (id === current) return;
-    current = id;
-    links.forEach((a, key) => {
-      if (key === id) a.setAttribute('aria-current', 'location');
-      else a.removeAttribute('aria-current');
-    });
-  };
-  const sections = [...document.querySelectorAll<HTMLElement>('[data-section]')];
-  const pick = () => {
-    const line = window.innerHeight * 0.3;
-    let id = sections[0]?.id ?? '';
-    for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;
-    setCurrent(id);
-  };
-  let queued = false;
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => {
-        queued = false;
-        pick();
-      });
-    },
-    { passive: true },
-  );
-  pick();
-</script>
+<Menu copy={copy} />

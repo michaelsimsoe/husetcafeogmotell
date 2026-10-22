@@ -17,7 +17,7 @@ interface Route {
 
 export const routes = {
   home: { paths: { nb: '/', en: '/en' } },
-  menu: { paths: { nb: '/meny' } },
+  menu: { paths: { nb: '/meny', en: '/en/menu' } },
   events: { paths: { nb: '/arrangementer', en: '/en/events' } },
   catering: { paths: { nb: '/catering', en: '/en/catering' } },
   contact: { paths: { nb: '/kontakt', en: '/en/contact' } },
