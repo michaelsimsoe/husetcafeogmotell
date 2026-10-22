@@ -1,0 +1,23 @@
+---
+import Catering from '@components/pages/Catering.astro';
+import type { CateringCopy } from '@components/pages/catering';
+import { site } from '@data/site';
+
+const v = site.venues;
+
+const copy: CateringCopy = {
+  title: 'Catering from Huset in Korgen – cold buffet, hot dishes and open sandwiches',
+  description: `Catering from Huset Café & Motell in Korgen, Norway: cold buffet, hot dishes and open sandwiches${v.cakes ? ', and cakes to order' : ''}. Call ${site.contact.phoneIntl} or send us a message.`,
+  h1: ['Catering ', 'for any occasion'],
+  lede: 'A cold buffet, hot dishes, open sandwiches or whatever you’d like.',
+  offer: { h: 'What we make', items: ['Cold buffet', 'Hot dishes', 'Open sandwiches'] },
+  order: { h: 'How to order', text: 'Call us or send a message. Tell us what food you’d like, how many of you there will be and when.' },
+  here: {
+    text: `Would you rather gather here? The dining room seats ${v.capacity} guests, and we make the food.`,
+    link: 'Party venue and meeting rooms',
+  },
+  events: 'Events and theme evenings',
+};
+---
+
+<Catering copy={copy} />

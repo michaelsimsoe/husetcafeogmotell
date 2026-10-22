@@ -64,7 +64,7 @@ describe('sitemapEntries', () => {
   it('lists every indexable page in every language it exists in', () => {
     assert.deepEqual(
       entries.map((e) => e.path),
-      ['/', '/en', '/meny', '/arrangementer', '/catering', '/kontakt', '/en/contact', '/anerkjennelse', '/privacy'],
+      ['/', '/en', '/meny', '/arrangementer', '/en/events', '/catering', '/en/catering', '/kontakt', '/en/contact', '/anerkjennelse', '/privacy'],
     );
   });
 

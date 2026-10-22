@@ -1,5 +1,5 @@
 /**
- * The words on the catering page, one object per language (pages/catering.astro).
+ * The words on the catering page, one object per language (pages/catering.astro, pages/en/catering.astro).
  * Facts from the CMS (capacity, cakes) are woven in by the page that builds the object;
  * the cakes line itself is added to the offer list by the template, in the page's language.
  */

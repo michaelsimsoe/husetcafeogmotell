@@ -1,0 +1,53 @@
+---
+import Events from '@components/pages/Events.astro';
+import type { EventsCopy } from '@components/pages/events';
+import { site } from '@data/site';
+
+const copy: EventsCopy = {
+  title: 'Events – concerts, pub nights and theme evenings at Huset in Korgen',
+  description: `Concerts, pub and nightclub evenings, and sushi, steak and wild game nights at Huset Café & Motell in Korgen, Norway – with room for parties of ${site.venues.capacity}.`,
+  h1: ['Events ', 'at Huset'],
+  lede: 'From small, intimate concerts to nightclub evenings – and theme nights with sushi, steak or a whole evening of wild game.',
+  facebook: 'Follow us on Facebook for dates',
+  ids: { music: 'music', food: 'theme-nights', party: 'parties' },
+  music: {
+    h: ['Music ', 'and pub nights'],
+    lede: 'Everyone needs a night out now and then – to meet people, hear some music and let off a little steam.',
+    entries: [
+      {
+        name: 'Concerts',
+        text: 'We really appreciate the local talent around us, especially when they come and play for us. Small, intimate concerts are our favourite.',
+      },
+      {
+        name: 'Pub and nightclub',
+        text: 'Regular pub and nightclub evenings, often with a local DJ or a travelling troubadour.',
+      },
+    ],
+  },
+  food: {
+    h: ['Food worth ', 'an evening'],
+    lede: 'People care more and more about food and the experience around it. So do we – which is why we hold theme evenings now and then.',
+    entries: [
+      {
+        name: 'Sushi evening',
+        text: 'Sushi is fun to make and good to eat. We hold a sushi evening now and then – do ask if you think it’s been too long.',
+      },
+      { name: 'Steak evening', text: 'Steak is well worth a whole evening.' },
+      { name: 'Wild game night', text: 'Exotic meat from all over the world. Taste something you’ve never tasted before.' },
+    ],
+    sunday: {
+      name: 'Sunday dinner',
+      text: 'After a long week, we cook dinner and do the dishes, so you can spend the day on something nicer.',
+    },
+  },
+  party: {
+    h: ['Your own ', 'party'],
+    occasions: 'Weddings and Christmas parties, confirmations and christenings, memorial gatherings and class reunions – and much more.',
+    lede: `The dining room seats ${site.venues.capacity} guests, and we make the food for your party.${site.meetingRooms.rooms.length > 0 ? ' Meeting rooms are also available to hire.' : ''}`,
+    venue: 'Party venue and meeting rooms',
+    catering: 'Catering',
+  },
+};
+---
+
+<Events copy={copy} />

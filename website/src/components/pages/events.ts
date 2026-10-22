@@ -1,5 +1,5 @@
 /**
- * The words on the events page, one object per language (pages/arrangementer.astro).
+ * The words on the events page, one object per language (pages/arrangementer.astro, pages/en/events.astro).
  * Facts from the CMS (capacity, extras) are woven in by the page that builds the object.
  */
 import type { Em } from './home';

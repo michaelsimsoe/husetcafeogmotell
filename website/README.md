@@ -34,6 +34,8 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | `/anerkjennelse` | Photo credits, map data and sources |
 | `/privacy` | Privacy policy in Norwegian: the contact form (Netlify), hosting, the map (OpenFreeMap), the saved map-app choice, and visitors' rights |
 | `/en` | English homepage, with English section ids: `#food`, `#rooms`, `#gatherings`, `#korgen`, `#around`, `#find-us`, `#map` |
+| `/en/events` | Events in English, with ids `#music`, `#theme-nights`, `#parties` |
+| `/en/catering` | Catering in English |
 | `/en/contact`, `/en/contact/thanks` | Contact page and thank-you page in English (same Netlify form) |
 | `/sitemap.xml`, `/robots.txt` | Generated at build time from the page registry |
 
@@ -47,7 +49,7 @@ Norwegian (`nb`) stays at the root with its existing URLs; English lives under `
 
 - `routes.ts` is the page registry: every page and its path in each language it is written in. Canonicals, hreflang, the language switcher, the sitemap and cross-page links all read from it, and `Layout` refuses to build a page whose `page` prop has no path in that language.
 - `ui.ts` holds the strings in the shared chrome (nav, footer, section ids); `locales.ts` the languages themselves.
-- Page templates in `src/components/pages/` take their words from thin route files: `src/pages/index.astro` and `src/pages/en/index.astro` hold the homepage copy, `kontakt/` and `en/contact/` just render the shared `Contact` and `Thanks` templates.
+- Page templates in `src/components/pages/` take their words from thin route files: `src/pages/index.astro` and `src/pages/en/index.astro` hold the homepage copy, `arrangementer.astro`/`en/events.astro` and `catering.astro`/`en/catering.astro` the events and catering copy, and `kontakt/` and `en/contact/` just render the shared `Contact` and `Thanks` templates.
 
 A page that isn't translated yet has no path in that language, and nothing pretends it does:
 
@@ -169,7 +171,7 @@ src/
   lib/          hours, notice, formatting, locator geometry, directions (URL builders, platform, saved choice), maps (MapLibre frame and adapter)
   i18n/         languages, the page registry (routes.ts), the shared chrome strings (ui.ts) and the translation memory for CMS text (memory.ts, memory/en.json)
   components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, PageLink, Tr, Ridge, Arrow, maps/HusetMap
-                pages/: the Home, Contact and Thanks templates shared by both languages
+                pages/: the Home, Events, Catering, Contact and Thanks templates shared by both languages
   layouts/      Layout.astro (head, SEO, hreflang, notice, top bar with the language switcher, footer)
   pages/        routes; en/ holds the English ones
   scripts/      browser scripts: open status, skyline and map motion, photo credits, directions, contact form
