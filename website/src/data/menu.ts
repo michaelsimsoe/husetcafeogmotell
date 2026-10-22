@@ -22,7 +22,8 @@ export const menuMeta = {
 export const allergens = data.allergens;
 const allergenNames = new Map(allergens.map((a) => [a.code, a.name]));
 
-export const allergenText = (codes: readonly string[]) => codes.map((c) => allergenNames.get(c) ?? c).join(', ');
+/** The allergen's name as the owners wrote it, in Norwegian. */
+export const allergenName = (code: string) => allergenNames.get(code) ?? code;
 
 /** Sections with dishes picked for the homepage, keeping only the picked dishes. */
 export const featured = menu

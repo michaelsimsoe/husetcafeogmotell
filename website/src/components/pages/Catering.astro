@@ -8,6 +8,7 @@ import Ridge from '@components/Ridge.astro';
 import Photo from '@components/Photo.astro';
 import Arrow from '@components/Arrow.astro';
 import PageLink from '@components/PageLink.astro';
+import Tr from '@components/Tr.astro';
 import { phoneIn, site } from '@data/site';
 import { toLocale } from '@i18n/locales';
 import { ui } from '@i18n/ui';
@@ -20,6 +21,7 @@ interface Props {
 const { copy: c } = Astro.props;
 const locale = toLocale(Astro.currentLocale);
 const t = ui(locale);
+const cakes = site.venues.cakes;
 ---
 
 <Layout title={c.title} description={c.description} page="catering">
@@ -36,6 +38,7 @@ const t = ui(locale);
         <h2 id="tilbud-h" class="sr-only">{c.offer.h}</h2>
         <ul class="offer">
           {c.offer.items.map((x) => <li>{x}</li>)}
+          {cakes && <li><Tr text={cakes} /></li>}
         </ul>
 
         <h2 class="h3 mt-12">{c.order.h}</h2>

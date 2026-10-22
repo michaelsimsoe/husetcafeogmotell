@@ -2,6 +2,7 @@
 import Home from '@components/pages/Home.astro';
 import type { HomeCopy } from '@components/pages/home';
 import { site } from '@data/site';
+import Tr from '@components/Tr.astro';
 
 const r = site.rooms;
 const v = site.venues;
@@ -18,7 +19,7 @@ const copy: HomeCopy = {
   today: { h: 'Today', callUs: 'Call us', food: 'See the food', roomsFrom: 'Rooms from' },
   food: {
     h: ['Grill, pizza and ', 'a cup of coffee'],
-    lede: 'Dinner, a pizza to share, or just a coffee before you drive on. Here is a selection from the menu. The dishes are written in Norwegian for now; the full menu, with every dish and allergen, has its own page.',
+    lede: 'Dinner, a pizza to share, or just a coffee before you drive on. Here is a selection from the menu; the full menu, with every dish and allergen, has its own page.',
     all: 'See the full menu',
     allergens: 'Allergens',
   },
@@ -70,7 +71,7 @@ const copy: HomeCopy = {
 
   <p class="lede" slot="gatherings">
     There is room for {v.capacity} guests in the dining room. We make the food for your party – a cold buffet, hot dishes and
-    open sandwiches{v.cakes && <> – and <span lang="nb">{v.cakes.toLowerCase()}</span></>}.
+    open sandwiches{v.cakes && <> – and <Tr text={v.cakes} lower /></>}.
   </p>
 
   <Fragment slot="korgen">

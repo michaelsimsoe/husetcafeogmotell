@@ -1,7 +1,7 @@
 ---
-import { allergenText, kr, krText, type Dish } from '@data/menu';
+import { allergenName, kr, krText, type Dish } from '@data/menu';
 import { toLocale } from '@i18n/locales';
-import Nb from './Nb.astro';
+import Tr from './Tr.astro';
 
 interface Props {
   dish: Dish;
@@ -9,9 +9,8 @@ interface Props {
 }
 
 const { dish, desc = true } = Astro.props;
-// Dishes come from the CMS in Norwegian. On other pages they are marked as Norwegian; the prices and the labels around them are not.
+// Dishes come from the CMS in Norwegian; `Tr` gives the page's language from the translation memory, or marks the Norwegian.
 const locale = toLocale(Astro.currentLocale);
-const nb = locale === 'nb' ? undefined : 'nb';
 const allergensLabel = locale === 'en' ? 'allergens' : 'allergener';
 const variants = dish.variants ?? [];
 const price = variants.length === 0 ? dish.price : undefined;
@@ -20,10 +19,10 @@ const price = variants.length === 0 ? dish.price : undefined;
 <li class="dish">
   <div class="dish-line">
     <span class="dish-name"
-      ><Nb>{dish.name}</Nb>{
+      ><Tr text={dish.name} />{
         dish.allergens.length > 0 && (
           <>
-            <span class="sr-only">, {allergensLabel}: <Nb>{allergenText(dish.allergens)}</Nb></span>
+            <span class="sr-only">, {allergensLabel}: {dish.allergens.map((code, i) => <>{i > 0 && ', '}<Tr text={allergenName(code)} /></>)}</span>
             <sup aria-hidden="true">{dish.allergens.join(',')}</sup>
           </>
         )
@@ -41,13 +40,21 @@ const price = variants.length === 0 ? dish.price : undefined;
       )
     }
   </div>
-  {desc && dish.description && <p class="dish-desc" lang={nb}>{dish.description}</p>}
+  {
+    desc && dish.description && (
+      <p class="dish-desc">
+        <Tr text={dish.description} />
+      </p>
+    )
+  }
   {
     variants.length > 0 && (
       <ul class="dish-variants">
         {variants.map((v) => (
           <li class="dish-line">
-            <span class="dish-name" lang={nb}>{v.label}</span>
+            <span class="dish-name">
+              <Tr text={v.label} />
+            </span>
             <span class="dish-lead" aria-hidden="true" />
             <span class="dish-price price">
               <span aria-hidden="true">{kr(v.price, locale)}</span>

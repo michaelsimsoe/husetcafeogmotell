@@ -2,8 +2,8 @@
 /**
  * The home page, in the language of the route that renders it. The route
  * passes its words as `copy` and its longer prose as named slots; everything
- * here is structure and data. Free text from the CMS is Norwegian, so on other
- * languages it is marked `lang="nb"` rather than passed off as translated.
+ * here is structure and data. Free text from the CMS goes through `Tr`: the
+ * translation memory's words, or the Norwegian marked `lang="nb"`.
  */
 import Layout from '@layouts/Layout.astro';
 import Ridge from '@components/Ridge.astro';
@@ -13,14 +13,14 @@ import Arrow from '@components/Arrow.astro';
 import Locator from '@components/Locator.astro';
 import Directions from '@components/Directions.astro';
 import PageLink from '@components/PageLink.astro';
-import Nb from '@components/Nb.astro';
+import Tr from '@components/Tr.astro';
 import HusetMap from '@components/maps/HusetMap.astro';
 import { areaLinksIn, hoursIn, nearbyIn, phoneIn, site } from '@data/site';
 import { addressLine, location } from '@data/location';
 import { allergens, featured, krText, sectionById } from '@data/menu';
 import { src } from '@data/credits';
 import { withBase } from '@lib/base';
-import { coords, groupsLine, kl, listJoin, ridgeOnPhoto } from '@lib/format';
+import { coords, groupsLine, kl, listSep, ridgeOnPhoto } from '@lib/format';
 import { span } from '@lib/hours';
 import { toLocale } from '@i18n/locales';
 import { pathOf } from '@i18n/routes';
@@ -39,8 +39,6 @@ for (const slot of ['rooms', 'gatherings', 'korgen']) {
 const locale = toLocale(Astro.currentLocale);
 const t = ui(locale);
 const id = t.sections;
-/** Spread on elements holding Norwegian free text from the CMS when the page is in another language. */
-const nb = locale === 'nb' ? {} : { lang: 'nb' };
 
 const hours = hoursIn(locale);
 const picks = featured.slice(0, 2);
@@ -159,8 +157,8 @@ const jsonLd = {
           {
             picks.map((s) => (
               <section aria-labelledby={`${id.food}-${s.id}`}>
-                <h3 id={`${id.food}-${s.id}`} class="h3" {...nb}>
-                  {s.title}
+                <h3 id={`${id.food}-${s.id}`} class="h3">
+                  <Tr text={s.title} />
                 </h3>
                 <ul class="dishes">
                   {s.dishes.map((d) => (
@@ -174,12 +172,15 @@ const jsonLd = {
         <div class="mat-foot">
           <PageLink page="menu" class="go go-big">{c.food.all}<Arrow slot="end" /></PageLink>
           <ul>
-            <li class="num">{c.food.allergens}: <Nb>{allergens.map((a) => `${a.code} ${a.name}`).join(' · ')}</Nb></li>
-            {kids && <li {...nb}>{kids.title}{kids.note ? `. ${kids.note}` : ''}</li>}
+            <li class="num">
+              {c.food.allergens}:{' '}
+              {allergens.map((a, i) => <>{i > 0 && ' · '}{a.code} <Tr text={a.name} /></>)}
+            </li>
+            {kids && <li><Tr text={kids.title} />{kids.note && <>. <Tr text={kids.note} /></>}</li>}
             {
               v.extras.length > 0 && (
                 <li>
-                  <Nb>{listJoin(v.extras.map((x, i) => (i === 0 ? x : x.toLowerCase())))}</Nb>
+                  {v.extras.map((x, i) => <>{listSep(i, v.extras.length, locale)}<Tr text={x} lower={i > 0 && locale === 'nb'} /></>)}
                 </li>
               )
             }
@@ -256,8 +257,8 @@ const jsonLd = {
                 <tbody>
                   {meetingRooms.map((m) => (
                     <tr>
-                      <th scope="row" {...nb}>{m.name}</th>
-                      <td {...nb}>{m.equipment}</td>
+                      <th scope="row"><Tr text={m.name} /></th>
+                      <td>{m.equipment && <Tr text={m.equipment} />}</td>
                       <td class="price">{m.price !== undefined && krText(m.price, locale)}</td>
                     </tr>
                   ))}

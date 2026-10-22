@@ -14,7 +14,8 @@ Run from `website/`. Requires Node 22.12 or newer (Netlify uses 24).
 | `npm run build` | Static build to `dist/`. Fails if the content JSON is invalid. |
 | `npm run preview` | Serves `dist/` on port 4322 |
 | `npm run content` | Checks every Pages CMS file and lists problems in Norwegian, by CMS screen and field |
-| `npm test` | Unit tests (`node --test`): content schemas and error messages, notice, opening hours in both languages, page registry, directions, map styles |
+| `npm run translations` | Lists CMS text with no English translation yet, and translations nothing uses any more (see [Languages](#languages)). Only reports; never fails |
+| `npm test` | Unit tests (`node --test`): content schemas and error messages, notice, opening hours in both languages, page registry, translation memory, directions, map styles |
 | `npm run verify` | After a build: checks `dist/` against the page registry (see [Languages](#languages)) |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run check` | `astro check` (types in `.astro` files) |
@@ -53,7 +54,15 @@ A page that isn't translated yet has no path in that language, and nothing prete
 - Links to it go to the Norwegian page, with `hreflang="nb"` and a quiet «(in Norwegian)» (`PageLink.astro`).
 - The language switcher on it offers the other language's homepage, labelled as such («English home page»), never a page that doesn't exist.
 - hreflang and the sitemap only pair pages that exist in both languages; the thank-you pages are left out.
-- Norwegian text from the CMS (dish names, the menu note, allergens, venue extras) is shown as it is on English pages and marked `lang="nb"` (`Nb.astro`), and the English homepage says the dishes are in Norwegian for now.
+
+### Text from the CMS
+
+The owners write the menu and the venue details in Norwegian only. The other languages come from a translation memory in code, `src/i18n/memory/en.json`: a list of `{ "nb": …, "en": … }` pairs, keyed on the Norwegian exactly as it stands in the CMS (spacing aside). There are no dish ids and no translation service at build time.
+
+- `Tr.astro` puts CMS text on a page: the translation when the memory has one, otherwise the Norwegian, marked `lang="nb"`. It covers section titles and notes, dish names, descriptions and variants, allergens, cakes, extras and the meeting rooms.
+- When the owners rename a dish or add one, its old entry stops matching and the new text shows in Norwegian until it is translated. Nothing breaks.
+- `npm run translations` lists what is missing (with the CMS screen and dish it sits on) and entries nothing uses any more. Add the missing pairs to `en.json`; delete the unused ones. A test checks the file is valid but not that it is complete, so a CMS save never fails a deploy.
+- Names that are the same in English (`Pizza`, `Margherita`) still get an entry, so the report stays empty when everything is done.
 
 To translate a page: add its path to `routes.ts`, add the route file under `src/pages/en/`, then run `npm run build && npm run verify`. `verify` (also run in `dev.yml`) fails if a registry page wasn't built or a built page isn't in the registry, if `<html lang>`, a canonical or an hreflang set is wrong or not reciprocal, if a link inside the site leads nowhere or to a missing `#id`, or if a link marked with `hreflang` lands on a page in another language.
 
@@ -78,7 +87,7 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 - `featured` on a dish puts it in the homepage menu excerpt. `unavailable` («Ikke tilgjengelig nå») hides it everywhere until switched off, and a section with every dish hidden disappears.
 - The notice (`notice.json`) shows while «Vis beskjeden» is on. With a last day set, the build leaves it out after that day, and a small inline script removes it from pages built earlier, so it disappears at midnight Oslo time without a rebuild. There are no separate holiday hours: the owners change the weekly hours and use the notice for the exceptions. English pages show «Beskjed på engelsk» when the owners fill it in, and otherwise the Norwegian text, marked `lang="nb"`.
 - Allergens use the numbers from the menu screens (1 Gluten, 2 Laktose, 3 Egg, 4 Sennep, 5 Nøtter). Adding a sixth means adding it to the `allergens` list in `menu.json` and to the select options in `.pages.yml`.
-- The owners edit the menu in Norwegian only. English dish names are planned as a translation file kept in code next to the menu, matched to the Norwegian text, with no translation service at build time. Until then the English pages show the dishes in Norwegian and say so.
+- The owners edit the menu in Norwegian only. English comes from the translation memory in code (see [Text from the CMS](#text-from-the-cms)); a new or renamed dish shows in Norwegian on the English pages until it is added there.
 
 Managed in code, not in the CMS:
 
@@ -158,14 +167,14 @@ src/
   content/      menu, hours, notice, rooms, venues, contact (.json, one per Pages CMS screen)
   data/         schemas and Norwegian error messages, data loaders, credits, location, map and skyline data
   lib/          hours, notice, formatting, locator geometry, directions (URL builders, platform, saved choice), maps (MapLibre frame and adapter)
-  i18n/         languages, the page registry (routes.ts) and the shared chrome strings (ui.ts)
-  components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, PageLink, Nb, Ridge, Arrow, maps/HusetMap
+  i18n/         languages, the page registry (routes.ts), the shared chrome strings (ui.ts) and the translation memory for CMS text (memory.ts, memory/en.json)
+  components/   Photo, Placeholder, Dish, Locator, Directions, ContactForm, PageLink, Tr, Ridge, Arrow, maps/HusetMap
                 pages/: the Home, Contact and Thanks templates shared by both languages
   layouts/      Layout.astro (head, SEO, hreflang, notice, top bar with the language switcher, footer)
   pages/        routes; en/ holds the English ones
   scripts/      browser scripts: open status, skyline and map motion, photo credits, directions, contact form
   styles/       global.css (tokens, type roles, components)
 public/maps/    the light and dark map styles and the E-road shield sprite
-scripts/        build-time tools: check-content.ts, check-site.ts (npm run verify), map-style-spruce.mjs
+scripts/        build-time tools: check-content.ts, check-site.ts (npm run verify), check-translations.ts, map-style-spruce.mjs
 tests/          node --test suites
 ```

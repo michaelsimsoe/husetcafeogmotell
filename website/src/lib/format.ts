@@ -59,11 +59,13 @@ export const groupsLine = (locale: Locale = 'nb') =>
 /** «14:00» → «kl. 14.00», or «14:00» in English. */
 export const kl = (hhmm: string, locale: Locale = 'nb') => (locale === 'en' ? hhmm : `kl. ${hhmm.replace(':', '.')}`);
 
+/** What goes before item `i` of `n` in a running list: nothing, «, » or « og »/« and ». */
+export const listSep = (i: number, n: number, locale: Locale = 'nb') =>
+  i === 0 ? '' : i < n - 1 ? ', ' : locale === 'en' ? ' and ' : ' og ';
+
 /** «a», «a og b», «a, b og c» / «a, b and c» */
 export const listJoin = (items: readonly string[], locale: Locale = 'nb') =>
-  items.length < 2
-    ? (items[0] ?? '')
-    : `${items.slice(0, -1).join(', ')} ${locale === 'en' ? 'and' : 'og'} ${items[items.length - 1]}`;
+  items.map((x, i) => listSep(i, items.length, locale) + x).join('');
 
 /** The address point: 66,0809° N, 13,8260° Ø in Norwegian, 66.0809° N, 13.8260° E in English. */
 export const coords = (locale: Locale = 'nb') => {

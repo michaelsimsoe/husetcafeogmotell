@@ -1,0 +1,21 @@
+---
+/**
+ * Norwegian free text from the CMS, in the page's language when the translation
+ * memory has it. Otherwise the Norwegian, marked lang="nb" so it isn't passed
+ * off as translated and screen readers read it as Norwegian.
+ */
+import { toLocale } from '@i18n/locales';
+import { cmsText } from '@i18n/cms';
+
+interface Props {
+  text: string;
+  /** Lower-case the first letter, for an item further into a sentence. */
+  lower?: boolean;
+}
+
+const { text, lower = false } = Astro.props;
+const said = cmsText(text, toLocale(Astro.currentLocale));
+const out = lower ? said.text.charAt(0).toLowerCase() + said.text.slice(1) : said.text;
+---
+
+{said.lang ? <span lang={said.lang}>{out}</span> : out}
