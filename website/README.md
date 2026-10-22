@@ -71,7 +71,7 @@ The owners write the menu and the venue details in Norwegian only. The other lan
 - `npm run translations` lists what is missing (with the CMS screen and dish it sits on) and entries nothing uses any more. Add the missing pairs to `en.json`; delete the unused ones. A test checks the file is valid but not that it is complete, so a CMS save never fails a deploy.
 - Names that are the same in English (`Pizza`, `Margherita`) still get an entry, so the report stays empty when everything is done.
 
-To translate a page: add its path to `routes.ts`, add the route file under `src/pages/en/`, then run `npm run build && npm run verify`. `verify` (also run in `dev.yml`) fails if a registry page wasn't built or a built page isn't in the registry, if `<html lang>`, a canonical or an hreflang set is wrong or not reciprocal, if a link inside the site leads nowhere or to a missing `#id`, or if a link marked with `hreflang` lands on a page in another language.
+To translate a page: add its path to `routes.ts`, add the route file under `src/pages/en/`, then run `npm run build && npm run verify`. `verify` (also run before every deploy) fails if a registry page wasn't built or a built page isn't in the registry, if `<html lang>`, a canonical or an hreflang set is wrong or not reciprocal, if a link inside the site leads nowhere or to a missing `#id`, or if a link marked with `hreflang` lands on a page in another language.
 
 ## Content and Pages CMS
 
@@ -86,7 +86,7 @@ The CMS holds what the owners change: facts and the menu. One screen per job, on
 | Selskap og møterom | `src/content/venues.json` | Guests, cakes, extras, meeting rooms |
 | Kontakt og lenker | `src/content/contact.json` | Phone, e-mail and Facebook |
 
-- Pages CMS reads [`../.pages.yml`](../.pages.yml) at the repository root. Sign in at [app.pagescms.org](https://app.pagescms.org) with a GitHub account that has access to the repository, then pick the branch the site deploys from. Until launch that is `michaelsimsoe-huset-site-remake`; the default branch has no `.pages.yml`, so don't let Pages CMS create one there. Each save is a commit, which `dev.yml` checks, builds and uploads in a couple of minutes.
+- Pages CMS reads [`../.pages.yml`](../.pages.yml) at the repository root. Sign in at [app.pagescms.org](https://app.pagescms.org) with a GitHub account that has access to the repository, then pick `master`, the branch the site deploys from. Each save is a commit, which `prod.yml` checks, builds and publishes in a couple of minutes. Each of those deploys costs Netlify credits (see [Netlify](#netlify)); saves on another branch only make a free preview.
 - People without GitHub can be invited by e-mail under the repository's collaborators in Pages CMS. They can edit content but not the configuration. Their saves are committed by the Pages CMS app unless `settings.commit.identity: user` is set.
 - `settings.content.merge: true` keeps any keys the CMS form does not show, so a save never drops data.
 - Every build validates the files against `src/data/schema.ts` (`contentFiles`), and a test fails if a JSON file in `src/content/` has no schema. A bad edit (closing before opening, a missing price, an unknown allergen, a broken link) stops the deploy, and the previous version stays live. Errors are in Norwegian and point to the field as the CMS shows it, for example `«Fra grillen» → «Husets chilliburger»: Retten trenger en pris, eller varianter med pris`.
@@ -121,33 +121,35 @@ The form works only on Netlify. On the dev server, in a local preview or on GitH
 
 ## Netlify
 
-Netlify Forms are stored per site. To keep the existing form, its submissions and its e-mail notifications, deploy this app to the **same Netlify site** as the old one, and run it on the test site first.
+GitHub Actions builds the site and uploads it to Netlify; Netlify builds nothing itself. The steps live in `.github/workflows/deploy.yml`: check the CMS content, run the tests, build, `verify`, upload, then open or close the `byggfeil` issue. Two workflows call it:
 
-The old site is built in GitHub Actions and uploaded to Netlify (`.github/workflows/prod.yml` for `master`). `.github/workflows/dev.yml` already builds this app and uploads it to the test site on every push to `test` or `michaelsimsoe-huset-site-remake`, with every page `noindex`. To launch, copy its job into `prod.yml` with two changes: production secrets, and `FORCE_INDEX` on the build:
+| Workflow | Runs on | Publishes to | Indexed |
+|---|---|---|---|
+| `prod.yml` | Pushes to `master` that change `website/` (its README aside), or by hand | www.husetmotell.no, the old site's Netlify site (secret `NETLIFY_SITE_ID`) | Yes |
+| `dev.yml` | Pushes to `test` and `michaelsimsoe-huset-site-remake`, or by hand for any branch | A preview at `https://<branch>--husetmotell-test.netlify.app` (secret `DEV_NETLIFY_SITE_ID`) | No |
 
-```yaml
-      - run: npm run build
-        env:
-          FORCE_INDEX: 'true'
-      - name: Deploy to Netlify
-        run: npx --yes netlify-cli@27 deploy --dir=dist --no-build --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-```
+Netlify Forms are stored per site. Production therefore uses the old site, and the `contact` form keeps its submissions and e-mail notifications.
 
-Keep `--no-build`: current versions of the Netlify CLI build the project before deploying unless told not to.
+**Credits.** On Netlify's credit plans each production deploy costs 15 credits, and when the credits run out every site on the account is paused until the next month. Previews, failed deploys and rollbacks are free. So:
+
+- `dev.yml` publishes previews, never to the test site's own address. `husetmotell-test.netlify.app` keeps the last build sent there before previews; use the branch address.
+- `prod.yml` skips pushes that don't change the site: docs, the design concepts, `.pages.yml`.
+- Every save in Pages CMS on `master` is a production deploy. Saves made while a deploy runs wait, and only the newest of them deploys next.
+
+**Undo a release.** In Netlify, open the site's Deploys, pick an earlier deploy and choose «Publish deploy». It costs nothing, and the old React site is still in that list.
+
+Keep `--no-build` in `deploy.yml`: current versions of the Netlify CLI build the project before deploying unless told not to.
 
 Search engines see the site only when the build is marked as production. Otherwise every page is `noindex`, `robots.txt` says `Disallow: /` and the sitemap is empty. A build counts as production when:
 
 - Netlify builds it with `CONTEXT=production` and `URL` on husetmotell.no (a Netlify site connected to Git, with base directory `website`, which reads `netlify.toml`), or
-- `FORCE_INDEX=true` is set. GitHub Actions builds need this, because Netlify does not set `CONTEXT` for uploaded builds.
+- `FORCE_INDEX=true` is set, as `deploy.yml` does for production. Uploaded builds need this, because Netlify does not set `CONTEXT` for them.
 
 Other environment variables: `SITE_URL` (canonical origin, default `https://www.husetmotell.no`) and `BASE_PATH` (only for hosting under a sub-path).
 
 `public/_headers` sets long caching for `/_astro/*` and two security headers. It ships inside `dist/`, so it works for both Git builds and uploads; `netlify.toml` only holds the build settings for a Git-connected site. Unlike the old site, there is no `/* /index.html 200` fallback: unknown paths get the real 404 page.
 
-## Before launch
+## Launch
 
 Facts: the hours, rooms, venues and meeting rooms are carried over from the old site, and the menu from the three menu screens. They show as they stand, with no marks; change them in the CMS when something is wrong. The distances and drive times in «Her ligger Korgen» are calculated and rounded.
 
@@ -165,7 +167,9 @@ Other:
 - [ ] Optional: `/privacy` promises to delete messages, in Netlify and in the mailbox, once the matter is closed. Keep that promise or change the page. The company's legal name and organisation number can be added too.
 - [ ] Test the directions and the map on a real iPhone and a real Android phone, and check that the directions end in the car park between the house and the E6. Emulated iPhone 15 and Pixel 7 pass: Apple Maps on iPhone, `geo:` on Android, the saved choice and «Glem valget», one-finger scroll over the map, the marker popup, no sideways scrolling.
 - [ ] Contact form: a test message sent on the test site on 21 October 2026 was accepted («Takk, Test fra ny nettside!»). Check that it shows in Netlify → Forms → `contact` (or its spam list) and arrived as an e-mail.
-- [ ] Switch `prod.yml`, deploy, then submit `https://www.husetmotell.no/sitemap.xml` in Google Search Console.
+- [x] `prod.yml` publishes this app from `master`, with the production build checked locally: 14 pages in the sitemap, `noindex` only on the 404, thank-you and forwarding pages.
+- [ ] Pages CMS: switch to `master`. Saves on any other branch only make a preview.
+- [ ] After the first production deploy: look over www.husetmotell.no on a phone, send a test message from `/kontakt`, and submit `https://www.husetmotell.no/sitemap.xml` in Google Search Console.
 
 ## Structure
 

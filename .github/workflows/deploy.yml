@@ -1,0 +1,144 @@
+name: Build and deploy
+
+# Shared by prod.yml (master → www.husetmotell.no) and dev.yml (previews on the test site).
+# Checks the content from Pages CMS, runs the tests, builds website/ and uploads it to Netlify.
+#
+# On Netlify's credit plans every production deploy costs 15 credits, while previews are free.
+# So only `production: true` publishes to production; everything else becomes a preview at a fixed
+# address per branch, https://<branch>--<site>.netlify.app, and stays noindex.
+#
+# Saves from Pages CMS land here as commits. If one breaks the site, GitHub would tell nobody (the
+# CMS app pushed it), so a failed run opens an issue labelled «byggfeil» that quotes what to fix,
+# and the next good run closes it.
+on:
+  workflow_call:
+    inputs:
+      production:
+        description: Publish to the site's production URL and let search engines index it
+        type: boolean
+        required: true
+    secrets:
+      NETLIFY_AUTH_TOKEN:
+        required: true
+      NETLIFY_SITE_ID:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Named explicitly so pipes fail the step (bash -eo pipefail).
+        shell: bash
+        working-directory: website
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      BRANCH: ${{ github.ref_name }}
+      PRODUCTION: ${{ inputs.production }}
+      ISSUE_TITLE: Nettsiden ble ikke oppdatert (${{ github.ref_name }})
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - run: npm ci
+
+      - name: Check the content from Pages CMS
+        id: content
+        run: npm run content --silent 2>&1 | tee "$RUNNER_TEMP/content.txt"
+
+      - run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          # Netlify sets no CONTEXT for uploaded builds, so production says so itself.
+          FORCE_INDEX: ${{ inputs.production }}
+
+      # Every page built, in the right language, with working links, canonicals and hreflang.
+      - run: npm run verify
+
+      # --no-build: the CLI builds before deploying unless told not to; the build above is the one checked.
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          MESSAGE: ${{ github.ref_name }} ${{ github.sha }}
+        run: |
+          args=(deploy --dir=dist --no-build --json --message "$MESSAGE")
+          if [ "$PRODUCTION" = true ]; then
+            args+=(--prod)
+          else
+            # An alias names the preview's subdomain (at most 37 characters).
+            alias=$(printf '%s' "$BRANCH" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9-]+/-/g; s/^-+//' | cut -c1-37 | sed -E 's/-+$//')
+            args+=(--alias "$alias")
+          fi
+          npx --yes netlify-cli@27 "${args[@]}" > "$RUNNER_TEMP/deploy.json"
+
+          # The deploy is done; reporting the address must not fail the run.
+          if [ "$PRODUCTION" = true ]; then
+            url=$(jq -r '.url // .deploy_url' "$RUNNER_TEMP/deploy.json" || true)
+          else
+            url="https://$alias--$(jq -r '.site_name' "$RUNNER_TEMP/deploy.json" || true).netlify.app"
+          fi
+          echo "Published: $url"
+          echo "Published: <$url>" >> "$GITHUB_STEP_SUMMARY"
+
+      # Commit text comes in through env, never pasted into the script, so it cannot run as code.
+      - name: Open or update the «byggfeil» issue
+        if: failure()
+        continue-on-error: true
+        env:
+          CONTENT_FAILED: ${{ steps.content.outcome == 'failure' }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          COMMIT_AUTHOR: ${{ github.event.head_commit.author.name || github.actor }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ASSIGNEE: ${{ github.repository_owner }}
+        run: |
+          gh label create byggfeil --color B60205 --description "Nettsiden ble ikke oppdatert" --force > /dev/null
+          body="$RUNNER_TEMP/issue.md"
+          {
+            if [ "$CONTENT_FAILED" = true ]; then
+              echo "En lagring i Pages CMS har feil, så nettsiden ble ikke oppdatert. Den forrige versjonen ligger fortsatt ute."
+              echo
+              echo "Rett opp det som står under i Pages CMS og lagre igjen. Saken lukkes av seg selv når nettsiden er oppdatert."
+              echo
+              echo '````text'
+              cat "$RUNNER_TEMP/content.txt"
+              echo '````'
+            else
+              echo "Bygget feilet etter at innholdet var sjekket og godkjent, så feilen ligger i koden eller i opplastingen til Netlify. Se loggen."
+            fi
+            echo
+            echo "- Endring: $(printf '%s\n' "${COMMIT_MESSAGE:-(kjørt for hånd)}" | head -n 1)"
+            echo "- Av: $COMMIT_AUTHOR"
+            echo "- Commit: $GITHUB_SHA"
+            echo "- Logg: $RUN_URL"
+          } > "$body"
+
+          existing=$(gh issue list --label byggfeil --state open --json number,title \
+            | jq -r --arg t "$ISSUE_TITLE" 'map(select(.title == $t)) | .[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file "$body"
+          else
+            gh issue create --title "$ISSUE_TITLE" --label byggfeil --assignee "$ASSIGNEE" --body-file "$body" \
+              || gh issue create --title "$ISSUE_TITLE" --label byggfeil --body-file "$body"
+          fi
+
+      - name: Close the «byggfeil» issue
+        if: success()
+        continue-on-error: true
+        run: |
+          gh issue list --label byggfeil --state open --json number,title \
+            | jq -r --arg t "$ISSUE_TITLE" '.[] | select(.title == $t) | .number' \
+            | while read -r number; do
+                gh issue close "$number" --comment "Rettet: nettsiden er oppdatert igjen ($GITHUB_SHA)."
+              done

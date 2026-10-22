@@ -6,7 +6,7 @@
 
 ## Documentation
 
-- [New website](website/README.md) — the replacement site in `website/` (Astro, built from concept A): commands, content and Pages CMS, the contact form, Netlify setup and the launch checklist. The React app in this root stays live until it is approved.
+- [New website](website/README.md) — the replacement site in `website/` (Astro, built from concept A): commands, content and Pages CMS, the contact form, Netlify setup and the launch checklist. This app is what `master` publishes to www.husetmotell.no; the React app in this root is the old site and no longer deploys.
 - [Product](PRODUCT.md) and [design system](DESIGN.md) — who the site is for and how it looks.
 - [Current site map](SITE-MAP.md) — existing pages, content sections, navigation, and outbound journeys.
 - [Design concepts preview](https://michaelsimsoe.github.io/huset-konsepter/) — the three redesign prototypes from `redesign/`, published to the [huset-konsepter](https://github.com/michaelsimsoe/huset-konsepter) repo. Republish with `cd redesign; npm run deploy:pages` (each deploy replaces that repo's history).

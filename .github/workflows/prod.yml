@@ -1,32 +1,38 @@
 name: Deploy to Production
 
+# Publishes website/ from master to www.husetmotell.no: the same Netlify site as the old React app,
+# so the contact form keeps its submissions and e-mail notifications. The steps are in deploy.yml.
+#
+# Each production deploy costs 15 Netlify credits, so only pushes that change the site deploy;
+# docs, the design concepts and the CMS configuration do not. To redeploy by hand:
+# Actions → Deploy to Production → Run workflow, on master.
 on:
   push:
     branches:
       - master
+    paths:
+      - 'website/**'
+      - '!website/README.md'
+      - '.github/workflows/prod.yml'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+# Saves in quick succession queue up: one deploy runs, and only the newest waiting one follows it.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - run: yarn
-      - run: yarn build
-        env:
-          REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY}}
-
-      - name: Deploy to netlify
-        uses: netlify/actions/cli@master
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        with:
-          args: deploy --dir=build --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+    # Run workflow lets you pick any branch; only master goes live.
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      production: true
+    secrets:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
