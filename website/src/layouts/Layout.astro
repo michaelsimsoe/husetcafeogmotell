@@ -77,7 +77,9 @@ const hoursJson = json(hours.days.map(({ day, label, short, open, close, closed 
     <link rel="canonical" href={canonical} />
     {hreflang.map((h) => <link rel="alternate" hreflang={h.lang} href={h.href} />)}
     <meta name="theme-color" content="#f5f6f2" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="32x32" />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={localeInfo[locale].og} />
     {alts.filter((a) => a.locale !== locale).map((a) => <meta property="og:locale:alternate" content={localeInfo[a.locale].og} />)}
